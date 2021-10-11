@@ -1,24 +1,18 @@
-import logo from "./logo.svg";
+import { ThemeProvider } from "@emotion/react";
 import "./App.css";
+import { initMSW } from "./lib/msw";
+import { GlobalStyle } from "./styles/global-style";
+
+import { theme } from "./styles/theme";
+
+initMSW();
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      이것은 테스트용 텍스트입니다!!
+    </ThemeProvider>
   );
 }
 
