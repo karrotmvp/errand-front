@@ -1,10 +1,16 @@
-import { css } from "@emotion/react";
+import { css, Theme } from "@emotion/react";
 
 const LINE_HEIGHT = "1.8em";
 
-export const theme = {
+export const theme: Theme = {
   color: {
-    primary: "#343434",
+    primary: "#FF7E36",
+    secondary: "#029D82",
+    fail: "FF0000",
+    grey1: "f3f3f3",
+    grey2: "#DCDCDC",
+    grey3: "b1b1b1",
+    grey4: "#7B7B7B",
   },
   font: {
     size: {
