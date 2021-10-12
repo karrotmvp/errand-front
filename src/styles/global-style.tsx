@@ -10,14 +10,20 @@ export const GlobalStyle = () => {
         #root,
         html,
         body {
+          height: 100%;
+          width: 100%;
+        }
+
+        html,
+        body {
           font-size: 10px;
           font-family: Noto Sans KR, -apple-system, BlinkMacSystemFont,
             “Segoe UI”, Roboto, “Helvetica Neue”, Arial, “Noto Sans”, sans-serif,
             “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”,
             “Noto Color Emoji”;
-          height: 100%;
-          width: 100%;
           line-height: 1.7em;
+          color: #333333;
+
           a {
             text-decoration: none;
           }
