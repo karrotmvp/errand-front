@@ -11,6 +11,7 @@ declare module "@emotion/react" {
       grey2: string;
       grey3: string;
       grey4: string;
+      default: string;
     };
     font: {
       size: {
@@ -20,11 +21,12 @@ declare module "@emotion/react" {
         xlarge: css;
       };
       weight: {
-        small: number;
+        regular: number;
         medium: number;
-        large: number;
-        xlarge: number;
+        bold: number;
+        black: number;
       };
     };
+    container: css;
   }
 }

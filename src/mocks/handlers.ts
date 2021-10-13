@@ -1,13 +1,21 @@
 import { rest } from "msw";
+import { list } from "./dummy";
 
 export const handlers = [
-  rest.get("/test", (req, res, ctx) => {
-    console.log("test request!!");
+  rest.get("/posts", (req, res, ctx) => {
+    const filter = req.url.searchParams.get("filter");
 
-    return res(ctx.json({ message: "Hello World!" }));
-  }),
-
-  rest.post("/test", (req, res, ctx) => {
-    return res(ctx.json({ message: "success" }));
+    switch (filter) {
+      case "main":
+        return res(ctx.json(list));
+      case "request":
+        return res(
+          ctx.json(list.filter((item) => item.status === "selecting"))
+        );
+      case "support":
+        return res(ctx.json(list.filter((item) => item.status === "done")));
+      default:
+    }
+    return res(ctx.json(list.filter((item) => item.status !== filter)));
   }),
 ];
