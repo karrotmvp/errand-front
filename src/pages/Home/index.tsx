@@ -16,6 +16,7 @@ export default function Home() {
         <button className="btn-request">요청하기</button>
       </div>
       <Tabs
+        className="home-tabs"
         activeTabKey={activeTabKey}
         tabs={[
           {
@@ -24,7 +25,7 @@ export default function Home() {
             component: () => <List listFilter="main" />,
           },
           {
-            key: "tab_23",
+            key: "tab_2",
             buttonLabel: "요청내역",
             component: () => <List listFilter="request" />,
           },
@@ -43,10 +44,18 @@ export default function Home() {
 }
 
 const Wrapper = styled.div`
+  .home-tabs {
+    a {
+      ${({ theme }) => theme.font.size.medium}
+      font-weight: ${({ theme }) => theme.font.weight.bold};
+      padding: 1.5rem 0;
+    }
+  }
+
   .home-header {
     ${({ theme }) => theme.container}
-    padding-top: 30px;
-    padding-bottom: 30px;
+    padding-top: 3rem;
+    padding-bottom: 3rem;
 
     background: ${(props) => props.theme.color.primary};
     display: flex;
@@ -59,17 +68,17 @@ const Wrapper = styled.div`
       }
       &__info {
         ${({ theme }) => theme.font.size.large}
-        font-weight: ${({ theme }) => theme.font.weight.large};
+        font-weight: ${({ theme }) => theme.font.weight.bold};
       }
     }
 
     & > .btn-request {
       ${({ theme }) => theme.font.size.small}
-      font-weight: ${({ theme }) => theme.font.weight.large};
+      font-weight: ${({ theme }) => theme.font.weight.bold};
       color: ${({ theme }) => theme.color.default};
 
-      padding: 16px 28px;
-      border-radius: 100px;
+      padding: 1.6rem 2.8rem;
+      border-radius: 10rem;
     }
   }
 `;

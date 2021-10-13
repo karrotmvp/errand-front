@@ -33,13 +33,13 @@ export const theme: Theme = {
       `,
     },
     weight: {
-      small: 300,
+      regular: 300,
       medium: 500,
-      large: 700,
-      xlarge: 900,
+      bold: 700,
+      black: 900,
     },
   },
   container: css`
-    padding: 0 20px;
+    padding: 0 2rem;
   `,
 };

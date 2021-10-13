@@ -21,10 +21,10 @@ declare module "@emotion/react" {
         xlarge: css;
       };
       weight: {
-        small: number;
+        regular: number;
         medium: number;
-        large: number;
-        xlarge: number;
+        bold: number;
+        black: number;
       };
     };
     container: css;
