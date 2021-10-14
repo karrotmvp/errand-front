@@ -17,13 +17,20 @@ export type ErrendCreateResponseBody = {
 export type ErrandDetail = {
   id: number;
   title: string;
-  category: string;
-  detailAddress?: string;
-  phoneNumber?: string;
+  category: Category;
+  detail: string;
+  reward: number;
   isCompleted: boolean;
   isMine: boolean;
-  didISupport?: boolean;
   region: Region;
+  detailAddress?: string;
+  phoneNumber?: string;
+  didISupport?: boolean;
+};
+
+export type Category = {
+  id: number;
+  name: string;
 };
 
 export type Resume = {
@@ -32,12 +39,15 @@ export type Resume = {
   helper: User;
 };
 
-export type User = {
-  id: number;
-  nickname: string;
+export type User = SimpleUser & {
   profileImgUrl?: string;
   regionName: string;
-  mannerPoiont: number;
+  mannerPoint: number;
+};
+
+export type SimpleUser = {
+  id: number;
+  nickname: string;
 };
 
 export type Region = {

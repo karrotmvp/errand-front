@@ -1,10 +1,12 @@
+import { Category } from "./response";
+
 export type ErrandRegisterRequestBody = {
-  category: string;
   title: string;
+  category: Category;
   detail: string;
   reward: string;
-  detailAddress: string;
   phoneNumber: string;
+  detailAddress?: string;
   regionId: string;
 };
 
