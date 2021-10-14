@@ -1,4 +1,3 @@
-import { HelperType } from "@type/client";
 import { Errand, ErrandDetail, Resume, User } from "@type/response";
 
 export const errandList: Errand[] = [
@@ -9,11 +8,6 @@ export const errandList: Errand[] = [
     title: "저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     status: "wait",
-    helpers: [
-      { id: 1, name: "지원자_1" },
-      { id: 2, name: "지원자_2" },
-      { id: 3, name: "지원자_3" },
-    ],
   },
   {
     id: "2",
@@ -24,13 +18,8 @@ export const errandList: Errand[] = [
     status: "proceed",
     helper: {
       id: 1,
-      name: "테스트 헬퍼",
+      nickname: "DD",
     },
-    helpers: [
-      { id: 1, name: "지원자_1" },
-      { id: 2, name: "지원자_2" },
-      { id: 3, name: "지원자_3" },
-    ],
   },
   {
     id: "3",

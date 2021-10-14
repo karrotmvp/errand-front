@@ -1,4 +1,4 @@
-import { HelperType, ErrandStatus } from "./client";
+import { ErrandStatus } from "./client";
 
 export type Errand = {
   id: string;
@@ -6,8 +6,7 @@ export type Errand = {
   title: string;
   reward: number;
   status: ErrandStatus;
-  helper?: HelperType;
-  helpers?: HelperType[];
+  helper?: SimpleUser;
 };
 
 export type ErrendCreateResponseBody = {
