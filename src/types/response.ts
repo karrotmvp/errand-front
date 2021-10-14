@@ -32,7 +32,7 @@ export type Resume = {
   helper: User;
 };
 
-type User = {
+export type User = {
   id: number;
   nickname: string;
   profileImgUrl?: string;
@@ -40,7 +40,7 @@ type User = {
   mannerPoiont: number;
 };
 
-type Region = {
+export type Region = {
   id: string;
   name: string;
   name1: string;

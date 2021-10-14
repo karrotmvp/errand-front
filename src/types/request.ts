@@ -1,4 +1,4 @@
-export type ErrandCreateRequestBody = {
+export type ErrandRegisterRequestBody = {
   category: string;
   title: string;
   detail: string;
