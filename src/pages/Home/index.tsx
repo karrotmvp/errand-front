@@ -8,13 +8,13 @@ export default function Home() {
 
   return (
     <Wrapper>
-      <div className="home-header">
+      <header className="home-header">
         <div className="home-header__left">
           <div className="home-header__left__location">서현동</div>
           <p className="home-header__left__info">심부름을 요청해보세요.</p>
         </div>
         <button className="btn-request">요청하기</button>
-      </div>
+      </header>
       <Tabs
         className="home-tabs"
         activeTabKey={activeTabKey}
@@ -22,17 +22,17 @@ export default function Home() {
           {
             key: "tab_1",
             buttonLabel: "메인",
-            component: () => <List listFilter="main" />,
+            component: () => <List tabType="main" />,
           },
           {
             key: "tab_2",
             buttonLabel: "요청내역",
-            component: () => <List listFilter="request" />,
+            component: () => <List tabType="request" />,
           },
           {
             key: "tab_3",
             buttonLabel: "도움내역",
-            component: () => <List listFilter="support" />,
+            component: () => <List tabType="help" />,
           },
         ]}
         onTabChange={(key) => {
@@ -43,7 +43,7 @@ export default function Home() {
   );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.main`
   .home-tabs {
     a {
       ${({ theme }) => theme.font.size.medium}

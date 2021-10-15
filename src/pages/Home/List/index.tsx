@@ -11,15 +11,17 @@ export default function List({ tabType }: ListProps) {
 
   return (
     <ListWrapper>
-      {status !== "loading" ? (
-        list?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
-      ) : (
-        <div>로딩 중</div>
-      )}
+      <ul>
+        {status !== "loading" ? (
+          list?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
+        ) : (
+          <li>로딩 중</li>
+        )}
+      </ul>
     </ListWrapper>
   );
 }
 
-const ListWrapper = styled.ul`
+const ListWrapper = styled.section`
   ${({ theme }) => theme.container}
 `;
