@@ -1,18 +1,18 @@
 import styled from "@emotion/styled";
-import { ListFilterType } from "@type/dataType";
-import { usePosts } from "@api/post";
+import { TabType } from "@type/client";
+import { useErrandList } from "@api/errand";
 import Item from "./Item";
 
 interface ListProps {
-  listFilter: ListFilterType;
+  tabType: TabType;
 }
-export default function List({ listFilter }: ListProps) {
-  const { status, data: list } = usePosts(listFilter);
+export default function List({ tabType }: ListProps) {
+  const { status, data: list } = useErrandList(tabType);
 
   return (
     <ListWrapper>
       {status !== "loading" ? (
-        list?.map((item) => <Item {...{ item, listFilter }} key={item.id} />)
+        list?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
       ) : (
         <div>로딩 중</div>
       )}
