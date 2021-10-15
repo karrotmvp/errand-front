@@ -51,7 +51,7 @@ export const errandList: Errand[] = [
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "깜빡하고 에어컨을 안 끄고 나왔어요.",
     reward: 12000,
-    status: "complete",
+    status: "wait",
   },
   {
     id: "7",
@@ -67,7 +67,7 @@ export const errandList: Errand[] = [
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "깜빡하고 에어컨을 안 끄고 나왔어요.",
     reward: 12000,
-    status: "complete",
+    status: "fail",
   },
 ];
 

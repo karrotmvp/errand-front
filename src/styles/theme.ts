@@ -6,10 +6,10 @@ export const theme: Theme = {
   color: {
     primary: "#FF7E36",
     secondary: "#029D82",
-    fail: "FF0000",
-    grey1: "f3f3f3",
+    fail: "#FF0000",
+    grey1: "#f3f3f3",
     grey2: "#DCDCDC",
-    grey3: "b1b1b1",
+    grey3: "#b1b1b1",
     grey4: "#7B7B7B",
     default: "#333333",
   },
