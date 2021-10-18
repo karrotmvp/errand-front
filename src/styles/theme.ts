@@ -34,6 +34,7 @@ export const theme: Theme = {
   },
   font,
   container: css`
-    padding: 0 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
   `,
 };
