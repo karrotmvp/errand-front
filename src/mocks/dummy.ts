@@ -94,12 +94,23 @@ export const errandDetail: ErrandDetail = {
   didISupport: false,
 };
 
+export const user: User = {
+  id: 1,
+  nickname: "테스트맨",
+  regionName: "논현동",
+  mannerPoint: 37.5,
+  profileImgUrl:
+    "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+};
+
 export const applyList: User[] = [
   {
     id: 1,
     nickname: "DD",
     regionName: "반포1동",
     mannerPoint: 39.5,
+    profileImgUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
   },
   {
     id: 2,
@@ -132,4 +143,3 @@ export const resume: Resume = {
     mannerPoint: 40,
   },
 };
-const a = "반려 사다주세 기타";

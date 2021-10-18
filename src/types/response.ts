@@ -45,7 +45,7 @@ export type User = SimpleUser & {
 };
 
 export type SimpleUser = {
-  id: number;
+  id?: number;
   nickname: string;
 };
 

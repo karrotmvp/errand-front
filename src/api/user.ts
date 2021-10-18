@@ -9,6 +9,13 @@ export const useUserProfile = () => {
   return useQuery(["userProfile"], () => getUserProfile());
 };
 
+const getMyInfo = (): Promise<User> => {
+  return GET(`/my`);
+};
+export const useMyInfo = () => {
+  return useQuery(["myInfo"], () => getMyInfo());
+};
+
 const getRegionName = (regionId: string): Promise<Region> => {
   return GET(`/region?regionId=${regionId}`);
 };
