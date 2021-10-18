@@ -6,4 +6,3 @@ export { default as ErrandRequest } from "./ErrandRequest";
 export { default as Home } from "./Home";
 export { default as My } from "./My";
 export { default as Resume } from "./Resume";
-export { default as User } from "./User";

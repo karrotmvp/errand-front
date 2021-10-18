@@ -16,7 +16,6 @@ import {
   Home,
   My,
   Resume,
-  User,
 } from "./pages";
 
 initMSW();
@@ -47,14 +46,13 @@ function App() {
         }}
       >
         <Screen path="/" component={Home} />
-        <Screen path="/applier-list" component={ApplierList} />
-        <Screen path="/apply-form/" component={ApplyForm} />
-        <Screen path="/resume" component={Resume} />
-        <Screen path="/alarm" component={Alarm} />
         <Screen path="/errands/:id" component={ErrandDetail} />
-        <Screen path="/users/:userId" component={ErrandRequest} />
-        <Screen path="/My" component={My} />
-        <Screen path="/users/:id" component={User} />
+        <Screen path="/appliers" component={ApplierList} />
+        <Screen path="/appliers/:id" component={Resume} />
+        <Screen path="/apply-form" component={ApplyForm} />
+        <Screen path="/alarm" component={Alarm} />
+        <Screen path="/errand-request" component={ErrandRequest} />
+        <Screen path="/my" component={My} />
       </Navigator>
     </ThemeProvider>
   );

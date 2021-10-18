@@ -10,10 +10,10 @@ type ApplyItemProps = {
 
 export default function ApplyItem({ helper }: ApplyItemProps) {
   const { id, nickname, regionName, mannerPoint, profileImgUrl } = helper;
-  const moveTo = usePush(`users/${id}`);
+  const moveToUserDetail = usePush(`/appliers/${id}`);
 
   return (
-    <ApplyItemWrapper onClick={moveTo}>
+    <ApplyItemWrapper onClick={moveToUserDetail}>
       <Profile {...{ nickname, regionName, mannerPoint, profileImgUrl }} />
       {">"}
     </ApplyItemWrapper>

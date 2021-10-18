@@ -4,7 +4,6 @@ import { ScreenHelmet } from "@karrotframe/navigator";
 import List from "@pages/Home/List";
 import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
-import usePush from "@hooks/usePush";
 import { useMyInfo } from "@api/user";
 
 type MyProps = {};

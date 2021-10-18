@@ -9,8 +9,8 @@ type ItemFooterProps = {
 };
 
 export default function ItemFooter({ status, helper }: ItemFooterProps) {
-  const path = status === "wait" ? "/applier-list" : `/users/${helper?.id}`;
-  const moveTo = usePush(path);
+  const path = status === "wait" ? "/appliers" : `/appliers/${helper?.id}`;
+  const moveToPath = usePush(path);
 
   if (status === "complete") {
     return <></>;
@@ -18,7 +18,7 @@ export default function ItemFooter({ status, helper }: ItemFooterProps) {
 
   return (
     <ItemFooterWrapper>
-      <div className="item-footer__button" onClick={moveTo}>
+      <div className="item-footer__button" onClick={moveToPath}>
         <div>
           {status === "wait" ? (
             <div>지원자를 선택해주세요.</div>
