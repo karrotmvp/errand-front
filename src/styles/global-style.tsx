@@ -1,6 +1,8 @@
 import { css, Global } from "@emotion/react";
 import { reset } from "./reset";
 
+const LINE_HEIGHT = "1.7em";
+
 export const GlobalStyle = () => {
   return (
     <Global
@@ -21,7 +23,7 @@ export const GlobalStyle = () => {
             “Segoe UI”, Roboto, “Helvetica Neue”, Arial, “Noto Sans”, sans-serif,
             “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”,
             “Noto Color Emoji”;
-          line-height: 1.7em;
+          line-height: ${LINE_HEIGHT};
           color: #333333;
         }
       `}

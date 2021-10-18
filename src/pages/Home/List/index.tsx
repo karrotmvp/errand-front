@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
 import { TabType } from "@type/client";
+import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { useErrandList } from "@api/errand";
 import Item from "./Item";
 
-interface ListProps {
+type ListProps = {
   tabType: TabType;
-}
+};
+
 export default function List({ tabType }: ListProps) {
   const { status, data: list } = useErrandList(tabType);
 

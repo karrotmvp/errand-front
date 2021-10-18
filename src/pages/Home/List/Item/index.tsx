@@ -5,10 +5,10 @@ import styled from "@emotion/styled";
 import ItemFooter from "./ItemFooter";
 import { useNavigator } from "@karrotframe/navigator";
 
-interface ItemProps {
+type ItemProps = {
   item: Errand;
   tabType: TabType;
-}
+};
 
 export default function Item({ item, tabType }: ItemProps) {
   const { push } = useNavigator();
@@ -18,7 +18,7 @@ export default function Item({ item, tabType }: ItemProps) {
       <ItemWrapper>
         <div className="item-box">
           <div className="item-image">
-            <img src={item.thumbnail} alt="img" />
+            <img src={item.thumbnailUrl} alt="img" />
           </div>
           <div className="item-info">
             <div className="item-info__title">{item.title}</div>
@@ -31,7 +31,7 @@ export default function Item({ item, tabType }: ItemProps) {
             {...{
               status: item.status,
               push,
-              helper: item?.helper,
+              helper: item?.selectedHelper,
             }}
           />
         )}
@@ -62,16 +62,13 @@ const ItemWrapper = styled.li`
     .item-info {
       margin-left: 1.4rem;
       &__title {
-        ${({ theme }) => theme.font.size.medium};
-        font-weight: ${({ theme }) => theme.font.weight.medium};
+        ${({ theme }) => theme.font("medium")}
       }
       &__reward {
-        ${({ theme }) => theme.font.size.medium};
-        font-weight: ${({ theme }) => theme.font.weight.bold};
+        ${({ theme }) => theme.font("medium", "bold")}
       }
       &__status {
-        ${({ theme }) => theme.font.size.small}
-        font-weight: ${({ theme }) => theme.font.weight.medium};
+        ${({ theme }) => theme.font("small", "medium")}
         color: ${({ theme }) => theme.color.grey3};
 
         position: absolute;

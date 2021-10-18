@@ -46,8 +46,8 @@ export default function Home() {
 const Wrapper = styled.main`
   .home-tabs {
     a {
-      ${({ theme }) => theme.font.size.medium}
-      font-weight: ${({ theme }) => theme.font.weight.bold};
+      ${({ theme }) => theme.font("medium", "bold")}
+
       padding: 1.5rem 0;
     }
   }
@@ -64,17 +64,15 @@ const Wrapper = styled.main`
     &__left {
       color: white;
       &__location {
-        ${({ theme }) => theme.font.size.medium}
+        ${({ theme }) => theme.font("medium")}
       }
       &__info {
-        ${({ theme }) => theme.font.size.large}
-        font-weight: ${({ theme }) => theme.font.weight.bold};
+        ${({ theme }) => theme.font("large", "bold")}
       }
     }
 
     & > .btn-request {
-      ${({ theme }) => theme.font.size.small}
-      font-weight: ${({ theme }) => theme.font.weight.bold};
+      ${({ theme }) => theme.font("small", "bold")}
       color: ${({ theme }) => theme.color.default};
 
       padding: 1.6rem 2.8rem;

@@ -3,11 +3,11 @@ import { ErrandStatus } from "@type/client";
 import { PushType } from "@type/lib";
 import { SimpleUser } from "@type/response";
 
-interface ItemFooterProps {
+type ItemFooterProps = {
   status: ErrandStatus;
   push: PushType;
   helper?: SimpleUser;
-}
+};
 
 export default function ItemFooter({ status, helper, push }: ItemFooterProps) {
   if (status === "complete") {
@@ -15,7 +15,7 @@ export default function ItemFooter({ status, helper, push }: ItemFooterProps) {
   }
 
   const moveToHelperList = () => {
-    push("/helperlist");
+    push("/applyList");
   };
   const moveToUserDetail = (userId: number) => () => {
     push(`/users/${userId}`);
@@ -52,8 +52,8 @@ export default function ItemFooter({ status, helper, push }: ItemFooterProps) {
 const ItemFooterWrapper = styled.div`
   margin-top: 1.4rem;
   .item-footer__title {
-    ${({ theme }) => theme.font.size.small};
-    font-weight: ${({ theme }) => theme.font.weight.medium};
+    ${({ theme }) => theme.font("small", "medium")}
+
     margin-bottom: 0.5rem;
 
     &.wait {
@@ -65,8 +65,7 @@ const ItemFooterWrapper = styled.div`
   }
   .item-footer__button {
     background: ${({ theme }) => theme.color.grey1};
-    ${({ theme }) => theme.font.size.medium};
-    font-weight: ${({ theme }) => theme.font.weight.medium};
+    ${({ theme }) => theme.font("medium")}
 
     display: flex;
     justify-content: space-between;
