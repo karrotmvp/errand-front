@@ -2,11 +2,11 @@ import { ErrandStatus } from "./client";
 
 export type Errand = {
   id: string;
-  thumbnail: string;
+  thumbnailUrl: string;
   title: string;
   reward: number;
   status: ErrandStatus;
-  helper?: SimpleUser;
+  selectedHelper?: SimpleUser;
 };
 
 export type ErrendCreateResponseBody = {
