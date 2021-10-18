@@ -1,17 +1,30 @@
 import { useQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
 import { Errand, ErrandDetail, Resume, User } from "@type/response";
-import { TabType } from "@type/client";
+import { ErrandRequestParams, TabType } from "@type/client";
 import {
   ErrandRegisterRequestBody,
   SelecteHelperRequestBody,
 } from "@type/request";
 
-const getErrandList = (filter?: TabType): Promise<Errand[]> => {
-  return GET(`/errands${filter !== "main" ? `?filter=${filter}` : ""}`);
+const getErrandList = (
+  lastId: number,
+  size: number,
+  filter?: TabType
+): Promise<Errand[]> => {
+  const query =
+    `?lastId=${lastId}&size=${size}` +
+    `/errands${filter !== "main" ? `?filter=${filter}` : ""}`;
+  return GET(`/errands${query}`);
 };
-export const useErrandList = (filter?: TabType) => {
-  return useQuery(["errandList", filter], () => getErrandList(filter));
+export const useErrandList = ({
+  lastId,
+  size,
+  filter,
+}: ErrandRequestParams) => {
+  return useQuery(["errandList", lastId, size, filter], () =>
+    getErrandList(lastId, size, filter)
+  );
 };
 
 const getErrandDetail = (): Promise<ErrandDetail> => {

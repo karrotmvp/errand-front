@@ -3,7 +3,7 @@ import { Errand, ErrandDetail, Resume, User } from "@type/response";
 export const errandList: Errand[] = [
   {
     id: "1",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
@@ -11,19 +11,19 @@ export const errandList: Errand[] = [
   },
   {
     id: "2",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "저희 집 전등좀 교체해주세요.",
     reward: 10000,
     status: "proceed",
-    helper: {
+    selectedHelper: {
       id: 1,
       nickname: "DD",
     },
   },
   {
     id: "3",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "집 창문을 열고 왔어요ㅠㅠ",
     reward: 12000,
@@ -31,7 +31,7 @@ export const errandList: Errand[] = [
   },
   {
     id: "4",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "이 잼 뚜껑 열어주실 분...",
     reward: 4000,
@@ -39,7 +39,7 @@ export const errandList: Errand[] = [
   },
   {
     id: "5",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "깜빡하고 에어컨을 안 끄고 나왔어요.",
     reward: 12000,
@@ -47,7 +47,7 @@ export const errandList: Errand[] = [
   },
   {
     id: "6",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "깜빡하고 에어컨을 안 끄고 나왔어요.",
     reward: 12000,
@@ -55,7 +55,7 @@ export const errandList: Errand[] = [
   },
   {
     id: "7",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "깜빡하고 에어컨을 안 끄고 나왔어요.",
     reward: 12000,
@@ -63,7 +63,7 @@ export const errandList: Errand[] = [
   },
   {
     id: "8",
-    thumbnail:
+    thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     title: "깜빡하고 에어컨을 안 끄고 나왔어요.",
     reward: 12000,
