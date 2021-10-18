@@ -3,7 +3,7 @@ import { Errand } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
 import ItemFooter from "./ItemFooter";
-import { useNavigator } from "@karrotframe/navigator";
+import usePush from "@hooks/usePush";
 
 type ItemProps = {
   item: Errand;
@@ -11,12 +11,12 @@ type ItemProps = {
 };
 
 export default function Item({ item, tabType }: ItemProps) {
-  const { push } = useNavigator();
+  const moveTo = usePush(`/errands/${item.id}`);
 
   return (
     <>
       <ItemWrapper>
-        <div className="item-box">
+        <div className="item-box" onClick={moveTo}>
           <div className="item-image">
             <img src={item.thumbnailUrl} alt="img" />
           </div>
@@ -30,7 +30,6 @@ export default function Item({ item, tabType }: ItemProps) {
           <ItemFooter
             {...{
               status: item.status,
-              push,
               helper: item?.selectedHelper,
             }}
           />

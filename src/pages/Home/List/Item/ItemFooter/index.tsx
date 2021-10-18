@@ -1,50 +1,36 @@
 import styled from "@emotion/styled";
+import usePush from "@hooks/usePush";
 import { ErrandStatus } from "@type/client";
-import { PushType } from "@type/lib";
 import { SimpleUser } from "@type/response";
 
 type ItemFooterProps = {
   status: ErrandStatus;
-  push: PushType;
   helper?: SimpleUser;
 };
 
-export default function ItemFooter({ status, helper, push }: ItemFooterProps) {
+export default function ItemFooter({ status, helper }: ItemFooterProps) {
+  const path = status === "wait" ? "/applier-list" : `/users/${helper?.id}`;
+  const moveTo = usePush(path);
+
   if (status === "complete") {
     return <></>;
   }
 
-  const moveToHelperList = () => {
-    push("/applyList");
-  };
-  const moveToUserDetail = (userId: number) => () => {
-    push(`/users/${userId}`);
-  };
-
   return (
     <ItemFooterWrapper>
-      {status === "wait" ? (
-        <>
-          <p className="item-footer__title wait">도움받을 분을 선택해주세요.</p>
-          <div className="item-footer__button" onClick={moveToHelperList}>
-            <span>선택하기</span>
-            <span>{">"}</span>
-          </div>
-        </>
-      ) : (
-        <>
-          <p className="item-footer__title proceed">
-            매칭되어 현재 심부름이 진행중이에요.
-          </p>
-          <div
-            className="item-footer__button"
-            onClick={moveToUserDetail(helper?.id ?? -1)}
-          >
-            <span>{helper?.nickname}님 정보보기</span>
-            <span>{">"}</span>
-          </div>
-        </>
-      )}
+      <div className="item-footer__button" onClick={moveTo}>
+        <div>
+          {status === "wait" ? (
+            <div>지원자를 선택해주세요.</div>
+          ) : (
+            <>
+              <div>지원자 보기</div>
+              <div>{helper?.nickname}</div>
+            </>
+          )}
+        </div>
+        <div>{">"}</div>
+      </div>
     </ItemFooterWrapper>
   );
 }
