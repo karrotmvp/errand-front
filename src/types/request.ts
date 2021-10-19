@@ -1,8 +1,8 @@
 export type ErrandRegisterRequestBody = {
-  title: string;
   categoryId: number;
+  title: string;
   detail: string;
-  reward: string;
+  reward: number;
   phoneNumber: string;
   detailAddress?: string;
   regionId: string;

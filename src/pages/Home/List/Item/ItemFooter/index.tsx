@@ -50,7 +50,7 @@ const ItemFooterWrapper = styled.div`
     }
   }
   .item-footer__button {
-    background: ${({ theme }) => theme.color.grey1};
+    border: 0.1rem soild ${({ theme }) => theme.color.grey6};
     ${({ theme }) => theme.font("medium")}
 
     display: flex;
