@@ -1,84 +1,63 @@
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { Tabs } from "@karrotframe/tabs";
-import { useState } from "react";
+import usePush from "@hooks/usePush";
+import { ScreenHelmet } from "@karrotframe/navigator";
 import List from "./List";
 
 export default function Home() {
-  const [activeTabKey, setActiveTabKey] = useState<string>("tab_1");
+  const moveToApplyForm = usePush("/errand-request");
 
   return (
     <Wrapper>
-      <div className="home-header">
-        <div className="home-header__left">
-          <div className="home-header__left__location">서현동</div>
-          <p className="home-header__left__info">심부름을 요청해보세요.</p>
-        </div>
-        <button className="btn-request">요청하기</button>
+      <ScreenHelmet title="서현동" appendRight={RightAppender()} />
+      <p className="home-header__left__info">심부름을 요청해보세요.</p>
+      <List tabType="main" />
+      <div className="home-fixed__fab">
+        <button className="home__fab" onClick={moveToApplyForm}>
+          +
+        </button>
       </div>
-      <Tabs
-        className="home-tabs"
-        activeTabKey={activeTabKey}
-        tabs={[
-          {
-            key: "tab_1",
-            buttonLabel: "메인",
-            component: () => <List listFilter="main" />,
-          },
-          {
-            key: "tab_2",
-            buttonLabel: "요청내역",
-            component: () => <List listFilter="request" />,
-          },
-          {
-            key: "tab_3",
-            buttonLabel: "도움내역",
-            component: () => <List listFilter="support" />,
-          },
-        ]}
-        onTabChange={(key) => {
-          setActiveTabKey(key);
-        }}
-      />
     </Wrapper>
   );
 }
 
-const Wrapper = styled.div`
-  .home-tabs {
-    a {
-      ${({ theme }) => theme.font.size.medium}
-      font-weight: ${({ theme }) => theme.font.weight.bold};
-      padding: 1.5rem 0;
+const Wrapper = styled.main`
+  position: relative;
+  p {
+    ${({ theme }) => css`
+      ${theme.container}
+      ${theme.font("large", "bold")}
+    `}
+  }
+  .home-fixed__fab {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+
+    button {
+      width: 4rem;
+      height: 4rem;
+      background: ${({ theme }) => theme.color.primary};
+      border-radius: 2rem;
     }
   }
+`;
 
-  .home-header {
-    ${({ theme }) => theme.container}
-    padding-top: 3rem;
-    padding-bottom: 3rem;
+const RightAppender = () => {
+  const moveToMy = usePush("/my");
+  const moveToAlarm = usePush("/alarm");
 
-    background: ${(props) => props.theme.color.primary};
-    display: flex;
-    justify-content: space-between;
+  return (
+    <AppenderWrapper>
+      <div onClick={moveToMy}>마이</div>
+      <div onClick={moveToAlarm}>알람</div>
+    </AppenderWrapper>
+  );
+};
 
-    &__left {
-      color: white;
-      &__location {
-        ${({ theme }) => theme.font.size.medium}
-      }
-      &__info {
-        ${({ theme }) => theme.font.size.large}
-        font-weight: ${({ theme }) => theme.font.weight.bold};
-      }
-    }
-
-    & > .btn-request {
-      ${({ theme }) => theme.font.size.small}
-      font-weight: ${({ theme }) => theme.font.weight.bold};
-      color: ${({ theme }) => theme.color.default};
-
-      padding: 1.6rem 2.8rem;
-      border-radius: 10rem;
-    }
+const AppenderWrapper = styled.div`
+  display: flex;
+  & > div + div {
+    margin-left: 1rem;
   }
 `;

@@ -9,8 +9,8 @@ export const convertToNumber = (str: string): string => {
   return str.replace(regex, "").substring(0, maxLength);
 };
 
-export const convertToKRW = (price: number) => {
-  return (price?.toLocaleString() ?? 0) + "원";
+export const convertToKRW = (reward: number) => {
+  return (reward?.toLocaleString() ?? 0) + "원";
 };
 
 export const convertToPhoneNumber = (origin?: string): string => {

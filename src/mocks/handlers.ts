@@ -1,5 +1,5 @@
 import { rest } from "msw";
-import { applyList, errandDetail, errandList, resume } from "./dummy";
+import { applyList, errandDetail, errandList, resume, user } from "./dummy";
 
 export const handlers = [
   // errand
@@ -44,8 +44,12 @@ export const handlers = [
   }),
 
   //user
+  rest.get("/my", (req, res, ctx) => {
+    return res(ctx.json(user));
+  }),
+
   rest.get("/users/:id", (req, res, ctx) => {
-    return;
+    return res(ctx.json(user));
   }),
 
   // ETC

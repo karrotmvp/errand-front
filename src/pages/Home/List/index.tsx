@@ -1,25 +1,29 @@
 import styled from "@emotion/styled";
-import { ListFilterType } from "@type/dataType";
-import { usePosts } from "@api/post";
+import { TabType } from "@type/client";
+import { ERREND_REQUEST_SIZE } from "@constant/request";
+import { useErrandList } from "@api/errand";
 import Item from "./Item";
 
-interface ListProps {
-  listFilter: ListFilterType;
-}
-export default function List({ listFilter }: ListProps) {
-  const { status, data: list } = usePosts(listFilter);
+type ListProps = {
+  tabType: TabType;
+};
+
+export default function List({ tabType }: ListProps) {
+  const { status, data: list } = useErrandList(tabType);
 
   return (
     <ListWrapper>
-      {status !== "loading" ? (
-        list?.map((item) => <Item {...{ item, listFilter }} key={item.id} />)
-      ) : (
-        <div>로딩 중</div>
-      )}
+      <ul>
+        {status !== "loading" ? (
+          list?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
+        ) : (
+          <li>로딩 중</li>
+        )}
+      </ul>
     </ListWrapper>
   );
 }
 
-const ListWrapper = styled.ul`
+const ListWrapper = styled.section`
   ${({ theme }) => theme.container}
 `;

@@ -1,6 +1,10 @@
 import "@emotion/react";
 import { css } from "@emotion/react";
 
+export type FontSize = "small" | "medium" | "large" | "xlarge";
+
+export type FontWeight = "regular" | "medium" | "bold" | "black";
+
 declare module "@emotion/react" {
   export interface Theme {
     color: {
@@ -13,20 +17,7 @@ declare module "@emotion/react" {
       grey4: string;
       default: string;
     };
-    font: {
-      size: {
-        small: css;
-        medium: css;
-        large: css;
-        xlarge: css;
-      };
-      weight: {
-        regular: number;
-        medium: number;
-        bold: number;
-        black: number;
-      };
-    };
+    font: (size: FontSize, weight?: FontWeight) => css;
     container: css;
   }
 }
