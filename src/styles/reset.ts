@@ -208,9 +208,6 @@ export const reset = css`
     clip: rect(0, 0, 0, 0);
     border: 0;
   }
-  input[type="checkbox"] {
-    all: unset;
-  }
   li {
     text-decoration: none;
   }

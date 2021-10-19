@@ -44,7 +44,7 @@ export default function Item({ item, tabType }: ItemProps) {
 const ItemWrapper = styled.li`
   padding: 1.4rem 0;
   & + & {
-    border-top: 0.1rem solid ${({ theme }) => theme.color.grey2};
+    border-top: 0.1rem solid ${({ theme }) => theme.color.grey6};
   }
   .item-box {
     display: flex;
@@ -68,7 +68,7 @@ const ItemWrapper = styled.li`
       }
       &__status {
         ${({ theme }) => theme.font("small", "medium")}
-        color: ${({ theme }) => theme.color.grey3};
+        color: ${({ theme }) => theme.color.grey4};
 
         position: absolute;
         right: 0;
@@ -80,7 +80,7 @@ const ItemWrapper = styled.li`
           color: ${({ theme }) => theme.color.secondary};
         }
         &.complete {
-          color: ${({ theme }) => theme.color.grey3};
+          color: ${({ theme }) => theme.color.grey4};
         }
         &.fail {
           color: ${({ theme }) => theme.color.fail};
