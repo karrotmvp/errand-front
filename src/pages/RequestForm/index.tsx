@@ -1,11 +1,22 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { ScreenHelmet } from "@karrotframe/navigator";
+import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { css } from "@emotion/react";
-import { theme } from "@styles/theme";
 
 type RequestFormProps = {};
+
+const defaultValues = {
+  category: "default",
+  title: "default",
+  detail: "default",
+  location: "default",
+  tel: "default",
+  termAll: true,
+  term1: false,
+  term2: false,
+};
+
 type Inputs = {
   category: string;
   title: string;
@@ -21,14 +32,35 @@ export default function RequestForm({}: RequestFormProps) {
   const {
     register,
     handleSubmit,
+    watch,
+    setValue,
+    getValues,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({ defaultValues });
+
+  const watchTermAll = watch("termAll", false);
+  const isAll = watch(["term1", "term2"]).every((el) => el);
+  const { push } = useNavigator();
 
   const onSubmit: SubmitHandler<Inputs> = (result) => {
-    console.log(result);
+    //TODO : 새글 등록 요청 하고 그 글의 id를 전달받아서 push
+    push("/errands/1");
   };
 
-  console.log(errors);
+  useEffect(() => {
+    const termAll = getValues("termAll");
+
+    if (isAll !== termAll) {
+      setValue("term1", termAll);
+      setValue("term2", termAll);
+    }
+  }, [watchTermAll, setValue, getValues]);
+
+  useEffect(() => {
+    if (getValues("termAll") !== isAll) {
+      setValue("termAll", isAll);
+    }
+  }, [isAll, setValue, getValues]);
 
   return (
     <RequestFormWrapper>
@@ -65,10 +97,9 @@ export default function RequestForm({}: RequestFormProps) {
             {errors.title && <ErrorText>제목을 입력해주세요.</ErrorText>}
           </div>
           <input
-            {...register("title", { required: true })}
             placeholder="제목을 입력하세요."
             type="text"
-            defaultValue="dd"
+            {...register("title", { required: true })}
           />
         </div>
         <div className="errand-request__input-section">
@@ -77,9 +108,8 @@ export default function RequestForm({}: RequestFormProps) {
             {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
           </div>
           <textarea
-            {...register("detail", { required: true })}
             placeholder="세부사항을 입력하세요."
-            defaultValue="dd"
+            {...register("detail", { required: true })}
           />
         </div>
         <div className="errand-request__input-section">
@@ -90,10 +120,9 @@ export default function RequestForm({}: RequestFormProps) {
           <p className="color-grey">매칭되었을 때에만 상세주소가 공개돼요.</p>
           <input className="section-disabled" defaultValue="서현동" disabled />
           <input
-            {...register("location", { required: true })}
             placeholder="상세주소를 입력하세요."
             type="text"
-            defaultValue="dd"
+            {...register("location", { required: true })}
           />
         </div>
         <div className="errand-request__input-section">
@@ -103,10 +132,10 @@ export default function RequestForm({}: RequestFormProps) {
           </div>
           <p className="color-grey">매칭되었을 때에만 전화번호가 공개돼요.</p>
           <input
-            {...register("tel", { required: true })}
             placeholder="전화번호를 입력하세요."
             type="number"
             defaultValue="1234"
+            {...register("tel", { required: true })}
           />
         </div>
         <div className="errand-request__input-section">
@@ -119,22 +148,20 @@ export default function RequestForm({}: RequestFormProps) {
           <div className="section-terms">
             <div className="section-terms__item">
               <input
-                {...register("termAll")}
                 type="checkbox"
-                name="term"
                 value="termAll"
                 id="termAll"
+                {...register("termAll")}
               />
-              <label htmlFor="termAll" />
+              <label htmlFor="termAll"></label>
               <p>이용약관 모두 동의</p>
             </div>
             <div className="section-terms__item">
               <input
-                {...register("term1", { required: true })}
                 type="checkbox"
-                name="term"
                 value="term1"
                 id="term1"
+                {...register("term1", { required: true })}
               />
               <label htmlFor="term1" />
               <p>
@@ -144,11 +171,10 @@ export default function RequestForm({}: RequestFormProps) {
             </div>
             <div className="section-terms__item">
               <input
-                {...register("term2", { required: true })}
                 type="checkbox"
-                name="term"
                 value="term2"
                 id="term2"
+                {...register("term2", { required: true })}
               />
               <label htmlFor="term2" />
               <p>
