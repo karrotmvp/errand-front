@@ -3,26 +3,29 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { css } from "@emotion/react";
+import { registerErrand } from "@api/errand";
 
 type RequestFormProps = {};
 
 const defaultValues = {
-  category: "default",
+  categoryId: 1,
   title: "default",
   detail: "default",
-  location: "default",
-  tel: "default",
+  reward: 0,
+  detailAddress: "default",
+  phoneNumber: "01012345678",
   termAll: true,
   term1: false,
   term2: false,
 };
 
 type Inputs = {
-  category: string;
+  categoryId: number;
   title: string;
   detail: string;
-  location: string;
-  tel: string;
+  reward: number;
+  detailAddress: string;
+  phoneNumber: string;
   termAll: boolean;
   term1: boolean;
   term2: boolean;
@@ -42,9 +45,21 @@ export default function RequestForm({}: RequestFormProps) {
   const isAll = watch(["term1", "term2"]).every((el) => el);
   const { push } = useNavigator();
 
-  const onSubmit: SubmitHandler<Inputs> = (result) => {
+  const onSubmit: SubmitHandler<Inputs> = async (result) => {
+    const { categoryId, title, detail, reward, detailAddress, phoneNumber } =
+      result;
+
+    const errandId = await registerErrand({
+      categoryId,
+      title,
+      detail,
+      reward,
+      detailAddress,
+      phoneNumber,
+      regionId: "1234",
+    });
     //TODO : 새글 등록 요청 하고 그 글의 id를 전달받아서 push
-    push("/errands/1");
+    push(`/errands/${errandId}`);
   };
 
   useEffect(() => {
@@ -73,9 +88,11 @@ export default function RequestForm({}: RequestFormProps) {
         <div className="errand-request__input-section">
           <div className="section-title">
             <label>카테고리</label>
-            {errors.category && <ErrorText>카테고리를 선택해주세요.</ErrorText>}
+            {errors.categoryId && (
+              <ErrorText>카테고리를 선택해주세요.</ErrorText>
+            )}
           </div>
-          <select {...register("category", { required: true })}>
+          <select {...register("categoryId", { required: true })}>
             <option value="1">벌레잡기</option>
             <option value="2">반려동물 산책하기</option>
             <option value="3">하나뭐였지</option>
@@ -115,27 +132,31 @@ export default function RequestForm({}: RequestFormProps) {
         <div className="errand-request__input-section">
           <div className="section-title">
             <label>요청장소</label>
-            {errors.location && <ErrorText>상세주소를 입력해주세요.</ErrorText>}
+            {errors.detailAddress && (
+              <ErrorText>상세주소를 입력해주세요.</ErrorText>
+            )}
           </div>
           <p className="color-grey">매칭되었을 때에만 상세주소가 공개돼요.</p>
           <input className="section-disabled" defaultValue="서현동" disabled />
           <input
             placeholder="상세주소를 입력하세요."
             type="text"
-            {...register("location", { required: true })}
+            {...register("detailAddress", { required: true })}
           />
         </div>
         <div className="errand-request__input-section">
           <div className="section-title">
             <label>전화번호</label>
-            {errors.tel && <ErrorText>전화번호를 입력해주세요.</ErrorText>}
+            {errors.phoneNumber && (
+              <ErrorText>전화번호를 입력해주세요.</ErrorText>
+            )}
           </div>
           <p className="color-grey">매칭되었을 때에만 전화번호가 공개돼요.</p>
           <input
             placeholder="전화번호를 입력하세요."
             type="number"
             defaultValue="1234"
-            {...register("tel", { required: true })}
+            {...register("phoneNumber", { required: true })}
           />
         </div>
         <div className="errand-request__input-section">

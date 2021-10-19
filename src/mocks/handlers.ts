@@ -30,8 +30,8 @@ export const handlers = [
     return res(ctx.json(resume));
   }),
 
-  rest.post("/", (req, res, ctx) => {
-    return;
+  rest.post("/errands", (req, res, ctx) => {
+    return res(ctx.json({ id: 1 }));
   }),
 
   rest.patch("/", (req, res, ctx) => {
