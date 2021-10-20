@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { useHelperList } from "@api/errand";
+import { useHelperList } from "@api/errands";
 import { ScreenHelmet } from "@karrotframe/navigator";
 import ApplyItem from "./ApplyItem";
 

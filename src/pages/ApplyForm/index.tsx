@@ -1,13 +1,15 @@
+import Profile from "@components/Profile";
 import styled from "@emotion/styled";
 import { ScreenHelmet } from "@karrotframe/navigator";
 
 // type ApplyFormProps = {};
 
 export default function ApplyForm() {
+  
   return (
     <ApplyFormWrapper>
       <ScreenHelmet title="지원하기" />
-      {/* <Profile /> */}
+      <Profile />
     </ApplyFormWrapper>
   );
 }
