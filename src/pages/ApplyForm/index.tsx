@@ -49,6 +49,7 @@ export default function ApplyForm() {
         <>
           <form
             onSubmit={handleSubmit(onSubmit)}
+            id="apply-form"
             className="apply-form__contents"
           >
             <SectionWrapper>
@@ -115,7 +116,9 @@ export default function ApplyForm() {
             </SectionWrapper>
           </form>
           <StickyFooter>
-            <button>지원하기</button>
+            <StickyFooter>
+              <button form="apply-form">지원하기</button>
+            </StickyFooter>
           </StickyFooter>
         </>
       ) : (

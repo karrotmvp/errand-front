@@ -3,7 +3,12 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errands";
-import { ErrorText, SectionTerms, SectionWrapper } from "@styles/shared";
+import {
+  ErrorText,
+  SectionTerms,
+  SectionWrapper,
+  StickyFooter,
+} from "@styles/shared";
 
 // type RequestFormProps = {};
 
@@ -222,11 +227,9 @@ export default function RequestForm() {
           </div>
         </SectionWrapper>
       </form>
-      <input
-        type="submit"
-        className="errand-request__submit-btn"
-        form="errand-form"
-      />
+      <StickyFooter>
+        <button form="errand-form" >작성완료</button>
+      </StickyFooter>
     </RequestFormWrapper>
   );
 }
@@ -241,12 +244,6 @@ const RequestFormWrapper = styled.div`
       flex: 1;
       padding: 2rem 0;
       ${({ theme }) => theme.container}
-    }
-
-    &__submit-btn {
-      width: 100%;
-      background: tan;
-      padding: 1rem 0;
     }
   }
 `;
