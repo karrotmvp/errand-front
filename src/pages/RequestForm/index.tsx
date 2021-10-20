@@ -1,9 +1,9 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { css } from "@emotion/react";
 import { registerErrand } from "@api/errand";
+import { InputWrapper } from "@styles/shared";
 
 type RequestFormProps = {};
 
@@ -49,7 +49,7 @@ export default function RequestForm({}: RequestFormProps) {
     const { categoryId, title, detail, reward, detailAddress, phoneNumber } =
       result;
 
-    const errandId = await registerErrand({
+    const { id } = await registerErrand({
       categoryId,
       title,
       detail,
@@ -59,7 +59,7 @@ export default function RequestForm({}: RequestFormProps) {
       regionId: "1234",
     });
     //TODO : 새글 등록 요청 하고 그 글의 id를 전달받아서 push
-    push(`/errands/${errandId}`);
+    push(`/errands/${id}`);
   };
 
   useEffect(() => {
@@ -85,7 +85,7 @@ export default function RequestForm({}: RequestFormProps) {
         id="errand-form"
         className="errand-request__form"
       >
-        <div className="errand-request__input-section">
+        <InputWrapper>
           <div className="section-title">
             <label>카테고리</label>
             {errors.categoryId && (
@@ -98,8 +98,8 @@ export default function RequestForm({}: RequestFormProps) {
             <option value="3">하나뭐였지</option>
             <option value="4">기타</option>
           </select>
-        </div>
-        <div className="errand-request__input-section">
+        </InputWrapper>
+        <InputWrapper>
           <div className="section-title">
             <label>사진첨부</label>
             <span className="color-grey">(선택)</span>
@@ -107,8 +107,8 @@ export default function RequestForm({}: RequestFormProps) {
           <div>
             <div>풀러스</div>
           </div>
-        </div>
-        <div className="errand-request__input-section">
+        </InputWrapper>
+        <InputWrapper>
           <div className="section-title">
             <label>요청제목</label>
             {errors.title && <ErrorText>제목을 입력해주세요.</ErrorText>}
@@ -118,8 +118,8 @@ export default function RequestForm({}: RequestFormProps) {
             type="text"
             {...register("title", { required: true })}
           />
-        </div>
-        <div className="errand-request__input-section">
+        </InputWrapper>
+        <InputWrapper>
           <div className="section-title">
             <label>세부사항</label>
             {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
@@ -128,8 +128,21 @@ export default function RequestForm({}: RequestFormProps) {
             placeholder="세부사항을 입력하세요."
             {...register("detail", { required: true })}
           />
-        </div>
-        <div className="errand-request__input-section">
+        </InputWrapper>
+        <InputWrapper>
+          <div className="section-title">
+            <label>심부름 금액</label>
+            {errors.reward && (
+              <ErrorText>심부름 금액을 입력해주세요.</ErrorText>
+            )}
+          </div>
+          <input
+            placeholder="금액을 입력해주세요."
+            type="number"
+            {...register("reward", { required: true })}
+          />
+        </InputWrapper>
+        <InputWrapper>
           <div className="section-title">
             <label>요청장소</label>
             {errors.detailAddress && (
@@ -139,12 +152,12 @@ export default function RequestForm({}: RequestFormProps) {
           <p className="color-grey">매칭되었을 때에만 상세주소가 공개돼요.</p>
           <input className="section-disabled" defaultValue="서현동" disabled />
           <input
-            placeholder="상세주소를 입력하세요."
+            placeholder="상세주소를 입력해주세요."
             type="text"
             {...register("detailAddress", { required: true })}
           />
-        </div>
-        <div className="errand-request__input-section">
+        </InputWrapper>
+        <InputWrapper>
           <div className="section-title">
             <label>전화번호</label>
             {errors.phoneNumber && (
@@ -158,8 +171,8 @@ export default function RequestForm({}: RequestFormProps) {
             defaultValue="1234"
             {...register("phoneNumber", { required: true })}
           />
-        </div>
-        <div className="errand-request__input-section">
+        </InputWrapper>
+        <InputWrapper>
           <div className="section-title">
             <label>이용약관</label>
             {(errors.term1 || errors.term2) && (
@@ -203,7 +216,7 @@ export default function RequestForm({}: RequestFormProps) {
               </p>
             </div>
           </div>
-        </div>
+        </InputWrapper>
       </form>
       <input
         type="submit"
@@ -224,88 +237,6 @@ const RequestFormWrapper = styled.div`
       flex: 1;
       padding: 2rem 0;
       ${({ theme }) => theme.container}
-      & > div + div {
-        margin-top: 3.5rem;
-      }
-    }
-
-    &__input-section {
-      .section-title {
-        display: flex;
-        align-items: center;
-        margin-bottom: 0.6rem;
-
-        label {
-          ${({ theme }) => theme.font("small", "bold")}
-        }
-      }
-
-      .section-terms {
-        display: flex;
-        flex-direction: column;
-        &__item {
-          display: flex;
-          align-items: center;
-
-          p {
-            margin-left: 1.4rem;
-            ${({ theme }) => theme.font("medium")}
-            span {
-              color: ${({ theme }) => theme.color.primary};
-            }
-          }
-        }
-      }
-
-      .section-terms__item + .section-terms__item {
-        margin-top: 1.5rem;
-      }
-
-      .section-disabled {
-        background: ${({ theme }) => theme.color.grey6};
-      }
-
-      .color-grey {
-        color: ${({ theme }) => theme.color.grey3};
-      }
-
-      input,
-      select,
-      textarea {
-        border: 0.1rem solid ${({ theme }) => theme.color.grey6};
-        ${({ theme }) => css`
-          ${theme.font("medium")}
-          border-radius: 1rem;
-        `}
-        width: 100%;
-        padding: 1rem 1.8rem;
-        &::placeholder {
-          color: ${({ theme }) => theme.color.grey4};
-        }
-      }
-
-      input + input {
-        margin-top: 0.5rem;
-      }
-
-      input[type="checkbox"] {
-        display: none;
-        & + label {
-          display: inline-block;
-          min-width: 3.6rem;
-          min-height: 3.6rem;
-          border-radius: 1.8rem;
-          border: 1px solid ${({ theme }) => theme.color.grey6};
-        }
-        &:checked + label {
-          background: ${({ theme }) => theme.color.primary};
-          border: none;
-        }
-      }
-
-      textarea {
-        height: 16rem;
-      }
     }
 
     &__submit-btn {
