@@ -27,11 +27,11 @@ export const useErrandList = ({
   );
 };
 
-const getErrandDetail = (): Promise<ErrandDetail> => {
-  return GET(`/errands/:id`);
+const getErrandDetail = (id: string): Promise<ErrandDetail> => {
+  return GET(`/errands/${id}`);
 };
-export const useErrandDetail = () => {
-  return useQuery(["errandDetail"], () => getErrandDetail());
+export const useErrandDetail = (id: string) => {
+  return useQuery(["errandDetail"], () => getErrandDetail(id));
 };
 
 const getHelperList = (): Promise<User[]> => {

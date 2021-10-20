@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 
 export const InputWrapper = styled.div`
   & + & {
-    margin-top: 4rem;
+    margin-top: 3.8rem;
   }
 
   .section-title {

@@ -22,8 +22,6 @@ export default function Home() {
 }
 
 const Wrapper = styled.main`
-  position: relative;
-  width: 100%;
   height: 100vh;
   overflow-y: scroll;
   p {
