@@ -1,10 +1,9 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet } from "@karrotframe/navigator";
 
-type AlarmProps = {};
+// type AlarmProps = {};
 
-export default function Alarm({}: AlarmProps) {
+export default function Alarm() {
   return (
     <AlarmWrapper>
       <ScreenHelmet title="알람설정" />

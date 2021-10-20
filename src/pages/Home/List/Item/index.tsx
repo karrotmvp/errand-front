@@ -30,7 +30,7 @@ export default function Item({ item, tabType }: ItemProps) {
           <ItemFooter
             {...{
               status: item.status,
-              helper: item?.selectedHelper,
+              helper: item?.chosenHelper,
             }}
           />
         )}
@@ -91,10 +91,10 @@ const ItemWrapper = styled.li`
 `;
 
 const HELP_ITEM_STATUS = {
-  wait: "지원완료",
-  proceed: "현재 수행중",
-  complete: "완료",
-  fail: "매칭실패",
+  WAIT: "지원완료",
+  PROCEED: "현재 수행중",
+  COMPLETE: "완료",
+  FAIL: "매칭실패",
 };
 
 const renderItemStatus = (tabType: TabType, status: ErrandStatus) => {
@@ -106,7 +106,7 @@ const renderItemStatus = (tabType: TabType, status: ErrandStatus) => {
         </div>
       );
     case "request":
-      return status === "complete" ? (
+      return status === "COMPLETE" ? (
         <div className={`item-info__status ${status}`}>완료</div>
       ) : (
         <></>

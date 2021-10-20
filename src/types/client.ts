@@ -1,9 +1,8 @@
 export type TabType = "main" | "request" | "help";
 
-export type ErrandStatus = "wait" | "proceed" | "complete" | "fail";
+export type ErrandStatus = "WAIT" | "PROCEED" | "COMPLETE" | "FAIL";
 
 export type ErrandRequestParams = {
   lastId: number;
-  size: number;
-  filter?: TabType;
+  size?: number;
 };

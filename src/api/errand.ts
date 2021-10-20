@@ -1,33 +1,32 @@
 import { useQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
-import { Errand, ErrandDetail, Resume, User } from "@type/response";
-import { ErrandRequestParams, TabType } from "@type/client";
+import {
+  Errand,
+  ErrandDetail,
+  ErrandDetailResponseBody,
+  Resume,
+  User,
+} from "@type/response";
+import { ErrandRequestParams } from "@type/client";
 import {
   ErrandRegisterRequestBody,
   SelecteHelperRequestBody,
 } from "@type/request";
 
-const getErrandList = (
-  lastId: number,
-  size: number,
-  filter?: TabType
-): Promise<Errand[]> => {
-  const query =
-    `?lastId=${lastId}&size=${size}` +
-    `/errands${filter !== "main" ? `?filter=${filter}` : ""}`;
-  return GET(`/errands${query}`);
+const getErrandList = (lastId: number, size: number = 7): Promise<Errand[]> => {
+  return GET(`/errands?lastId=${lastId}&size=${size}`);
 };
-export const useErrandList = ({
-  lastId,
-  size,
-  filter,
-}: ErrandRequestParams) => {
-  return useQuery(["errandList", lastId, size, filter], () =>
-    getErrandList(lastId, size, filter)
+export const useErrandList = ({ lastId, size }: ErrandRequestParams) => {
+  return useQuery(["errandList", lastId, size], () =>
+    getErrandList(lastId, size)
   );
 };
 
-const getErrandDetail = (id: string): Promise<ErrandDetail> => {
+export const registerErrand = (requestBody: ErrandRegisterRequestBody) => {
+  return POST(`/errands`, requestBody);
+};
+
+const getErrandDetail = (id: string): Promise<ErrandDetailResponseBody> => {
   return GET(`/errands/${id}`);
 };
 export const useErrandDetail = (id: string) => {
@@ -46,10 +45,6 @@ const getHelperDetail = (): Promise<Resume> => {
 };
 export const useHelperDetail = () => {
   return useQuery(["helperDetail"], () => getHelperDetail());
-};
-
-export const registerErrand = (requestBody: ErrandRegisterRequestBody) => {
-  return POST(`/errands`, requestBody);
 };
 
 export const selectHelper = (requestBody: SelecteHelperRequestBody) => {

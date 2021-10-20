@@ -1,13 +1,13 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet } from "@karrotframe/navigator";
 
-type ApplyFormProps = {};
+// type ApplyFormProps = {};
 
-export default function ApplyForm({}: ApplyFormProps) {
+export default function ApplyForm() {
   return (
     <ApplyFormWrapper>
       <ScreenHelmet title="지원하기" />
+      {/* <Profile /> */}
     </ApplyFormWrapper>
   );
 }

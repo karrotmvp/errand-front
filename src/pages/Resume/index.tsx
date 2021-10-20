@@ -2,9 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet } from "@karrotframe/navigator";
 
-type ResumeProps = {};
+// type ResumeProps = {};
 
-export default function Resume({}: ResumeProps) {
+export default function Resume() {
   return (
     <ResumeWrapper>
       <ScreenHelmet title="지원자 정보" />
