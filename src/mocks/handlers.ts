@@ -38,15 +38,15 @@ export const handlers = [
     my.didIApply = true;
     my.wasIChosen = true;
 
-    return res(ctx.status(200), ctx.json({ my }));
+    return res(ctx.status(200), ctx.json(my));
   }),
 
   rest.get("/errands/:errandId/helpers", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ applyList }));
+    return res(ctx.status(200), ctx.json(applyList));
   }),
 
   rest.get("/errands/:errandId/helpers/:helperId", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ resume }));
+    return res(ctx.status(200), ctx.json(resume));
   }),
 
   rest.patch("/errands/:id/helper", (req, res, ctx) => {
@@ -104,11 +104,11 @@ export const handlers = [
 
   //users
   rest.get("/users/:id", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ user }));
+    return res(ctx.status(200), ctx.json(user));
   }),
 
   rest.patch("/users/category", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ user }));
+    return res(ctx.status(200), ctx.json(user));
   }),
 
   rest.get("/users/my", (req, res, ctx) => {

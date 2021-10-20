@@ -18,7 +18,6 @@ export default function ErrandDetail() {
     throw new Error();
   }
   const { status, data } = useErrandDetail(params.id);
-
   return (
     <ErrandDetailWrapper>
       <ScreenHelmet title="상세페이지" />
@@ -28,24 +27,24 @@ export default function ErrandDetail() {
             <img src={DEFAULT_THUMBNAIL} alt="dummy" />
           </div>
           <div className="errand-detail__contents">
-            <h2>{data?.title}</h2>
+            <h2>{data?.errand.title}</h2>
             <div className="errand-detail__contents__sub-info">
-              <span>{data?.category.name}</span>
-              <span>{data?.region.name}</span>
+              <span>{data?.errand.category.name}</span>
+              <span>{data?.errand.region.name}</span>
               <span>11시간 전</span>
             </div>
-            <p>{data?.detail}</p>
+            <p>{data?.errand.detail}</p>
             <InputWrapper>
               <div className="section-title">
                 <label>요청제목</label>
               </div>
-              <input type="text" value={data?.reward} disabled />
+              <input type="text" value={data?.errand.reward} disabled />
             </InputWrapper>
             <InputWrapper>
               <div className="section-title">
                 <label>요청장소</label>
               </div>
-              <input type="text" value={data?.region.name} disabled />
+              <input type="text" value={data?.errand.region.name} disabled />
             </InputWrapper>
           </div>
           <div className="errand-detail__footer">

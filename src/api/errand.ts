@@ -1,6 +1,12 @@
 import { useQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
-import { Errand, ErrandDetail, Resume, User } from "@type/response";
+import {
+  Errand,
+  ErrandDetail,
+  ErrandDetailResponseBody,
+  Resume,
+  User,
+} from "@type/response";
 import { ErrandRequestParams } from "@type/client";
 import {
   ErrandRegisterRequestBody,
@@ -20,7 +26,7 @@ export const registerErrand = (requestBody: ErrandRegisterRequestBody) => {
   return POST(`/errands`, requestBody);
 };
 
-const getErrandDetail = (id: string): Promise<ErrandDetail> => {
+const getErrandDetail = (id: string): Promise<ErrandDetailResponseBody> => {
   return GET(`/errands/${id}`);
 };
 export const useErrandDetail = (id: string) => {
