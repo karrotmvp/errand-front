@@ -50,6 +50,7 @@ export default function RequestForm({}: RequestFormProps) {
       result;
 
     const { id } = await registerErrand({
+      imageUrls: ["", ""],
       categoryId,
       title,
       detail,

@@ -9,7 +9,10 @@ type ListProps = {
 };
 
 export default function List({ tabType }: ListProps) {
-  const { status, data: list } = useErrandList(tabType);
+  const { status, data: list } = useErrandList({
+    lastId: 1,
+    size: ERREND_REQUEST_SIZE,
+  });
 
   return (
     <ListWrapper>
@@ -25,5 +28,5 @@ export default function List({ tabType }: ListProps) {
 }
 
 const ListWrapper = styled.section`
-  ${({ theme }) => theme.container}
+  ${({ theme }) => theme.container};
 `;

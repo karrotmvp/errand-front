@@ -1,30 +1,47 @@
 import { ErrandStatus } from "./client";
 
 export type Errand = {
-  id: string;
-  thumbnailUrl: string;
+  id: number;
   title: string;
   reward: number;
+  thumbnailUrl: string;
   status: ErrandStatus;
-  selectedHelper?: SimpleUser;
+  helpCnt: number;
+  category: Category;
+  regionName: string;
+  chosenHelper?: SimpleUser;
+  createdAt: Date;
+  updatedAt: Date;
 };
 
 export type ErrendCreateResponseBody = {
   id: number;
 };
 
+export type ErrandDetailResponseBody = {
+  errand: ErrandDetail;
+  isMine: boolean;
+  didIApply: boolean;
+  wasIChosen: boolean;
+};
+
 export type ErrandDetail = {
   id: number;
   title: string;
+  customer: Customer;
+  region: Region;
   category: Category;
+  imageUrls: Image[];
   detail: string;
   reward: number;
-  isCompleted: boolean;
-  isMine: boolean;
-  region: Region;
   detailAddress?: string;
-  phoneNumber?: string;
-  didISupport?: boolean;
+  customerPhoneNumber?: string;
+  isCompleted: boolean;
+};
+
+type Customer = {
+  id: number;
+  daangnId: string;
 };
 
 export type Category = {
@@ -51,8 +68,14 @@ export type SimpleUser = {
 
 export type Region = {
   id: string;
+  nodeId: string;
   name: string;
   name1: string;
   name2: string;
   name3: string;
+};
+
+type Image = {
+  id: number;
+  url: string;
 };

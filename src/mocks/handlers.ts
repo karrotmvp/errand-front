@@ -4,22 +4,42 @@ import { applyList, errandDetail, errandList, resume, user } from "./dummy";
 export const handlers = [
   // errand
   rest.get("/errands", (req, res, ctx) => {
-    const filter = req.url.searchParams.get("filter");
+    const lastId = req.url.searchParams.get("lastId");
+    const size = req.url.searchParams.get("size");
 
-    switch (filter) {
-      case "main":
-        return res(ctx.json(errandList));
-      case "request":
-        return res(ctx.json(errandList.slice(0, 5)));
-      case "help":
-        return res(ctx.json(errandList.slice(4)));
-      default:
-    }
-    return res(ctx.json(errandList.filter((item) => item.status !== filter)));
+    return res(ctx.json(errandList));
+  }),
+
+  rest.post("/errands", (req, res, ctx) => {
+    return res(ctx.json({ id: 1 }));
   }),
 
   rest.get("/errands/:errandId", (req, res, ctx) => {
-    return res(ctx.json(errandDetail));
+    const my = errandDetail;
+    my.errand.customerPhoneNumber = "01012345678";
+    my.errand.detailAddress = "123-45 303호";
+    my.isMine = true;
+    my.didIApply = false;
+    my.wasIChosen = false;
+
+    const notApply = errandDetail;
+    notApply.isMine = false;
+    notApply.didIApply = false;
+    notApply.wasIChosen = false;
+
+    const rejected = errandDetail;
+    notApply.isMine = false;
+    notApply.didIApply = true;
+    notApply.wasIChosen = false;
+
+    const chosen = errandDetail;
+    chosen.errand.customerPhoneNumber = "01012345678";
+    chosen.errand.detailAddress = "123-45 303호";
+    my.isMine = false;
+    my.didIApply = true;
+    my.wasIChosen = true;
+
+    return res(ctx.json(my));
   }),
 
   rest.get("/errands/:errandId/helpers", (req, res, ctx) => {
@@ -28,10 +48,6 @@ export const handlers = [
 
   rest.get("/errands/:errandId/helpers/:helperId", (req, res, ctx) => {
     return res(ctx.json(resume));
-  }),
-
-  rest.post("/errands", (req, res, ctx) => {
-    return res(ctx.json({ id: 1 }));
   }),
 
   rest.patch("/", (req, res, ctx) => {

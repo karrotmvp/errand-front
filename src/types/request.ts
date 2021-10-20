@@ -1,10 +1,11 @@
 export type ErrandRegisterRequestBody = {
+  imageUrls: string[];
   categoryId: number;
   title: string;
   detail: string;
   reward: number;
-  phoneNumber: string;
   detailAddress?: string;
+  phoneNumber: string;
   regionId: string;
 };
 
