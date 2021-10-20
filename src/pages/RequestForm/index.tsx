@@ -3,7 +3,12 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errands";
-import { InputWrapper } from "@styles/shared";
+import {
+  ErrorText,
+  SectionTerms,
+  SectionWrapper,
+  StickyFooter,
+} from "@styles/shared";
 
 // type RequestFormProps = {};
 
@@ -86,8 +91,8 @@ export default function RequestForm() {
         id="errand-form"
         className="errand-request__form"
       >
-        <InputWrapper>
-          <div className="section-title">
+        <SectionWrapper>
+          <div className="section__title">
             <label>카테고리</label>
             {errors.categoryId && (
               <ErrorText>카테고리를 선택해주세요.</ErrorText>
@@ -99,18 +104,18 @@ export default function RequestForm() {
             <option value="3">하나뭐였지</option>
             <option value="4">기타</option>
           </select>
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>사진첨부</label>
             <span className="color-grey">(선택)</span>
           </div>
-          <div>
+          <div className="section__content">
             <div>풀러스</div>
           </div>
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>요청제목</label>
             {errors.title && <ErrorText>제목을 입력해주세요.</ErrorText>}
           </div>
@@ -119,9 +124,9 @@ export default function RequestForm() {
             type="text"
             {...register("title", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>세부사항</label>
             {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
           </div>
@@ -129,9 +134,9 @@ export default function RequestForm() {
             placeholder="세부사항을 입력하세요."
             {...register("detail", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>심부름 금액</label>
             {errors.reward && (
               <ErrorText>심부름 금액을 입력해주세요.</ErrorText>
@@ -142,24 +147,24 @@ export default function RequestForm() {
             type="number"
             {...register("reward", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>요청장소</label>
             {errors.detailAddress && (
               <ErrorText>상세주소를 입력해주세요.</ErrorText>
             )}
           </div>
           <p className="color-grey">매칭되었을 때에만 상세주소가 공개돼요.</p>
-          <input className="section-disabled" defaultValue="서현동" disabled />
+          <input className="section__disabled" defaultValue="서현동" disabled />
           <input
             placeholder="상세주소를 입력해주세요."
             type="text"
             {...register("detailAddress", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>전화번호</label>
             {errors.phoneNumber && (
               <ErrorText>전화번호를 입력해주세요.</ErrorText>
@@ -172,58 +177,59 @@ export default function RequestForm() {
             defaultValue="1234"
             {...register("phoneNumber", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
-          <div className="section-title">
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
             <label>이용약관</label>
             {(errors.term1 || errors.term2) && (
               <ErrorText>약관에 동의해주세요.</ErrorText>
             )}
+            ErrorText
           </div>
-          <div className="section-terms">
-            <div className="section-terms__item">
-              <input
-                type="checkbox"
-                value="termAll"
-                id="termAll"
-                {...register("termAll")}
-              />
-              <label htmlFor="termAll"></label>
-              <p>이용약관 모두 동의</p>
-            </div>
-            <div className="section-terms__item">
-              <input
-                type="checkbox"
-                value="term1"
-                id="term1"
-                {...register("term1", { required: true })}
-              />
-              <label htmlFor="term1" />
-              <p>
-                <span>(필수)</span> 요청사항을 5분 이내 취소할 수 있고 추후에
-                취소는 불가능해요.
-              </p>
-            </div>
-            <div className="section-terms__item">
-              <input
-                type="checkbox"
-                value="term2"
-                id="term2"
-                {...register("term2", { required: true })}
-              />
-              <label htmlFor="term2" />
-              <p>
-                <span>(필수)</span> 개인정보 제공 동의
-              </p>
-            </div>
+          <div className="section__content">
+            <SectionTerms>
+              <div className="section__terms-item">
+                <input
+                  type="checkbox"
+                  value="termAll"
+                  id="termAll"
+                  {...register("termAll")}
+                />
+                <label htmlFor="termAll"></label>
+                <p>이용약관 모두 동의</p>
+              </div>
+              <div className="section__terms-item">
+                <input
+                  type="checkbox"
+                  value="term1"
+                  id="term1"
+                  {...register("term1", { required: true })}
+                />
+                <label htmlFor="term1" />
+                <p>
+                  <span>(필수)</span> 요청사항을 5분 이내 취소할 수 있고 추후에
+                  취소는 불가능해요.
+                </p>
+              </div>
+              <div className="section__terms-item">
+                <input
+                  type="checkbox"
+                  value="term2"
+                  id="term2"
+                  {...register("term2", { required: true })}
+                />
+                <label htmlFor="term2" />
+                <p>
+                  <span>(필수)</span> 개인정보 제공 동의
+                </p>
+              </div>
+            </SectionTerms>
           </div>
-        </InputWrapper>
+        </SectionWrapper>
       </form>
-      <input
-        type="submit"
-        className="errand-request__submit-btn"
-        form="errand-form"
-      />
+      <StickyFooter>
+        <button form="errand-form" >작성완료</button>
+      </StickyFooter>
     </RequestFormWrapper>
   );
 }
@@ -239,17 +245,5 @@ const RequestFormWrapper = styled.div`
       padding: 2rem 0;
       ${({ theme }) => theme.container}
     }
-
-    &__submit-btn {
-      width: 100%;
-      background: tan;
-      padding: 1rem 0;
-    }
   }
-`;
-
-const ErrorText = styled.p`
-  margin-left: 2rem;
-  color: ${({ theme }) => theme.color.fail};
-  ${({ theme }) => theme.font("small")}
 `;

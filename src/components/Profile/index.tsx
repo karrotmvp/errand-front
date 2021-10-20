@@ -19,7 +19,7 @@ export default function Profile({
         <h2>{nickname}</h2>
         <div className="my-profile__info-sub">
           <span>{regionName}</span>
-          <span>{mannerPoint}</span>
+          <span>{mannerPoint} °C</span>
         </div>
       </div>
     </ProfileWrapper>
@@ -31,20 +31,27 @@ const ProfileWrapper = styled.div`
   align-items: center;
   .my-profile {
     &__image {
-      width: 6rem;
-      height: 6rem;
+      width: 4.7rem;
+      height: 4.7rem;
       background: black;
       border-radius: 3rem;
+      overflow: hidden;
     }
 
     &__info {
       margin-left: 1.2rem;
       flex: 1;
       h2 {
-        ${({ theme }) => theme.font("large", "bold")}
+        ${({ theme }) => theme.font("medium")}
       }
       &-sub {
         ${({ theme }) => theme.font("small")}
+        color: ${({ theme }) => theme.color.grey4};
+
+        & > span + span::before {
+          content: " • ";
+          margin: 0 0.5rem;
+        }
       }
     }
   }
