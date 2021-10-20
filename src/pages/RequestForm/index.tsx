@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errands";
-import { SectionWrapper } from "@styles/shared";
+import { ErrorText, SectionTerms, SectionWrapper } from "@styles/shared";
 
 // type RequestFormProps = {};
 
@@ -87,7 +87,7 @@ export default function RequestForm() {
         className="errand-request__form"
       >
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>카테고리</label>
             {errors.categoryId && (
               <ErrorText>카테고리를 선택해주세요.</ErrorText>
@@ -101,16 +101,16 @@ export default function RequestForm() {
           </select>
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>사진첨부</label>
             <span className="color-grey">(선택)</span>
           </div>
-          <div>
+          <div className="section__content">
             <div>풀러스</div>
           </div>
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>요청제목</label>
             {errors.title && <ErrorText>제목을 입력해주세요.</ErrorText>}
           </div>
@@ -121,7 +121,7 @@ export default function RequestForm() {
           />
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>세부사항</label>
             {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
           </div>
@@ -131,7 +131,7 @@ export default function RequestForm() {
           />
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>심부름 금액</label>
             {errors.reward && (
               <ErrorText>심부름 금액을 입력해주세요.</ErrorText>
@@ -144,14 +144,14 @@ export default function RequestForm() {
           />
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>요청장소</label>
             {errors.detailAddress && (
               <ErrorText>상세주소를 입력해주세요.</ErrorText>
             )}
           </div>
           <p className="color-grey">매칭되었을 때에만 상세주소가 공개돼요.</p>
-          <input className="section-disabled" defaultValue="서현동" disabled />
+          <input className="section__disabled" defaultValue="서현동" disabled />
           <input
             placeholder="상세주소를 입력해주세요."
             type="text"
@@ -159,7 +159,7 @@ export default function RequestForm() {
           />
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>전화번호</label>
             {errors.phoneNumber && (
               <ErrorText>전화번호를 입력해주세요.</ErrorText>
@@ -174,49 +174,52 @@ export default function RequestForm() {
           />
         </SectionWrapper>
         <SectionWrapper>
-          <div className="section-title">
+          <div className="section__title">
             <label>이용약관</label>
             {(errors.term1 || errors.term2) && (
               <ErrorText>약관에 동의해주세요.</ErrorText>
             )}
+            ErrorText
           </div>
-          <SectionTerms>
-            <div className="section-terms__item">
-              <input
-                type="checkbox"
-                value="termAll"
-                id="termAll"
-                {...register("termAll")}
-              />
-              <label htmlFor="termAll"></label>
-              <p>이용약관 모두 동의</p>
-            </div>
-            <div className="section-terms__item">
-              <input
-                type="checkbox"
-                value="term1"
-                id="term1"
-                {...register("term1", { required: true })}
-              />
-              <label htmlFor="term1" />
-              <p>
-                <span>(필수)</span> 요청사항을 5분 이내 취소할 수 있고 추후에
-                취소는 불가능해요.
-              </p>
-            </div>
-            <div className="section-terms__item">
-              <input
-                type="checkbox"
-                value="term2"
-                id="term2"
-                {...register("term2", { required: true })}
-              />
-              <label htmlFor="term2" />
-              <p>
-                <span>(필수)</span> 개인정보 제공 동의
-              </p>
-            </div>
-          </SectionTerms>
+          <div className="section__content">
+            <SectionTerms>
+              <div className="section__terms-item">
+                <input
+                  type="checkbox"
+                  value="termAll"
+                  id="termAll"
+                  {...register("termAll")}
+                />
+                <label htmlFor="termAll"></label>
+                <p>이용약관 모두 동의</p>
+              </div>
+              <div className="section__terms-item">
+                <input
+                  type="checkbox"
+                  value="term1"
+                  id="term1"
+                  {...register("term1", { required: true })}
+                />
+                <label htmlFor="term1" />
+                <p>
+                  <span>(필수)</span> 요청사항을 5분 이내 취소할 수 있고 추후에
+                  취소는 불가능해요.
+                </p>
+              </div>
+              <div className="section__terms-item">
+                <input
+                  type="checkbox"
+                  value="term2"
+                  id="term2"
+                  {...register("term2", { required: true })}
+                />
+                <label htmlFor="term2" />
+                <p>
+                  <span>(필수)</span> 개인정보 제공 동의
+                </p>
+              </div>
+            </SectionTerms>
+          </div>
         </SectionWrapper>
       </form>
       <input
@@ -246,30 +249,4 @@ const RequestFormWrapper = styled.div`
       padding: 1rem 0;
     }
   }
-`;
-
-const SectionTerms = styled.div`
-  display: flex;
-  flex-direction: column;
-  .section-terms__item {
-    display: flex;
-    align-items: center;
-
-    p {
-      margin-left: 1.4rem;
-      ${({ theme }) => theme.font("medium")}
-      span {
-        color: ${({ theme }) => theme.color.primary};
-      }
-    }
-  }
-  .section-terms__item + .section-terms__item {
-    margin-top: 1.5rem;
-  }
-`;
-
-const ErrorText = styled.p`
-  margin-left: 2rem;
-  color: ${({ theme }) => theme.color.fail};
-  ${({ theme }) => theme.font("small")}
 `;

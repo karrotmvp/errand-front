@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
-import { SectionWrapper } from "@styles/shared";
+import { SectionWrapper, StickyFooter } from "@styles/shared";
 import { useErrandDetail } from "@api/errands";
 
 // type ErrandDetailProps = {};
@@ -19,7 +19,7 @@ export default function ErrandDetail() {
     throw new Error();
   }
   const { status, data } = useErrandDetail(params.id);
-  
+
   return (
     <ErrandDetailWrapper>
       <ScreenHelmet title="상세페이지" />
@@ -37,21 +37,21 @@ export default function ErrandDetail() {
             </div>
             <p>{data?.errand.detail}</p>
             <SectionWrapper>
-              <div className="section-title">
-                <label>요청제목</label>
+              <div className="section__title">
+                <h3>요청제목</h3>
               </div>
               <input type="text" value={data?.errand.reward} disabled />
             </SectionWrapper>
             <SectionWrapper>
-              <div className="section-title">
-                <label>요청장소</label>
+              <div className="section__title">
+                <h3>요청장소</h3>
               </div>
               <input type="text" value={data?.errand.region.name} disabled />
             </SectionWrapper>
           </div>
-          <div className="errand-detail__footer">
+          <StickyFooter>
             <button onClick={moveToApplyForm}>일단 지원하기</button>
-          </div>
+          </StickyFooter>
         </>
       ) : (
         <div>로딩 중</div>
@@ -90,22 +90,6 @@ const ErrandDetailWrapper = styled.div`
         ${({ theme }) => theme.font("medium")}
         margin-top: 2.3rem;
         margin-bottom: 3.8rem;
-      }
-    }
-    &__footer {
-      position: sticky;
-      bottom: 0;
-      width: 100%;
-      padding: 1.2rem 2rem;
-      background: white;
-
-      button {
-        ${({ theme }) => theme.font("medium")}
-        color: white;
-        padding: 1.4rem 0;
-        border-radius: 0.5rem;
-        width: 100%;
-        background: ${({ theme }) => theme.color.primary};
       }
     }
   }
