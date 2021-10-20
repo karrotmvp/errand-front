@@ -1,9 +1,10 @@
 import styled from "@emotion/styled";
 import { ScreenHelmet, useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
-import { useErrandDetail } from "@api/errands";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
-import { InputWrapper } from "@styles/shared";
+import { SectionWrapper } from "@styles/shared";
+import { useErrandDetail } from "@api/errands";
+
 // type ErrandDetailProps = {};
 
 // function validateParams(props: { id?: string }): props is { id: string } {
@@ -18,6 +19,7 @@ export default function ErrandDetail() {
     throw new Error();
   }
   const { status, data } = useErrandDetail(params.id);
+  
   return (
     <ErrandDetailWrapper>
       <ScreenHelmet title="상세페이지" />
@@ -34,18 +36,18 @@ export default function ErrandDetail() {
               <span>11시간 전</span>
             </div>
             <p>{data?.errand.detail}</p>
-            <InputWrapper>
+            <SectionWrapper>
               <div className="section-title">
                 <label>요청제목</label>
               </div>
               <input type="text" value={data?.errand.reward} disabled />
-            </InputWrapper>
-            <InputWrapper>
+            </SectionWrapper>
+            <SectionWrapper>
               <div className="section-title">
                 <label>요청장소</label>
               </div>
               <input type="text" value={data?.errand.region.name} disabled />
-            </InputWrapper>
+            </SectionWrapper>
           </div>
           <div className="errand-detail__footer">
             <button onClick={moveToApplyForm}>일단 지원하기</button>

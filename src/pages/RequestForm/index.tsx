@@ -3,7 +3,7 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errands";
-import { InputWrapper } from "@styles/shared";
+import { SectionWrapper } from "@styles/shared";
 
 // type RequestFormProps = {};
 
@@ -86,7 +86,7 @@ export default function RequestForm() {
         id="errand-form"
         className="errand-request__form"
       >
-        <InputWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>카테고리</label>
             {errors.categoryId && (
@@ -99,8 +99,8 @@ export default function RequestForm() {
             <option value="3">하나뭐였지</option>
             <option value="4">기타</option>
           </select>
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>사진첨부</label>
             <span className="color-grey">(선택)</span>
@@ -108,8 +108,8 @@ export default function RequestForm() {
           <div>
             <div>풀러스</div>
           </div>
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>요청제목</label>
             {errors.title && <ErrorText>제목을 입력해주세요.</ErrorText>}
@@ -119,8 +119,8 @@ export default function RequestForm() {
             type="text"
             {...register("title", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>세부사항</label>
             {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
@@ -129,8 +129,8 @@ export default function RequestForm() {
             placeholder="세부사항을 입력하세요."
             {...register("detail", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>심부름 금액</label>
             {errors.reward && (
@@ -142,8 +142,8 @@ export default function RequestForm() {
             type="number"
             {...register("reward", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>요청장소</label>
             {errors.detailAddress && (
@@ -157,8 +157,8 @@ export default function RequestForm() {
             type="text"
             {...register("detailAddress", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>전화번호</label>
             {errors.phoneNumber && (
@@ -172,15 +172,15 @@ export default function RequestForm() {
             defaultValue="1234"
             {...register("phoneNumber", { required: true })}
           />
-        </InputWrapper>
-        <InputWrapper>
+        </SectionWrapper>
+        <SectionWrapper>
           <div className="section-title">
             <label>이용약관</label>
             {(errors.term1 || errors.term2) && (
               <ErrorText>약관에 동의해주세요.</ErrorText>
             )}
           </div>
-          <div className="section-terms">
+          <SectionTerms>
             <div className="section-terms__item">
               <input
                 type="checkbox"
@@ -216,8 +216,8 @@ export default function RequestForm() {
                 <span>(필수)</span> 개인정보 제공 동의
               </p>
             </div>
-          </div>
-        </InputWrapper>
+          </SectionTerms>
+        </SectionWrapper>
       </form>
       <input
         type="submit"
@@ -245,6 +245,26 @@ const RequestFormWrapper = styled.div`
       background: tan;
       padding: 1rem 0;
     }
+  }
+`;
+
+const SectionTerms = styled.div`
+  display: flex;
+  flex-direction: column;
+  .section-terms__item {
+    display: flex;
+    align-items: center;
+
+    p {
+      margin-left: 1.4rem;
+      ${({ theme }) => theme.font("medium")}
+      span {
+        color: ${({ theme }) => theme.color.primary};
+      }
+    }
+  }
+  .section-terms__item + .section-terms__item {
+    margin-top: 1.5rem;
   }
 `;
 

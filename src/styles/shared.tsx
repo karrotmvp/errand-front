@@ -1,7 +1,7 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const InputWrapper = styled.div`
+export const SectionWrapper = styled.div`
   & + & {
     margin-top: 3.8rem;
   }
@@ -11,30 +11,10 @@ export const InputWrapper = styled.div`
     align-items: center;
     margin-bottom: 0.6rem;
 
-    label {
+    & > h3,
+    & > label {
       ${({ theme }) => theme.font("small", "bold")}
     }
-  }
-
-  .section-terms {
-    display: flex;
-    flex-direction: column;
-    &__item {
-      display: flex;
-      align-items: center;
-
-      p {
-        margin-left: 1.4rem;
-        ${({ theme }) => theme.font("medium")}
-        span {
-          color: ${({ theme }) => theme.color.primary};
-        }
-      }
-    }
-  }
-
-  .section-terms__item + .section-terms__item {
-    margin-top: 1.5rem;
   }
 
   .section-disabled {
@@ -78,9 +58,11 @@ export const InputWrapper = styled.div`
       border: none;
     }
   }
+
   input:disabled {
     background: ${({ theme }) => theme.color.grey8};
   }
+
   textarea {
     height: 16rem;
   }

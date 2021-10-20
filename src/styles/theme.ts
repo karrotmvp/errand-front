@@ -3,7 +3,7 @@ import { FontSize, FontWeight } from "./emotion";
 
 const FONT_SIZE = {
   small: "1.3rem",
-  medium: "1.5rem",
+  medium: "1.6rem",
   large: "2rem",
   xlarge: "2.5rem",
 };
