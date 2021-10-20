@@ -23,6 +23,9 @@ export default function Home() {
 
 const Wrapper = styled.main`
   position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow-y: scroll;
   p {
     ${({ theme }) => css`
       ${theme.container}
@@ -31,8 +34,13 @@ const Wrapper = styled.main`
   }
   .home-fixed__fab {
     position: fixed;
-    right: 2rem;
     bottom: 2rem;
+    right: 2rem;
+
+    /* position: sticky;
+    bottom: 0;
+    display: flex;
+    justify-content: flex-end; */
 
     button {
       width: 4rem;
