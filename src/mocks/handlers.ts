@@ -1,17 +1,21 @@
 import { rest } from "msw";
 import { applyList, errandDetail, errandList, resume, user } from "./dummy";
-
+const DEFAULT_RESPONSE = {
+  status: "OK",
+  statusCode: 200,
+  message: "message",
+};
 export const handlers = [
   // errand
   rest.get("/errands", (req, res, ctx) => {
     const lastId = req.url.searchParams.get("lastId");
     const size = req.url.searchParams.get("size");
 
-    return res(ctx.json(errandList));
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: errandList }));
   }),
 
   rest.post("/errands", (req, res, ctx) => {
-    return res(ctx.json({ id: 1 }));
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: { id: 1 } }));
   }),
 
   rest.get("/errands/:errandId", (req, res, ctx) => {
@@ -39,43 +43,106 @@ export const handlers = [
     my.didIApply = true;
     my.wasIChosen = true;
 
-    return res(ctx.json(my));
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: my }));
   }),
 
   rest.get("/errands/:errandId/helpers", (req, res, ctx) => {
-    return res(ctx.json(applyList));
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: applyList }));
   }),
 
   rest.get("/errands/:errandId/helpers/:helperId", (req, res, ctx) => {
-    return res(ctx.json(resume));
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: resume }));
   }),
 
-  rest.patch("/", (req, res, ctx) => {
-    return;
+  rest.patch("/errands/:id/helper", (req, res, ctx) => {
+    return res(
+      ctx.json({
+        ...DEFAULT_RESPONSE,
+        message: "성공",
+      })
+    );
+  }),
+
+  rest.patch("/errands/:id/complete", (req, res, ctx) => {
+    return res(
+      ctx.json({
+        ...DEFAULT_RESPONSE,
+        message: "성공",
+      })
+    );
+  }),
+
+  rest.get("/errands/:id/helper-count", (req, res, ctx) => {
+    const can = {
+      canApply: true,
+      helperCtn: 3,
+    };
+    const cant = {
+      canApply: false,
+      helperCtn: 5,
+    };
+    return res(
+      ctx.json({
+        ...DEFAULT_RESPONSE,
+        data: can,
+      })
+    );
+  }),
+  // my
+  rest.get("/my/errands", (req, res, ctx) => {
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: {} }));
+  }),
+
+  rest.get("/my/help", (req, res, ctx) => {
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: {} }));
   }),
 
   // help
   rest.post("/help", (req, res, ctx) => {
-    return;
+    return res(
+      ctx.json({
+        ...DEFAULT_RESPONSE,
+        message: "성공",
+      })
+    );
   }),
 
-  //user
-  rest.get("/my", (req, res, ctx) => {
-    return res(ctx.json(user));
-  }),
-
+  //users
   rest.get("/users/:id", (req, res, ctx) => {
-    return res(ctx.json(user));
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: user }));
+  }),
+
+  rest.patch("/users/category", (req, res, ctx) => {
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: user }));
+  }),
+
+  rest.get("/users/my", (req, res, ctx) => {
+    return res(
+      ctx.json({
+        ...DEFAULT_RESPONSE,
+        data: { ...user, daangnId: "8a190fa9bb5d4d89b3944dc8c5b3a102" },
+      })
+    );
   }),
 
   // ETC
   rest.get("/region", (req, res, ctx) => {
     const regionId = req.url.searchParams.get("regionId");
 
-    return;
+    return res(
+      ctx.json({
+        ...DEFAULT_RESPONSE,
+        data: {
+          name: "역삼1동",
+          name1: "서울특별시",
+          name2: "강남구",
+          name3: "역삼1동",
+        },
+      })
+    );
   }),
 
   rest.post("/login", (req, res, ctx) => {
-    return;
+    return res(ctx.json({ ...DEFAULT_RESPONSE, data: {} }));
   }),
 ];

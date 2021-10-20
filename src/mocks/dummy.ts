@@ -232,5 +232,14 @@ export const resume: Resume = {
     nickname: "Christine",
     regionName: "연남동",
     mannerPoint: 40,
+    profileImgUrl: DEFAULT_THUMBNAIL,
   },
 };
+
+
+export const region = {
+  name: "역삼1동",
+  name1: "서울특별시",
+  name2: "강남구", 
+  name3: "역삼1동"
+}
