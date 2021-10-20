@@ -1,7 +1,7 @@
 import styled from "@emotion/styled";
 import { ScreenHelmet, useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
-import { useErrandDetail } from "@api/errand";
+import { useErrandDetail } from "@api/errands";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
 import { InputWrapper } from "@styles/shared";
 // type ErrandDetailProps = {};

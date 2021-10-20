@@ -4,7 +4,7 @@ import { ScreenHelmet } from "@karrotframe/navigator";
 import List from "@pages/Home/List";
 import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
-import { useMyInfo } from "@api/user";
+import { useMyInfo } from "@api/users";
 
 // type MyProps = {};
 

@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { registerErrand } from "@api/errand";
+import { registerErrand } from "@api/errands";
 import { InputWrapper } from "@styles/shared";
 
 // type RequestFormProps = {};
