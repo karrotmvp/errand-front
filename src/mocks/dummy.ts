@@ -1,11 +1,5 @@
 import { DEFAULT_THUMBNAIL } from "@constant/default";
-import {
-  Errand,
-  ErrandDetail,
-  ErrandDetailResponseBody,
-  Resume,
-  User,
-} from "@type/response";
+import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 
 export const errandList: Errand[] = [
   {
@@ -236,10 +230,9 @@ export const resume: Resume = {
   },
 };
 
-
 export const region = {
   name: "역삼1동",
   name1: "서울특별시",
-  name2: "강남구", 
-  name3: "역삼1동"
-}
+  name2: "강남구",
+  name3: "역삼1동",
+};

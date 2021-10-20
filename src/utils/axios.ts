@@ -1,5 +1,5 @@
 import axios from "axios";
-import envs from "../config/dotenv";
+// import envs from "../config/dotenv";
 
 const fetchWrap = async ({
   method,

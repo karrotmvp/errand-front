@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
 import { Errand, ErrandDetail, Resume, User } from "@type/response";
-import { ErrandRequestParams, TabType } from "@type/client";
+import { ErrandRequestParams } from "@type/client";
 import {
   ErrandRegisterRequestBody,
   SelecteHelperRequestBody,

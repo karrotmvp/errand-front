@@ -1,17 +1,16 @@
-import React from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet, useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
 import { useErrandDetail } from "@api/errand";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
 import { InputWrapper } from "@styles/shared";
-type ErrandDetailProps = {};
+// type ErrandDetailProps = {};
 
-function validateParams(props: { id?: string }): props is { id: string } {
-  return Boolean(props.id);
-}
+// function validateParams(props: { id?: string }): props is { id: string } {
+//   return Boolean(props.id);
+// }
 
-export default function ErrandDetail({}: ErrandDetailProps) {
+export default function ErrandDetail() {
   const moveToApplyForm = usePush("/apply-form");
   const params = useParams<{ id: string }>();
 

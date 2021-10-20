@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet } from "@karrotframe/navigator";
 import List from "@pages/Home/List";
@@ -6,9 +6,9 @@ import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
 import { useMyInfo } from "@api/user";
 
-type MyProps = {};
+// type MyProps = {};
 
-export default function My({}: MyProps) {
+export default function My() {
   const [activeTabKey, setActiveTabKey] = useState<string>("tab_1");
   const { status, data: myInfo } = useMyInfo();
 

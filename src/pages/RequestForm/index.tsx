@@ -1,11 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import styled from "@emotion/styled";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errand";
 import { InputWrapper } from "@styles/shared";
 
-type RequestFormProps = {};
+// type RequestFormProps = {};
 
 const defaultValues = {
   categoryId: 1,
@@ -31,7 +31,7 @@ type Inputs = {
   term2: boolean;
 };
 
-export default function RequestForm({}: RequestFormProps) {
+export default function RequestForm() {
   const {
     register,
     handleSubmit,

@@ -1,15 +1,11 @@
 import { rest } from "msw";
 import { applyList, errandDetail, errandList, resume, user } from "./dummy";
-const DEFAULT_RESPONSE = {
-  status: "OK",
-  statusCode: 200,
-  message: "message",
-};
+
 export const handlers = [
   // errand
   rest.get("/errands", (req, res, ctx) => {
-    const lastId = req.url.searchParams.get("lastId");
-    const size = req.url.searchParams.get("size");
+    // const lastId = req.url.searchParams.get("lastId");
+    // const size = req.url.searchParams.get("size");
     return res(ctx.status(200), ctx.json(errandList));
   }),
 
@@ -31,9 +27,9 @@ export const handlers = [
     notApply.wasIChosen = false;
 
     const rejected = errandDetail;
-    notApply.isMine = false;
-    notApply.didIApply = true;
-    notApply.wasIChosen = false;
+    rejected.isMine = false;
+    rejected.didIApply = true;
+    rejected.wasIChosen = false;
 
     const chosen = errandDetail;
     chosen.errand.customerPhoneNumber = "01012345678";
@@ -76,10 +72,10 @@ export const handlers = [
       canApply: true,
       helperCtn: 3,
     };
-    const cant = {
-      canApply: false,
-      helperCtn: 5,
-    };
+    // const cant = {
+    //   canApply: false,
+    //   helperCtn: 5,
+    // };
     return res(
       ctx.status(200),
       ctx.json({
@@ -124,8 +120,6 @@ export const handlers = [
 
   // ETC
   rest.get("/region", (req, res, ctx) => {
-    const regionId = req.url.searchParams.get("regionId");
-
     return res(
       ctx.status(200),
       ctx.json({
