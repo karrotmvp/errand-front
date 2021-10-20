@@ -131,6 +131,19 @@ export default function RequestForm({}: RequestFormProps) {
         </InputWrapper>
         <InputWrapper>
           <div className="section-title">
+            <label>심부름 금액</label>
+            {errors.reward && (
+              <ErrorText>심부름 금액을 입력해주세요.</ErrorText>
+            )}
+          </div>
+          <input
+            placeholder="금액을 입력해주세요."
+            type="number"
+            {...register("reward", { required: true })}
+          />
+        </InputWrapper>
+        <InputWrapper>
+          <div className="section-title">
             <label>요청장소</label>
             {errors.detailAddress && (
               <ErrorText>상세주소를 입력해주세요.</ErrorText>
@@ -139,7 +152,7 @@ export default function RequestForm({}: RequestFormProps) {
           <p className="color-grey">매칭되었을 때에만 상세주소가 공개돼요.</p>
           <input className="section-disabled" defaultValue="서현동" disabled />
           <input
-            placeholder="상세주소를 입력하세요."
+            placeholder="상세주소를 입력해주세요."
             type="text"
             {...register("detailAddress", { required: true })}
           />
