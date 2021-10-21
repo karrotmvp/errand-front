@@ -5,6 +5,7 @@ import { DEFAULT_THUMBNAIL } from "@constant/default";
 import { SectionWrapper, StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { useErrandDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
+import { Meatballs } from "@assets/icon";
 
 // function validateParams(props: { id?: string }): props is { id: string } {
 //   return Boolean(props.id);
@@ -19,11 +20,15 @@ export default function ErrandDetail() {
   }
   const { status, data } = useErrandDetail(params.id);
 
+  const handleClickMeatballs = () => {
+    
+  };
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet
         customBackButton={<div>커스텀</div>}
         title="상세페이지"
+        appendRight={<Meatballs />}
       />
       <ErrandDetailWrapper>
         {status !== "loading" ? (

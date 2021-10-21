@@ -88,7 +88,6 @@ const RightAppender = () => {
 
 const AppenderWrapper = styled.div`
   display: flex;
-  margin-right: 2rem;
 
   & > div {
     display: flex;

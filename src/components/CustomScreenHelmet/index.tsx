@@ -23,6 +23,11 @@ const leftButtonStyle = {
   alignItems: "center",
 };
 
+const rightButtonStyle = {
+  marginRight: "2rem",
+  display: "flex",
+  alignItems: "center",
+};
 const CustomBack = () => (
   <div style={leftButtonStyle}>
     <Back />
@@ -41,7 +46,7 @@ const Title = ({ title }: { title: React.ReactNode }) => (
 );
 
 const AppendRight = ({ appendRight }: { appendRight: React.ReactNode }) => (
-  <>{appendRight}</>
+  <div style={rightButtonStyle}>{appendRight}</div>
 );
 
 export default CustomScreenHelmet;
