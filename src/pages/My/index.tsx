@@ -13,31 +13,33 @@ export default function My() {
   const { status, data: myInfo } = useMyInfo();
 
   return (
-    <MyWrapper>
+    <>
       <ScreenHelmet title={<div>마이페이지</div>} />
-      <div className="my__info">
-        {status !== "loading" && myInfo && <Profile {...myInfo} />}
-      </div>
-      <Tabs
-        className="my__tabs"
-        activeTabKey={activeTabKey}
-        tabs={[
-          {
-            key: "tab_1",
-            buttonLabel: "내 부탁",
-            component: () => <List tabType="request" />,
-          },
-          {
-            key: "tab_2",
-            buttonLabel: "도움내역",
-            component: () => <List tabType="help" />,
-          },
-        ]}
-        onTabChange={(key) => {
-          setActiveTabKey(key);
-        }}
-      />
-    </MyWrapper>
+      <MyWrapper>
+        <div className="my__info">
+          {status !== "loading" && myInfo && <Profile {...myInfo} />}
+        </div>
+        <Tabs
+          className="my__tabs"
+          activeTabKey={activeTabKey}
+          tabs={[
+            {
+              key: "tab_1",
+              buttonLabel: "내 부탁",
+              component: () => <List tabType="request" />,
+            },
+            {
+              key: "tab_2",
+              buttonLabel: "도움내역",
+              component: () => <List tabType="help" />,
+            },
+          ]}
+          onTabChange={(key) => {
+            setActiveTabKey(key);
+          }}
+        />
+      </MyWrapper>
+    </>
   );
 }
 

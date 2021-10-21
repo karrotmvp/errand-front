@@ -39,8 +39,6 @@ export default function Item({ item, tabType }: ItemProps) {
   );
 }
 
-// const renderItemStatus = ({ status }) => {};
-
 const ItemWrapper = styled.li`
   padding: 1.4rem 0;
   & + & {

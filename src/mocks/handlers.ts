@@ -89,7 +89,7 @@ export const handlers = [
     return res(ctx.status(200), ctx.json({}));
   }),
 
-  rest.get("/my/help", (req, res, ctx) => {
+  rest.get("/my/helps", (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 
