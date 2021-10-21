@@ -1,4 +1,4 @@
-import { Gear, Me } from "@assets/icon";
+import { Gear, Map, Me } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -13,7 +13,10 @@ export default function Home() {
       <CustomScreenHelmet title="서현동" appendRight={RightAppender()} />
       <HomeWrapper>
         <ContentWrapper>
-          <p className="home-header__left__info">심부름을 요청해보세요.</p>
+          <div className="home-banner">
+            <Map />
+            <span>서현동</span>의 심부름
+          </div>
           <List tabType="main" />
         </ContentWrapper>
         <button className="home-fixed__fab" onClick={moveToApplyForm}>
@@ -27,16 +30,33 @@ export default function Home() {
 const HomeWrapper = styled.main`
   height: 100%;
   position: relative;
+  .home-banner {
+    ${({ theme }) => theme.container}
+    margin-top: 2rem;
+    font-size: 1.7rem;
+    font-weight: 700;
+
+    display: flex;
+    align-items: center;
+
+    span {
+      color: ${({ theme }) => theme.color.primary};
+    }
+  }
 
   .home-fixed__fab {
     position: absolute;
     bottom: 2rem;
     right: 2rem;
 
-    width: 4rem;
-    height: 4rem;
+    width: 5.7rem;
+    height: 5.7rem;
     background: ${({ theme }) => theme.color.primary};
-    border-radius: 2rem;
+    border-radius: 3rem;
+
+    color: white;
+    // TODO. SVG 아이콘으로 대체
+    font-size: 23px;
   }
 `;
 const ContentWrapper = styled.div`
