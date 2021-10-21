@@ -1,7 +1,7 @@
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
-import { ScreenHelmet } from "@karrotframe/navigator";
 import List from "./List";
 
 export default function Home() {
@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-      <ScreenHelmet title="서현동" appendRight={RightAppender()} />
+      <CustomScreenHelmet title="서현동" appendRight={RightAppender()} />
       <HomeWrapper>
         <ContentWrapper>
           <p className="home-header__left__info">심부름을 요청해보세요.</p>

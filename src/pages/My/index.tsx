@@ -1,12 +1,10 @@
 import React, { useState } from "react";
 import styled from "@emotion/styled";
-import { ScreenHelmet } from "@karrotframe/navigator";
 import List from "@pages/Home/List";
 import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
 import { useMyInfo } from "@api/users";
-
-// type MyProps = {};
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 
 export default function My() {
   const [activeTabKey, setActiveTabKey] = useState<string>("tab_1");
@@ -14,7 +12,7 @@ export default function My() {
 
   return (
     <>
-      <ScreenHelmet title={<div>마이페이지</div>} />
+      <CustomScreenHelmet title={<div>마이페이지</div>} />
       <MyWrapper>
         <div className="my__info">
           {status !== "loading" && myInfo && <Profile {...myInfo} />}

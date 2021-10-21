@@ -1,8 +1,8 @@
 import { useMyInfo } from "@api/users";
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Profile from "@components/Profile";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
-import { ScreenHelmet } from "@karrotframe/navigator";
 import {
   ErrorText,
   SectionTerms,
@@ -11,8 +11,6 @@ import {
   StickyPageWrpper,
 } from "@styles/shared";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-// type ApplyFormProps = {};
 
 const defaultValues = {
   phoneNumber: "01012345678",
@@ -45,7 +43,7 @@ export default function ApplyForm() {
 
   return (
     <StickyPageWrpper>
-      <ScreenHelmet title="지원하기" />
+      <CustomScreenHelmet title="지원하기" />
       <ApplyFormWrapper onSubmit={handleSubmit(onSubmit)} id="apply-form">
         {status !== "loading" && my ? (
           <>

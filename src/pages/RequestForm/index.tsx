@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import styled from "@emotion/styled";
-import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
+import { useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errands";
 import {
@@ -10,8 +10,7 @@ import {
   StickyFooter,
   StickyPageWrpper,
 } from "@styles/shared";
-
-// type RequestFormProps = {};
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 
 const defaultValues = {
   categoryId: 1,
@@ -86,7 +85,7 @@ export default function RequestForm() {
 
   return (
     <StickyPageWrpper>
-      <ScreenHelmet title="요청하기" />
+      <CustomScreenHelmet title="요청하기" />
       <RequestFormWrapper onSubmit={handleSubmit(onSubmit)} id="errand-form">
         <SectionWrapper>
           <div className="section__title">

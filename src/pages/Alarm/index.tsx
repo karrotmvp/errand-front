@@ -1,9 +1,7 @@
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToggleSwitch from "@components/ToggleSwitch";
 import styled from "@emotion/styled";
-import { ScreenHelmet } from "@karrotframe/navigator";
 import { SectionWrapper } from "@styles/shared";
-
-// type AlarmProps = {};
 
 export default function Alarm() {
   const passFn = (fn: Function, params: any) => (result: boolean) => {
@@ -15,7 +13,7 @@ export default function Alarm() {
 
   return (
     <>
-      <ScreenHelmet title="알람설정" />
+      <CustomScreenHelmet title="알람설정" />
       <AlarmWrapper>
         <SectionWrapper>
           <div className="section__title">

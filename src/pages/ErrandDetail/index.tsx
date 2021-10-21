@@ -1,11 +1,10 @@
 import styled from "@emotion/styled";
-import { ScreenHelmet, useParams } from "@karrotframe/navigator";
+import { useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
 import { SectionWrapper, StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { useErrandDetail } from "@api/errands";
-
-// type ErrandDetailProps = {};
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 
 // function validateParams(props: { id?: string }): props is { id: string } {
 //   return Boolean(props.id);
@@ -22,7 +21,10 @@ export default function ErrandDetail() {
 
   return (
     <StickyPageWrpper>
-      <ScreenHelmet title="상세페이지" />
+      <CustomScreenHelmet
+        customBackButton={<div>커스텀</div>}
+        title="상세페이지"
+      />
       <ErrandDetailWrapper>
         {status !== "loading" ? (
           <>

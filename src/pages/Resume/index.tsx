@@ -1,11 +1,9 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { ScreenHelmet } from "@karrotframe/navigator";
 import Profile from "@components/Profile";
 import { SectionWrapper, StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { useHelperDetail } from "@api/errands";
-
-// type ResumeProps = {};
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 
 export default function Resume() {
   const { status, data: helperDetail } = useHelperDetail(1, 1);
@@ -13,7 +11,7 @@ export default function Resume() {
   const handleClick = () => {};
   return (
     <StickyPageWrpper>
-      <ScreenHelmet title="지원자 정보" />
+      <CustomScreenHelmet title="지원자 정보" />
       <ResumeWrapper>
         <SectionWrapper>
           <div className="section__title">
