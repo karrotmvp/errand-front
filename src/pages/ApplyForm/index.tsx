@@ -77,7 +77,7 @@ export default function ApplyForm() {
             </SectionWrapper>
             <SectionWrapper>
               <div className="section__title">
-                <label htmlFor="">하고 싶은 말</label>
+                <label htmlFor="">하고싶은 말</label>
                 {errors.appeal && (
                   <ErrorText>하고싶은 말을 입력해주세요.</ErrorText>
                 )}

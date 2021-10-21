@@ -24,6 +24,7 @@ export const SectionWrapper = styled.div`
 
   .section__content {
     margin-top: 1.1rem;
+    ${({ theme }) => theme.font("medium")}
   }
 
   .section__disabled {

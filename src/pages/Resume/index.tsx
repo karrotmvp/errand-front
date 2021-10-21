@@ -41,7 +41,7 @@ export default function Resume() {
             <h3>하고싶은 말</h3>
           </div>
           <div className="section__content">
-            {status !== "loading" && helperDetail?.appeal}
+            {status !== "loading" && <p>{helperDetail?.appeal}</p>}
           </div>
         </SectionWrapper>
       </ResumeWrapper>
