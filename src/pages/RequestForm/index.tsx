@@ -84,13 +84,9 @@ export default function RequestForm() {
   }, [isAll, setValue, getValues]);
 
   return (
-    <RequestFormWrapper>
+    <>
       <ScreenHelmet title="요청하기" />
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        id="errand-form"
-        className="errand-request__form"
-      >
+      <RequestFormWrapper onSubmit={handleSubmit(onSubmit)} id="errand-form">
         <SectionWrapper>
           <div className="section__title">
             <label>카테고리</label>
@@ -226,24 +222,15 @@ export default function RequestForm() {
             </SectionTerms>
           </div>
         </SectionWrapper>
-      </form>
+      </RequestFormWrapper>
       <StickyFooter>
-        <button form="errand-form" >작성완료</button>
+        <button form="errand-form">작성완료</button>
       </StickyFooter>
-    </RequestFormWrapper>
+    </>
   );
 }
 
-const RequestFormWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-
-  .errand-request {
-    &__form {
-      flex: 1;
-      padding: 2rem 0;
-      ${({ theme }) => theme.container}
-    }
-  }
+const RequestFormWrapper = styled.form`
+  padding: 2rem 0;
+  ${({ theme }) => theme.container}
 `;

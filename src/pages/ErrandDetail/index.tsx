@@ -21,42 +21,44 @@ export default function ErrandDetail() {
   const { status, data } = useErrandDetail(params.id);
 
   return (
-    <ErrandDetailWrapper>
+    <>
       <ScreenHelmet title="상세페이지" />
-      {status !== "loading" ? (
-        <>
-          <div className="errand-detail__image">
-            <img src={DEFAULT_THUMBNAIL} alt="dummy" />
-          </div>
-          <div className="errand-detail__contents">
-            <h2>{data?.errand.title}</h2>
-            <div className="errand-detail__contents__sub-info">
-              <span>{data?.errand.category.name}</span>
-              <span>{data?.errand.region.name}</span>
-              <span>11시간 전</span>
+      <ErrandDetailWrapper>
+        {status !== "loading" ? (
+          <>
+            <div className="errand-detail__image">
+              <img src={DEFAULT_THUMBNAIL} alt="dummy" />
             </div>
-            <p>{data?.errand.detail}</p>
-            <SectionWrapper>
-              <div className="section__title">
-                <h3>요청제목</h3>
+            <div className="errand-detail__contents">
+              <h2>{data?.errand.title}</h2>
+              <div className="errand-detail__contents__sub-info">
+                <span>{data?.errand.category.name}</span>
+                <span>{data?.errand.region.name}</span>
+                <span>11시간 전</span>
               </div>
-              <input type="text" value={data?.errand.reward} disabled />
-            </SectionWrapper>
-            <SectionWrapper>
-              <div className="section__title">
-                <h3>요청장소</h3>
-              </div>
-              <input type="text" value={data?.errand.region.name} disabled />
-            </SectionWrapper>
-          </div>
-          <StickyFooter>
-            <button onClick={moveToApplyForm}>일단 지원하기</button>
-          </StickyFooter>
-        </>
-      ) : (
-        <div>로딩 중</div>
-      )}
-    </ErrandDetailWrapper>
+              <p>{data?.errand.detail}</p>
+              <SectionWrapper>
+                <div className="section__title">
+                  <h3>요청제목</h3>
+                </div>
+                <input type="text" value={data?.errand.reward} disabled />
+              </SectionWrapper>
+              <SectionWrapper>
+                <div className="section__title">
+                  <h3>요청장소</h3>
+                </div>
+                <input type="text" value={data?.errand.region.name} disabled />
+              </SectionWrapper>
+            </div>
+          </>
+        ) : (
+          <div>로딩 중</div>
+        )}
+      </ErrandDetailWrapper>
+      <StickyFooter>
+        <button onClick={moveToApplyForm}>일단 지원하기</button>
+      </StickyFooter>
+    </>
   );
 }
 

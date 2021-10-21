@@ -6,9 +6,12 @@ import { ScreenHelmet } from "@karrotframe/navigator";
 
 export default function Resume() {
   return (
-    <ResumeWrapper>
+    <>
       <ScreenHelmet title="지원자 정보" />
-    </ResumeWrapper>
+      <ResumeWrapper>
+        
+      </ResumeWrapper>
+    </>
   );
 }
 

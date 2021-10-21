@@ -8,44 +8,44 @@ export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
 
   return (
-    <Wrapper>
+    <>
       <ScreenHelmet title="서현동" appendRight={RightAppender()} />
-      <p className="home-header__left__info">심부름을 요청해보세요.</p>
-      <List tabType="main" />
-      <div className="home-fixed__fab">
-        <button className="home__fab" onClick={moveToApplyForm}>
+      <HomeWrapper>
+        <ContentWrapper>
+          <p className="home-header__left__info">심부름을 요청해보세요.</p>
+          <List tabType="main" />
+        </ContentWrapper>
+        <button className="home-fixed__fab" onClick={moveToApplyForm}>
           +
         </button>
-      </div>
-    </Wrapper>
+      </HomeWrapper>
+    </>
   );
 }
 
-const Wrapper = styled.main`
-  height: 100vh;
+const HomeWrapper = styled.main`
+  height: 100%;
+  position: relative;
+
+  .home-fixed__fab {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+
+    width: 4rem;
+    height: 4rem;
+    background: ${({ theme }) => theme.color.primary};
+    border-radius: 2rem;
+  }
+`;
+const ContentWrapper = styled.div`
+  height: 100%;
   overflow-y: scroll;
   p {
     ${({ theme }) => css`
       ${theme.container}
       ${theme.font("large", "bold")}
     `}
-  }
-  .home-fixed__fab {
-    position: fixed;
-    bottom: 2rem;
-    right: 2rem;
-
-    /* position: sticky;
-    bottom: 0;
-    display: flex;
-    justify-content: flex-end; */
-
-    button {
-      width: 4rem;
-      height: 4rem;
-      background: ${({ theme }) => theme.color.primary};
-      border-radius: 2rem;
-    }
   }
 `;
 

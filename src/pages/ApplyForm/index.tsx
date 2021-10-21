@@ -43,15 +43,11 @@ export default function ApplyForm() {
   };
 
   return (
-    <ApplyFormWrapper>
+    <>
       <ScreenHelmet title="지원하기" />
-      {status !== "loading" && my ? (
-        <>
-          <form
-            onSubmit={handleSubmit(onSubmit)}
-            id="apply-form"
-            className="apply-form__contents"
-          >
+      <ApplyFormWrapper onSubmit={handleSubmit(onSubmit)} id="apply-form">
+        {status !== "loading" && my ? (
+          <>
             <SectionWrapper>
               <div className="section__title">
                 <h3>프로필</h3>
@@ -114,25 +110,21 @@ export default function ApplyForm() {
                 </SectionTerms>
               </div>
             </SectionWrapper>
-          </form>
-          <StickyFooter>
-            <StickyFooter>
-              <button form="apply-form">지원하기</button>
-            </StickyFooter>
-          </StickyFooter>
-        </>
-      ) : (
-        <div>로딩 중</div>
-      )}
-    </ApplyFormWrapper>
+          </>
+        ) : (
+          <div>로딩 중</div>
+        )}
+      </ApplyFormWrapper>
+      <StickyFooter>
+        <StickyFooter>
+          <button form="apply-form">지원하기</button>
+        </StickyFooter>
+      </StickyFooter>
+    </>
   );
 }
 
-const ApplyFormWrapper = styled.div`
-  .apply-form {
-    &__contents {
-      margin: 3rem 0;
-      ${({ theme }) => theme.container}
-    }
-  }
+const ApplyFormWrapper = styled.form`
+  margin: 3rem 0;
+  ${({ theme }) => theme.container}
 `;
