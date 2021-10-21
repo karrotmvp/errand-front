@@ -8,6 +8,7 @@ import {
   SectionTerms,
   SectionWrapper,
   StickyFooter,
+  StickyPageWrpper,
 } from "@styles/shared";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -43,7 +44,7 @@ export default function ApplyForm() {
   };
 
   return (
-    <>
+    <StickyPageWrpper>
       <ScreenHelmet title="지원하기" />
       <ApplyFormWrapper onSubmit={handleSubmit(onSubmit)} id="apply-form">
         {status !== "loading" && my ? (
@@ -116,11 +117,9 @@ export default function ApplyForm() {
         )}
       </ApplyFormWrapper>
       <StickyFooter>
-        <StickyFooter>
-          <button form="apply-form">지원하기</button>
-        </StickyFooter>
+        <button form="apply-form">지원하기</button>
       </StickyFooter>
-    </>
+    </StickyPageWrpper>
   );
 }
 

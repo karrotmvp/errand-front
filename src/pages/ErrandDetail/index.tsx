@@ -2,7 +2,7 @@ import styled from "@emotion/styled";
 import { ScreenHelmet, useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
-import { SectionWrapper, StickyFooter } from "@styles/shared";
+import { SectionWrapper, StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { useErrandDetail } from "@api/errands";
 
 // type ErrandDetailProps = {};
@@ -21,7 +21,7 @@ export default function ErrandDetail() {
   const { status, data } = useErrandDetail(params.id);
 
   return (
-    <>
+    <StickyPageWrpper>
       <ScreenHelmet title="상세페이지" />
       <ErrandDetailWrapper>
         {status !== "loading" ? (
@@ -58,7 +58,7 @@ export default function ErrandDetail() {
       <StickyFooter>
         <button onClick={moveToApplyForm}>일단 지원하기</button>
       </StickyFooter>
-    </>
+    </StickyPageWrpper>
   );
 }
 

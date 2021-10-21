@@ -103,7 +103,15 @@ export const SectionTerms = styled.div`
     margin-top: 1.5rem;
   }
 `;
+export const StickyPageWrpper = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
+  & > *:first-child {
+    flex: 1;
+  }
+`;
 export const StickyFooter = styled.div`
   position: sticky;
   bottom: 0;
@@ -115,7 +123,7 @@ export const StickyFooter = styled.div`
     ${({ theme }) => theme.font("medium")}
     color: white;
     padding: 1.4rem 0;
-    border-radius: 0.5rem;
+    border-radius: 0.8rem;
     width: 100%;
     background: ${({ theme }) => theme.color.primary};
   }

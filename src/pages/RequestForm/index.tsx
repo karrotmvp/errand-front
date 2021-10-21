@@ -8,6 +8,7 @@ import {
   SectionTerms,
   SectionWrapper,
   StickyFooter,
+  StickyPageWrpper,
 } from "@styles/shared";
 
 // type RequestFormProps = {};
@@ -84,7 +85,7 @@ export default function RequestForm() {
   }, [isAll, setValue, getValues]);
 
   return (
-    <>
+    <StickyPageWrpper>
       <ScreenHelmet title="요청하기" />
       <RequestFormWrapper onSubmit={handleSubmit(onSubmit)} id="errand-form">
         <SectionWrapper>
@@ -180,7 +181,6 @@ export default function RequestForm() {
             {(errors.term1 || errors.term2) && (
               <ErrorText>약관에 동의해주세요.</ErrorText>
             )}
-            ErrorText
           </div>
           <div className="section__content">
             <SectionTerms>
@@ -226,7 +226,7 @@ export default function RequestForm() {
       <StickyFooter>
         <button form="errand-form">작성완료</button>
       </StickyFooter>
-    </>
+    </StickyPageWrpper>
   );
 }
 
