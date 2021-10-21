@@ -1,12 +1,6 @@
 import { useQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
-import {
-  Errand,
-  ErrandDetail,
-  ErrandDetailResponseBody,
-  Resume,
-  User,
-} from "@type/response";
+import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 import { ErrandRequestParams } from "@type/client";
 import {
   ErrandRegisterRequestBody,
@@ -40,11 +34,11 @@ export const useHelperList = () => {
   return useQuery(["helperList"], () => getHelperList());
 };
 
-const getHelperDetail = (): Promise<Resume> => {
-  return GET(`/errands/:id/helpers/:id`);
+const getHelperDetail = (errandId: number, userId: number): Promise<Resume> => {
+  return GET(`/errands/:${errandId}/helpers/:${userId}`);
 };
-export const useHelperDetail = () => {
-  return useQuery(["helperDetail"], () => getHelperDetail());
+export const useHelperDetail = (errandId: number, userId: number) => {
+  return useQuery(["helperDetail"], () => getHelperDetail(errandId, userId));
 };
 
 export const selectHelper = (requestBody: SelecteHelperRequestBody) => {
