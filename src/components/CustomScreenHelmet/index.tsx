@@ -4,27 +4,44 @@ import { ScreenHelmet } from "@karrotframe/navigator";
 const CustomScreenHelmet: typeof ScreenHelmet = ({ title, appendRight }) => {
   return (
     <ScreenHelmet
-      customBackButton={CustomBack}
+      customBackButton={CustomBack()}
+      customCloseButton={CustomClose()}
       title={<Title title={title} />}
       appendRight={<AppendRight appendRight={appendRight} />}
     />
   );
 };
 
-const style = {
+const titleStyle = {
   fontSize: "1.6rem",
   fontWeight: 500,
-  padding: "1.6rem 0",
 };
 
-const CustomBack = () => <Back />;
+const leftButtonStyle = {
+  marginLeft: "2rem",
+  display: "flex",
+  alignItems: "center",
+};
+
+const CustomBack = () => (
+  <div style={leftButtonStyle}>
+    <Back />
+  </div>
+);
+
+// TODO. close svg 받아서 교체할 것
+const CustomClose = () => (
+  <div style={leftButtonStyle}>
+    <Back />
+  </div>
+);
 
 const Title = ({ title }: { title: React.ReactNode }) => (
-  <div style={style}>{title}</div>
+  <div style={titleStyle}>{title}</div>
 );
 
 const AppendRight = ({ appendRight }: { appendRight: React.ReactNode }) => (
-  <div style={style}>{appendRight}</div>
+  <>{appendRight}</>
 );
 
 export default CustomScreenHelmet;

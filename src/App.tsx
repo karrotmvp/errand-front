@@ -1,9 +1,11 @@
 import { ThemeProvider } from "@emotion/react";
+import { css } from "@emotion/css";
 import { Navigator, Screen } from "@karrotframe/navigator";
 import { GlobalStyle } from "./styles/global-style";
 import { theme } from "./styles/theme";
 import { initMSW } from "./lib/msw";
 import { useEffect } from "react";
+
 import envs from "./config/dotenv";
 import mini from "./lib/mini";
 import styled from "@emotion/styled";
@@ -17,6 +19,7 @@ import {
   My,
   Resume,
 } from "./pages";
+import { checkMobileType } from "@utils/utils";
 
 initMSW();
 
@@ -35,12 +38,17 @@ function App() {
     });
   }, []);
 
+  const NavigatorStyle = css`
+    --kf_navigator_navbar-height: 5.8rem;
+  `;
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Test />
       <Navigator
-        theme="Cupertino"
+        theme={checkMobileType()}
+        className={NavigatorStyle}
         onClose={() => {
           console.log("close. bye~");
         }}

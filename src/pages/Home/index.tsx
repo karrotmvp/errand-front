@@ -1,3 +1,4 @@
+import { Gear, Me } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
@@ -55,15 +56,25 @@ const RightAppender = () => {
 
   return (
     <AppenderWrapper>
-      <div onClick={moveToMy}>마이</div>
-      <div onClick={moveToAlarm}>알람</div>
+      <div onClick={moveToMy}>
+        <Me />
+      </div>
+      <div onClick={moveToAlarm}>
+        <Gear />
+      </div>
     </AppenderWrapper>
   );
 };
 
 const AppenderWrapper = styled.div`
   display: flex;
+  margin-right: 2rem;
+
+  & > div {
+    display: flex;
+    align-items: center;
+  }
   & > div + div {
-    margin-left: 1rem;
+    margin-left: 1.8rem;
   }
 `;
