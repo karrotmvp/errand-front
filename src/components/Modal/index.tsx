@@ -4,12 +4,12 @@ import { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 
 type ModalProps = {
-  className: string;
-  onClose: (Event) => void;
-  maskClosable: string;
-  closable: string;
+  className?: string;
+  onClose: any;
+  maskClosable: boolean;
+  closable: true;
   visible: boolean;
-  children: string;
+  children: React.ReactNode;
 };
 
 export default function Modal({
@@ -20,14 +20,14 @@ export default function Modal({
   visible,
   children,
 }: ModalProps) {
-  const onMaskClick = (e: Event) => {
-    if (e.target === e.currentTarget) {
+  const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (maskClosable && onClose) {
       onClose(e);
     }
   };
 
-  const close = (e: Event) => {
-    if (onClose) {
+  const close = (e: React.MouseEvent<HTMLElement>) => {
+    if (closable && onClose) {
       onClose(e);
     }
   };
@@ -42,8 +42,10 @@ export default function Modal({
   }, []);
   return (
     <Portal>
-      <ModalOverlay />
-      <ModalWrapper></ModalWrapper>
+      <ModalOverlay visible={true} />
+      <ModalWrapper visible={true} onClick={onMaskClick}>
+        <div className="modal__inner">{children}</div>
+      </ModalWrapper>
     </Portal>
   );
 }
@@ -89,6 +91,7 @@ const ModalWrapper = styled.div<{ visible: boolean }>`
 type PortalProps = {
   children: React.ReactNode;
 };
+
 const Portal = ({ children }: PortalProps) => {
   const rootElement = useMemo(() => document.getElementById("modal-root"), []);
 

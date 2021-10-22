@@ -8,7 +8,7 @@ const FONT_SIZE = {
   xlarge: "2.5rem",
 };
 const FONT_WEIGHT = {
-  regular: 300,
+  regular: 400,
   medium: 500,
   bold: 700,
   black: 900,
