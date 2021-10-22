@@ -77,13 +77,13 @@ export default function ErrandDetail() {
         )}
       </ErrandDetailWrapper>
       {isOpen && (
-        <Modal
-          visible={isOpen}
-          closable={true}
-          maskClosable={true}
-          onClose={closeModal}
-        >
-          <div>test</div>
+        <Modal maskClosable onClose={closeModal} childrenPosition="middle">
+          <div
+            style={{ background: "white", height: "5rem", fontSize: "20px" }}
+          >
+            <span onClick={closeModal}>아니오 </span>
+            <span onClick={closeModal}> 네</span>
+          </div>
         </Modal>
       )}
       <StickyFooter>
@@ -146,7 +146,7 @@ const ErrandDetailWrapper = styled.div`
       }
 
       p {
-        ${({ theme }) => theme.font("medium")}
+        ${({ theme }) => theme.font("medium", "regular")}
         margin-top: 2.3rem;
         margin-bottom: 3.8rem;
       }

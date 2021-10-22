@@ -1,33 +1,23 @@
 import styled from "@emotion/styled";
-
 import { useEffect, useMemo } from "react";
 import { createPortal } from "react-dom";
 
+type ChildrenPosition = "top" | "middle" | "bottom";
 type ModalProps = {
-  className?: string;
   onClose: any;
   maskClosable: boolean;
-  closable: true;
-  visible: boolean;
+  childrenPosition?: ChildrenPosition;
   children: React.ReactNode;
 };
 
 export default function Modal({
-  className,
   onClose,
   maskClosable,
-  closable,
-  visible,
   children,
+  childrenPosition = "middle",
 }: ModalProps) {
   const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
     if (maskClosable && onClose) {
-      onClose(e);
-    }
-  };
-
-  const close = (e: React.MouseEvent<HTMLElement>) => {
-    if (closable && onClose) {
       onClose(e);
     }
   };
@@ -42,17 +32,16 @@ export default function Modal({
   }, []);
   return (
     <Portal>
-      <ModalOverlay visible={true} />
-      <ModalWrapper visible={true} onClick={onMaskClick}>
+      <ModalOverlay />
+      <ModalWrapper onClick={onMaskClick} childrenPosition={childrenPosition}>
         <div className="modal__inner">{children}</div>
       </ModalWrapper>
     </Portal>
   );
 }
 
-const ModalOverlay = styled.div<{ visible: boolean }>`
+const ModalOverlay = styled.div`
   box-sizing: border-box;
-  display: ${(props) => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;
   left: 0;
@@ -61,9 +50,8 @@ const ModalOverlay = styled.div<{ visible: boolean }>`
   background-color: rgba(0, 0, 0, 0.6);
   z-index: 999;
 `;
-const ModalWrapper = styled.div<{ visible: boolean }>`
+const ModalWrapper = styled.div<{ childrenPosition: ChildrenPosition }>`
   box-sizing: border-box;
-  display: ${(props) => (props.visible ? "block" : "none")};
   position: fixed;
   top: 0;
   right: 0;
@@ -73,7 +61,20 @@ const ModalWrapper = styled.div<{ visible: boolean }>`
   overflow: auto;
   outline: 0;
 
-  .modal__inner {
+  display: flex;
+  flex-direction: column;
+  justify-content: ${({ childrenPosition }) => {
+    switch (childrenPosition) {
+      case "top":
+        return "start";
+      case "middle":
+        return "center";
+      case "bottom":
+        return "flex-end";
+    }
+  }};
+
+  /* .modal__inner {
     box-sizing: border-box;
     position: relative;
     box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
@@ -81,11 +82,10 @@ const ModalWrapper = styled.div<{ visible: boolean }>`
     border-radius: 10px;
     width: 360px;
     max-width: 480px;
-    top: 50%;
     transform: translateY(-50%);
     margin: 0 auto;
     padding: 40px 20px;
-  }
+  } */
 `;
 
 type PortalProps = {
