@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - dev
-
 jobs:
   deploy:
     name: Build, Deploy to S3 bucket
