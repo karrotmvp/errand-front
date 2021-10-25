@@ -31,7 +31,7 @@ jobs:
         run: |
           touch .env
           echo REACT_APP_APP_ID="$DEV_APP_ID" >> .env
-          echo REACT_APP_API_URL="$DEV_API_URL" >> .env
+          echo REACT_APP_API_BASE_URL="$DEV_API_BASE_URL" >> .env
           echo REACT_APP_MINI_PRESET_URL="$DEV_MINI_PRESET_URL" >> .env
           cat .env
 
