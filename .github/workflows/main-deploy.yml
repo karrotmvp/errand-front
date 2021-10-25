@@ -37,10 +37,10 @@ jobs:
           cat .env
 
       - name: Npm install
-        run: npm install
+        run: yarn
 
       - name: Build
-        run: npm run build
+        run: yarn run build
 
       - name: Transfer to S3 for serving static
         uses: jakejarvis/s3-sync-action@main
