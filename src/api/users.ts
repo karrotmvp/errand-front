@@ -1,6 +1,6 @@
 import { useQuery } from "react-query";
-import { GET, POST } from "@utils/axios";
-import { Region, User } from "@type/response";
+import { GET } from "@utils/axios";
+import { User } from "@type/response";
 
 const getUserProfile = (id: number): Promise<User> => {
   return GET(`/users/:${id}`);

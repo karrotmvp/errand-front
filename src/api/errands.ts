@@ -44,3 +44,9 @@ export const useHelperDetail = (errandId: number, userId: number) => {
 export const selectHelper = (requestBody: SelecteHelperRequestBody) => {
   return PATCH(`/errands/:id/helper`, requestBody);
 };
+
+export const confirmIsAppliable = (
+  errandId: string
+): Promise<{ helperCnt: number; canApply: boolean }> => {
+  return GET(`errands/:${errandId}/helper-count`);
+};

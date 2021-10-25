@@ -75,6 +75,7 @@ export default function RequestForm() {
       setValue("term1", termAll);
       setValue("term2", termAll);
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchTermAll, setValue, getValues]);
 
   useEffect(() => {

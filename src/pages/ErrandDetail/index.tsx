@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { confirmIsAppliable, useErrandDetail } from "@api/errands";

@@ -57,8 +57,6 @@
     "workerDirectory": "public"
   },
   "devDependencies": {
-    "craco-alias": "^3.0.1",
-    "cross-env": "^7.0.3",
     "customize-cra": "^1.0.0",
     "dotenv": "^10.0.0",
     "react-app-rewired": "^2.1.8"

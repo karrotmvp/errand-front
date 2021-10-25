@@ -4,10 +4,7 @@ import { Navigator, Screen } from "@karrotframe/navigator";
 import { GlobalStyle } from "./styles/global-style";
 import { theme } from "./styles/theme";
 import { initMSW } from "./lib/msw";
-import { useEffect } from "react";
 
-import envs from "./config/dotenv";
-import mini from "./lib/mini";
 import styled from "@emotion/styled";
 import {
   Alarm,
@@ -20,23 +17,24 @@ import {
   Resume,
 } from "./pages";
 import { checkMobileType } from "@utils/utils";
+import { withParamsId } from "./hoc/withParamsId";
 
 initMSW();
 
 function App() {
-  useEffect(() => {
-    mini.startPreset({
-      preset: envs.PRESET,
-      params: {
-        appId: envs.APP_ID,
-      },
-      onSuccess: function (result) {
-        if (result && result.code) {
-          console.log(result.code);
-        }
-      },
-    });
-  }, []);
+  // useEffect(() => {
+  //   mini.startPreset({
+  //     preset: envs.PRESET_URL,
+  //     params: {
+  //       appId: envs.APP_ID,
+  //     },
+  //     onSuccess: function (result) {
+  //       if (result && result.code) {
+  //         console.log(result.code);
+  //       }
+  //     },
+  //   });
+  // }, []);
 
   const NavigatorStyle = css`
     --kf_navigator_navbar-height: 5.8rem;
@@ -54,7 +52,7 @@ function App() {
         }}
       >
         <Screen path="/" component={Home} />
-        <Screen path="/errands/:id" component={ErrandDetail} />
+        <Screen path="/errands/:id" component={withParamsId(ErrandDetail)} />
         <Screen path="/appliers" component={ApplierList} />
         <Screen path="/appliers/:id" component={Resume} />
         <Screen path="/apply-form" component={ApplyForm} />

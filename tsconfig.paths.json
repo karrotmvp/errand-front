@@ -1,20 +1,20 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@api/*": ["./api/*"],
-      "@config/*": ["./config/*"],
-      "@hooks/*": ["./hooks/*"],
-      "@lib/*": ["./lib/*"],
-      "@mocks/*": ["./mocks/*"],
-      "@pages/*": ["./pages/*"],
-      "@styles/*": ["./styles/*"],
-      "@type/*": ["./types/*"],
-      "@utils/*": ["./utils/*"],
-      "@constant/*": ["./constant/*"],
-      "@components/*": ["./components/*"],
-      "@assets/*": ["./assets/*"],
-      "@hoc/*": ["./hoc/*"]
+      "@api/*": ["src/api/*"],
+      "@config/*": ["src/config/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@lib/*": ["src/lib/*"],
+      "@mocks/*": ["src/mocks/*"],
+      "@pages/*": ["src/pages/*"],
+      "@styles/*": ["src/styles/*"],
+      "@type/*": ["src/types/*"],
+      "@utils/*": ["src/utils/*"],
+      "@constant/*": ["src/constant/*"],
+      "@components/*": ["src/components/*"],
+      "@assets/*": ["src/assets/*"],
+      "@hoc/*": ["src/hoc/*"]
     }
   }
 }
