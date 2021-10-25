@@ -10,6 +10,10 @@ jobs:
     name: Build, Deploy to S3 bucket
     runs-on: [ubuntu-latest]
 
+    strategy:
+      matrix:
+        node-version: [12.16.x]
+
     steps:
       - uses: actions/checkout@v2
 
@@ -17,7 +21,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-    
+
       - name: Create .env
         shell: bash
         env:
