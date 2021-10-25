@@ -1,19 +1,21 @@
+import envs from "@config/dotenv";
 import { rest } from "msw";
 import { applyList, errandDetail, errandList, resume, user } from "./dummy";
 
+const BASE_URL = envs.API_BASE_URL;
 export const handlers = [
   // errand
-  rest.get("/errands", (req, res, ctx) => {
+  rest.get(`${BASE_URL}errands`, (req, res, ctx) => {
     // const lastId = req.url.searchParams.get("lastId");
     // const size = req.url.searchParams.get("size");
     return res(ctx.status(200), ctx.json(errandList));
   }),
 
-  rest.post("/errands", (req, res, ctx) => {
+  rest.post(`${BASE_URL}errands`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ id: 1 }));
   }),
 
-  rest.get("/errands/:errandId", (req, res, ctx) => {
+  rest.get(`${BASE_URL}errands/:errandId`, (req, res, ctx) => {
     const my = errandDetail;
     my.errand.customerPhoneNumber = "01012345678";
     my.errand.detailAddress = "123-45 303호";
@@ -41,15 +43,18 @@ export const handlers = [
     return res(ctx.status(200), ctx.json(my));
   }),
 
-  rest.get("/errands/:errandId/helpers", (req, res, ctx) => {
+  rest.get(`${BASE_URL}errands/:errandId/helpers`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(applyList));
   }),
 
-  rest.get("/errands/:errandId/helpers/:helperId", (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json(resume));
-  }),
+  rest.get(
+    `${BASE_URL}errands/:errandId/helpers/:helperId"`,
+    (req, res, ctx) => {
+      return res(ctx.status(200), ctx.json(resume));
+    }
+  ),
 
-  rest.patch("/errands/:id/helper", (req, res, ctx) => {
+  rest.patch(`${BASE_URL}errands/:id/helper`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -58,7 +63,7 @@ export const handlers = [
     );
   }),
 
-  rest.patch("/errands/:id/complete", (req, res, ctx) => {
+  rest.patch(`${BASE_URL}errands/:id/complete`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -67,7 +72,7 @@ export const handlers = [
     );
   }),
 
-  rest.get("/errands/:id/helper-count", (req, res, ctx) => {
+  rest.get(`${BASE_URL}errands/:id/helper-count`, (req, res, ctx) => {
     const can = {
       canApply: true,
       helperCtn: 3,
@@ -76,25 +81,20 @@ export const handlers = [
     //   canApply: false,
     //   helperCtn: 5,
     // };
-    return res(
-      ctx.status(200),
-      ctx.json({
-        can,
-      })
-    );
+    return res(ctx.status(200), ctx.json(can));
   }),
-  
+
   // my
-  rest.get("/my/errands", (req, res, ctx) => {
+  rest.get(`${BASE_URL}my/errands`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 
-  rest.get("/my/helps", (req, res, ctx) => {
+  rest.get(`${BASE_URL}my/helps`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 
   // help
-  rest.post("/help", (req, res, ctx) => {
+  rest.post(`${BASE_URL}help`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -104,15 +104,15 @@ export const handlers = [
   }),
 
   //users
-  rest.get("/users/:id", (req, res, ctx) => {
+  rest.get(`${BASE_URL}users/:id`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(user));
   }),
 
-  rest.patch("/users/category", (req, res, ctx) => {
+  rest.patch(`${BASE_URL}users/category`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json(user));
   }),
 
-  rest.get("/users/my", (req, res, ctx) => {
+  rest.get(`${BASE_URL}users/my`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({ ...user, daangnId: "8a190fa9bb5d4d89b3944dc8c5b3a102" })
@@ -120,7 +120,7 @@ export const handlers = [
   }),
 
   // ETC
-  rest.get("/region", (req, res, ctx) => {
+  rest.get(`${BASE_URL}region`, (req, res, ctx) => {
     return res(
       ctx.status(200),
       ctx.json({
@@ -132,7 +132,7 @@ export const handlers = [
     );
   }),
 
-  rest.post("/login", (req, res, ctx) => {
+  rest.post(`${BASE_URL}login`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({}));
   }),
 ];

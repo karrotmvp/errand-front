@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 
-interface ToggleSwitchProps {
+type ToggleSwitchProps = {
   callback: (result: boolean) => void;
   defaultValue?: boolean;
-}
+};
 
 export default function ToggleSwitch({
   callback,

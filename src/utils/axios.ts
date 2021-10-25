@@ -1,5 +1,5 @@
 import axios from "axios";
-// import envs from "../config/dotenv";
+import envs from "../config/dotenv";
 
 const fetchWrap = async ({
   method,
@@ -14,7 +14,7 @@ const fetchWrap = async ({
 }): Promise<any> => {
   try {
     const config = {
-      // baseURL: envs.BASE_URL,
+      baseURL: envs.API_BASE_URL,
       withCredentials: true,
       params,
     };
