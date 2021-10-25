@@ -1,54 +1,54 @@
-    name: Deploy to main
+name: Deploy to main
     
-    on:
-      push:
-        branches:
-          - main
-    
-    jobs:
-      deploy:
-        name: Build, Deploy to S3 bucket
-        runs-on: [ubuntu-latest]
-    
-        strategy:
-          matrix:
-            node-version: [12.16.x]
-    
-        steps:
-          - uses: actions/checkout@v2
-    
-          - name: Use Node.js ${{ matrix.node-version }}
-            uses: actions/setup-node@v1
-            with:
-              node-version: ${{ matrix.node-version }}
-          - name: Create .env
-            shell: bash
-            env:
-              PROD_APP_ID: ${{ secrets.PROD_APP_ID }}
-              PROD_API_URL: ${{ secrets.PROD_API_URL }}
-              PROD_MINI_PRESET_URL: ${{ secrets.PROD_MINI_PRESET_URL }}
-              GA_KEY: ${{ secrets.GA_KEY }}
-            run: |
-              touch .env
-              echo APP_ID="$PROD_APP_ID" >> .env
-              echo API_URL="$PROD_API_URL" >> .env
-              echo MINI_PRESET_URL="$PROD_MINI_PRESET_URL" >> .env
-              echo GA_KEY="$GA_KEY" >> .env
-              cat .env
-    
-          - name: Npm install
-            run: npm install
-    
-          - name: Build
-            run: npm run build
-    
-          - name: Transfer to S3 for serving static
-            uses: jakejarvis/s3-sync-action@main
-            with:
-              args: --acl public-read --follow-symlinks --delete
-            env:
-              AWS_S3_BUCKET: ap-madang-client-production
-              AWS_ACCESS_KEY_ID: ${{ secrets. AWS_IAM_MANAGER_KEY_ID }}
-              AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
-              AWS_REGION: ap-northeast-2
-              SOURCE_DIR: 'dist'
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    name: Build, Deploy to S3 bucket
+    runs-on: [ubuntu-latest]
+
+    strategy:
+      matrix:
+        node-version: [12.16.x]
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Create .env
+        shell: bash
+        env:
+          PROD_APP_ID: ${{ secrets.PROD_APP_ID }}
+          PROD_API_URL: ${{ secrets.PROD_API_URL }}
+          PROD_MINI_PRESET_URL: ${{ secrets.PROD_MINI_PRESET_URL }}
+          GA_KEY: ${{ secrets.GA_KEY }}
+        run: |
+          touch .env
+          echo APP_ID="$PROD_APP_ID" >> .env
+          echo API_URL="$PROD_API_URL" >> .env
+          echo MINI_PRESET_URL="$PROD_MINI_PRESET_URL" >> .env
+          echo GA_KEY="$GA_KEY" >> .env
+          cat .env
+
+      - name: Npm install
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Transfer to S3 for serving static
+        uses: jakejarvis/s3-sync-action@main
+        with:
+          args: --acl public-read --follow-symlinks --delete
+        env:
+          AWS_S3_BUCKET: ap-madang-client-production
+          AWS_ACCESS_KEY_ID: ${{ secrets. AWS_IAM_MANAGER_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
+          AWS_REGION: ap-northeast-2
+          SOURCE_DIR: 'dist'
