@@ -2,21 +2,23 @@ import styled from "@emotion/styled";
 import { useParams } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
-import { useErrandDetail } from "@api/errands";
+import { confirmIsAppliable, useErrandDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import { useState } from "react";
 import Modal from "@components/Modal";
+import { WithParamsIdProps } from "src/hoc/withParamsId";
 
 // function validateParams(props: { id?: string }): props is { id: string } {
 //   return Boolean(props.id);
 // }
 
-export default function ErrandDetail() {
-  const moveToApplyForm = usePush("/apply-form");
-  const params = useParams<{ id: string }>();
+// 페이지 컴포는 렌더되어야 하는데, 훅이 실행되지 않아야하는 경우에 HOC
+
+export default function ErrandDetail({ id }: WithParamsIdProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const moveToApplyForm = usePush("/apply-form");
 
   const openModal = () => {
     setIsOpen(true);
@@ -25,10 +27,17 @@ export default function ErrandDetail() {
     setIsOpen(false);
   };
 
-  if (!params.id) {
-    throw new Error();
-  }
-  const { status, data } = useErrandDetail(params.id);
+  const { status, data } = useErrandDetail(id);
+  confirmIsAppliable(id);
+
+  const handleClickApply = async () => {
+    const res = await confirmIsAppliable(id);
+    if (res.canApply) {
+      moveToApplyForm();
+    } else {
+      console.log("지원 불가 모달 띄우기");
+    }
+  };
 
   return (
     <StickyPageWrpper>
@@ -56,9 +65,7 @@ export default function ErrandDetail() {
               <div className="errand-detail__contents__info">
                 <div>
                   <div>심부름 금액</div>
-                  {/* Elon 이런 경우 보통 어떻게 처리하나?  */}
-                  {/* <div>{convertToKRW(data?.errand.reward)}</div> */}
-                  <div>5000원</div>
+                  <div>{convertToKRW(data?.errand.reward ?? 0)}</div>
                 </div>
                 <div>
                   <div>요청장소</div>
@@ -87,7 +94,7 @@ export default function ErrandDetail() {
         </Modal>
       )}
       <StickyFooter>
-        <button onClick={moveToApplyForm}>일단 지원하기</button>
+        <button onClick={handleClickApply}>일단 지원하기</button>
       </StickyFooter>
     </StickyPageWrpper>
   );
