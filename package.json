@@ -3,7 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@craco/craco": "^6.3.0",
     "@emotion/css": "^11.5.0",
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
@@ -30,9 +29,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start": "craco start",
-    "build": "craco build",
-    "test": "craco test",
+    "start": "react-app-rewired start",
+    "build": "react-app-rewired build",
+    "test": "react-app-rewired test",
     "eject": "react-scripts eject",
     "qr": "node QR-generator.js"
   },
@@ -60,6 +59,8 @@
   "devDependencies": {
     "craco-alias": "^3.0.1",
     "cross-env": "^7.0.3",
-    "dotenv": "^10.0.0"
+    "customize-cra": "^1.0.0",
+    "dotenv": "^10.0.0",
+    "react-app-rewired": "^2.1.8"
   }
 }

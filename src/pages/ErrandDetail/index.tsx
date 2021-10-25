@@ -8,7 +8,7 @@ import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import { useState } from "react";
 import Modal from "@components/Modal";
-import { WithParamsIdProps } from "src/hoc/withParamsId";
+import { WithParamsIdProps } from "@hoc/withParamsId";
 
 // function validateParams(props: { id?: string }): props is { id: string } {
 //   return Boolean(props.id);
