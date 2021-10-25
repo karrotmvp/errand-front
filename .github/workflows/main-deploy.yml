@@ -1,5 +1,5 @@
 name: Deploy to main
-    
+
 on:
   push:
     branches:
@@ -10,10 +10,6 @@ jobs:
     name: Build, Deploy to S3 bucket
     runs-on: [ubuntu-latest]
 
-    strategy:
-      matrix:
-        node-version: [12.16.x]
-
     steps:
       - uses: actions/checkout@v2
 
@@ -21,13 +17,13 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
+
       - name: Create .env
         shell: bash
         env:
           PROD_APP_ID: ${{ secrets.PROD_APP_ID }}
           PROD_API_URL: ${{ secrets.PROD_API_URL }}
           PROD_MINI_PRESET_URL: ${{ secrets.PROD_MINI_PRESET_URL }}
-          GA_KEY: ${{ secrets.GA_KEY }}
         run: |
           touch .env
           echo APP_ID="$PROD_APP_ID" >> .env
@@ -36,19 +32,19 @@ jobs:
           echo GA_KEY="$GA_KEY" >> .env
           cat .env
 
-      - name: Npm install
-        run: yarn
+      - name: Install Dependencies
+        run: npm install
 
       - name: Build
-        run: yarn run build
+        run: npm run build
 
       - name: Transfer to S3 for serving static
-        uses: jakejarvis/s3-sync-action@main
+        uses: jakejarvis/s3-sync-action@master
         with:
           args: --acl public-read --follow-symlinks --delete
         env:
-          AWS_S3_BUCKET: ap-madang-client-production
+          AWS_S3_BUCKET: errand-client
           AWS_ACCESS_KEY_ID: ${{ secrets. AWS_IAM_MANAGER_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_IAM_MANAGER_SECRET_ACCESS_KEY }}
           AWS_REGION: ap-northeast-2
-          SOURCE_DIR: 'dist'
+          SOURCE_DIR: "build"
