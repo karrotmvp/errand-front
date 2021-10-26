@@ -1,4 +1,4 @@
-import { useQuery } from "react-query";
+import { useQuery, useInfiniteQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
 import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 import { ErrandRequestParams } from "@type/client";
@@ -6,13 +6,24 @@ import {
   ErrandRegisterRequestBody,
   SelecteHelperRequestBody,
 } from "@type/request";
+import { ERREND_REQUEST_SIZE } from "@constant/request";
 
-const getErrandList = (lastId: number, size: number = 7): Promise<Errand[]> => {
-  return GET(`/errands?lastId=${lastId}&size=${size}`);
+const getErrandList = (lastId = 0): Promise<Errand[]> => {
+  return GET(`/errands?lastId=${lastId}&size=${ERREND_REQUEST_SIZE}`);
 };
-export const useErrandList = ({ lastId, size }: ErrandRequestParams) => {
-  return useQuery(["errandList", lastId, size], () =>
-    getErrandList(lastId, size)
+
+export const useErrandList = ({ lastId }: ErrandRequestParams) => {
+  return useInfiniteQuery(
+    ["errandList", lastId],
+    ({ pageParam = 0 }): Promise<Errand[]> => {
+      return GET(`/errands?lastId=${lastId}&size=${ERREND_REQUEST_SIZE}`);
+    },
+    {
+      getNextPageParam: (lastErrans: Errand[]) => {
+        const lastErrand = lastErrans[lastErrans.length - 1];
+        return lastErrand.id ?? false;
+      },
+    }
   );
 };
 

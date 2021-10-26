@@ -4,5 +4,4 @@ export type ErrandStatus = "WAIT" | "PROCEED" | "COMPLETE" | "FAIL";
 
 export type ErrandRequestParams = {
   lastId: number;
-  size?: number;
 };
