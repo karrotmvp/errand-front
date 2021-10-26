@@ -9,18 +9,28 @@ type ListProps = {
 };
 
 export default function List({ tabType }: ListProps) {
-  const { status, data: list } = useErrandList({
-    lastId: 1,
-    size: ERREND_REQUEST_SIZE,
+  const {
+    status,
+    data,
+    fetchNextPage,
+    hasNextPage,
+    isFetching,
+    isFetchingNextPage,
+  } = useErrandList({
+    lastId: 0,
   });
 
   return (
     <ListWrapper>
       <ul>
-        {status !== "loading" ? (
-          list?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
-        ) : (
+        {status === "loading" ? (
           <li>로딩 중</li>
+        ) : status === "error" ? (
+          <li>에뤄</li>
+        ) : (
+          data?.pages?.map((group, i) =>
+            group.map((item) => <Item {...{ item, tabType }} key={item.id} />)
+          )
         )}
       </ul>
     </ListWrapper>
