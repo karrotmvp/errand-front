@@ -56,15 +56,20 @@ export const useHelperList = () => {
   return useQuery(["helperList"], () => getHelperList());
 };
 
-const getHelperDetail = (errandId: number, userId: number): Promise<Resume> => {
-  return GET(`/errands/:${errandId}/helpers/:${userId}`);
+const getHelperDetail = (
+  errandId: number,
+  helperId: number
+): Promise<Resume> => {
+  return GET(`/errands/:${errandId}/helpers/:${helperId}`);
 };
-export const useHelperDetail = (errandId: number, userId: number) => {
-  return useQuery(["helperDetail"], () => getHelperDetail(errandId, userId));
+export const useHelperDetail = (errandId: number, helperId: number) => {
+  return useQuery(["helperDetail", errandId, helperId], () =>
+    getHelperDetail(errandId, helperId)
+  );
 };
 
-export const selectHelper = (requestBody: SelecteHelperRequestBody) => {
-  return PATCH(`/errands/:id/helper`, requestBody);
+export const selectHelper = (errandId: number, helperId: number) => {
+  return PATCH(`/errands/:${errandId}/helper`, { helperId });
 };
 
 export const confirmIsAppliable = (

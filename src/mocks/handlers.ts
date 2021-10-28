@@ -139,8 +139,4 @@ export const handlers = [
       })
     );
   }),
-
-  rest.post(`${BASE_URL}login`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}));
-  }),
 ];
