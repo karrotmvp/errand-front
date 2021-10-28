@@ -7,6 +7,7 @@ import { useCallback, useEffect, useState } from "react";
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
     const [code, setCode] = useState<string>("");
+    const [isLogin, setIsLogin] = useState<boolean>(false);
 
     const getCodeHandler = useCallback(() => {
       const codeParams = getValueFromSearch("code");
@@ -28,24 +29,28 @@ export default function withMini(Component: React.ElementType) {
     }, []);
 
     const checkAuth = useCallback(async (code: string) => {
-      const result = await login(code);
-      console.log(result);
+      const regionId = getValueFromSearch("region_id");
+
+      if (regionId) {
+        const result = await login(code, regionId);
+        console.log(result);
+        if (result.status === "OK") {
+          setIsLogin(true);
+        }
+      }
     }, []);
 
     useEffect(() => {
-      console.log("useEffect");
       if (!code) {
-        console.log("코드가 없수");
         getCodeHandler();
       } else {
-        console.log("코드가 있수");
         checkAuth(code);
       }
     }, [code, checkAuth, getCodeHandler]);
 
-    if (!code) {
-      return <div>인증 중</div>;
-    }
+    // if (!code || !isLogin) {
+    //   return <div>로그인 중</div>;
+    // }
     return <Component {...props} />;
   };
 }

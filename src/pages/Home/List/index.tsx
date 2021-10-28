@@ -1,7 +1,5 @@
 import styled from "@emotion/styled";
 import { TabType } from "@type/client";
-import { ERREND_REQUEST_SIZE } from "@constant/request";
-import { useErrandList } from "@api/errands";
 import Item from "./Item";
 import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 
