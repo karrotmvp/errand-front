@@ -5,27 +5,19 @@ import { confirmIsAppliable, useErrandDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
-import { useState } from "react";
 import Modal from "@components/Modal";
 import { WithParamsIdProps } from "@hoc/withParamsId";
+import useModal from "@hooks/useModal";
+import { Carousel } from "react-responsive-carousel";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 // function validateParams(props: { id?: string }): props is { id: string } {
 //   return Boolean(props.id);
 // }
 
-// 페이지 컴포는 렌더되어야 하는데, 훅이 실행되지 않아야하는 경우에 HOC
-
 export default function ErrandDetail({ id }: WithParamsIdProps) {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
   const moveToApplyForm = usePush("/apply-form");
-
-  const openModal = () => {
-    setIsOpen(true);
-  };
-  const closeModal = () => {
-    setIsOpen(false);
-  };
-
+  const { isOpen, openModal, closeModal } = useModal();
   const { status, data } = useErrandDetail(id);
   confirmIsAppliable(id);
 
@@ -48,9 +40,13 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
       <ErrandDetailWrapper>
         {status !== "loading" ? (
           <>
-            <div className="errand-detail__image">
-              <img src={data?.errand.imageUrls[0].url} alt="dummy" />
-            </div>
+            <Carousel showThumbs={false}>
+              {data?.errand.imageUrls.map((image) => (
+                <div className="errand-detail__image">
+                  <img src={image.url} alt="dummy" />
+                </div>
+              ))}
+            </Carousel>
             <div className="errand-detail__contents">
               <h2>{data?.errand.title}</h2>
               <div className="errand-detail__contents__title">
@@ -83,7 +79,7 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
         )}
       </ErrandDetailWrapper>
       {isOpen && (
-        <Modal maskClosable onClose={closeModal} childrenPosition="middle">
+        <Modal onClose={closeModal} childrenPosition="middle">
           <div
             style={{ background: "white", height: "5rem", fontSize: "20px" }}
           >
