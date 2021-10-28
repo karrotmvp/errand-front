@@ -1,1 +1,1 @@
-export const ERREND_REQUEST_SIZE = 5;
+export const ERREND_REQUEST_SIZE = 7;

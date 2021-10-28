@@ -1,10 +1,10 @@
 import { DEFAULT_THUMBNAIL, DEFAULT_IMAGE } from "@constant/default";
 import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 
-export const errandList: Errand[] = [
+export const errands: Errand[] = [
   {
     id: 1,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -20,7 +20,7 @@ export const errandList: Errand[] = [
   },
   {
     id: 2,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -36,7 +36,7 @@ export const errandList: Errand[] = [
   },
   {
     id: 3,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -52,7 +52,7 @@ export const errandList: Errand[] = [
   },
   {
     id: 4,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -68,7 +68,7 @@ export const errandList: Errand[] = [
   },
   {
     id: 5,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -84,7 +84,7 @@ export const errandList: Errand[] = [
   },
   {
     id: 6,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -100,7 +100,26 @@ export const errandList: Errand[] = [
   },
   {
     id: 7,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+export const myErrands: Errand[] = [
+  {
+    id: 1,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -115,8 +134,8 @@ export const errandList: Errand[] = [
     updatedAt: new Date(),
   },
   {
-    id: 8,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    id: 2,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -131,8 +150,187 @@ export const errandList: Errand[] = [
     updatedAt: new Date(),
   },
   {
-    id: 9,
-    title: "저희집 갱얼쥐 산책 부탁드려요",
+    id: 3,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 4,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 5,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 6,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 7,
+    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+];
+
+export const myHelps: Errand[] = [
+  {
+    id: 1,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 2,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 3,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 4,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 5,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 6,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    reward: 7000,
+    thumbnailUrl:
+      "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
+    status: "WAIT",
+    helpCnt: 0,
+    category: {
+      id: 1,
+      name: "벌레잡기",
+    },
+    regionName: "반포1동",
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 7,
+    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",

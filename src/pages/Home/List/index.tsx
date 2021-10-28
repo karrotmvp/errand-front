@@ -3,25 +3,29 @@ import { TabType } from "@type/client";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { useErrandList } from "@api/errands";
 import Item from "./Item";
+import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 
 type ListProps = {
   tabType: TabType;
 };
 
 export default function List({ tabType }: ListProps) {
-  const { status, data: list } = useErrandList({
-    lastId: 1,
-    size: ERREND_REQUEST_SIZE,
-  });
+  const { status, data, isFetchingFirst, isFetchingMore, fetchTriggerElement } =
+    useInfiniteScroll(tabType);
 
   return (
     <ListWrapper>
       <ul>
-        {status !== "loading" ? (
-          list?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
-        ) : (
+        {status === "loading" ? (
           <li>로딩 중</li>
+        ) : status === "error" ? (
+          <li>에뤄</li>
+        ) : (
+          data?.pages?.map((group, i) =>
+            group.map((item) => <Item {...{ item, tabType }} key={item.id} />)
+          )
         )}
+        {!isFetchingFirst && !isFetchingMore && fetchTriggerElement}
       </ul>
     </ListWrapper>
   );
