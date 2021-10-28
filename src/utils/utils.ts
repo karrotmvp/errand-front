@@ -11,10 +11,11 @@ export const checkMobileType = (): INavigatorTheme => {
     return "Cupertino";
   return "Android";
 };
+type TargetType = "code" | "preload" | "region_id";
 
-export const getcodeFromURL = (search: string) => {
-  const urlSearchParams = new URLSearchParams(search);
-  return urlSearchParams.get("code");
+export const getValueFromSearch = (target: TargetType) => {
+  const urlSearchParams = new URLSearchParams(window.location.search);
+  return urlSearchParams.get(target);
 };
 
 export const setCode = () => {};
