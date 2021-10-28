@@ -18,7 +18,6 @@ const fetchWrap = async ({
       withCredentials: true,
       params,
     };
-    console.log("범인 ", envs.API_BASE_URL);
     const { data } =
       (method === "get" && (await axios.get(url, config))) ||
       (method === "post" && (await axios.post(url, body, config))) ||

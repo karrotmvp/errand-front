@@ -18,24 +18,11 @@ import {
 } from "./pages";
 import { checkMobileType } from "@utils/utils";
 import { withParamsId } from "./hoc/withParamsId";
+import withMini from "@hoc/withMini";
 
 initMSW();
 
 function App() {
-  // useEffect(() => {
-  //   mini.startPreset({
-  //     preset: envs.PRESET_URL,
-  //     params: {
-  //       appId: envs.APP_ID,
-  //     },
-  //     onSuccess: function (result) {
-  //       if (result && result.code) {
-  //         console.log(result.code);
-  //       }
-  //     },
-  //   });
-  // }, []);
-
   const NavigatorStyle = css`
     --kf_navigator_navbar-height: 5.8rem;
   `;
@@ -51,7 +38,7 @@ function App() {
           console.log("close. bye~");
         }}
       >
-        <Screen path="/" component={Home} />
+        <Screen path="/" component={withMini(Home)} />
         <Screen path="/errands/:id" component={withParamsId(ErrandDetail)} />
         <Screen path="/appliers" component={ApplierList} />
         <Screen path="/appliers/:id" component={Resume} />
