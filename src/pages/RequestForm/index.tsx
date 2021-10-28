@@ -11,6 +11,9 @@ import {
   StickyPageWrpper,
 } from "@styles/shared";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
+import useModal from "@hooks/useModal";
+import Modal from "@components/Modal";
+import ModalInnerBox from "@components/ModalInnerBox";
 
 const defaultValues = {
   categoryId: 1,
@@ -45,7 +48,7 @@ export default function RequestForm() {
     getValues,
     formState: { errors },
   } = useForm<Inputs>({ defaultValues });
-
+  const { isOpen, openModal, closeModal } = useModal();
   const watchTermAll = watch("termAll", false);
   const isAll = watch(["term1", "term2"]).every((el) => el);
   const { push } = useNavigator();
@@ -65,6 +68,7 @@ export default function RequestForm() {
       regionId: "1234",
     });
     //TODO : 새글 등록 요청 하고 그 글의 id를 전달받아서 push
+    closeModal();
     push(`/errands/${id}`);
   };
 
@@ -75,7 +79,7 @@ export default function RequestForm() {
       setValue("term1", termAll);
       setValue("term2", termAll);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchTermAll, setValue, getValues]);
 
   useEffect(() => {
@@ -223,8 +227,20 @@ export default function RequestForm() {
           </div>
         </SectionWrapper>
       </RequestFormWrapper>
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          <ModalInnerBox
+            text={
+              "작성완료 후 수정할 수 없어요.\n완료 전 꼼꼼하게 확인해주세요."
+            }
+            leftText="뒤로가기"
+            leftCallback={closeModal}
+            rightText={<button form="errand-form">작성완료</button>}
+          />
+        </Modal>
+      )}
       <StickyFooter>
-        <button form="errand-form">작성완료</button>
+        <button onClick={openModal}>작성완료</button>
       </StickyFooter>
     </StickyPageWrpper>
   );

@@ -1,12 +1,15 @@
-import { Back } from "@assets/icon";
+import { Back, Close } from "@assets/icon";
 import { ScreenHelmet } from "@karrotframe/navigator";
+import { checkMobileType } from "@utils/utils";
 
 const CustomScreenHelmet: typeof ScreenHelmet = ({ title, appendRight }) => {
+  const theme = checkMobileType();
+
   return (
     <ScreenHelmet
       customBackButton={CustomBack()}
       customCloseButton={CustomClose()}
-      title={<Title title={title} />}
+      title={<Title title={title} theme={theme} />}
       appendRight={<AppendRight appendRight={appendRight} />}
     />
   );
@@ -28,6 +31,7 @@ const rightButtonStyle = {
   display: "flex",
   alignItems: "center",
 };
+
 const CustomBack = () => (
   <div style={leftButtonStyle}>
     <Back />
@@ -37,12 +41,16 @@ const CustomBack = () => (
 // TODO. close svg 받아서 교체할 것
 const CustomClose = () => (
   <div style={leftButtonStyle}>
-    <Back />
+    <Close stroke="white" />
   </div>
 );
 
-const Title = ({ title }: { title: React.ReactNode }) => (
-  <div style={titleStyle}>{title}</div>
+const Title = ({ title, theme }: { title: React.ReactNode; theme: string }) => (
+  <div
+    style={{ ...titleStyle, marginLeft: theme === "Android" ? "1.5rem" : "0" }}
+  >
+    {title}
+  </div>
 );
 
 const AppendRight = ({ appendRight }: { appendRight: React.ReactNode }) => (

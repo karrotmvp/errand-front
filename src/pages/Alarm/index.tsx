@@ -4,7 +4,7 @@ import styled from "@emotion/styled";
 import { SectionWrapper } from "@styles/shared";
 
 export default function Alarm() {
-  const passFn = (fn: Function, params: any) => (result: boolean) => {
+  const getCallback = (fn: Function, params: any) => (result: boolean) => {
     fn(params, result);
   };
   const testAPI = (defaultParams: string, result: boolean) => {
@@ -25,19 +25,25 @@ export default function Alarm() {
           <div className="section__content">
             <AlarmRow>
               <p>벌레잡기</p>
-              <ToggleSwitch callback={passFn(testAPI, "test")} />
+              <ToggleSwitch
+                callback={getCallback(testAPI, "test")}
+                defaultValue={true}
+              />
             </AlarmRow>
             <AlarmRow>
               <p>반려동물 산책하기</p>
-              <ToggleSwitch callback={passFn(testAPI, "test")} />
+              <ToggleSwitch callback={getCallback(testAPI, "test")} />
             </AlarmRow>
             <AlarmRow>
               <p>사다주세요</p>
-              <ToggleSwitch callback={passFn(testAPI, "test")} />
+              <ToggleSwitch
+                callback={getCallback(testAPI, "test")}
+                defaultValue={true}
+              />
             </AlarmRow>
             <AlarmRow>
               <p>벌레잡기</p>
-              <ToggleSwitch callback={passFn(testAPI, "test")} />
+              <ToggleSwitch callback={getCallback(testAPI, "test")} />
             </AlarmRow>
           </div>
         </SectionWrapper>
@@ -51,7 +57,7 @@ export default function Alarm() {
           <div className="section__content">
             <AlarmRow>
               <p>새로운 지원자 알림받기</p>
-              <ToggleSwitch callback={passFn(testAPI, "test")} />
+              <ToggleSwitch callback={getCallback(testAPI, "test")} />
             </AlarmRow>
           </div>
         </SectionWrapper>
