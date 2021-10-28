@@ -19,6 +19,7 @@ import {
 import { checkMobileType } from "@utils/utils";
 import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
+import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
 
 initMSW();
 
@@ -41,7 +42,10 @@ function App() {
         <Screen path="/" component={withMini(Home)} />
         <Screen path="/errands/:id" component={withParamsId(ErrandDetail)} />
         <Screen path="/appliers" component={ApplierList} />
-        <Screen path="/appliers/:id" component={Resume} />
+        <Screen
+          path="/appliers/:id"
+          component={withErrandIdAndHelperId(Resume)}
+        />
         <Screen path="/apply-form" component={ApplyForm} />
         <Screen path="/alarm" component={Alarm} />
         <Screen path="/errand-request" component={ErrandRequest} />
