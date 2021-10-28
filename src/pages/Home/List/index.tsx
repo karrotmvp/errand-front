@@ -3,22 +3,15 @@ import { TabType } from "@type/client";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { useErrandList } from "@api/errands";
 import Item from "./Item";
+import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 
 type ListProps = {
   tabType: TabType;
 };
 
 export default function List({ tabType }: ListProps) {
-  const {
-    status,
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isFetchingNextPage,
-  } = useErrandList({
-    lastId: 0,
-  });
+  const { status, data, isFetchingFirst, isFetchingMore, fetchTriggerElement } =
+    useInfiniteScroll(tabType);
 
   return (
     <ListWrapper>
@@ -32,6 +25,7 @@ export default function List({ tabType }: ListProps) {
             group.map((item) => <Item {...{ item, tabType }} key={item.id} />)
           )
         )}
+        {!isFetchingFirst && !isFetchingMore && fetchTriggerElement}
       </ul>
     </ListWrapper>
   );
