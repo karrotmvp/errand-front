@@ -1,6 +1,14 @@
 import envs from "@config/dotenv";
 import { rest } from "msw";
-import { applyList, errandDetail, errandList, resume, user } from "./dummy";
+import {
+  applyList,
+  errandDetail,
+  errands,
+  myErrands,
+  myHelps,
+  resume,
+  user,
+} from "./dummy";
 
 const BASE_URL = envs.API_BASE_URL;
 export const handlers = [
@@ -8,7 +16,7 @@ export const handlers = [
   rest.get(`${BASE_URL}errands`, (req, res, ctx) => {
     // const lastId = req.url.searchParams.get("lastId");
     // const size = req.url.searchParams.get("size");
-    return res(ctx.status(200), ctx.json(errandList));
+    return res(ctx.status(200), ctx.json(errands));
   }),
 
   rest.post(`${BASE_URL}errands`, (req, res, ctx) => {
@@ -86,11 +94,11 @@ export const handlers = [
 
   // my
   rest.get(`${BASE_URL}my/errands`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}));
+    return res(ctx.status(200), ctx.json(myErrands));
   }),
 
   rest.get(`${BASE_URL}my/helps`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({}));
+    return res(ctx.status(200), ctx.json(myHelps));
   }),
 
   // help
