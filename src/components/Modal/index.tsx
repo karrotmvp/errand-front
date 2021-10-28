@@ -5,19 +5,17 @@ import { createPortal } from "react-dom";
 type ChildrenPosition = "top" | "middle" | "bottom";
 type ModalProps = {
   onClose: any;
-  maskClosable: boolean;
   childrenPosition?: ChildrenPosition;
   children: React.ReactNode;
 };
 
 export default function Modal({
   onClose,
-  maskClosable,
   children,
   childrenPosition = "middle",
 }: ModalProps) {
   const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (maskClosable && onClose) {
+    if (onClose) {
       onClose(e);
     }
   };
@@ -32,8 +30,8 @@ export default function Modal({
   }, []);
   return (
     <Portal>
-      <ModalOverlay />
-      <ModalWrapper onClick={onMaskClick} childrenPosition={childrenPosition}>
+      <ModalOverlay onClick={onMaskClick} />
+      <ModalWrapper childrenPosition={childrenPosition}>
         <div className="modal__inner">{children}</div>
       </ModalWrapper>
     </Portal>
@@ -47,7 +45,7 @@ const ModalOverlay = styled.div`
   left: 0;
   bottom: 0;
   right: 0;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
 `;
 const ModalWrapper = styled.div<{ childrenPosition: ChildrenPosition }>`
@@ -73,19 +71,6 @@ const ModalWrapper = styled.div<{ childrenPosition: ChildrenPosition }>`
         return "flex-end";
     }
   }};
-
-  /* .modal__inner {
-    box-sizing: border-box;
-    position: relative;
-    box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
-    background-color: #fff;
-    border-radius: 10px;
-    width: 360px;
-    max-width: 480px;
-    transform: translateY(-50%);
-    margin: 0 auto;
-    padding: 40px 20px;
-  } */
 `;
 
 type PortalProps = {
