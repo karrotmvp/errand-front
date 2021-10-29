@@ -1,4 +1,4 @@
-import { Check, Gear, Map, Me, Plus } from "@assets/icon";
+import { Check, Gear, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
