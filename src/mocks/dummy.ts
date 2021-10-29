@@ -10,7 +10,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCnt: 1,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -41,8 +41,8 @@ export const errands: Errand[] = [
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
-    status: "WAIT",
-    helpCnt: 0,
+    status: "PROCEED",
+    helpCnt: 3,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -57,8 +57,8 @@ export const errands: Errand[] = [
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
-    status: "WAIT",
-    helpCnt: 0,
+    status: "COMPLETE",
+    helpCnt: 4,
     category: {
       id: 1,
       name: "벌레잡기",
