@@ -4,12 +4,13 @@ import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 export const errands: Errand[] = [
   {
     id: 1,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail:
+      "main 저희집 갱얼쥐 산책 부탁드려요ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅁㅁㅁㅇㄴㄹㅁㄴㄷㄱㅈㄱㅁㅈㄹㅇㄹㅁㄷㄱㅁㅈㄷ",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCnt: 1,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -20,7 +21,7 @@ export const errands: Errand[] = [
   },
   {
     id: 2,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -31,44 +32,44 @@ export const errands: Errand[] = [
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
+    createdAt: new Date("2021-10-29"),
     updatedAt: new Date(),
   },
   {
     id: 3,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
-    status: "WAIT",
-    helpCnt: 0,
+    status: "PROCEED",
+    helpCnt: 3,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
+    createdAt: new Date("2021-10-28"),
     updatedAt: new Date(),
   },
   {
     id: 4,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
-    status: "WAIT",
-    helpCnt: 0,
+    status: "COMPLETE",
+    helpCnt: 4,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
+    createdAt: new Date("2021-10-21"),
     updatedAt: new Date(),
   },
   {
     id: 5,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -79,12 +80,12 @@ export const errands: Errand[] = [
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
+    createdAt: new Date("2021-9-29"),
     updatedAt: new Date(),
   },
   {
     id: 6,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -95,12 +96,12 @@ export const errands: Errand[] = [
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
+    createdAt: new Date("2020-10-28"),
     updatedAt: new Date(),
   },
   {
     id: 7,
-    title: "main 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "main 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -119,7 +120,7 @@ export const errands: Errand[] = [
 export const myErrands: Errand[] = [
   {
     id: 1,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -135,7 +136,7 @@ export const myErrands: Errand[] = [
   },
   {
     id: 2,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -151,7 +152,7 @@ export const myErrands: Errand[] = [
   },
   {
     id: 3,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -167,7 +168,7 @@ export const myErrands: Errand[] = [
   },
   {
     id: 4,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -183,7 +184,7 @@ export const myErrands: Errand[] = [
   },
   {
     id: 5,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -199,7 +200,7 @@ export const myErrands: Errand[] = [
   },
   {
     id: 6,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -215,7 +216,7 @@ export const myErrands: Errand[] = [
   },
   {
     id: 7,
-    title: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myErrands 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -234,7 +235,7 @@ export const myErrands: Errand[] = [
 export const myHelps: Errand[] = [
   {
     id: 1,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -250,7 +251,7 @@ export const myHelps: Errand[] = [
   },
   {
     id: 2,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -266,7 +267,7 @@ export const myHelps: Errand[] = [
   },
   {
     id: 3,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -282,7 +283,7 @@ export const myHelps: Errand[] = [
   },
   {
     id: 4,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -298,7 +299,7 @@ export const myHelps: Errand[] = [
   },
   {
     id: 5,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -314,7 +315,7 @@ export const myHelps: Errand[] = [
   },
   {
     id: 6,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
@@ -330,7 +331,7 @@ export const myHelps: Errand[] = [
   },
   {
     id: 7,
-    title: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
+    detail: "myHelps 저희집 갱얼쥐 산책 부탁드려요",
     reward: 7000,
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",

@@ -2,7 +2,7 @@ import { ErrandStatus } from "./client";
 
 export type Errand = {
   id: number;
-  title: string;
+  detail: string;
   reward: number;
   thumbnailUrl: string;
   status: ErrandStatus;
