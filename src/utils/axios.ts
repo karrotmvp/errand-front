@@ -15,7 +15,7 @@ const fetchWrap = async ({
   try {
     const config = {
       baseURL: envs.API_BASE_URL,
-      withCredential: true,
+      withCredentials: true,
       params,
     };
     const { data } =
