@@ -35,22 +35,43 @@ export default function withMini(Component: React.ElementType) {
         console.log("로그인 전 : ", code, regionId);
         const result = await login(code, regionId);
         console.log("로그인 후 : ", result);
-        if (result.status === "OK") {
-          setIsLogin(true);
-        }
+        setIsLogin(true);
+
+        // if (result?.status === "OK") {
+        //   setIsLogin(true);
+        // }
       }
     }, []);
 
+    const testLogin = () => {
+      mini.startPreset({
+        preset: envs.MINI_PRESET_URL || "",
+        params: { appId: envs.APP_ID || "" },
+        onSuccess(result: { code: string }) {
+          if (result && result.code) {
+            checkAuth(result.code);
+          }
+        },
+      });
+    };
+
     useEffect(() => {
-      if (!code) {
-        getCodeHandler();
-      } else {
-        checkAuth(code);
-      }
+      // if (!code) {
+      //   getCodeHandler();
+      // } else {
+      //   checkAuth(code);
+      // }
     }, [code, checkAuth, getCodeHandler]);
 
-    if (!code || !isLogin) {
-      return <div>로그인 중</div>;
+    if (!isLogin) {
+      return (
+        <div
+          style={{ width: "100px", height: "100px", fontSize: "50px" }}
+          onClick={testLogin}
+        >
+          버튼
+        </div>
+      );
     }
     return <Component {...props} />;
   };
