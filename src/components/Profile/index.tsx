@@ -42,10 +42,10 @@ const ProfileWrapper = styled.div`
       margin-left: 1.2rem;
       flex: 1;
       h2 {
-        ${({ theme }) => theme.font("medium")}
+        ${({ theme }) => theme.font("large", "regular")}
       }
       &-sub {
-        ${({ theme }) => theme.font("small")}
+        ${({ theme }) => theme.font("small", "medium")}
         color: ${({ theme }) => theme.color.grey4};
 
         & > span + span::before {

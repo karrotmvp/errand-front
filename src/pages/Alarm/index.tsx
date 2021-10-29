@@ -72,7 +72,7 @@ const AlarmWrapper = styled.div`
 `;
 
 const AlarmRow = styled.div`
-  ${({ theme }) => theme.font("medium")}
+  ${({ theme }) => theme.font("large", "regular")}
   display: flex;
   justify-content: space-between;
 

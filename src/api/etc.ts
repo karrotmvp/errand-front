@@ -10,6 +10,5 @@ export const useRegionInfo = (regionId: string) => {
 };
 
 export const login = (code: string, regionId: string) => {
-  console.log(1, code, regionId);
   return GET(`auth?authCode=${code}&regionId=${regionId}`);
 };

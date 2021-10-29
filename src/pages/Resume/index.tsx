@@ -20,6 +20,7 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
   const handleClickRequest = async () => {
     if (helperDetail?.helper?.id) {
       const res = await selectHelper(1, helperDetail?.helper.id);
+      console.log(res);
       closeModal();
     }
   };

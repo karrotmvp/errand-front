@@ -34,7 +34,7 @@ const ModalInnerBoxWrapper = styled.div`
 
   .modal-inner {
     &__text {
-      ${({ theme }) => theme.font("medium", "regular")}
+      ${({ theme }) => theme.font("large", "regular")}
       text-align: center;
       padding: 2.1rem 1.8rem;
       white-space: pre-wrap;
@@ -46,7 +46,7 @@ const ModalInnerBoxWrapper = styled.div`
       & > * {
         flex: 1;
         text-align: center;
-        ${({ theme }) => theme.font("medium", "regular")}
+        ${({ theme }) => theme.font("large", "regular")}
         padding: 1.3rem 0;
       }
 
