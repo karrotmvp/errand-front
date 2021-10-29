@@ -10,9 +10,16 @@ import List from "./List";
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
   const [showTooltip, setShowTooltip] = useState<boolean>(true);
+  const [isHiddenComplete, setIsHiddenComplete] = useState<boolean>(false);
+
   const closeTooltip = () => {
     setShowTooltip(false);
   };
+
+  const toggleIsHiddenComplete = () => {
+    setIsHiddenComplete((current) => !current);
+  };
+
   return (
     <>
       <CustomScreenHelmet
@@ -33,8 +40,13 @@ export default function Home() {
                   <span>서현동</span> 주변
                 </h2>
               </div>
-              <div className="home__top__check">
-                <Check fill="#FF7E36" stroke="white" />
+              <div
+                className={`home__top__check ${
+                  isHiddenComplete ? "primary" : "grey"
+                }`}
+                onClick={toggleIsHiddenComplete}
+              >
+                <Check />
                 <span>완료된 심부름 안 보기</span>
               </div>
             </div>
@@ -99,6 +111,20 @@ const HomeWrapper = styled.main`
           margin-left: 0.4rem;
           ${({ theme }) => theme.font("small", "medium")}
           line-height: 0;
+        }
+        &.primary {
+          color: ${({ theme }) => theme.color.primary};
+          & > svg {
+            fill: ${({ theme }) => theme.color.primary};
+            stroke: white;
+          }
+        }
+        &.grey {
+          color: ${({ theme }) => theme.color.grey4};
+          & > svg {
+            fill: ${({ theme }) => theme.color.grey7};
+            stroke: ${({ theme }) => theme.color.grey5};
+          }
         }
       }
     }

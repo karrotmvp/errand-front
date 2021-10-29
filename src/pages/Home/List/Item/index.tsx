@@ -1,4 +1,4 @@
-import { ErrandStatus, TabType } from "@type/client";
+import { TabType } from "@type/client";
 import { Errand } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";

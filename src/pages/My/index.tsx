@@ -23,12 +23,12 @@ export default function My() {
           tabs={[
             {
               key: "tab_1",
-              buttonLabel: "내 부탁",
+              buttonLabel: "요청한 심부름",
               component: () => <List tabType="request" />,
             },
             {
               key: "tab_2",
-              buttonLabel: "도움내역",
+              buttonLabel: "지원한 심부름",
               component: () => <List tabType="help" />,
             },
           ]}

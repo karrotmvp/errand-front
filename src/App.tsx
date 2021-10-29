@@ -3,7 +3,7 @@ import { css } from "@emotion/css";
 import { Navigator, Screen } from "@karrotframe/navigator";
 import { GlobalStyle } from "./styles/global-style";
 import { theme } from "./styles/theme";
-// import { initMSW } from "./lib/msw";
+import { initMSW } from "./lib/msw";
 
 import styled from "@emotion/styled";
 import {
@@ -21,7 +21,7 @@ import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
 import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
 
-// initMSW();
+initMSW();
 
 function App() {
   const NavigatorStyle = css`

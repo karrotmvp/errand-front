@@ -1,3 +1,4 @@
+import { DefaultProfile } from "@assets/icon";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
 import styled from "@emotion/styled";
 import { User } from "@type/response";
@@ -13,7 +14,11 @@ export default function Profile({
   return (
     <ProfileWrapper>
       <div className="my-profile__image">
-        <img src={profileImgUrl} alt="thumbnail" />
+        {profileImgUrl ? (
+          <img src={profileImgUrl} alt="thumbnail" />
+        ) : (
+          <DefaultProfile />
+        )}
       </div>
       <div className="my-profile__info">
         <h2>{nickname}</h2>
@@ -31,9 +36,8 @@ const ProfileWrapper = styled.div`
   align-items: center;
   .my-profile {
     &__image {
-      width: 4.7rem;
-      height: 4.7rem;
-      background: black;
+      width: 5.7rem;
+      height: 5.7rem;
       border-radius: 3rem;
       overflow: hidden;
     }
