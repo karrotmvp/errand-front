@@ -19,7 +19,7 @@ export const SectionWrapper = styled.div`
     }
   }
   .section__subscribe {
-    ${({ theme }) => theme.font("small", "regular")}
+    ${({ theme }) => theme.font("medium", "regular")}
   }
 
   .section__content {
