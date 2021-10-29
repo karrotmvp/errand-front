@@ -15,10 +15,10 @@ export default function ToolTip({
   return (
     <ToolTipWrapper tail={tail}>
       <div className="tooltip__inner">
-        <div className="tooltip__box" onClick={closeTooltip}>
+        <div className="tooltip__box">
           <p>{text}</p>
           <div className="tooltip__close">
-            <Close onClick={closeTooltip} />
+            <Close onClick={closeTooltip} fill="white" stroke="white" />
           </div>
         </div>
       </div>
@@ -31,12 +31,12 @@ const ToolTipWrapper = styled.div<{ tail: string }>`
   z-index: 99;
   .tooltip__inner {
     position: absolute;
-    bottom: -8rem;
+    bottom: -9rem;
     .tooltip__box {
       background: ${({ theme }) => theme.color.primary};
       color: white;
+      width: 30.6rem;
       padding: 1.2rem 1.4rem;
-      width: 30rem;
       border-radius: 0.8rem;
 
       display: flex;

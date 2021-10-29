@@ -32,8 +32,9 @@ export default function withMini(Component: React.ElementType) {
       const regionId = getValueFromSearch("region_id");
 
       if (regionId) {
+        console.log(code, regionId);
         const result = await login(code, regionId);
-        console.log(result);
+        console.log(11, result);
         if (result.status === "OK") {
           setIsLogin(true);
         }
@@ -48,9 +49,9 @@ export default function withMini(Component: React.ElementType) {
       }
     }, [code, checkAuth, getCodeHandler]);
 
-    // if (!code || !isLogin) {
-    //   return <div>로그인 중</div>;
-    // }
+    if (!code || !isLogin) {
+      return <div>로그인 중</div>;
+    }
     return <Component {...props} />;
   };
 }
