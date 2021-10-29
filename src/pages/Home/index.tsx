@@ -1,7 +1,6 @@
 import { Gear, Map, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
-import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { useState } from "react";

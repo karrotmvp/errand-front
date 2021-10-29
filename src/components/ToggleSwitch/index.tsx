@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
-import { css } from "@emotion/css";
 
 type ToggleSwitchProps = {
   callback: (result: boolean) => void;

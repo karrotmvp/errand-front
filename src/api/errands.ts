@@ -2,10 +2,7 @@ import { useQuery, useInfiniteQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
 import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 import { TabType } from "@type/client";
-import {
-  ErrandRegisterRequestBody,
-  SelecteHelperRequestBody,
-} from "@type/request";
+import { ErrandRegisterRequestBody } from "@type/request";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 
 const getMainErrands = ({ pageParam = 0 }): Promise<Errand[]> => {
