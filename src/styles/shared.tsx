@@ -129,3 +129,7 @@ export const StickyFooter = styled.div`
     background: ${({ theme }) => theme.color.primary};
   }
 `;
+
+export const Container = styled.div`
+  ${({ theme }) => theme.container}
+`;

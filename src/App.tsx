@@ -21,7 +21,7 @@ import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
 import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
 
-initMSW();
+// initMSW();
 
 function App() {
   const NavigatorStyle = css`

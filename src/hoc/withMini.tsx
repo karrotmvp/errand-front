@@ -32,9 +32,9 @@ export default function withMini(Component: React.ElementType) {
       const regionId = getValueFromSearch("region_id");
 
       if (regionId) {
-        console.log(code, regionId);
+        console.log("로그인 전 : ", code, regionId);
         const result = await login(code, regionId);
-        console.log(11, result);
+        console.log("로그인 후 : ", result);
         if (result.status === "OK") {
           setIsLogin(true);
         }

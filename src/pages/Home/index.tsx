@@ -1,8 +1,9 @@
-import { Gear, Map, Me, Plus } from "@assets/icon";
+import { Check, Gear, Map, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
+import { Container } from "@styles/shared";
 import { useState } from "react";
 import List from "./List";
 
@@ -25,19 +26,25 @@ export default function Home() {
       />
       <HomeWrapper>
         <ContentWrapper>
-          <div className="home__banner">
-            <Map />
-            <span>서현동</span>의 심부름
-          </div>
-          {showTooltip && (
-            <div className="home__container">
+          <Container>
+            <div className="home__top">
+              <div className="home__top__location">
+                <h2>
+                  <span>서현동</span> 주변
+                </h2>
+              </div>
+              <div className="home__top__check">
+                <Check fill="#FF7E36" stroke="white" />
+                <span>완료된 심부름 안 보기</span>
+              </div>
+            </div>
+            {showTooltip && (
               <ToolTip
                 text="당근마켓에서 인증한 동네에서 심부름을 요청할 수 있어요."
                 closeTooltip={closeTooltip}
               />
-            </div>
-          )}
-
+            )}
+          </Container>
           <List tabType="main" />
         </ContentWrapper>
         <button className="home__fixed-fab" onClick={moveToApplyForm}>
@@ -64,17 +71,35 @@ const HomeWrapper = styled.main`
   height: 100%;
   position: relative;
   .home {
-    &__banner {
-      ${({ theme }) => theme.container}
+    &__top {
       margin-top: 2rem;
-      font-size: 1.7rem;
-      font-weight: 700;
 
       display: flex;
+      justify-content: space-between;
       align-items: center;
 
-      span {
-        color: ${({ theme }) => theme.color.primary};
+      &__location {
+        position: relative;
+        font-size: 1.7rem;
+        font-weight: 700;
+
+        display: flex;
+        align-items: center;
+        h2 {
+          font-family: Cafe24Ssurround;
+          span {
+            color: ${({ theme }) => theme.color.primary};
+          }
+        }
+      }
+      &__check {
+        display: flex;
+        align-items: center;
+        & > span {
+          margin-left: 0.4rem;
+          ${({ theme }) => theme.font("small", "medium")}
+          line-height: 0;
+        }
       }
     }
     &__container {
