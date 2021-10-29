@@ -6,3 +6,4 @@ export { ReactComponent as Meatballs } from "./meatballs.svg";
 export { ReactComponent as Close } from "./close.svg";
 export { ReactComponent as Plus } from "./plus.svg";
 export { ReactComponent as Check } from "./check.svg";
+export { ReactComponent as DefaultProfile } from "./default_profile.svg";
