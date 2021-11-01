@@ -38,7 +38,6 @@ export const SectionWrapper = styled.div`
   input,
   select,
   textarea {
-    margin-top: 1.1rem;
     border: 0.1rem solid ${({ theme }) => theme.color.grey6};
     ${({ theme }) => css`
       ${theme.font("medium")}
