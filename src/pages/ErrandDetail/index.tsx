@@ -138,12 +138,16 @@ const ErrandDetailWrapper = styled.div`
       }
 
       &__info {
-        ${({ theme }) => theme.font("medium", "regular")}
+        ${({ theme }) => theme.font("large", "regular")}
         margin-top: 3rem;
 
         & > div {
           display: flex;
           justify-content: space-between;
+
+          & > div:nth-child(1) {
+            color: ${({ theme }) => theme.color.grey4};
+          }
 
           & > div:nth-child(2) {
             max-width: 23.3rem;
