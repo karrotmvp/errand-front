@@ -41,7 +41,7 @@ const CustomBack = () => (
 // TODO. close svg 받아서 교체할 것
 const CustomClose = () => (
   <div style={leftButtonStyle}>
-    <Close stroke="white" />
+    <Close stroke="black" />
   </div>
 );
 
