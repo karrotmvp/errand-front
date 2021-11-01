@@ -71,7 +71,12 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
         </Modal>
       )}
       <StickyFooter>
-        <Button buttonType="contained" color="primary" onClick={openModal}>
+        <Button
+          buttonType="contained"
+          color="primary"
+          fullWidth
+          onClick={openModal}
+        >
           이 분에게 요청하기
         </Button>
       </StickyFooter>

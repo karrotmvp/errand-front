@@ -10,13 +10,9 @@ import {
   SectionWrapper,
   StickyFooter,
   StickyPageWrpper,
+  TextAreaWrapper,
 } from "@styles/shared";
 import { SubmitHandler, useForm } from "react-hook-form";
-
-const defaultValues = {
-  phoneNumber: "01012345678",
-  applea: "마크업 해줘어어엌",
-};
 
 type Inputs = {
   phoneNumber: string;
@@ -29,10 +25,13 @@ export default function ApplyForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors },
-  } = useForm<Inputs>({ defaultValues });
-  const dummyId = 1;
-  const moveToErrandDetail = usePush(`/errands/${dummyId}`);
+  } = useForm<Inputs>();
+
+  const moveToErrandDetail = usePush(`/errands/1`);
+  const watchTextArea = watch("appeal");
+
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
     const isSuccess = true;
     if (isSuccess) {
@@ -81,12 +80,14 @@ export default function ApplyForm() {
                   <ErrorText>하고싶은 말을 입력해주세요.</ErrorText>
                 )}
               </div>
-              <div className="section__content">
+              <TextAreaWrapper className="section__content">
                 <textarea
-                  {...register("appeal", { required: true })}
+                  maxLength={500}
                   placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해주세요."
+                  {...register("appeal", { required: true })}
                 />
-              </div>
+                <div>{watchTextArea?.length ?? 0}/500</div>
+              </TextAreaWrapper>
             </SectionWrapper>
             <SectionWrapper>
               <div className="section__title">
@@ -115,8 +116,13 @@ export default function ApplyForm() {
           <div>로딩 중</div>
         )}
       </ApplyFormWrapper>
-      <StickyFooter>
-        <Button buttonType="contained" color="primary" form="apply-form">
+      <StickyFooter fullArea>
+        <Button
+          buttonType="contained"
+          color="primary"
+          form="apply-form"
+          fullWidth
+        >
           지원하기
         </Button>
       </StickyFooter>

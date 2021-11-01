@@ -93,6 +93,8 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
         <Button
           buttonType="contained"
           color="primary"
+          fullWidth
+          rounded
           onClick={handleClickApply}
         >
           일단 지원하기

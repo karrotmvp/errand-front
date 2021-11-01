@@ -9,6 +9,7 @@ import {
   SectionWrapper,
   StickyFooter,
   StickyPageWrpper,
+  TextAreaWrapper,
 } from "@styles/shared";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import useModal from "@hooks/useModal";
@@ -52,6 +53,7 @@ export default function RequestForm() {
   const { isOpen, openModal, closeModal } = useModal();
   const watchTermAll = watch("termAll", false);
   const isAll = watch(["term1", "term2"]).every((el) => el);
+  const watchTextArea = watch("detail");
   const { push } = useNavigator();
 
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
@@ -157,12 +159,14 @@ export default function RequestForm() {
             <label>세부사항</label>
             {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
           </div>
-
-          <textarea
-            className="section__content"
-            placeholder="세부사항을 입력하세요."
-            {...register("detail", { required: true })}
-          />
+          <TextAreaWrapper>
+            <textarea
+              className="section__content"
+              placeholder="세부사항을 입력하세요."
+              {...register("detail", { required: true })}
+            />
+            <div>{watchTextArea?.length ?? 0}/500</div>
+          </TextAreaWrapper>
         </SectionWrapper>
         <SectionWrapper>
           <div className="section__title">
@@ -276,8 +280,13 @@ export default function RequestForm() {
           />
         </Modal>
       )}
-      <StickyFooter>
-        <Button buttonType="contained" color="primary" onClick={openModal}>
+      <StickyFooter fullArea>
+        <Button
+          buttonType="contained"
+          color="primary"
+          fullWidth
+          onClick={openModal}
+        >
           작성완료
         </Button>
       </StickyFooter>
