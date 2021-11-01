@@ -1,4 +1,5 @@
 import { useMyInfo } from "@api/users";
+import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Profile from "@components/Profile";
 import styled from "@emotion/styled";
@@ -115,7 +116,9 @@ export default function ApplyForm() {
         )}
       </ApplyFormWrapper>
       <StickyFooter>
-        <button form="apply-form">지원하기</button>
+        <Button buttonType="contained" color="primary" form="apply-form">
+          지원하기
+        </Button>
       </StickyFooter>
     </StickyPageWrpper>
   );

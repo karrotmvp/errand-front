@@ -14,6 +14,7 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import useModal from "@hooks/useModal";
 import Modal from "@components/Modal";
 import ModalInnerBox from "@components/ModalInnerBox";
+import Button from "@components/Button";
 
 const defaultValues = {
   categoryId: 1,
@@ -240,7 +241,9 @@ export default function RequestForm() {
         </Modal>
       )}
       <StickyFooter>
-        <button onClick={openModal}>작성완료</button>
+        <Button buttonType="contained" color="primary" onClick={openModal}>
+          작성완료
+        </Button>
       </StickyFooter>
     </StickyPageWrpper>
   );
