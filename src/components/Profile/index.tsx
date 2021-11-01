@@ -46,7 +46,7 @@ const ProfileWrapper = styled.div`
       margin-left: 1.2rem;
       flex: 1;
       h2 {
-        ${({ theme }) => theme.font("large", "regular")}
+        ${({ theme }) => theme.font("large", "medium")}
       }
       &-sub {
         ${({ theme }) => theme.font("small", "medium")}
