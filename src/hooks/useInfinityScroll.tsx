@@ -7,7 +7,6 @@ export const useInfiniteScroll = (tabType: TabType) => {
   const query = useErrandList(tabType);
 
   const { ref, inView } = useInView();
-
   useEffect(() => {
     if (inView && query.hasNextPage) {
       query.fetchNextPage();

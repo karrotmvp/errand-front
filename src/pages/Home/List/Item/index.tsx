@@ -1,8 +1,7 @@
-import { TabType } from "@type/client";
+import { ErrandStatus, TabType } from "@type/client";
 import { Errand } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
-import ItemFooter from "./ItemFooter";
 import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
 
@@ -35,14 +34,6 @@ export default function Item({ item, tabType }: ItemProps) {
             </div>
           </div>
         </div>
-        {tabType === "request" && (
-          <ItemFooter
-            {...{
-              status: item.status,
-              helper: item?.chosenHelper,
-            }}
-          />
-        )}
       </ItemWrapper>
     </>
   );
@@ -74,7 +65,7 @@ const ItemWrapper = styled.li`
       &__detail {
         ${({ theme }) => theme.font("large", "regular")}
         height: 2rem;
-        line-height: 1;
+        line-height: 1.1;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -103,17 +94,11 @@ const ItemWrapper = styled.li`
 
         &__status {
           ${({ theme }) => theme.font("small", "medium")}
-          &.WAIT {
-            color: ${({ theme }) => theme.color.greyPop};
+          &.PRIMARY {
+            color: ${({ theme }) => theme.color.primary};
           }
-          &.PROCEED {
+          &.GREY {
             color: ${({ theme }) => theme.color.grey4};
-          }
-          &.COMPLETE {
-            color: ${({ theme }) => theme.color.grey4};
-          }
-          &.FAIL {
-            color: ${({ theme }) => theme.color.fail};
           }
         }
       }
@@ -121,42 +106,49 @@ const ItemWrapper = styled.li`
   }
 `;
 
-const HELP_ITEM_STATUS = {
-  WAIT: "지원완료",
-  PROCEED: "현재 수행중",
-  COMPLETE: "완료",
-  FAIL: "매칭실패",
-};
-
 const renderItemStatus = (tabType: TabType, item: Errand) => {
   const { status, helpCnt } = item;
+  const color = getColor(tabType, status, helpCnt);
+  const text = getText(tabType, status, helpCnt);
+  return <div className={`item-info__bottom__status ${color}`}>{text}</div>;
+};
 
-  switch (tabType) {
-    case "main":
-      return (
-        <div className={`item-info__bottom__status ${status}`}>
-          {status === "WAIT"
-            ? `지원 ${helpCnt}`
-            : status === "PROCEED"
-            ? "지원마감"
-            : status === "COMPLETE"
-            ? "완료"
-            : ""}
-        </div>
-      );
-    case "help":
-      return (
-        <div className={`item-info__bottom__status ${status}`}>
-          {HELP_ITEM_STATUS[status]}
-        </div>
-      );
-    case "request":
-      return status === "COMPLETE" ? (
-        <div className={`item-info__bottom__status ${status}`}>완료</div>
-      ) : (
-        <></>
-      );
-    default:
-      return <></>;
+const getColor = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
+  if (
+    (tabType === "request" && status === "WAIT" && helpCnt > 0) ||
+    (tabType === "help" && status === "PROCEED")
+  ) {
+    return "PRIMARY";
   }
+
+  if (
+    (tabType === "request" && status === "PROCEED") ||
+    (tabType === "main" && status === "WAIT")
+  ) {
+    return "";
+  }
+
+  return "GREY";
+};
+
+const getText = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
+  if (status === "COMPLETE") {
+    return "완료";
+  }
+
+  if (status === "WAIT") {
+    if (tabType === "help") {
+      return "지원완료";
+    }
+    return `지원 ${helpCnt}`;
+  }
+
+  if (status === "PROCEED") {
+    if (tabType === "main") {
+      return "지원마감";
+    }
+    return "진행중";
+  }
+
+  return "매칭실패";
 };

@@ -2,6 +2,7 @@ import styled from "@emotion/styled";
 import { TabType } from "@type/client";
 import Item from "./Item";
 import { useInfiniteScroll } from "@hooks/useInfinityScroll";
+import NoData from "@components/Nodata";
 
 type ListProps = {
   tabType: TabType;
@@ -10,7 +11,6 @@ type ListProps = {
 export default function List({ tabType }: ListProps) {
   const { status, data, isFetchingFirst, isFetchingMore, fetchTriggerElement } =
     useInfiniteScroll(tabType);
-
   return (
     <ListWrapper>
       <ul>
@@ -18,8 +18,10 @@ export default function List({ tabType }: ListProps) {
           <li>로딩 중</li>
         ) : status === "error" ? (
           <li>에뤄</li>
+        ) : data?.pages[0].length === 0 ? (
+          <NoData tabType={tabType} />
         ) : (
-          data?.pages?.map((group, i) =>
+          data?.pages?.map((group) =>
             group.map((item) => <Item {...{ item, tabType }} key={item.id} />)
           )
         )}

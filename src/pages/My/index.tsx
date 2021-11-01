@@ -52,7 +52,7 @@ const MyWrapper = styled.div`
     }
     &__tabs {
       a {
-        ${({ theme }) => theme.font("medium", "bold")}
+        ${({ theme }) => theme.font("medium")}
 
         padding: 1.5rem 0;
       }

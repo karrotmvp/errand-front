@@ -7,6 +7,7 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
 import ModalInnerBox from "@components/ModalInnerBox";
 import useModal from "@hooks/useModal";
+import Button from "@components/Button";
 
 type ResumeProps = {
   errandId: number;
@@ -70,7 +71,9 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
         </Modal>
       )}
       <StickyFooter>
-        <button onClick={openModal}>이 분에게 요청하기</button>
+        <Button buttonType="contained" color="primary" onClick={openModal}>
+          이 분에게 요청하기
+        </Button>
       </StickyFooter>
     </StickyPageWrpper>
   );

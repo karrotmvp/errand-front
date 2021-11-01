@@ -30,7 +30,7 @@ export const useErrandList = (tabType: TabType) => {
   return useInfiniteQuery([tabType], fetchWrap(tabType), {
     getNextPageParam: (lastErrans: Errand[]) => {
       const lastErrand = lastErrans[lastErrans.length - 1];
-      return lastErrand.id ?? false;
+      return lastErrand?.id;
     },
   });
 };

@@ -10,6 +10,7 @@ import { WithParamsIdProps } from "@hoc/withParamsId";
 import useModal from "@hooks/useModal";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import Button from "@components/Button";
 
 // function validateParams(props: { id?: string }): props is { id: string } {
 //   return Boolean(props.id);
@@ -89,7 +90,13 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
         </Modal>
       )}
       <StickyFooter>
-        <button onClick={handleClickApply}>일단 지원하기</button>
+        <Button
+          buttonType="contained"
+          color="primary"
+          onClick={handleClickApply}
+        >
+          일단 지원하기
+        </Button>
       </StickyFooter>
     </StickyPageWrpper>
   );
