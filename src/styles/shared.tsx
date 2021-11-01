@@ -36,9 +36,7 @@ export const SectionWrapper = styled.div`
   }
 
   input,
-  select,
-  textarea {
-    margin-top: 1.1rem;
+  select {
     border: 0.1rem solid ${({ theme }) => theme.color.grey6};
     ${({ theme }) => css`
       ${theme.font("medium")}
@@ -113,23 +111,37 @@ export const StickyPageWrpper = styled.div`
     flex: 1;
   }
 `;
-export const StickyFooter = styled.div`
+
+export const StickyFooter = styled.div<{ fullArea?: boolean }>`
   position: sticky;
   bottom: 0;
   width: 100%;
-  padding: 1.2rem 2rem;
+  ${({ fullArea }) =>
+    fullArea ||
+    css`
+      padding: 1.2rem 2rem;
+    `}
   background: white;
-
-  button {
-    ${({ theme }) => theme.font("medium")}
-    color: white;
-    padding: 1.4rem 0;
-    border-radius: 0.8rem;
-    width: 100%;
-    background: ${({ theme }) => theme.color.primary};
-  }
 `;
 
 export const Container = styled.div`
   ${({ theme }) => theme.container}
+`;
+
+export const TextAreaWrapper = styled.div`
+  border: 0.1rem solid ${({ theme }) => theme.color.grey6};
+  ${({ theme }) => theme.font("medium")}
+  border-radius: 1rem;
+  padding: 1.5rem 1.8rem;
+  & > textarea {
+    width: 100%;
+    &::placeholder {
+      color: ${({ theme }) => theme.color.grey4};
+    }
+  }
+
+  & > div {
+    text-align: right;
+    color: ${({ theme }) => theme.color.grey4};
+  }
 `;

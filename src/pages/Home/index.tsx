@@ -60,7 +60,7 @@ export default function Home() {
           <List tabType="main" />
         </ContentWrapper>
         <button className="home__fixed-fab" onClick={moveToApplyForm}>
-          <Plus />
+          <Plus stroke="white" />
         </button>
       </HomeWrapper>
     </>

@@ -9,6 +9,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   form?: string;
   width?: string;
+  rounded?: boolean;
   size?: "small" | "medium";
 }
 
@@ -18,7 +19,12 @@ export default function Button({ children, ...props }: ButtonProps) {
 
 const ButtonWrapper = styled.button<ButtonProps>`
   padding: 1.2rem 1.8rem 1.4rem 1.8rem;
-  border-radius: 0.8rem;
+
+  ${({ rounded }) =>
+    rounded &&
+    css`
+      border-radius: 0.8rem;
+    `}
 
   ${({ theme, size }) =>
     size === "small"

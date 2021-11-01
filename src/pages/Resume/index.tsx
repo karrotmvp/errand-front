@@ -15,49 +15,27 @@ type ResumeProps = {
 };
 
 export default function Resume({ errandId, helperId }: ResumeProps) {
-  const { status, data: helperDetail } = useHelperDetail(errandId, helperId);
+  const { status, data: resume } = useHelperDetail(errandId, helperId);
   const { isOpen, openModal, closeModal } = useModal();
 
   const handleClickRequest = async () => {
-    if (helperDetail?.helper?.id) {
-      const res = await selectHelper(1, helperDetail?.helper.id);
+    if (resume?.helper?.id) {
+      const res = await selectHelper(1, resume?.helper.id);
       console.log(res);
       closeModal();
     }
   };
+
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet title="지원자 정보" />
       <ResumeWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <h3>프로필</h3>
-          </div>
-          <div className="section__content">
-            {status !== "loading" && helperDetail && (
-              <Profile {...helperDetail.helper} />
-            )}
-          </div>
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <h3>전화번호</h3>
-          </div>
-          <div className="section__subscribe">
-            매칭되었을 때에만 전화번호가 공개돼요.
-          </div>
-          <div className="section__content">
-            <input type="text" disabled value="01012345678" />
-          </div>
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <h3>하고싶은 말</h3>
-          </div>
-          <div className="section__content">
-            {status !== "loading" && <p>{helperDetail?.appeal}</p>}
-          </div>
-        </SectionWrapper>
+        {status !== "loading" && resume && <Profile {...resume.helper} />}
+        <div className="resume__phone">
+          <div>전화번호</div>
+          <div>매칭 후 공개돼요.</div>
+        </div>
+        <div className="resume__appeal">{resume?.appeal}</div>
       </ResumeWrapper>
       {isOpen && (
         <Modal onClose={closeModal}>
@@ -71,7 +49,13 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
         </Modal>
       )}
       <StickyFooter>
-        <Button buttonType="contained" color="primary" onClick={openModal}>
+        <Button
+          buttonType="contained"
+          color="primary"
+          fullWidth
+          rounded
+          onClick={openModal}
+        >
           이 분에게 요청하기
         </Button>
       </StickyFooter>
@@ -83,4 +67,21 @@ const ResumeWrapper = styled.div`
   height: 100%;
   padding: 3rem 0;
   ${({ theme }) => theme.container}
+  .resume {
+    &__phone {
+      ${({ theme }) => theme.font("large", "regular")}
+
+      margin-top: 2.7rem;
+      display: flex;
+      justify-content: space-between;
+
+      & > div:nth-child(1) {
+        color: ${({ theme }) => theme.color.grey4};
+      }
+    }
+    &__appeal {
+      ${({ theme }) => theme.font("large", "regular")}
+      margin-top: 1.3rem;
+    }
+  }
 `;

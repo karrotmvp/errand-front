@@ -42,7 +42,7 @@ const ToggleSwitchWrapper = styled.div<{ height: number; toggle: boolean }>`
     width: ${({ height }) => `${height}rem`};
     height: ${({ height }) => `${height}rem`};
     border-radius: ${({ height }) => `${height}rem`};
-    transition: all 0.3s;
+    transition: all 0.2s;
     transform: translateX(${({ toggle }) => (toggle ? `2.4rem` : "0")});
   }
 `;
