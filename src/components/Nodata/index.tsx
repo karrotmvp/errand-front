@@ -1,9 +1,7 @@
 import styled from "@emotion/styled";
 import Button from "@components/Button";
 import { TabType } from "@type/client";
-import { useNavigator } from "@karrotframe/navigator";
 import usePush from "@hooks/usePush";
-import { useCallback } from "react";
 
 type NoDataProps = {
   tabType: TabType;
