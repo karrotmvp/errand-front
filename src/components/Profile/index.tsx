@@ -8,7 +8,7 @@ type ProfileProps = User;
 export default function Profile({
   nickname,
   regionName,
-  mannerPoint,
+  mannerTemp,
   profileImgUrl = DEFAULT_THUMBNAIL,
 }: ProfileProps) {
   return (
@@ -24,7 +24,7 @@ export default function Profile({
         <h2>{nickname}</h2>
         <div className="my-profile__info-sub">
           <span>{regionName}</span>
-          <span>{mannerPoint} °C</span>
+          <span>{mannerTemp} °C</span>
         </div>
       </div>
     </ProfileWrapper>

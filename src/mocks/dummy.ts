@@ -387,7 +387,7 @@ export const user: User = {
   id: 1,
   nickname: "테스트맨",
   regionName: "논현동",
-  mannerPoint: 37.5,
+  mannerTemp: 37.5,
   profileImgUrl:
     "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
 };
@@ -397,7 +397,7 @@ export const applyList: User[] = [
     id: 1,
     nickname: "DD",
     regionName: "반포1동",
-    mannerPoint: 39.5,
+    mannerTemp: 39.5,
     profileImgUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
   },
@@ -405,19 +405,19 @@ export const applyList: User[] = [
     id: 2,
     nickname: "Rosie",
     regionName: "혜화동",
-    mannerPoint: 100,
+    mannerTemp: 100,
   },
   {
     id: 3,
     nickname: "Christine",
     regionName: "연남동",
-    mannerPoint: 40,
+    mannerTemp: 40,
   },
   {
     id: 4,
     nickname: "Noah",
     regionName: "청담동",
-    mannerPoint: 52.5,
+    mannerTemp: 52.5,
   },
 ];
 
@@ -429,7 +429,7 @@ export const resume: Resume = {
     id: 3,
     nickname: "Christine",
     regionName: "연남동",
-    mannerPoint: 40,
+    mannerTemp: 40,
     profileImgUrl: DEFAULT_THUMBNAIL,
   },
 };
