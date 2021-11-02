@@ -32,27 +32,10 @@ export default function withMini(Component: React.ElementType) {
       const regionId = getValueFromSearch("region_id");
 
       if (regionId) {
-        const response = await login(code, regionId);
-        console.log(response);
-        
-        if (response?.status === "OK" && response.data.token) {
-          localStorage.setItem("token", response.data.token);
-          setIsLogin(true);
-        }
+        await login(code, regionId);
+        setIsLogin(true);
       }
     }, []);
-
-    const testLogin = () => {
-      mini.startPreset({
-        preset: envs.MINI_PRESET_URL || "",
-        params: { appId: envs.APP_ID || "" },
-        onSuccess(result: { code: string }) {
-          if (result && result.code) {
-            checkAuth(result.code);
-          }
-        },
-      });
-    };
 
     useEffect(() => {
       if (!code) {
