@@ -6,11 +6,14 @@ import NoData from "@components/Nodata";
 
 type ListProps = {
   tabType: TabType;
+  isAppliable?: boolean;
 };
 
-export default function List({ tabType }: ListProps) {
+export default function List({ tabType, isAppliable }: ListProps) {
   const { status, data, isFetchingFirst, isFetchingMore, fetchTriggerElement } =
-    useInfiniteScroll(tabType);
+    useInfiniteScroll(tabType, isAppliable);
+  console.log(1, data?.pages[0]);
+
   return (
     <ListWrapper>
       <ul>
@@ -22,7 +25,7 @@ export default function List({ tabType }: ListProps) {
           <NoData tabType={tabType} />
         ) : (
           data?.pages?.map((group) =>
-            group.map((item) => <Item {...{ item, tabType }} key={item.id} />)
+            group?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
           )
         )}
         {!isFetchingFirst && !isFetchingMore && fetchTriggerElement}

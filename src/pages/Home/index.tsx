@@ -10,14 +10,14 @@ import List from "./List";
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
   const [showTooltip, setShowTooltip] = useState<boolean>(true);
-  const [isHiddenComplete, setIsHiddenComplete] = useState<boolean>(false);
+  const [isAppliable, setIsAppliable] = useState<boolean>(false);
 
   const closeTooltip = () => {
     setShowTooltip(false);
   };
 
-  const toggleIsHiddenComplete = () => {
-    setIsHiddenComplete((current) => !current);
+  const toggleIsAppliable = () => {
+    setIsAppliable((current) => !current);
   };
 
   return (
@@ -42,9 +42,9 @@ export default function Home() {
               </div>
               <div
                 className={`home__top__check ${
-                  isHiddenComplete ? "primary" : "grey"
+                  isAppliable ? "primary" : "grey"
                 }`}
-                onClick={toggleIsHiddenComplete}
+                onClick={toggleIsAppliable}
               >
                 <Check />
                 <span>완료된 심부름 안 보기</span>
@@ -57,7 +57,7 @@ export default function Home() {
               />
             )}
           </Container>
-          <List tabType="main" />
+          <List tabType="main" isAppliable={isAppliable} />
         </ContentWrapper>
         <button className="home__fixed-fab" onClick={moveToApplyForm}>
           <Plus stroke="white" />
