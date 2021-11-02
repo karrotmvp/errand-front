@@ -10,7 +10,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 1,
+    helpCount: 1,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -26,7 +26,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -42,7 +42,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "PROCEED",
-    helpCnt: 3,
+    helpCount: 3,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -58,7 +58,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "COMPLETE",
-    helpCnt: 4,
+    helpCount: 4,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -74,7 +74,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -90,7 +90,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -106,7 +106,7 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -125,7 +125,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -141,7 +141,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -157,7 +157,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "PROCEED",
-    helpCnt: 3,
+    helpCount: 3,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -173,7 +173,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "COMPLETE",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -189,7 +189,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -205,7 +205,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -221,7 +221,7 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -240,7 +240,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "COMPLETE",
-    helpCnt: 3,
+    helpCount: 3,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -256,7 +256,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "FAIL",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -272,7 +272,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "PROCEED",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -288,7 +288,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -304,7 +304,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -320,7 +320,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
@@ -336,7 +336,7 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",

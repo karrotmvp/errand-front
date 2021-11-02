@@ -6,7 +6,7 @@ export type Errand = {
   reward: number;
   thumbnailUrl: string;
   status: ErrandStatus;
-  helpCnt: number;
+  helpCount: number;
   category: Category;
   regionName: string;
   chosenHelper?: SimpleUser;

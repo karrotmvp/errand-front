@@ -107,15 +107,19 @@ const ItemWrapper = styled.li`
 `;
 
 const renderItemStatus = (tabType: TabType, item: Errand) => {
-  const { status, helpCnt } = item;
-  const color = getColor(tabType, status, helpCnt);
-  const text = getText(tabType, status, helpCnt);
+  const { status, helpCount } = item;
+  const color = getColor(tabType, status, helpCount);
+  const text = getText(tabType, status, helpCount);
   return <div className={`item-info__bottom__status ${color}`}>{text}</div>;
 };
 
-const getColor = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
+const getColor = (
+  tabType: TabType,
+  status: ErrandStatus,
+  helpCount: number
+) => {
   if (
-    (tabType === "request" && status === "WAIT" && helpCnt > 0) ||
+    (tabType === "request" && status === "WAIT" && helpCount > 0) ||
     (tabType === "help" && status === "PROCEED")
   ) {
     return "PRIMARY";
@@ -131,7 +135,7 @@ const getColor = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
   return "GREY";
 };
 
-const getText = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
+const getText = (tabType: TabType, status: ErrandStatus, helpCount: number) => {
   if (status === "COMPLETE") {
     return "완료";
   }
@@ -140,7 +144,7 @@ const getText = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
     if (tabType === "help") {
       return "지원완료";
     }
-    return `지원 ${helpCnt}`;
+    return `지원 ${helpCount}`;
   }
 
   if (status === "PROCEED") {
