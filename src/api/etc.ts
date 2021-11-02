@@ -11,9 +11,10 @@ export const useRegionInfo = (regionId: string) => {
 };
 
 export const login = async (code: string, regionId: string) => {
-  const { data } = await POST(`/auth?authCode=${code}&regionId=${regionId}`);
-
-  if (data.status === "OK" && data.data.token) {
+  const { data, status } = await POST(
+    `/auth?authCode=${code}&regionId=${regionId}`
+  );
+  if (status === "OK" && data.token) {
     localStorage.setItem("token", data.token);
   } else {
     console.log("응답은 됐는데 먼가 잘못 되었다");

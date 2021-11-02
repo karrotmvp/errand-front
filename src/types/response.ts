@@ -10,8 +10,8 @@ export type Errand = {
   category: Category;
   regionName: string;
   chosenHelper?: SimpleUser;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: [number, number, number, number, number, number, number];
+  updatedAt: [number, number, number, number, number, number, number];
 };
 
 export type ErrendCreateResponseBody = {

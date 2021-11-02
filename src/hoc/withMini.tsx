@@ -45,7 +45,7 @@ export default function withMini(Component: React.ElementType) {
       }
     }, [code, checkAuth, getCodeHandler]);
 
-    if (!code && !isLogin) {
+    if (!code || !isLogin) {
       return <div>something wrong</div>;
     }
 

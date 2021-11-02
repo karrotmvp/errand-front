@@ -12,8 +12,7 @@ type ListProps = {
 export default function List({ tabType, isAppliable }: ListProps) {
   const { status, data, isFetchingFirst, isFetchingMore, fetchTriggerElement } =
     useInfiniteScroll(tabType, isAppliable);
-  console.log(1, data?.pages[0]);
-
+  
   return (
     <ListWrapper>
       <ul>

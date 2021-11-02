@@ -4,6 +4,7 @@ import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
+import { DEFAULT_IMAGE } from "@constant/default";
 
 type ItemProps = {
   item: Errand;
@@ -17,14 +18,16 @@ export default function Item({ item, tabType }: ItemProps) {
       <ItemWrapper>
         <div className="item-box" onClick={moveTo}>
           <div className="item-image">
-            <img src={item.thumbnailUrl} alt="img" />
+            <img src={item.thumbnailUrl ?? DEFAULT_IMAGE} alt="img" />
           </div>
           <div className="item-info">
             <div className="item-info__detail">{item.detail}</div>
             <div className="item-info__sub">
               <span>{item.category.name}</span>
               <span>{item.regionName}</span>
-              <span>{getComparedTime(new Date(), item.createdAt)}</span>
+              <span>
+                {getComparedTime(new Date(), new Date(...item.createdAt))}
+              </span>
             </div>
             <div className="item-info__bottom">
               <div className="item-info__bottom__reward">
@@ -51,6 +54,13 @@ const ItemWrapper = styled.li`
     .item-image {
       min-width: 8rem;
       min-height: 8rem;
+
+      max-width: 8rem;
+      max-height: 8rem;
+
+      width: 8rem;
+      height: 8rem;
+
       img {
         width: 100%;
       }

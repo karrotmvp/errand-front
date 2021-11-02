@@ -6,22 +6,36 @@ import { ErrandRegisterRequestBody } from "@type/request";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { getValueFromSearch } from "@utils/utils";
 
-const getMainErrands = async ({ pageParam = 27 }): Promise<Errand[]> => {
+const getMainErrands = async ({ pageParam = null }): Promise<Errand[]> => {
   const regionId = getValueFromSearch("region_id");
   const { data } = await GET(
-    `/errands?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}&regionId=${regionId}`
+    `/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
   );
   return data;
 };
-const getMyErrands = async ({ pageParam = 1 }): Promise<Errand[]> => {
+const getMyErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
   const { data } = await GET(
-    `my/errands?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}`
+    `my/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
   );
   return data;
 };
-const getMyHelps = async ({ pageParam = 1 }): Promise<Errand[]> => {
+const getMyHelps = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
   const { data } = await GET(
-    `my/helps?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}`
+    `my/helps?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
+  return data;
+};
+
+const getAppliableErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `/errands/appliable?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
   );
   return data;
 };
@@ -52,13 +66,6 @@ export const useErrandList = (tabType: TabType, isAppliable?: boolean) => {
       },
     }
   );
-};
-
-const getAppliableErrands = async ({ pageParam = 0 }): Promise<Errand[]> => {
-  const { data } = await GET(
-    `/errands/appliable?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}`
-  );
-  return data;
 };
 
 export const registerErrand = async (
