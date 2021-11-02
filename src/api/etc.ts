@@ -1,5 +1,5 @@
 import { useQuery } from "react-query";
-import { GET } from "@utils/axios";
+import { GET, POST } from "@utils/axios";
 import { Region } from "@type/response";
 
 const getRegionInfo = (regionId: string): Promise<Region> => {
@@ -10,5 +10,5 @@ export const useRegionInfo = (regionId: string) => {
 };
 
 export const login = (code: string, regionId: string) => {
-  return GET(`auth?authCode=${code}&regionId=${regionId}`);
+  return POST(`auth`, { code, regionId });
 };

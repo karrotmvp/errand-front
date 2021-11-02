@@ -1,13 +1,13 @@
 import React from "react";
 import styled from "@emotion/styled";
 
-interface ModalInnerBoxProps {
+type ModalInnerBoxProps = {
   text: string;
   leftText?: React.ReactNode;
   rightText?: React.ReactNode;
   leftCallback?: any;
   rightCallback?: any;
-}
+};
 
 export default function ModalInnerBox({
   text,

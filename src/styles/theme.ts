@@ -25,9 +25,7 @@ const font = (size: FontSize, weight: FontWeight = "medium") => {
 export const theme: Theme = {
   color: {
     primary: "#FF7E36",
-    primary2: "#FF6F1F",
     secondary: "#029D82",
-    secondary2: "#007460",
     fail: "#FF0000",
     grey1: "#000000",
     grey2: "#333333",
@@ -37,7 +35,6 @@ export const theme: Theme = {
     grey6: "#DCDCDC",
     grey7: "#EDEDED",
     grey8: "#F3F3F3",
-    greyPop: "#575757",
   },
   font,
   container: css`

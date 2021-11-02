@@ -20,6 +20,7 @@ import { checkMobileType } from "@utils/utils";
 import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
 import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
+import Loader from "@components/Loader";
 
 initMSW();
 
@@ -31,7 +32,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Test />
       <Navigator
         theme={checkMobileType()}
         className={NavigatorStyle}
@@ -39,7 +39,7 @@ function App() {
           console.log("close. bye~");
         }}
       >
-        <Screen path="/" component={withMini(Home)} />
+        <Screen path="/" component={withMini(Loader)} />
         <Screen path="/errands/:id" component={withParamsId(ErrandDetail)} />
         <Screen path="/appliers" component={ApplierList} />
         <Screen
@@ -54,9 +54,5 @@ function App() {
     </ThemeProvider>
   );
 }
-
-const Test = styled.div`
-  background: ${({ theme }) => theme.color.primary};
-`;
 
 export default App;

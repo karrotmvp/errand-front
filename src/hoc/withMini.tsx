@@ -32,14 +32,13 @@ export default function withMini(Component: React.ElementType) {
       const regionId = getValueFromSearch("region_id");
 
       if (regionId) {
-        console.log("로그인 전 : ", code, regionId);
-        const result = await login(code, regionId);
-        console.log("로그인 후 : ", result);
-        setIsLogin(true);
-
-        // if (result?.status === "OK") {
-        //   setIsLogin(true);
-        // }
+        const response = await login(code, regionId);
+        console.log(response);
+        
+        if (response?.status === "OK" && response.data.token) {
+          localStorage.setItem("token", response.data.token);
+          setIsLogin(true);
+        }
       }
     }, []);
 
@@ -56,23 +55,17 @@ export default function withMini(Component: React.ElementType) {
     };
 
     useEffect(() => {
-      // if (!code) {
-      //   getCodeHandler();
-      // } else {
-      //   checkAuth(code);
-      // }
+      if (!code) {
+        getCodeHandler();
+      } else {
+        checkAuth(code);
+      }
     }, [code, checkAuth, getCodeHandler]);
 
-    if (!isLogin) {
-      return (
-        <div
-          style={{ width: "100px", height: "100px", fontSize: "50px" }}
-          onClick={testLogin}
-        >
-          버튼
-        </div>
-      );
+    if (!code && !isLogin) {
+      return <div>something wrong</div>;
     }
+
     return <Component {...props} />;
   };
 }

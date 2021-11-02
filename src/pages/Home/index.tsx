@@ -1,5 +1,6 @@
 import { Check, Gear, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
+import { css } from "@emotion/react";
 import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
