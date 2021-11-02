@@ -1,3 +1,4 @@
+import envs from "@config/dotenv";
 import axios, { AxiosRequestConfig } from "axios";
 
 const fetchWrap = async ({
@@ -13,7 +14,7 @@ const fetchWrap = async ({
 }) => {
   try {
     const config: AxiosRequestConfig = {
-      baseURL: process.env.REACT_APP_ENDPOINT,
+      baseURL: envs.API_BASE_URL,
       withCredentials: true,
       params,
       headers: {
@@ -25,6 +26,7 @@ const fetchWrap = async ({
       (method === "post" && (await axios.post(url, body, config))) ||
       (method === "put" && (await axios.put(url, body, config))) ||
       (method === "delete" && (await axios.delete(url, config))) ||
+      (method === "patch" && (await axios.patch(url, config))) ||
       {};
     return data;
   } catch (error) {
@@ -33,7 +35,6 @@ const fetchWrap = async ({
     // window.location.href = "/401";
   }
 };
-
 export const GET = (url: string, params?: {}) =>
   fetchWrap({ method: "get", url, params });
 

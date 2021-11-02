@@ -1,6 +1,7 @@
 import { ApplyHelperRequestBody } from "@type/request";
-import { GET, PATCH, POST } from "@utils/axios";
+import { POST } from "@utils/axios";
 
-export const applyErrand = (requestBody: ApplyHelperRequestBody) => {
-  return POST(`/help`, requestBody);
+export const applyErrand = async (requestBody: ApplyHelperRequestBody) => {
+  const { data } = await POST(`/help`, requestBody);
+  return data;
 };

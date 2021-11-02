@@ -2,15 +2,17 @@ import { useQuery } from "react-query";
 import { GET } from "@utils/axios";
 import { User } from "@type/response";
 
-const getUserProfile = (id: number): Promise<User> => {
-  return GET(`/users/:${id}`);
+const getUserProfile = async (id: number): Promise<User> => {
+  const { data } = await GET(`/users/:${id}`);
+  return data;
 };
 export const useUserProfile = (id: number) => {
   return useQuery(["userProfile"], () => getUserProfile(id));
 };
 
-const getMyInfo = (): Promise<User> => {
-  return GET(`/users/my`);
+const getMyInfo = async (): Promise<User> => {
+  const { data } = await GET(`/users/my`);
+  return data;
 };
 export const useMyInfo = () => {
   return useQuery(["myInfo"], () => getMyInfo());
