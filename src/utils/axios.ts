@@ -26,12 +26,12 @@ const fetchWrap = async ({
       (method === "post" && (await axios.post(url, body, config))) ||
       (method === "put" && (await axios.put(url, body, config))) ||
       (method === "delete" && (await axios.delete(url, config))) ||
-      (method === "patch" && (await axios.patch(url, config))) ||
+      (method === "patch" && (await axios.patch(url, body, config))) ||
       {};
     return data;
   } catch (error) {
-    localStorage.removeItem("token");
-    console.log(error);
+    console.log("에러 터짐요~~");
+    // localStorage.removeItem("token");
     // window.location.href = "/401";
   }
 };
