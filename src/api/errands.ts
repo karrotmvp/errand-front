@@ -71,7 +71,7 @@ export const useErrandList = (tabType: TabType, isAppliable?: boolean) => {
 export const registerErrand = async (
   requestBody: ErrandRegisterRequestBody
 ) => {
-  const { data } = await POST(`/errands`, requestBody);
+  const { data } = await POST(`/errand`, requestBody);
 
   return data;
 };
@@ -79,7 +79,7 @@ export const registerErrand = async (
 const getErrandDetail = async (
   id: string
 ): Promise<ErrandDetailResponseBody> => {
-  const { data } = await GET(`/errands/${id}`);
+  const { data } = await GET(`/errand/${id}`);
   return data;
 };
 export const useErrandDetail = (id: string) => {
@@ -87,7 +87,7 @@ export const useErrandDetail = (id: string) => {
 };
 
 const getHelperList = async (): Promise<User[]> => {
-  const { data } = await GET(`/errands/:id/helpers`);
+  const { data } = await GET(`/errand/:id/helpers`);
   return data;
 };
 export const useHelperList = () => {
@@ -98,7 +98,7 @@ const getHelperDetail = async (
   errandId: number,
   helperId: number
 ): Promise<Resume> => {
-  const { data } = await GET(`/errands/:${errandId}/helpers/:${helperId}`);
+  const { data } = await GET(`/errand/:${errandId}/helpers/:${helperId}`);
   return data;
 };
 export const useHelperDetail = (errandId: number, helperId: number) => {
@@ -108,13 +108,13 @@ export const useHelperDetail = (errandId: number, helperId: number) => {
 };
 
 export const selectHelper = async (errandId: number, helperId: number) => {
-  const { data } = await PATCH(`/errands/:${errandId}/helper`, { helperId });
+  const { data } = await PATCH(`/errand/:${errandId}/helper`, { helperId });
   return data;
 };
 
 export const confirmIsAppliable = async (
   errandId: string
 ): Promise<{ helperCnt: number; canApply: boolean }> => {
-  const { data } = await GET(`errands/:${errandId}/helper-count`);
+  const { data } = await GET(`/errand/:${errandId}/helper-count`);
   return data;
 };
