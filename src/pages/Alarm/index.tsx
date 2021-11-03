@@ -1,14 +1,34 @@
+import { useUserAlarm } from "@api/users";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToggleSwitch from "@components/ToggleSwitch";
 import styled from "@emotion/styled";
 import { SectionWrapper } from "@styles/shared";
+import { patchCategoryAlarm, patchNewApplierAlarm } from "@api/users";
+import { useMutation } from "react-query";
 
 export default function Alarm() {
-  const getCallback = (fn: Function, params: any) => (result: boolean) => {
-    fn(params, result);
+  const { status, data } = useUserAlarm();
+
+  const mutationCategory = useMutation(patchCategoryAlarm, {
+    onSuccess: () => console.log("성공"),
+  });
+
+  const mutationApplier = useMutation(patchNewApplierAlarm, {
+    onSuccess: () => console.log("성공"),
+  });
+
+  const toggleCurry =
+    (callback: Function, ...rest: unknown[]) =>
+    (on: boolean) => {
+      callback(on, ...rest);
+    };
+
+  const toggleCategoryAlarm = (on: boolean, categoryId: number) => {
+    mutationCategory.mutate({ categoryId, on });
   };
-  const testAPI = (defaultParams: string, result: boolean) => {
-    console.log(defaultParams, result);
+
+  const toggleNewApplierAlarm = (on: boolean) => {
+    mutationApplier.mutate({ on });
   };
 
   return (
@@ -23,28 +43,18 @@ export default function Alarm() {
             카테고리의 새로운 심부름이 등록될 때 알림을 받아요.
           </div>
           <div className="section__content">
-            <AlarmRow>
-              <p>벌레잡기</p>
-              <ToggleSwitch
-                callback={getCallback(testAPI, "test")}
-                defaultValue={true}
-              />
-            </AlarmRow>
-            <AlarmRow>
-              <p>반려동물 산책하기</p>
-              <ToggleSwitch callback={getCallback(testAPI, "test")} />
-            </AlarmRow>
-            <AlarmRow>
-              <p>사다주세요</p>
-              <ToggleSwitch
-                callback={getCallback(testAPI, "test")}
-                defaultValue={true}
-              />
-            </AlarmRow>
-            <AlarmRow>
-              <p>벌레잡기</p>
-              <ToggleSwitch callback={getCallback(testAPI, "test")} />
-            </AlarmRow>
+            {status !== "loading" &&
+              data &&
+              data.categoryStatusList.map((row) => (
+                <AlarmRow>
+                  <p>{row.name}</p>
+                  <ToggleSwitch
+                    callback={toggleCurry(toggleCategoryAlarm, row.categoryId)}
+                    defaultValue={row.status}
+                    key={row.categoryId}
+                  />
+                </AlarmRow>
+              ))}
           </div>
         </SectionWrapper>
         <SectionWrapper>
@@ -55,10 +65,15 @@ export default function Alarm() {
             심부름에 새로운 지원자가 들록될 때마다 알림을 받아요.
           </div>
           <div className="section__content">
-            <AlarmRow>
-              <p>새로운 지원자 알림받기</p>
-              <ToggleSwitch callback={getCallback(testAPI, "test")} />
-            </AlarmRow>
+            {status !== "loading" && data && (
+              <AlarmRow>
+                <p>새로운 지원자 알림받기</p>
+                <ToggleSwitch
+                  callback={toggleCurry(toggleNewApplierAlarm)}
+                  defaultValue={data.newHelpAlarm}
+                />
+              </AlarmRow>
+            )}
           </div>
         </SectionWrapper>
       </AlarmWrapper>
