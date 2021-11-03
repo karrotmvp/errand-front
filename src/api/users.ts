@@ -1,6 +1,6 @@
-import { useQuery } from "react-query";
-import { GET } from "@utils/axios";
-import { User } from "@type/response";
+import { useMutation, useQuery } from "react-query";
+import { GET, PATCH } from "@utils/axios";
+import { AlarmResponseBody, User } from "@type/response";
 import { getValueFromSearch } from "@utils/utils";
 
 const getUserProfile = async (id: number): Promise<User> => {
@@ -20,11 +20,22 @@ export const useMyInfo = () => {
   return useQuery(["myInfo"], () => getMyInfo());
 };
 
-const getUserAlarm = async () => {
-  const { data } = await GET(`user/alarm`);
+const getUserAlarm = async (): Promise<AlarmResponseBody> => {
+  const { data } = await GET(`/user/alarm`);
   return data;
 };
 
 export const useUserAlarm = () => {
   return useQuery(["userAlarm"], () => getUserAlarm());
+};
+
+export const patchCategoryAlarm = (body: {
+  categoryId: number;
+  on: boolean;
+}) => {
+  return PATCH("/user/category", body);
+};
+
+export const patchNewApplierAlarm = (body: { on: boolean }) => {
+  return PATCH("/user/alarm", body);
 };
