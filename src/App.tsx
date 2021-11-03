@@ -3,7 +3,7 @@ import { css } from "@emotion/css";
 import { Navigator, Screen } from "@karrotframe/navigator";
 import { GlobalStyle } from "./styles/global-style";
 import { theme } from "./styles/theme";
-import { initMSW } from "./lib/msw";
+// import { initMSW } from "./lib/msw";
 
 import {
   Alarm,
