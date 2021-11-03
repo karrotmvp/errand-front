@@ -2,7 +2,6 @@ import { useQuery, useInfiniteQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
 import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 import { TabType } from "@type/client";
-import { ErrandRegisterRequestBody } from "@type/request";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { getValueFromSearch } from "@utils/utils";
 
@@ -68,9 +67,7 @@ export const useErrandList = (tabType: TabType, isAppliable?: boolean) => {
   );
 };
 
-export const registerErrand = async (
-  requestBody: ErrandRegisterRequestBody
-) => {
+export const registerErrand = async (requestBody: FormData) => {
   const { data } = await POST(`/errand`, requestBody);
 
   return data;

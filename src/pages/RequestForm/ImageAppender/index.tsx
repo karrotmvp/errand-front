@@ -21,7 +21,7 @@ export default function ImageAppender({ children }: ImageAppenderProps) {
 const ImageAppenderWrapper = styled(BoxWrapper)`
   border: 0.1rem solid ${({ theme }) => theme.color.grey6};
   height: 7rem;
-  & > svg {
+  & > label > svg {
     stroke: ${({ theme }) => theme.color.grey6};
   }
 `;

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -16,88 +16,68 @@ import useModal from "@hooks/useModal";
 import Modal from "@components/Modal";
 import ModalInnerBox from "@components/ModalInnerBox";
 import Button from "@components/Button";
-import { DEFAULT_IMAGE } from "@constant/default";
 import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
+import { getValueFromSearch } from "@utils/utils";
 
 type Inputs = {
   categoryId: number;
-  images: File[];
-  title: string;
+  images?: File[];
   detail: string;
   reward: number;
   detailAddress: string;
   phoneNumber: string;
-  termAll: boolean;
-  term1: boolean;
-  term2: boolean;
 };
-
-const DUMMY_IMAGES = [
-  DEFAULT_IMAGE,
-  DEFAULT_IMAGE,
-  DEFAULT_IMAGE,
-  DEFAULT_IMAGE,
-  DEFAULT_IMAGE,
-];
 
 export default function RequestForm() {
   const {
     register,
     handleSubmit,
     watch,
-    setValue,
-    getValues,
     formState: { errors },
   } = useForm<Inputs>();
   const { isOpen, openModal, closeModal } = useModal();
-  const watchTermAll = watch("termAll", false);
-  const isAll = watch(["term1", "term2"]).every((el) => el);
   const watchTextArea = watch("detail");
   const { push } = useNavigator();
+  const watchImages = watch("images");
+  const [imageList, setImageList] = useState<File[]>([]);
 
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
-    const {
-      categoryId,
-      title,
-      detail,
-      reward,
-      detailAddress,
-      phoneNumber,
-      images,
-    } = result;
-    console.log(images);
-    const { id } = await registerErrand({
-      imageUrls: ["", ""],
-      categoryId,
-      title,
-      detail,
-      reward,
-      detailAddress,
-      phoneNumber,
-      regionId: "1234",
+    const { categoryId, detail, reward, detailAddress, phoneNumber } = result;
+    const regionId = getValueFromSearch("region_id") ?? "";
+    const formData = new FormData();
+    imageList.forEach((file) => {
+      console.log(file);
+      formData.append("images", file);
     });
-    //TODO : 새글 등록 요청 하고 그 글의 id를 전달받아서 push
+    formData.append("categoryId", String(categoryId));
+    formData.append("detail", detail);
+    formData.append("reward", String(reward));
+    formData.append("detailAddress", detailAddress);
+    formData.append("phoneNumber", phoneNumber);
+    formData.append("regionId", regionId);
+
+    const { id } = await registerErrand(formData);
+
     closeModal();
     push(`/errands/${id}`);
   };
 
-  useEffect(() => {
-    const termAll = getValues("termAll");
-
-    if (isAll !== termAll) {
-      setValue("term1", termAll);
-      setValue("term2", termAll);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [watchTermAll, setValue, getValues]);
+  const removeImage = (targetLastModified: number) => {
+    setImageList((images) => {
+      return images.filter(
+        (image) => image.lastModified !== targetLastModified
+      );
+    });
+  };
 
   useEffect(() => {
-    if (getValues("termAll") !== isAll) {
-      setValue("termAll", isAll);
+    if (watchImages) {
+      setImageList(Array.from(watchImages));
     }
-  }, [isAll, setValue, getValues]);
+  }, [watchImages]);
 
+  console.log(1, 2, imageList);
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet title="요청하기" />
@@ -111,7 +91,7 @@ export default function RequestForm() {
           </div>
           <div className="section__content">
             <select {...register("categoryId", { required: true })}>
-              <option value="null" disabled selected>
+              <option value="default" disabled>
                 카테고리를 선택해주세요.
               </option>
               <option value="1" className="test">
@@ -137,22 +117,15 @@ export default function RequestForm() {
                 {...register("images")}
               />
             </ImageAppender>
-            {DUMMY_IMAGES.map((imgURL) => (
-              <ImageBox imgURL={imgURL} />
-            ))}
+            {imageList &&
+              imageList.map((file) => (
+                <ImageBox
+                  file={file}
+                  removeImage={removeImage}
+                  key={file.lastModified}
+                />
+              ))}
           </ImageCarousel>
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <label>요청제목</label>
-            {errors.title && <ErrorText>제목을 입력해주세요.</ErrorText>}
-          </div>
-          <input
-            className="section__content"
-            placeholder="제목을 입력하세요."
-            type="text"
-            {...register("title", { required: true })}
-          />
         </SectionWrapper>
         <SectionWrapper>
           <div className="section__title">
@@ -221,51 +194,6 @@ export default function RequestForm() {
             type="number"
             {...register("phoneNumber", { required: true })}
           />
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <label>이용약관</label>
-            {(errors.term1 || errors.term2) && (
-              <ErrorText>약관에 동의해주세요.</ErrorText>
-            )}
-          </div>
-          <SectionTerms className="section__content">
-            <div className="section__terms-item">
-              <input
-                type="checkbox"
-                value="termAll"
-                id="termAll"
-                {...register("termAll")}
-              />
-              <label htmlFor="termAll"></label>
-              <p>이용약관 모두 동의</p>
-            </div>
-            <div className="section__terms-item">
-              <input
-                type="checkbox"
-                value="term1"
-                id="term1"
-                {...register("term1", { required: true })}
-              />
-              <label htmlFor="term1" />
-              <p>
-                <span>(필수)</span> 요청사항을 5분 이내 취소할 수 있고 추후에
-                취소는 불가능해요.
-              </p>
-            </div>
-            <div className="section__terms-item">
-              <input
-                type="checkbox"
-                value="term2"
-                id="term2"
-                {...register("term2", { required: true })}
-              />
-              <label htmlFor="term2" />
-              <p>
-                <span>(필수)</span> 개인정보 제공 동의
-              </p>
-            </div>
-          </SectionTerms>
         </SectionWrapper>
       </RequestFormWrapper>
       {isOpen && (

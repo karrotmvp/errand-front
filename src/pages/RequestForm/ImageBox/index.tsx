@@ -2,14 +2,14 @@ import { Close } from "@assets/icon";
 import styled from "@emotion/styled";
 
 type ImageBoxProps = {
-  imgURL: string;
-  removeImage?: () => void;
+  file: File;
+  removeImage: (id: number) => void;
 };
-export default function ImageBox({ imgURL, removeImage }: ImageBoxProps) {
+export default function ImageBox({ file, removeImage }: ImageBoxProps) {
   return (
-    <ImageBoxWrapper imgURL={imgURL}>
+    <ImageBoxWrapper imgURL={URL.createObjectURL(file)}>
       <div className="image__remover">
-        <Close stroke="white" />
+        <Close stroke="white" onClick={() => removeImage(file.lastModified)} />
       </div>
     </ImageBoxWrapper>
   );
