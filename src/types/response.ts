@@ -79,3 +79,14 @@ type Image = {
   id: number;
   url: string;
 };
+
+export type AlarmResponseBody = {
+  categoryStatusList: Alarm[];
+  newHelpAlarm: boolean;
+};
+
+export type Alarm = {
+  categoryId: number;
+  name: string;
+  status: boolean;
+};
