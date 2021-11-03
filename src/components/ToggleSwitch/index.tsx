@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import styled from "@emotion/styled";
 import useDebounce from "@hooks/useDebounce";
 

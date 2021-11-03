@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "react-query";
+import { useQuery } from "react-query";
 import { GET, PATCH } from "@utils/axios";
 import { AlarmResponseBody, User } from "@type/response";
 import { getValueFromSearch } from "@utils/utils";
