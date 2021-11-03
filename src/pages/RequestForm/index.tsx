@@ -1,11 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { registerErrand } from "@api/errands";
 import {
   ErrorText,
-  SectionTerms,
   SectionWrapper,
   StickyFooter,
   StickyPageWrpper,

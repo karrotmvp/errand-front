@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "@emotion/styled";
 import Profile from "@components/Profile";
-import { SectionWrapper, StickyFooter, StickyPageWrpper } from "@styles/shared";
+import { StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { selectHelper, useHelperDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
