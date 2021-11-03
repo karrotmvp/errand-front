@@ -3,8 +3,8 @@ import { TabType } from "@type/client";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-export const useInfiniteScroll = (tabType: TabType) => {
-  const query = useErrandList(tabType);
+export const useInfiniteScroll = (tabType: TabType, isAppliable?: boolean) => {
+  const query = useErrandList(tabType, isAppliable);
 
   const { ref, inView } = useInView();
   useEffect(() => {

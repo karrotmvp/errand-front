@@ -6,12 +6,12 @@ export type Errand = {
   reward: number;
   thumbnailUrl: string;
   status: ErrandStatus;
-  helpCnt: number;
+  helpCount: number;
   category: Category;
   regionName: string;
   chosenHelper?: SimpleUser;
-  createdAt: Date;
-  updatedAt: Date;
+  createdAt: [number, number, number, number, number, number, number];
+  updatedAt: [number, number, number, number, number, number, number];
 };
 
 export type ErrendCreateResponseBody = {
@@ -58,7 +58,7 @@ export type Resume = {
 export type User = SimpleUser & {
   profileImgUrl?: string;
   regionName: string;
-  mannerPoint: number;
+  mannerTemp: number;
 };
 
 export type SimpleUser = {
@@ -78,4 +78,15 @@ export type Region = {
 type Image = {
   id: number;
   url: string;
+};
+
+export type AlarmResponseBody = {
+  categoryStatusList: Alarm[];
+  newHelpAlarm: boolean;
+};
+
+export type Alarm = {
+  categoryId: number;
+  name: string;
+  status: boolean;
 };

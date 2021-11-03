@@ -10,14 +10,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 1,
+    helpCount: 1,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 2,
@@ -26,14 +26,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date("2021-10-29"),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 3,
@@ -42,14 +42,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "PROCEED",
-    helpCnt: 3,
+    helpCount: 3,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date("2021-10-28"),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 4,
@@ -58,14 +58,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "COMPLETE",
-    helpCnt: 4,
+    helpCount: 4,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date("2021-10-21"),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 5,
@@ -74,14 +74,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date("2021-9-29"),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 6,
@@ -90,14 +90,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date("2020-10-28"),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 7,
@@ -106,14 +106,14 @@ export const errands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
 ];
 
@@ -125,14 +125,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 2,
@@ -141,14 +141,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 3,
@@ -157,14 +157,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "PROCEED",
-    helpCnt: 3,
+    helpCount: 3,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 4,
@@ -173,14 +173,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "COMPLETE",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 5,
@@ -189,14 +189,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 6,
@@ -205,14 +205,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 7,
@@ -221,14 +221,14 @@ export const myErrands: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
 ];
 
@@ -240,14 +240,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "COMPLETE",
-    helpCnt: 3,
+    helpCount: 3,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 2,
@@ -256,14 +256,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "FAIL",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 3,
@@ -272,14 +272,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "PROCEED",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 4,
@@ -288,14 +288,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 2,
+    helpCount: 2,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 5,
@@ -304,14 +304,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 6,
@@ -320,14 +320,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
   {
     id: 7,
@@ -336,14 +336,14 @@ export const myHelps: Errand[] = [
     thumbnailUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
     status: "WAIT",
-    helpCnt: 0,
+    helpCount: 0,
     category: {
       id: 1,
       name: "벌레잡기",
     },
     regionName: "반포1동",
-    createdAt: new Date(),
-    updatedAt: new Date(),
+    createdAt: [2021, 11, 2, 10, 24, 14, 68080000],
+    updatedAt: [2021, 11, 2, 10, 24, 14, 68080000],
   },
 ];
 
@@ -387,7 +387,7 @@ export const user: User = {
   id: 1,
   nickname: "테스트맨",
   regionName: "논현동",
-  mannerPoint: 37.5,
+  mannerTemp: 37.5,
   profileImgUrl:
     "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
 };
@@ -397,7 +397,7 @@ export const applyList: User[] = [
     id: 1,
     nickname: "DD",
     regionName: "반포1동",
-    mannerPoint: 39.5,
+    mannerTemp: 39.5,
     profileImgUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
   },
@@ -405,19 +405,19 @@ export const applyList: User[] = [
     id: 2,
     nickname: "Rosie",
     regionName: "혜화동",
-    mannerPoint: 100,
+    mannerTemp: 100,
   },
   {
     id: 3,
     nickname: "Christine",
     regionName: "연남동",
-    mannerPoint: 40,
+    mannerTemp: 40,
   },
   {
     id: 4,
     nickname: "Noah",
     regionName: "청담동",
-    mannerPoint: 52.5,
+    mannerTemp: 52.5,
   },
 ];
 
@@ -429,7 +429,7 @@ export const resume: Resume = {
     id: 3,
     nickname: "Christine",
     regionName: "연남동",
-    mannerPoint: 40,
+    mannerTemp: 40,
     profileImgUrl: DEFAULT_THUMBNAIL,
   },
 };

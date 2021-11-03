@@ -107,7 +107,7 @@ export const StickyPageWrpper = styled.div`
   flex-direction: column;
   height: 100%;
 
-  & > *:first-child {
+  & > *:first-of-type {
     flex: 1;
   }
 `;

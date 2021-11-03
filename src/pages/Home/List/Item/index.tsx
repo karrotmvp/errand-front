@@ -4,6 +4,7 @@ import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
+import { DEFAULT_IMAGE } from "@constant/default";
 
 type ItemProps = {
   item: Errand;
@@ -17,14 +18,16 @@ export default function Item({ item, tabType }: ItemProps) {
       <ItemWrapper>
         <div className="item-box" onClick={moveTo}>
           <div className="item-image">
-            <img src={item.thumbnailUrl} alt="img" />
+            <img src={item.thumbnailUrl ?? DEFAULT_IMAGE} alt="img" />
           </div>
           <div className="item-info">
             <div className="item-info__detail">{item.detail}</div>
             <div className="item-info__sub">
               <span>{item.category.name}</span>
               <span>{item.regionName}</span>
-              <span>{getComparedTime(new Date(), item.createdAt)}</span>
+              <span>
+                {getComparedTime(new Date(), new Date(...item.createdAt))}
+              </span>
             </div>
             <div className="item-info__bottom">
               <div className="item-info__bottom__reward">
@@ -51,6 +54,13 @@ const ItemWrapper = styled.li`
     .item-image {
       min-width: 8rem;
       min-height: 8rem;
+
+      max-width: 8rem;
+      max-height: 8rem;
+
+      width: 8rem;
+      height: 8rem;
+
       img {
         width: 100%;
       }
@@ -107,15 +117,19 @@ const ItemWrapper = styled.li`
 `;
 
 const renderItemStatus = (tabType: TabType, item: Errand) => {
-  const { status, helpCnt } = item;
-  const color = getColor(tabType, status, helpCnt);
-  const text = getText(tabType, status, helpCnt);
+  const { status, helpCount } = item;
+  const color = getColor(tabType, status, helpCount);
+  const text = getText(tabType, status, helpCount);
   return <div className={`item-info__bottom__status ${color}`}>{text}</div>;
 };
 
-const getColor = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
+const getColor = (
+  tabType: TabType,
+  status: ErrandStatus,
+  helpCount: number
+) => {
   if (
-    (tabType === "request" && status === "WAIT" && helpCnt > 0) ||
+    (tabType === "request" && status === "WAIT" && helpCount > 0) ||
     (tabType === "help" && status === "PROCEED")
   ) {
     return "PRIMARY";
@@ -131,7 +145,7 @@ const getColor = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
   return "GREY";
 };
 
-const getText = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
+const getText = (tabType: TabType, status: ErrandStatus, helpCount: number) => {
   if (status === "COMPLETE") {
     return "완료";
   }
@@ -140,7 +154,7 @@ const getText = (tabType: TabType, status: ErrandStatus, helpCnt: number) => {
     if (tabType === "help") {
       return "지원완료";
     }
-    return `지원 ${helpCnt}`;
+    return `지원 ${helpCount}`;
   }
 
   if (status === "PROCEED") {

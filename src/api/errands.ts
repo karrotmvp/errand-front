@@ -2,20 +2,48 @@ import { useQuery, useInfiniteQuery } from "react-query";
 import { GET, PATCH, POST } from "@utils/axios";
 import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
 import { TabType } from "@type/client";
-import { ErrandRegisterRequestBody } from "@type/request";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
+import { getValueFromSearch } from "@utils/utils";
 
-const getMainErrands = ({ pageParam = 0 }): Promise<Errand[]> => {
-  return GET(`/errands?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}`);
+const getMainErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
+  return data;
 };
-const getMyErrands = ({ pageParam = 0 }): Promise<Errand[]> => {
-  return GET(`my/errands?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}`);
+const getMyErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `my/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
+  return data;
 };
-const getMyHelps = ({ pageParam = 0 }): Promise<Errand[]> => {
-  return GET(`my/helps?lastId=${pageParam}&size=${ERREND_REQUEST_SIZE}`);
+const getMyHelps = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `my/helps?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
+  return data;
 };
 
-const fetchWrap = (tabType: TabType) => {
+const getAppliableErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `/errands/appliable?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
+  return data;
+};
+
+const switchWrap = (tabType: TabType, isAppliable?: boolean) => {
+  if (isAppliable) {
+    return getAppliableErrands;
+  }
+
   switch (tabType) {
     case "main":
       return getMainErrands;
@@ -26,38 +54,49 @@ const fetchWrap = (tabType: TabType) => {
   }
 };
 
-export const useErrandList = (tabType: TabType) => {
-  return useInfiniteQuery([tabType], fetchWrap(tabType), {
-    getNextPageParam: (lastErrans: Errand[]) => {
-      const lastErrand = lastErrans[lastErrans.length - 1];
-      return lastErrand?.id;
-    },
-  });
+export const useErrandList = (tabType: TabType, isAppliable?: boolean) => {
+  return useInfiniteQuery(
+    ["getErrands", tabType, isAppliable],
+    switchWrap(tabType, isAppliable),
+    {
+      getNextPageParam: (lastErrans: Errand[]) => {
+        const lastErrand = lastErrans[lastErrans.length - 1];
+        return lastErrand?.id;
+      },
+    }
+  );
 };
 
-export const registerErrand = (requestBody: ErrandRegisterRequestBody) => {
-  return POST(`/errands`, requestBody);
+export const registerErrand = async (requestBody: FormData) => {
+  const { data } = await POST(`/errand`, requestBody);
+
+  return data;
 };
 
-const getErrandDetail = (id: string): Promise<ErrandDetailResponseBody> => {
-  return GET(`/errands/${id}`);
+const getErrandDetail = async (
+  id: string
+): Promise<ErrandDetailResponseBody> => {
+  const { data } = await GET(`/errand/${id}`);
+  return data;
 };
 export const useErrandDetail = (id: string) => {
   return useQuery(["errandDetail"], () => getErrandDetail(id));
 };
 
-const getHelperList = (): Promise<User[]> => {
-  return GET(`/errands/:id/helpers`);
+const getHelperList = async (): Promise<User[]> => {
+  const { data } = await GET(`/errand/:id/helpers`);
+  return data;
 };
 export const useHelperList = () => {
   return useQuery(["helperList"], () => getHelperList());
 };
 
-const getHelperDetail = (
+const getHelperDetail = async (
   errandId: number,
   helperId: number
 ): Promise<Resume> => {
-  return GET(`/errands/:${errandId}/helpers/:${helperId}`);
+  const { data } = await GET(`/errand/:${errandId}/helpers/:${helperId}`);
+  return data;
 };
 export const useHelperDetail = (errandId: number, helperId: number) => {
   return useQuery(["helperDetail", errandId, helperId], () =>
@@ -65,12 +104,14 @@ export const useHelperDetail = (errandId: number, helperId: number) => {
   );
 };
 
-export const selectHelper = (errandId: number, helperId: number) => {
-  return PATCH(`/errands/:${errandId}/helper`, { helperId });
+export const selectHelper = async (errandId: number, helperId: number) => {
+  const { data } = await PATCH(`/errand/:${errandId}/helper`, { helperId });
+  return data;
 };
 
-export const confirmIsAppliable = (
+export const confirmIsAppliable = async (
   errandId: string
 ): Promise<{ helperCnt: number; canApply: boolean }> => {
-  return GET(`errands/:${errandId}/helper-count`);
+  const { data } = await GET(`/errand/:${errandId}/helper-count`);
+  return data;
 };

@@ -5,7 +5,6 @@ import { GlobalStyle } from "./styles/global-style";
 import { theme } from "./styles/theme";
 import { initMSW } from "./lib/msw";
 
-import styled from "@emotion/styled";
 import {
   Alarm,
   ApplyForm,
@@ -21,7 +20,7 @@ import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
 import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
 
-initMSW();
+// initMSW();
 
 function App() {
   const NavigatorStyle = css`
@@ -31,7 +30,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Test />
       <Navigator
         theme={checkMobileType()}
         className={NavigatorStyle}
@@ -40,8 +38,11 @@ function App() {
         }}
       >
         <Screen path="/" component={withMini(Home)} />
-        <Screen path="/errands/:id" component={withParamsId(ErrandDetail)} />
-        <Screen path="/appliers" component={ApplierList} />
+        <Screen
+          path="/errands/:id"
+          component={withParamsId(withMini(ErrandDetail))}
+        />
+        <Screen path="/appliers" component={withMini(ApplierList)} />
         <Screen
           path="/appliers/:id"
           component={withErrandIdAndHelperId(Resume)}
@@ -54,9 +55,5 @@ function App() {
     </ThemeProvider>
   );
 }
-
-const Test = styled.div`
-  background: ${({ theme }) => theme.color.primary};
-`;
 
 export default App;

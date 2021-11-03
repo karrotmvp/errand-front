@@ -14,9 +14,7 @@ const BASE_URL = envs.API_BASE_URL;
 export const handlers = [
   // errand
   rest.get(`${BASE_URL}errands`, (req, res, ctx) => {
-    // const lastId = req.url.searchParams.get("lastId");
-    // const size = req.url.searchParams.get("size");
-    return res(ctx.status(200), ctx.json(errands));
+    return res(ctx.status(200), ctx.json({ data: errands }));
   }),
 
   rest.post(`${BASE_URL}errands`, (req, res, ctx) => {
@@ -56,7 +54,7 @@ export const handlers = [
   }),
 
   rest.get(
-    `${BASE_URL}errands/:errandId/helpers/:helperId"`,
+    `${BASE_URL}errands/:errandId/helpers/:helperId`,
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(resume));
     }

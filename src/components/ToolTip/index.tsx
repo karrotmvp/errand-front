@@ -1,11 +1,11 @@
 import { Close } from "@assets/icon";
 import styled from "@emotion/styled";
 
-interface ToolTipProps {
+type ToolTipProps = {
   text: string;
   tail?: "up" | "down";
   closeTooltip: () => void;
-}
+};
 
 export default function ToolTip({
   text,
