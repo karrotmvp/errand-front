@@ -47,7 +47,7 @@ export default function Home() {
                 onClick={toggleIsAppliable}
               >
                 <Check />
-                <span>완료된 심부름 안 보기</span>
+                <span>지원가능한 심부름 보기</span>
               </div>
             </div>
             {showTooltip && (

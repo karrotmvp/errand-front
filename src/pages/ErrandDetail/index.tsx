@@ -9,18 +9,13 @@ import Modal from "@components/Modal";
 import { WithParamsIdProps } from "@hoc/withParamsId";
 import useModal from "@hooks/useModal";
 import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@components/Button";
-
-// function validateParams(props: { id?: string }): props is { id: string } {
-//   return Boolean(props.id);
-// }
 
 export default function ErrandDetail({ id }: WithParamsIdProps) {
   const moveToApplyForm = usePush("/apply-form");
   const { isOpen, openModal, closeModal } = useModal();
   const { status, data } = useErrandDetail(id);
-  confirmIsAppliable(id);
 
   const handleClickApply = async () => {
     const res = await confirmIsAppliable(id);

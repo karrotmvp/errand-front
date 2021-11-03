@@ -20,7 +20,7 @@ import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
 import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
 
-initMSW();
+// initMSW();
 
 function App() {
   const NavigatorStyle = css`
@@ -38,8 +38,11 @@ function App() {
         }}
       >
         <Screen path="/" component={withMini(Home)} />
-        <Screen path="/errands/:id" component={withParamsId(ErrandDetail)} />
-        <Screen path="/appliers" component={ApplierList} />
+        <Screen
+          path="/errands/:id"
+          component={withParamsId(withMini(ErrandDetail))}
+        />
+        <Screen path="/appliers" component={withMini(ApplierList)} />
         <Screen
           path="/appliers/:id"
           component={withErrandIdAndHelperId(Resume)}
