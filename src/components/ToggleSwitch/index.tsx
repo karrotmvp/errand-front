@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import styled from "@emotion/styled";
+import useDebounce from "@hooks/useDebounce";
 
 type ToggleSwitchProps = {
   callback: (result: boolean) => void;
@@ -13,13 +14,23 @@ export default function ToggleSwitch({
   height = 2.8,
 }: ToggleSwitchProps) {
   const [toggle, setToggle] = useState(defaultValue);
+  const ref = useRef<boolean>(false);
+
+  useDebounce(
+    () => {
+      if (!ref.current) {
+        ref.current = true;
+        return;
+      }
+      callback(toggle);
+    },
+    1000,
+    [toggle]
+  );
+
   const handleToggle = () => {
     setToggle(!toggle);
   };
-
-  useEffect(() => {
-    callback(toggle);
-  }, [toggle, callback]);
 
   return (
     <ToggleSwitchWrapper onClick={handleToggle} height={height} toggle={toggle}>
