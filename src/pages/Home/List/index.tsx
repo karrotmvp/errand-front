@@ -12,7 +12,7 @@ type ListProps = {
 export default function List({ tabType, isAppliable }: ListProps) {
   const { status, data, isFetchingFirst, isFetchingMore, fetchTriggerElement } =
     useInfiniteScroll(tabType, isAppliable);
-  
+
   return (
     <ListWrapper>
       <ul>
@@ -24,7 +24,9 @@ export default function List({ tabType, isAppliable }: ListProps) {
           <NoData tabType={tabType} />
         ) : (
           data?.pages?.map((group) =>
-            group?.map((item) => <Item {...{ item, tabType }} key={item.id} />)
+            group?.map((item) => (
+              <Item {...{ item, tabType }} key={item?.errand.id} />
+            ))
           )
         )}
         {!isFetchingFirst && !isFetchingMore && fetchTriggerElement}

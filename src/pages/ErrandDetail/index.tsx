@@ -11,11 +11,19 @@ import useModal from "@hooks/useModal";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@components/Button";
+import { getComparedTime } from "@utils/utils";
+import ToolTip from "@components/ToolTip";
+import { useTooltip } from "@hooks/useTooltip";
+import { getRefinedFromData } from "./specify";
 
 export default function ErrandDetail({ id }: WithParamsIdProps) {
   const moveToApplyForm = usePush("/apply-form");
   const { isOpen, openModal, closeModal } = useModal();
   const { status, data } = useErrandDetail(id);
+  const [showTooltip, closeTooltip] = useTooltip();
+
+  const { color, detailStatus, buttonText, buttonDisabled, handleButtonClick } =
+    getRefinedFromData(data);
 
   const handleClickApply = async () => {
     const res = await confirmIsAppliable(id);
@@ -29,29 +37,33 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet
-        customBackButton={<div>커스텀</div>}
         title="상세페이지"
         appendRight={<Meatballs onClick={openModal} />}
       />
       <ErrandDetailWrapper>
-        {status !== "loading" ? (
+        {status !== "loading" && data ? (
           <>
             <Carousel showThumbs={false}>
-              {data?.errand.imageUrls.map((image) => (
+              {data?.errand.images.map((image) => (
                 <div className="errand-detail__image">
                   <img src={image.url} alt="dummy" />
                 </div>
               ))}
             </Carousel>
             <div className="errand-detail__contents">
-              <h2>{data?.errand.title}</h2>
+              {/* <h2>{data?.errand.title}</h2> */}
               <div className="errand-detail__contents__title">
                 <div>
                   <span>{data?.errand.category.name}</span>
                   <span>{data?.errand.region.name}</span>
-                  <span>11시간 전</span>
+                  <span>
+                    {getComparedTime(
+                      new Date(),
+                      new Date(...data?.errand.createdAt)
+                    )}
+                  </span>
                 </div>
-                <span>지원 1</span>
+                {renderStatus(color, detailStatus)}
               </div>
               <div className="errand-detail__contents__info">
                 <div>
@@ -63,7 +75,15 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
                   <div>{data?.errand.detailAddress}</div>
                 </div>
                 <div>
-                  <div>전화번호</div>
+                  <div>
+                    전화번호
+                    {showTooltip && (
+                      <ToolTip
+                        text="요청장소와 전화번호는 매칭된 상대에게만 보여요."
+                        closeTooltip={closeTooltip}
+                      />
+                    )}
+                  </div>
                   <div>{data?.errand.customerPhoneNumber}</div>
                 </div>
               </div>
@@ -90,9 +110,10 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
           color="primary"
           fullWidth
           rounded
-          onClick={handleClickApply}
+          onClick={handleButtonClick}
+          disabled={buttonDisabled}
         >
-          일단 지원하기
+          {buttonText}
         </Button>
       </StickyFooter>
     </StickyPageWrpper>
@@ -105,6 +126,14 @@ const ErrandDetailWrapper = styled.div`
       width: 100%;
       & > img {
         width: 100%;
+      }
+    }
+    &__status {
+      &.PRIMARY {
+        color: ${({ theme }) => theme.color.primary};
+      }
+      &.GREY {
+        color: ${({ theme }) => theme.color.grey4};
       }
     }
     &__contents {
@@ -155,7 +184,7 @@ const ErrandDetailWrapper = styled.div`
         }
       }
 
-      p {
+      & > p {
         ${({ theme }) => theme.font("medium", "regular")}
         margin-top: 2.3rem;
         margin-bottom: 3.8rem;
@@ -163,3 +192,7 @@ const ErrandDetailWrapper = styled.div`
     }
   }
 `;
+
+const renderStatus = (color: string, detailStatus: string) => {
+  return <div className={`errand-detail__status ${color}`}>{detailStatus}</div>;
+};
