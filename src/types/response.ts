@@ -1,21 +1,40 @@
 import { ErrandStatus } from "./client";
 
-export type Errand = {
+export type ErrandPreview = {
   id: number;
   detail: string;
   reward: number;
   thumbnailUrl: string;
   status: ErrandStatus;
-  helpCount: number;
   category: Category;
+  helpCount: number;
   regionName: string;
-  chosenHelper?: SimpleUser;
   createdAt: [number, number, number, number, number, number, number];
   updatedAt: [number, number, number, number, number, number, number];
 };
 
-export type ErrendCreateResponseBody = {
+export type ErrandDetail = {
   id: number;
+  customer: Customer;
+  customerPhoneNumber?: string;
+  images: Image[];
+  category: Category;
+  detailAddress?: string;
+  reward: number;
+  detail: string;
+  isCompleted: boolean;
+  createdAt: [number, number, number, number, number, number, number];
+  updatedAt: [number, number, number, number, number, number, number];
+  region: Region;
+  helpCount: number;
+  status: ErrandStatus;
+};
+
+export type ErrandPreviewResponseBody = {
+  errand: ErrandPreview;
+  isMine: boolean;
+  didIApply: boolean;
+  wasIChosen: boolean;
 };
 
 export type ErrandDetailResponseBody = {
@@ -25,18 +44,8 @@ export type ErrandDetailResponseBody = {
   wasIChosen: boolean;
 };
 
-export type ErrandDetail = {
+export type ErrendCreateResponseBody = {
   id: number;
-  title: string;
-  customer: Customer;
-  region: Region;
-  category: Category;
-  imageUrls: Image[];
-  detail: string;
-  reward: number;
-  detailAddress?: string;
-  customerPhoneNumber?: string;
-  isCompleted: boolean;
 };
 
 type Customer = {
