@@ -31,7 +31,7 @@ const ToolTipWrapper = styled.div<{ tail: string }>`
   z-index: 99;
   .tooltip__inner {
     position: absolute;
-    bottom: -9rem;
+    bottom: -8rem;
     .tooltip__box {
       background: ${({ theme }) => theme.color.primary};
       color: white;
