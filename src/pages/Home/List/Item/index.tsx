@@ -1,11 +1,11 @@
-import { ErrandStatus, TabType } from "@type/client";
+import { TabType } from "@type/client";
 import { ErrandPreviewResponseBody } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
 import { DEFAULT_IMAGE } from "@constant/default";
-import { getRefinedFromData } from "@pages/ErrandDetail/specify";
+import { getRefinedFromData } from "@utils/getRefinedFromData";
 
 type ItemProps = {
   item: ErrandPreviewResponseBody;
