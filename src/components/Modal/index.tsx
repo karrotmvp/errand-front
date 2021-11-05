@@ -1,22 +1,52 @@
 import styled from "@emotion/styled";
-import { useEffect, useMemo } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { createPortal } from "react-dom";
+import ModalConfirmInner from "./ModalConfirmInner.tsx";
+import ModalListInner from "./ModalListInner";
+import ModalInnerBox from "./ModalInnerBox";
 
-type ChildrenPosition = "top" | "middle" | "bottom";
+export type Confirm = {
+  text: React.ReactNode;
+  no: React.ReactNode;
+  yes: React.ReactNode;
+};
+
+export type Content = {
+  text: React.ReactNode;
+  confirm?: Confirm;
+};
+
+export type ModalInfoType = {
+  list?: Content[];
+  confirm?: Confirm;
+};
+
+export type innerModeType = "list" | "confirm";
+
 type ModalProps = {
-  onClose: any;
-  childrenPosition?: ChildrenPosition;
-  children: React.ReactNode;
+  closeModal: any;
+  modalInfo: ModalInfoType;
+  innerMode: innerModeType;
 };
 
 export default function Modal({
-  onClose,
-  children,
-  childrenPosition = "middle",
+  closeModal,
+  modalInfo: { list, confirm },
+  innerMode: initialMode,
 }: ModalProps) {
+  const [innerMode, setInnerMode] = useState<innerModeType>(initialMode);
+  const [confirmContent, setConfirmContent] = useState<Confirm | null>(() => {
+    return confirm ?? null;
+  });
+
+  const openConfirmModal = (mode: innerModeType, content: Confirm) => {
+    setInnerMode(mode);
+    setConfirmContent(content);
+  };
+
   const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (onClose) {
-      onClose(e);
+    if (closeModal) {
+      closeModal();
     }
   };
 
@@ -28,12 +58,25 @@ export default function Modal({
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
     };
   }, []);
+
   return (
     <Portal>
       <ModalOverlay onClick={onMaskClick} />
-      <ModalWrapper childrenPosition={childrenPosition}>
-        <div className="modal__inner">{children}</div>
-      </ModalWrapper>
+      <ModalInnerBox innerMode={innerMode}>
+        {innerMode === "list" && list ? (
+          <ModalListInner
+            {...{
+              list,
+              closeModal,
+              openConfirmModal,
+            }}
+          />
+        ) : (
+          confirmContent && (
+            <ModalConfirmInner {...{ confirmContent, closeModal }} />
+          )
+        )}
+      </ModalInnerBox>
     </Portal>
   );
 }
@@ -47,30 +90,6 @@ const ModalOverlay = styled.div`
   right: 0;
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
-`;
-const ModalWrapper = styled.div<{ childrenPosition: ChildrenPosition }>`
-  box-sizing: border-box;
-  position: fixed;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  z-index: 1000;
-  overflow: auto;
-  outline: 0;
-
-  display: flex;
-  flex-direction: column;
-  justify-content: ${({ childrenPosition }) => {
-    switch (childrenPosition) {
-      case "top":
-        return "start";
-      case "middle":
-        return "center";
-      case "bottom":
-        return "flex-end";
-    }
-  }};
 `;
 
 type PortalProps = {
