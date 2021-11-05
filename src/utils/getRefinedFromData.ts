@@ -1,11 +1,21 @@
-import { ErrandDetailResponseBody } from "@type/response";
+import {
+  ErrandDetailResponseBody,
+  ErrandPreviewResponseBody,
+} from "@type/response";
+
+export type modalInfoFlagType =
+  | "isMyErrand"
+  | "isApplier"
+  | "resume"
+  | "isHelper"
+  | "noModal";
 
 type RefinedData = {
   color: string;
   detailStatus: string;
   buttonText: string;
   buttonDisabled: boolean;
-  handleButtonClick?: () => void;
+  modalInfoFlag?: modalInfoFlagType;
 };
 
 const DEFAULT_REFINED_DATA = {
@@ -16,14 +26,13 @@ const DEFAULT_REFINED_DATA = {
 };
 
 export const getRefinedFromData = (
-  data: ErrandDetailResponseBody | undefined
+  data: ErrandDetailResponseBody | ErrandPreviewResponseBody | undefined
 ): RefinedData => {
   if (!data) {
     return DEFAULT_REFINED_DATA;
   }
 
   const detailStatus = specifyStatus(data);
-
   if (detailStatus === "isMyErrand") {
     switch (data.errand.status) {
       case "WAIT":
@@ -35,7 +44,7 @@ export const getRefinedFromData = (
               ? `지원자 선택하기 ${data.errand.helpCount}`
               : "아직 지원자가 없어요",
           buttonDisabled: data.errand.helpCount > 0 ? false : true,
-          handleButtonClick: data.errand.helpCount > 0 ? () => {} : () => {},
+          modalInfoFlag: "isMyErrand",
         };
       case "PROCEED":
         return {
@@ -43,7 +52,7 @@ export const getRefinedFromData = (
           detailStatus: "진행중",
           buttonText: "지원자 정보 보기",
           buttonDisabled: false,
-          handleButtonClick: () => {},
+          modalInfoFlag: "isMyErrand",
         };
       case "COMPLETE":
         return {
@@ -51,6 +60,7 @@ export const getRefinedFromData = (
           detailStatus: "완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
+          modalInfoFlag: "isMyErrand",
         };
       case "FAIL":
         return DEFAULT_REFINED_DATA;
@@ -73,7 +83,6 @@ export const getRefinedFromData = (
           buttonText:
             data.errand.helpCount < 5 ? "지원하기" : "지원이 마감되었어요",
           buttonDisabled: data.errand.helpCount >= 5,
-          handleButtonClick: () => {},
         };
       case "PROCEED":
         return {
@@ -103,6 +112,7 @@ export const getRefinedFromData = (
           detailStatus: "지원완료",
           buttonText: "지원이 완료되었어요",
           buttonDisabled: true,
+          modalInfoFlag: "isApplier",
         };
       case "PROCEED":
         return DEFAULT_REFINED_DATA;
@@ -112,6 +122,7 @@ export const getRefinedFromData = (
           detailStatus: "완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
+          modalInfoFlag: "resume",
         };
       case "FAIL":
         return {
@@ -119,7 +130,7 @@ export const getRefinedFromData = (
           detailStatus: "매칭실패",
           buttonText: "매칭되지 않았어요",
           buttonDisabled: true,
-          handleButtonClick: () => {},
+          modalInfoFlag: "resume",
         };
       default:
         return DEFAULT_REFINED_DATA;
@@ -135,7 +146,7 @@ export const getRefinedFromData = (
           detailStatus: "진행중",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: false,
-          handleButtonClick: () => {},
+          modalInfoFlag: "isHelper",
         };
       case "COMPLETE":
         return {
@@ -143,6 +154,7 @@ export const getRefinedFromData = (
           detailStatus: "완료",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: true,
+          modalInfoFlag: "resume",
         };
       case "FAIL":
         return DEFAULT_REFINED_DATA;
@@ -164,7 +176,7 @@ const specifyStatus = ({
   isMine,
   didIApply,
   wasIChosen,
-}: ErrandDetailResponseBody): DetailStatusType => {
+}: ErrandDetailResponseBody | ErrandPreviewResponseBody): DetailStatusType => {
   if (isMine && !didIApply && !wasIChosen) {
     return "isMyErrand";
   }
