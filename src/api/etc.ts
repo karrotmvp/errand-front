@@ -14,7 +14,6 @@ export const login = async (code: string, regionId: string) => {
   const { data, status } = await POST(
     `/auth?authCode=${code}&regionId=${regionId}`
   );
-  console.log("login :", data, status);
   if (status === "OK" && data.token) {
     localStorage.removeItem("token");
     localStorage.setItem("token", data.token);
