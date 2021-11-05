@@ -3,7 +3,10 @@ import { rest } from "msw";
 import {
   applyList,
   errandDetail,
-  errands,
+  isMyErrand as q,
+  isApplier as e,
+  isHelper as r,
+  isUnRelated as w,
   myErrands,
   myHelps,
   resume,
@@ -11,42 +14,25 @@ import {
 } from "./dummy";
 
 const BASE_URL = envs.API_BASE_URL;
+
 export const handlers = [
   // errand
   rest.get(`${BASE_URL}errands`, (req, res, ctx) => {
-    return res(ctx.status(200), ctx.json({ data: errands }));
+    return res(ctx.status(200), ctx.json({ data: [...q, ...w, ...e, ...r] }));
+    // return res(ctx.status(200), ctx.json({ data: q }));
   }),
 
   rest.post(`${BASE_URL}errands`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ id: 1 }));
   }),
 
-  rest.get(`${BASE_URL}errands/:errandId`, (req, res, ctx) => {
-    const my = errandDetail;
-    my.errand.customerPhoneNumber = "01012345678";
-    my.errand.detailAddress = "123-45 303호";
-    my.isMine = true;
-    my.didIApply = false;
-    my.wasIChosen = false;
-
-    const notApply = errandDetail;
-    notApply.isMine = false;
-    notApply.didIApply = false;
-    notApply.wasIChosen = false;
-
-    const rejected = errandDetail;
-    rejected.isMine = false;
-    rejected.didIApply = true;
-    rejected.wasIChosen = false;
-
-    const chosen = errandDetail;
-    chosen.errand.customerPhoneNumber = "01012345678";
-    chosen.errand.detailAddress = "123-45 303호";
-    my.isMine = false;
-    my.didIApply = true;
-    my.wasIChosen = true;
-
-    return res(ctx.status(200), ctx.json(my));
+  rest.get(`${BASE_URL}errand/:errandId`, (req, res, ctx) => {
+    const id = req.url.pathname.split("/")[2];
+    if (!id) {
+      return res(ctx.status(200), ctx.json({}));
+    }
+    const detail = errandDetail[Number(id)];
+    return res(ctx.status(200), ctx.json({ data: detail }));
   }),
 
   rest.get(`${BASE_URL}errands/:errandId/helpers`, (req, res, ctx) => {
