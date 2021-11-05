@@ -10,7 +10,7 @@ export const useRegionInfo = (regionId: string) => {
   return useQuery(["regionInfo"], () => getRegionInfo(regionId));
 };
 
-export const login = async (code: string, regionId: string) => {
+export const reqeustLogin = async (code: string, regionId: string) => {
   const { data, status } = await POST(
     `/auth?authCode=${code}&regionId=${regionId}`
   );
