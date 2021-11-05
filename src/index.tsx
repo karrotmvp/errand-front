@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClientProvider, QueryClient } from "react-query";
+import { RecoilRoot } from "recoil";
 
 import "@karrotframe/navigator/index.css";
 import "@karrotframe/tabs/index.css";
@@ -12,9 +13,11 @@ const queryClient = new QueryClient();
 
 ReactDOM.render(
   <QueryClientProvider client={queryClient}>
-    <React.StrictMode>
-      <App />
-    </React.StrictMode>
+    <RecoilRoot>
+      <React.StrictMode>
+        <App />
+      </React.StrictMode>
+    </RecoilRoot>
   </QueryClientProvider>,
   document.getElementById("root")
 );
