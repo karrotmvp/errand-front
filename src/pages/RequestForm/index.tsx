@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
@@ -12,8 +12,8 @@ import {
 } from "@styles/shared";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import useModal from "@hooks/useModal";
-import Modal from "@components/Modal";
-import ModalInnerBox from "@components/ModalInnerBox";
+import Modal, { ModalInfoType } from "@components/Modal";
+
 import Button from "@components/Button";
 import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
@@ -35,18 +35,25 @@ export default function RequestForm() {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchTextArea = watch("detail");
   const { push } = useNavigator();
   const watchImages = watch("images");
   const [imageList, setImageList] = useState<File[]>([]);
+
+  const modalInfo: ModalInfoType = {
+    confirm: {
+      text: "작성 완료 후 수정할 수 없어요.\n완료 전 꼼곰하게 확인해 주세요.",
+      no: <button onClick={closeModal}>뒤로가기</button>,
+      yes: <button form="errand-form">작성완료</button>,
+    },
+  };
 
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
     const { categoryId, detail, reward, detailAddress, phoneNumber } = result;
     const regionId = getValueFromSearch("region_id") ?? "";
     const formData = new FormData();
     imageList.forEach((file) => {
-      console.log(file);
       formData.append("images", file);
     });
     formData.append("categoryId", String(categoryId));
@@ -76,7 +83,6 @@ export default function RequestForm() {
     }
   }, [watchImages]);
 
-  console.log(1, 2, imageList);
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet title="요청하기" />
@@ -195,24 +201,17 @@ export default function RequestForm() {
           />
         </SectionWrapper>
       </RequestFormWrapper>
-      {isOpen && (
-        <Modal onClose={closeModal}>
-          <ModalInnerBox
-            text={
-              "작성완료 후 수정할 수 없어요.\n완료 전 꼼꼼하게 확인해주세요."
-            }
-            leftText="뒤로가기"
-            leftCallback={closeModal}
-            rightText={<button form="errand-form">작성완료</button>}
-          />
-        </Modal>
+      {isOpen && innerMode && (
+        <Modal {...{ closeModal, modalInfo, innerMode }} />
       )}
       <StickyFooter fullArea>
         <Button
           buttonType="contained"
           color="primary"
           fullWidth
-          onClick={openModal}
+          onClick={() => {
+            openModal("confirm");
+          }}
         >
           작성완료
         </Button>

@@ -4,8 +4,7 @@ import Profile from "@components/Profile";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
 import { selectHelper, useHelperDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
-import Modal from "@components/Modal";
-import ModalInnerBox from "@components/ModalInnerBox";
+import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
 
@@ -16,7 +15,17 @@ type ResumeProps = {
 
 export default function Resume({ errandId, helperId }: ResumeProps) {
   const { status, data: resume } = useHelperDetail(errandId, helperId);
-  const { isOpen, openModal, closeModal } = useModal();
+  const { isOpen, openModal, closeModal, innerMode } = useModal();
+
+  const selectApplier = () => {};
+
+  const modalInfo: ModalInfoType = {
+    confirm: {
+      text: "이 분에게 요청하면 입력하신 주소와 연락처가 전달돼요. 이 분에게 요청할까요?",
+      no: <button onClick={closeModal}>아니오</button>,
+      yes: <button onClick={selectApplier}>삭제하기</button>,
+    },
+  };
 
   const handleClickRequest = async () => {
     if (resume?.helper?.id) {
@@ -37,16 +46,8 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
         </div>
         <div className="resume__appeal">{resume?.appeal}</div>
       </ResumeWrapper>
-      {isOpen && (
-        <Modal onClose={closeModal}>
-          <ModalInnerBox
-            text="이 분에게 요청하면 입력하신 주소와 연락처가 전달돼요. 이 분에게 요청할까요?"
-            leftText="아니오"
-            rightText="네"
-            leftCallback={closeModal}
-            rightCallback={handleClickRequest}
-          />
-        </Modal>
+      {isOpen && innerMode && (
+        <Modal {...{ closeModal, modalInfo, innerMode }} />
       )}
       <StickyFooter>
         <Button
@@ -54,7 +55,9 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
           color="primary"
           fullWidth
           rounded
-          onClick={openModal}
+          onClick={() => {
+            openModal("confirm");
+          }}
         >
           이 분에게 요청하기
         </Button>
@@ -75,7 +78,7 @@ const ResumeWrapper = styled.div`
       display: flex;
       justify-content: space-between;
 
-      & > div:nth-child(1) {
+      & > div:nth-of-type(1) {
         color: ${({ theme }) => theme.color.grey4};
       }
     }
