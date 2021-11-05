@@ -11,6 +11,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   width?: string;
   rounded?: boolean;
   size?: "small" | "medium";
+  disabled?: boolean;
 }
 
 export default function Button({ children, ...props }: ButtonProps) {
@@ -43,11 +44,11 @@ const ButtonWrapper = styled.button<ButtonProps>`
     return fullWidth ? "100%" : width ?? "auto";
   }};
 
-  ${({ buttonType, color, theme }) =>
+  ${({ buttonType, color, theme, disabled }) =>
     buttonType === "contained" &&
     css`
       color: ${color === "primary" ? "white" : "black"};
-      background: ${getColor(color, theme)};
+      background: ${disabled ? theme.color.grey5 : getColor(color, theme)};
     `}
   ${({ buttonType, color, theme }) =>
     buttonType === "outline" &&

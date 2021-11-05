@@ -15,6 +15,7 @@ export const login = async (code: string, regionId: string) => {
     `/auth?authCode=${code}&regionId=${regionId}`
   );
   if (status === "OK" && data.token) {
+    localStorage.removeItem("token");
     localStorage.setItem("token", data.token);
   } else {
     console.log("응답은 됐는데 먼가 잘못 되었다");

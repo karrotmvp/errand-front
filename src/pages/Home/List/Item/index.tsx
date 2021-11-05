@@ -1,39 +1,41 @@
-import { ErrandStatus, TabType } from "@type/client";
-import { Errand } from "@type/response";
+import { TabType } from "@type/client";
+import { ErrandPreviewResponseBody } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
 import { DEFAULT_IMAGE } from "@constant/default";
+import { getRefinedFromData } from "@utils/getRefinedFromData";
 
 type ItemProps = {
-  item: Errand;
+  item: ErrandPreviewResponseBody;
   tabType: TabType;
 };
 
 export default function Item({ item, tabType }: ItemProps) {
-  const moveTo = usePush(`/errands/${item.id}`);
+  const { errand } = item;
+  const moveTo = usePush(`/errands/${errand.id}`);
   return (
     <>
       <ItemWrapper>
         <div className="item-box" onClick={moveTo}>
           <div className="item-image">
-            <img src={item.thumbnailUrl ?? DEFAULT_IMAGE} alt="img" />
+            <img src={errand.thumbnailUrl ?? DEFAULT_IMAGE} alt="img" />
           </div>
           <div className="item-info">
-            <div className="item-info__detail">{item.detail}</div>
+            <div className="item-info__detail">{errand.detail}</div>
             <div className="item-info__sub">
-              <span>{item.category.name}</span>
-              <span>{item.regionName}</span>
+              <span>{errand.category.name}</span>
+              <span>{errand.regionName}</span>
               <span>
-                {getComparedTime(new Date(), new Date(...item.createdAt))}
+                {getComparedTime(new Date(), new Date(...errand.createdAt))}
               </span>
             </div>
             <div className="item-info__bottom">
               <div className="item-info__bottom__reward">
-                {convertToKRW(item.reward)}
+                {convertToKRW(errand.reward)}
               </div>
-              {renderItemStatus(tabType, item)}
+              {item && renderItemStatus(item)}
             </div>
           </div>
         </div>
@@ -116,53 +118,11 @@ const ItemWrapper = styled.li`
   }
 `;
 
-const renderItemStatus = (tabType: TabType, item: Errand) => {
-  const { status, helpCount } = item;
-  const color = getColor(tabType, status, helpCount);
-  const text = getText(tabType, status, helpCount);
-  return <div className={`item-info__bottom__status ${color}`}>{text}</div>;
-};
-
-const getColor = (
-  tabType: TabType,
-  status: ErrandStatus,
-  helpCount: number
-) => {
-  if (
-    (tabType === "request" && status === "WAIT" && helpCount > 0) ||
-    (tabType === "help" && status === "PROCEED")
-  ) {
-    return "PRIMARY";
-  }
-
-  if (
-    (tabType === "request" && status === "PROCEED") ||
-    (tabType === "main" && status === "WAIT")
-  ) {
-    return "";
-  }
-
-  return "GREY";
-};
-
-const getText = (tabType: TabType, status: ErrandStatus, helpCount: number) => {
-  if (status === "COMPLETE") {
-    return "완료";
-  }
-
-  if (status === "WAIT") {
-    if (tabType === "help") {
-      return "지원완료";
-    }
-    return `지원 ${helpCount}`;
-  }
-
-  if (status === "PROCEED") {
-    if (tabType === "main") {
-      return "지원마감";
-    }
-    return "진행중";
-  }
-
-  return "매칭실패";
+const renderItemStatus = (item: ErrandPreviewResponseBody) => {
+  const refined = getRefinedFromData(item);
+  return (
+    <div className={`item-info__bottom__status ${refined.color}`}>
+      {refined.detailStatus}
+    </div>
+  );
 };

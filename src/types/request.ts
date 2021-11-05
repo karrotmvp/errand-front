@@ -3,8 +3,13 @@ export type SelecteHelperRequestBody = {
 };
 
 export type ApplyHelperRequestBody = {
+  errandId: number;
   phoneNumber: string;
   appeal: string;
-  isSetAlarm: boolean;
+  isSetAlarm?: boolean;
   regionId: number;
+};
+
+export type CancelApplyRequestBody = {
+  errandId: number;
 };

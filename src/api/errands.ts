@@ -1,11 +1,19 @@
 import { useQuery, useInfiniteQuery } from "react-query";
-import { GET, PATCH, POST } from "@utils/axios";
-import { Errand, ErrandDetailResponseBody, Resume, User } from "@type/response";
+import { DELETE, GET, PATCH, POST } from "@utils/axios";
+import {
+  ErrandPreviewResponseBody,
+  ErrandDetailResponseBody,
+  Resume,
+  User,
+} from "@type/response";
 import { TabType } from "@type/client";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { getValueFromSearch } from "@utils/utils";
+import { getMyErrandPreviews, getMyHelpPreviews } from "./my";
 
-const getMainErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+const getMainErrandPreviews = async ({
+  pageParam = null,
+}): Promise<ErrandPreviewResponseBody[]> => {
   const regionId = getValueFromSearch("region_id");
   const { data } = await GET(
     `/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
@@ -13,24 +21,10 @@ const getMainErrands = async ({ pageParam = null }): Promise<Errand[]> => {
   );
   return data;
 };
-const getMyErrands = async ({ pageParam = null }): Promise<Errand[]> => {
-  const regionId = getValueFromSearch("region_id");
-  const { data } = await GET(
-    `my/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
-      (pageParam ? `&lastId=${pageParam}` : "")
-  );
-  return data;
-};
-const getMyHelps = async ({ pageParam = null }): Promise<Errand[]> => {
-  const regionId = getValueFromSearch("region_id");
-  const { data } = await GET(
-    `my/helps?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
-      (pageParam ? `&lastId=${pageParam}` : "")
-  );
-  return data;
-};
 
-const getAppliableErrands = async ({ pageParam = null }): Promise<Errand[]> => {
+const getAppliableErrandPreviews = async ({
+  pageParam = null,
+}): Promise<ErrandPreviewResponseBody[]> => {
   const regionId = getValueFromSearch("region_id");
   const { data } = await GET(
     `/errands/appliable?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
@@ -41,16 +35,16 @@ const getAppliableErrands = async ({ pageParam = null }): Promise<Errand[]> => {
 
 const switchWrap = (tabType: TabType, isAppliable?: boolean) => {
   if (isAppliable) {
-    return getAppliableErrands;
+    return getAppliableErrandPreviews;
   }
 
   switch (tabType) {
     case "main":
-      return getMainErrands;
+      return getMainErrandPreviews;
     case "request":
-      return getMyErrands;
+      return getMyErrandPreviews;
     case "help":
-      return getMyHelps;
+      return getMyHelpPreviews;
   }
 };
 
@@ -59,9 +53,9 @@ export const useErrandList = (tabType: TabType, isAppliable?: boolean) => {
     ["getErrands", tabType, isAppliable],
     switchWrap(tabType, isAppliable),
     {
-      getNextPageParam: (lastErrans: Errand[]) => {
+      getNextPageParam: (lastErrans: ErrandPreviewResponseBody[]) => {
         const lastErrand = lastErrans[lastErrans.length - 1];
-        return lastErrand?.id;
+        return lastErrand?.errand?.id;
       },
     }
   );
@@ -74,12 +68,12 @@ export const registerErrand = async (requestBody: FormData) => {
 };
 
 const getErrandDetail = async (
-  id: string
+  id: number
 ): Promise<ErrandDetailResponseBody> => {
   const { data } = await GET(`/errand/${id}`);
   return data;
 };
-export const useErrandDetail = (id: string) => {
+export const useErrandDetail = (id: number) => {
   return useQuery(["errandDetail"], () => getErrandDetail(id));
 };
 
@@ -109,9 +103,19 @@ export const selectHelper = async (errandId: number, helperId: number) => {
   return data;
 };
 
+export const finishErrand = async (errandId: number) => {
+  const { data } = await PATCH(`/errand/:${errandId}/complete`);
+  return data;
+};
+
 export const confirmIsAppliable = async (
   errandId: string
 ): Promise<{ helperCnt: number; canApply: boolean }> => {
   const { data } = await GET(`/errand/:${errandId}/helper-count`);
+  return data;
+};
+
+export const deleteMyErrand = async (errandId: string) => {
+  const { data } = await DELETE(`/errand/:${errandId}`);
   return data;
 };

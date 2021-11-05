@@ -3,7 +3,7 @@ import { css } from "@emotion/css";
 import { Navigator, Screen } from "@karrotframe/navigator";
 import { GlobalStyle } from "./styles/global-style";
 import { theme } from "./styles/theme";
-// import { initMSW } from "./lib/msw";
+import { initMSW } from "./lib/msw";
 
 import {
   Alarm,
@@ -20,7 +20,7 @@ import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
 import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
 
-// initMSW();
+initMSW();
 
 function App() {
   const NavigatorStyle = css`
@@ -30,13 +30,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Navigator
-        theme={checkMobileType()}
-        className={NavigatorStyle}
-        onClose={() => {
-          console.log("close. bye~");
-        }}
-      >
+      <Navigator theme={checkMobileType()} className={NavigatorStyle}>
         <Screen path="/" component={withMini(Home)} />
         <Screen
           path="/errands/:id"
