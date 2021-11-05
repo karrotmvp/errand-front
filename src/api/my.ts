@@ -1,18 +1,26 @@
-import { useQuery } from "react-query";
 import { GET } from "@utils/axios";
+import { ErrandPreviewResponseBody } from "@type/response";
+import { ERREND_REQUEST_SIZE } from "@constant/request";
+import { getValueFromSearch } from "@utils/utils";
 
-const getMyErrands = async () => {
-  const { data } = await GET("/my/errands");
+export const getMyErrandPreviews = async ({
+  pageParam = null,
+}): Promise<ErrandPreviewResponseBody[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `my/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
   return data;
 };
-export const useMyErrands = () => {
-  return useQuery(["myErrands"], () => getMyErrands());
-};
 
-const getMyHelps = async () => {
-  const { data } = await GET("my/helps");
+export const getMyHelpPreviews = async ({
+  pageParam = null,
+}): Promise<ErrandPreviewResponseBody[]> => {
+  const regionId = getValueFromSearch("region_id");
+  const { data } = await GET(
+    `my/helps?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
+      (pageParam ? `&lastId=${pageParam}` : "")
+  );
   return data;
-};
-export const useMyHelps = () => {
-  return useQuery(["myHelps"], () => getMyHelps());
 };

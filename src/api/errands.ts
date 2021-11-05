@@ -1,5 +1,5 @@
 import { useQuery, useInfiniteQuery } from "react-query";
-import { GET, PATCH, POST } from "@utils/axios";
+import { DELETE, GET, PATCH, POST } from "@utils/axios";
 import {
   ErrandPreviewResponseBody,
   ErrandDetailResponseBody,
@@ -9,6 +9,7 @@ import {
 import { TabType } from "@type/client";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
 import { getValueFromSearch } from "@utils/utils";
+import { getMyErrandPreviews, getMyHelpPreviews } from "./my";
 
 const getMainErrandPreviews = async ({
   pageParam = null,
@@ -16,26 +17,6 @@ const getMainErrandPreviews = async ({
   const regionId = getValueFromSearch("region_id");
   const { data } = await GET(
     `/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
-      (pageParam ? `&lastId=${pageParam}` : "")
-  );
-  return data;
-};
-const getMyErrandPreviews = async ({
-  pageParam = null,
-}): Promise<ErrandPreviewResponseBody[]> => {
-  const regionId = getValueFromSearch("region_id");
-  const { data } = await GET(
-    `my/errands?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
-      (pageParam ? `&lastId=${pageParam}` : "")
-  );
-  return data;
-};
-const getMyHelpPreviews = async ({
-  pageParam = null,
-}): Promise<ErrandPreviewResponseBody[]> => {
-  const regionId = getValueFromSearch("region_id");
-  const { data } = await GET(
-    `my/helps?size=${ERREND_REQUEST_SIZE}&regionId=${regionId}` +
       (pageParam ? `&lastId=${pageParam}` : "")
   );
   return data;
@@ -87,12 +68,12 @@ export const registerErrand = async (requestBody: FormData) => {
 };
 
 const getErrandDetail = async (
-  id: string
+  id: number
 ): Promise<ErrandDetailResponseBody> => {
   const { data } = await GET(`/errand/${id}`);
   return data;
 };
-export const useErrandDetail = (id: string) => {
+export const useErrandDetail = (id: number) => {
   return useQuery(["errandDetail"], () => getErrandDetail(id));
 };
 
@@ -122,9 +103,19 @@ export const selectHelper = async (errandId: number, helperId: number) => {
   return data;
 };
 
+export const finishErrand = async (errandId: number) => {
+  const { data } = await PATCH(`/errand/:${errandId}/complete`);
+  return data;
+};
+
 export const confirmIsAppliable = async (
   errandId: string
 ): Promise<{ helperCnt: number; canApply: boolean }> => {
   const { data } = await GET(`/errand/:${errandId}/helper-count`);
+  return data;
+};
+
+export const deleteMyErrand = async (errandId: string) => {
+  const { data } = await DELETE(`/errand/:${errandId}`);
   return data;
 };
