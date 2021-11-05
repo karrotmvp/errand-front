@@ -1,11 +1,7 @@
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
-import {
-  confirmIsAppliable,
-  deleteMyErrand,
-  useErrandDetail,
-} from "@api/errands";
+import { deleteMyErrand, useErrandDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
@@ -37,7 +33,7 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   } = getRefinedFromData(data);
 
   const { push } = useNavigator();
-  const moveToApplyForm = usePush("/apply-form");
+  // const moveToApplyForm = usePush("/apply-form");
   const moveToHome = usePush("/");
 
   const deleteErrand = async () => {
@@ -45,21 +41,21 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
     res && moveToHome();
   };
 
-  const applyToErrand = async () => {
-    const res = await confirmIsAppliable(id);
-    if (res.canApply) {
-      moveToApplyForm();
-    } else {
-      console.log("지원 불가 모달 띄우기");
-    }
-  };
+  // const applyToErrand = async () => {
+  //   const res = await confirmIsAppliable(id);
+  //   if (res.canApply) {
+  //     moveToApplyForm();
+  //   } else {
+  //     console.log("지원 불가 모달 띄우기");
+  //   }
+  // };
 
   const cancelApply = () => {};
 
-  const moveToApplierList = () => {};
-  const moveToResume = (id: number) => {
-    push(`/appliers/:${id}`);
-  };
+  // const moveToApplierList = () => {};
+  // const moveToResume = (id: number) => {
+  //   push(`/appliers/:${id}`);
+  // };
 
   const handleClickButton = (path?: string) => {
     //TODO
@@ -144,8 +140,6 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   };
 
   const modalInfo = getModalInfo(modalInfoFlag);
-
-  console.log(isOpen, modalInfo, innerMode);
 
   return (
     <StickyPageWrpper>

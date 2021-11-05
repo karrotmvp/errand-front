@@ -2,7 +2,7 @@ import React from "react";
 import styled from "@emotion/styled";
 import Profile from "@components/Profile";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
-import { selectHelper, useHelperDetail } from "@api/errands";
+import { useHelperDetail } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
@@ -27,13 +27,13 @@ export default function Resume({ errandId, helperId }: ResumeProps) {
     },
   };
 
-  const handleClickRequest = async () => {
-    if (resume?.helper?.id) {
-      const res = await selectHelper(1, resume?.helper.id);
-      console.log(res);
-      closeModal();
-    }
-  };
+  // const handleClickRequest = async () => {
+  //   if (resume?.helper?.id) {
+  //     const res = await selectHelper(1, resume?.helper.id);
+  //     console.log(res);
+  //     closeModal();
+  //   }
+  // };
 
   return (
     <StickyPageWrpper>
