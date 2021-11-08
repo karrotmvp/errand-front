@@ -205,8 +205,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - wait - helper 0",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "WAIT",
       category: {
         id: 1,
@@ -230,8 +228,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - wait - helper 2",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "WAIT",
       helpCount: 2,
       category: {
@@ -255,8 +251,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - wait helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "WAIT",
       helpCount: 5,
       category: {
@@ -280,8 +274,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - proceed - helper 1",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "PROCEED",
       helpCount: 1,
       category: {
@@ -305,8 +297,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - proceed - helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "PROCEED",
       helpCount: 5,
       category: {
@@ -330,8 +320,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - complete - helper 1",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       helpCount: 1,
       category: {
@@ -355,8 +343,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "UnRelated - complete - helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       category: {
         id: 1,
@@ -405,8 +391,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplier - wait - helper 1",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "WAIT",
       category: {
         id: 1,
@@ -430,8 +414,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplayer - wait - helper 2",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "WAIT",
       helpCount: 2,
       category: {
@@ -455,8 +437,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplayer - wait helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "WAIT",
       helpCount: 5,
       category: {
@@ -480,8 +460,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplayer - complete - helper 1 (있을 수 없음)",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       helpCount: 1,
       category: {
@@ -505,8 +483,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplayer - complete - helper 2",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       helpCount: 2,
       category: {
@@ -530,8 +506,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplayer - complete - helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       helpCount: 5,
       category: {
@@ -555,8 +529,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplier - fail - helper 2",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "FAIL",
       category: {
         id: 1,
@@ -580,8 +552,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isApplier - fail - helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "FAIL",
       category: {
         id: 1,
@@ -681,8 +651,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isHelper - COMPLETE - helper 1",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       helpCount: 1,
       category: {
@@ -706,8 +674,6 @@ export const errandDetail: { [key: number]: any } = {
       detail: "isHelper - COMPLETE - helper 5",
       reward: 7000,
       images: [],
-      customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
       status: "COMPLETE",
       helpCount: 5,
       category: {
