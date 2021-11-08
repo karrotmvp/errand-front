@@ -1,6 +1,13 @@
 import envs from "@config/dotenv";
 import axios, { AxiosRequestConfig } from "axios";
 
+type ResponseType = {
+  data: any;
+  message?: string;
+  status: string;
+  statusCode: number;
+};
+
 const fetchWrap = async ({
   method,
   url,
@@ -11,7 +18,7 @@ const fetchWrap = async ({
   url: string;
   params?: {};
   body?: {};
-}) => {
+}): Promise<ResponseType> => {
   try {
     const config: AxiosRequestConfig = {
       baseURL: envs.API_BASE_URL,
@@ -31,6 +38,7 @@ const fetchWrap = async ({
     return data;
   } catch (error) {
     console.log("에러 터짐요~~");
+    throw new Error("에러다요");
     // localStorage.removeItem("token");
     // window.location.href = "/401";
   }
