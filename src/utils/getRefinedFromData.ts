@@ -10,17 +10,25 @@ export type modalInfoFlagType =
   | "isHelper"
   | "noModal";
 
+type ButtonCallback =
+  | "moveToResume"
+  | "moveToAppliers"
+  | "moveToApplyForm"
+  | "openConfirmModal"
+  | "none";
+
 type RefinedData = {
   color: string;
-  detailStatus: string;
+  statusText: string;
   buttonText: string;
   buttonDisabled: boolean;
   modalInfoFlag?: modalInfoFlagType;
+  buttonCallback?: ButtonCallback;
 };
 
 const DEFAULT_REFINED_DATA = {
   color: "",
-  detailStatus: "",
+  statusText: "",
   buttonText: "",
   buttonDisabled: true,
 };
@@ -38,26 +46,28 @@ export const getRefinedFromData = (
       case "WAIT":
         return {
           color: data.errand.helpCount > 0 ? "PRIMARY" : "GREY",
-          detailStatus: `지원 ${data.errand.helpCount}`,
+          statusText: `지원 ${data.errand.helpCount}`,
           buttonText:
             data.errand.helpCount > 0
               ? `지원자 선택하기 ${data.errand.helpCount}`
               : "아직 지원자가 없어요",
           buttonDisabled: data.errand.helpCount > 0 ? false : true,
           modalInfoFlag: "isMyErrand",
+          buttonCallback: data.errand.helpCount ? "moveToAppliers" : "none",
         };
       case "PROCEED":
         return {
           color: "PRIMARY",
-          detailStatus: "진행중",
+          statusText: "진행중",
           buttonText: "지원자 정보 보기",
           buttonDisabled: false,
           modalInfoFlag: "isMyErrand",
+          buttonCallback: "moveToResume",
         };
       case "COMPLETE":
         return {
           color: "GREY",
-          detailStatus: "완료",
+          statusText: "완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
           modalInfoFlag: "isMyErrand",
@@ -76,25 +86,27 @@ export const getRefinedFromData = (
             data.errand.helpCount === 0 || data.errand.helpCount === 5
               ? "GREY"
               : "",
-          detailStatus:
-            data.errand.helpCount < 5
-              ? `지원 ${data.errand.helpCount}`
-              : "지원마감",
+          statusText:
+            data.errand.helpCount >= 5
+              ? "지원마감"
+              : `지원 ${data.errand.helpCount}`,
           buttonText:
-            data.errand.helpCount < 5 ? "지원하기" : "지원이 마감되었어요",
+            data.errand.helpCount >= 5 ? "지원이 마감되었어요" : "지원하기",
           buttonDisabled: data.errand.helpCount >= 5,
+          buttonCallback:
+            data.errand.helpCount >= 5 ? "none" : "moveToApplyForm",
         };
       case "PROCEED":
         return {
           color: "GREY",
-          detailStatus: "진행중",
+          statusText: "진행중",
           buttonText: "심부름이 진행중이에요",
           buttonDisabled: true,
         };
       case "COMPLETE":
         return {
           color: "GREY",
-          detailStatus: "완료",
+          statusText: "완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
         };
@@ -109,7 +121,7 @@ export const getRefinedFromData = (
       case "WAIT":
         return {
           color: "GREY",
-          detailStatus: "지원완료",
+          statusText: "지원완료",
           buttonText: "지원이 완료되었어요",
           buttonDisabled: true,
           modalInfoFlag: "isApplier",
@@ -119,7 +131,7 @@ export const getRefinedFromData = (
       case "COMPLETE":
         return {
           color: "GREY",
-          detailStatus: "완료",
+          statusText: "완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
           modalInfoFlag: "resume",
@@ -127,7 +139,7 @@ export const getRefinedFromData = (
       case "FAIL":
         return {
           color: "GREY",
-          detailStatus: "매칭실패",
+          statusText: "매칭실패",
           buttonText: "매칭되지 않았어요",
           buttonDisabled: true,
           modalInfoFlag: "resume",
@@ -143,15 +155,16 @@ export const getRefinedFromData = (
       case "PROCEED":
         return {
           color: "PRIMARY",
-          detailStatus: "진행중",
+          statusText: "진행중",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: false,
           modalInfoFlag: "isHelper",
+          buttonCallback: "openConfirmModal",
         };
       case "COMPLETE":
         return {
           color: "GREY",
-          detailStatus: "완료",
+          statusText: "완료",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: true,
           modalInfoFlag: "resume",
@@ -165,14 +178,14 @@ export const getRefinedFromData = (
   return DEFAULT_REFINED_DATA;
 };
 
-type DetailStatusType =
+export type DetailStatusType =
   | "isMyErrand"
   | "isUnRelated"
   | "isApplier"
   | "isHelper"
   | "loading";
 
-const specifyStatus = ({
+export const specifyStatus = ({
   isMine,
   didIApply,
   wasIChosen,
