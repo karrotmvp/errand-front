@@ -3,12 +3,12 @@ import { useState } from "react";
 
 const useModal = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [innerMode, setinnerMode] = useState<innerModeType | null>(null);
+  const [innerMode, setInnerMode] = useState<innerModeType | null>(null);
 
   const openModal = (mode: innerModeType) => {
     setIsOpen(true);
     if (innerMode !== mode) {
-      setinnerMode(mode);
+      setInnerMode(mode);
     }
   };
   const closeModal = () => {
