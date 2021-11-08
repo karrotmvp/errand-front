@@ -61,6 +61,7 @@ export type Category = {
 export type Resume = {
   isMatched: boolean;
   appeal: string;
+  phoneNumber?: string;
   helper: User;
 };
 
@@ -100,13 +101,8 @@ export type Alarm = {
   status: boolean;
 };
 
-export type Helper = {
+export type ResumePreview = {
   helpId: number;
-  helper: {
-    id: number;
-    nickname: string;
-    profileImgUrl?: string;
-    regionName: string;
-    mannerTemp: number;
-  };
+  helper: User;
+  appeal: string;
 };

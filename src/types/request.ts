@@ -6,8 +6,7 @@ export type ApplyHelperRequestBody = {
   errandId: string;
   phoneNumber: string;
   appeal: string;
-  isSetAlarm?: boolean;
-  regionId: number;
+  regionId: string;
 };
 
 export type CancelApplyRequestBody = {

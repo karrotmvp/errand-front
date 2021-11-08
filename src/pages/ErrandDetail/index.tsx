@@ -43,7 +43,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { push } = useNavigator();
 
   const moveToHome = usePush("/");
-  const moveToApplyForm = usePush(`/errands/${errandId}/apply-form`);
+  const moveToApplyForm = usePush(`/apply-form?errandId=${errandId}`);
   const moveToResume = (helpId: string) => {
     push(`/helps/${helpId}`);
   };
@@ -147,6 +147,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
           <button
             onClick={() => {
               //TODO applierID
+              closeModal();
               moveToResume("1");
             }}
           >
@@ -165,6 +166,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
           <button
             onClick={() => {
               //TODO applierID
+              closeModal();
               moveToResume("1");
             }}
           >
@@ -183,6 +185,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
           <button
             onClick={() => {
               //TODO applierID
+              closeModal();
               moveToResume("1");
             }}
           >
