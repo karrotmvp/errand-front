@@ -1,12 +1,16 @@
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
-import { deleteMyErrand, useErrandDetail } from "@api/errands";
+import {
+  confirmIsAppliable,
+  deleteMyErrand,
+  finishErrand,
+  useErrandDetail,
+} from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
-import { WithParamsIdProps } from "@hoc/withParamsId";
 import useModal from "@hooks/useModal";
 import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
@@ -17,50 +21,86 @@ import { useTooltip } from "@hooks/useTooltip";
 import {
   getRefinedFromData,
   modalInfoFlagType,
+  specifyStatus,
 } from "@utils/getRefinedFromData";
 import { useNavigator } from "@karrotframe/navigator";
+import { WithParamsProps } from "@hoc/withParams";
+import { cancelApply } from "@api/help";
+import { ErrandDetailResponseBody } from "@type/response";
 
-export default function ErrandDetail({ id }: WithParamsIdProps) {
+export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const { status, data } = useErrandDetail(Number(id));
+  const { status, data } = useErrandDetail(errandId);
   const [showTooltip, closeTooltip] = useTooltip();
   const {
     color,
-    detailStatus,
+    statusText,
     buttonText,
     buttonDisabled,
     modalInfoFlag = "noModal",
+    buttonCallback,
   } = getRefinedFromData(data);
-
   const { push } = useNavigator();
-  // const moveToApplyForm = usePush("/apply-form");
-  const moveToHome = usePush("/");
 
-  const deleteErrand = async () => {
-    const res = await deleteMyErrand(id);
-    res && moveToHome();
+  const moveToHome = usePush("/");
+  const moveToApplyForm = usePush(`/errands/${errandId}/apply-form`);
+  const moveToResume = (helpId: string) => {
+    push(`/helps/${helpId}`);
+  };
+  const moveToAppliers = () => {
+    push(`/errands/${errandId}/appliers`);
   };
 
-  // const applyToErrand = async () => {
-  //   const res = await confirmIsAppliable(id);
-  //   if (res.canApply) {
-  //     moveToApplyForm();
-  //   } else {
-  //     console.log("지원 불가 모달 띄우기");
-  //   }
-  // };
-
-  const cancelApply = () => {};
-
-  // const moveToApplierList = () => {};
-  // const moveToResume = (id: number) => {
-  //   push(`/appliers/:${id}`);
-  // };
-
-  const handleClickButton = (path?: string) => {
-    //TODO
-    openModal("confirm");
-    path && push(path);
+  const requestDeleteMyErrand = async () => {
+    const status = await deleteMyErrand(errandId);
+    if (status !== "OK") {
+      push("/404");
+    }
+    closeModal();
+    moveToHome();
+  };
+  const applyToErrand = async () => {
+    const res = await confirmIsAppliable(errandId);
+    if (res.canApply) {
+      moveToApplyForm();
+    } else {
+      console.log("지원 불가");
+    }
+  };
+  const requestCancelApply = async () => {
+    const helpId = "1";
+    const status = await cancelApply(helpId);
+    if (status !== "OK") {
+      push("/404");
+    }
+    closeModal();
+    moveToHome();
+  };
+  const requestCompleteErrand = async () => {
+    const status = await finishErrand(errandId);
+    status && moveToHome();
+  };
+  const handleClickButton = () => {
+    if (buttonDisabled) {
+      return;
+    }
+    switch (buttonCallback) {
+      case "moveToAppliers":
+        moveToAppliers();
+        break;
+      case "moveToApplyForm":
+        applyToErrand();
+        break;
+      case "moveToResume":
+        const applierId = "1";
+        moveToResume(applierId);
+        break;
+      case "openConfirmModal":
+        openModal("confirm");
+        break;
+      default:
+        break;
+    }
   };
 
   const getModalInfo = (flag: modalInfoFlagType) => {
@@ -81,19 +121,11 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   const modalInfoOfIsMyErrand: ModalInfoType = {
     list: [
       {
-        text: (
-          <button
-            onClick={() => {
-              openModal("confirm");
-            }}
-          >
-            삭제
-          </button>
-        ),
+        text: "삭제",
         confirm: {
           text: "삭제하시겠습니까?",
           no: <button onClick={closeModal}>아니오</button>,
-          yes: <button onClick={deleteErrand}>삭제하기</button>,
+          yes: <button onClick={requestDeleteMyErrand}>삭제하기</button>,
         },
       },
     ],
@@ -103,15 +135,24 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   const modalInfoOfIsApplier: ModalInfoType = {
     list: [
       {
-        text: <button onClick={() => {}}>지원취소</button>,
+        text: "지원취소",
         confirm: {
           text: "지원을 취소하시겠습니까?",
-          no: <button onClick={() => {}}>뒤로가기</button>,
-          yes: <button onClick={() => {}}>취소하기</button>,
+          no: <button onClick={closeModal}>뒤로가기</button>,
+          yes: <button onClick={requestCancelApply}>취소하기</button>,
         },
       },
       {
-        text: <button onClick={() => {}}>지원목록 보기</button>,
+        text: (
+          <button
+            onClick={() => {
+              //TODO applierID
+              moveToResume("1");
+            }}
+          >
+            지원내역 보기
+          </button>
+        ),
       },
     ],
   };
@@ -120,7 +161,16 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   const modalInfoOfResume: ModalInfoType = {
     list: [
       {
-        text: <button onClick={() => {}}>지원목록 보기</button>,
+        text: (
+          <button
+            onClick={() => {
+              //TODO applierID
+              moveToResume("1");
+            }}
+          >
+            지원내역 보기
+          </button>
+        ),
       },
     ],
   };
@@ -129,13 +179,22 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
   const modalInfoOfHelper: ModalInfoType = {
     list: [
       {
-        text: <button onClick={() => {}}>지원목록 보기</button>,
+        text: (
+          <button
+            onClick={() => {
+              //TODO applierID
+              moveToResume("1");
+            }}
+          >
+            지원내역 보기
+          </button>
+        ),
       },
     ],
     confirm: {
       text: "심부름 완료?",
       no: <button onClick={closeModal}>뒤로가기</button>,
-      yes: <button onClick={cancelApply}>완료함</button>,
+      yes: <button onClick={requestCompleteErrand}>완료함</button>,
     },
   };
 
@@ -179,7 +238,7 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
                     )}
                   </span>
                 </div>
-                {renderStatus(color, detailStatus)}
+                {renderStatus(color, statusText)}
               </div>
               <div className="errand-detail__contents__info">
                 <div>
@@ -188,7 +247,7 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
                 </div>
                 <div>
                   <div>요청장소</div>
-                  <div>{data?.errand.detailAddress}</div>
+                  {renderPrivateData(data, "detailAddress")}
                 </div>
                 <div>
                   <div>
@@ -200,7 +259,7 @@ export default function ErrandDetail({ id }: WithParamsIdProps) {
                       />
                     )}
                   </div>
-                  <div>{data?.errand.customerPhoneNumber}</div>
+                  {renderPrivateData(data, "customerPhoneNumber")}
                 </div>
               </div>
               <p>{data?.errand.detail}</p>
@@ -303,6 +362,27 @@ const ErrandDetailWrapper = styled.div`
     }
   }
 `;
+type privateDataType = "detailAddress" | "customerPhoneNumber";
+const renderPrivateData = (
+  data: ErrandDetailResponseBody,
+  target: privateDataType
+) => {
+  if (data.errand.detailAddress && target === "detailAddress") {
+    return <div>{data.errand.detailAddress}</div>;
+  }
+  if (data.errand.customerPhoneNumber && target === "customerPhoneNumber") {
+    return <div>{data.errand.customerPhoneNumber}</div>;
+  }
+
+  if (
+    specifyStatus(data) !== "isMyErrand" &&
+    data.errand.status === "COMPLETE"
+  ) {
+    return <div>심부름이 완료되었어요</div>;
+  }
+
+  return <div>매칭 시 공개돼요</div>;
+};
 
 const renderStatus = (color: string, detailStatus: string) => {
   return <div className={`errand-detail__status ${color}`}>{detailStatus}</div>;
