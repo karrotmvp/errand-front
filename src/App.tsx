@@ -16,11 +16,12 @@ import {
   Resume,
 } from "./pages";
 import { checkMobileType } from "@utils/utils";
-import { withParamsId } from "./hoc/withParamsId";
 import withMini from "@hoc/withMini";
-import { withErrandIdAndHelperId } from "@hoc/withErrandIdAndHelperId";
+import { withParams } from "@hoc/withParams";
+import { withQueryParams } from "@hoc/withQueryParams";
+import ErrorPage from "@pages/ErrorPage";
 
-initMSW();
+// initMSW();
 
 function App() {
   const NavigatorStyle = css`
@@ -33,18 +34,25 @@ function App() {
       <Navigator theme={checkMobileType()} className={NavigatorStyle}>
         <Screen path="/" component={withMini(Home)} />
         <Screen
-          path="/errands/:id"
-          component={withParamsId(withMini(ErrandDetail))}
+          path="/errands/:errandId"
+          component={withParams(withMini(ErrandDetail), "errandId")}
         />
-        <Screen path="/appliers" component={withMini(ApplierList)} />
         <Screen
-          path="/appliers/:id"
-          component={withErrandIdAndHelperId(Resume)}
+          path="/errands/:errandId/appliers"
+          component={withParams(withMini(ApplierList), "errandId")}
         />
-        <Screen path="/apply-form" component={ApplyForm} />
+        <Screen
+          path="/helps/:helpId"
+          component={withParams(Resume, "helpId")}
+        />
+        <Screen
+          path="/apply-form"
+          component={withQueryParams(ApplyForm, "errandId")}
+        />
         <Screen path="/alarm" component={Alarm} />
         <Screen path="/errand-request" component={ErrandRequest} />
         <Screen path="/my" component={My} />
+        <Screen path="/404" component={ErrorPage} />
       </Navigator>
     </ThemeProvider>
   );
