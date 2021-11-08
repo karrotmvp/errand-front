@@ -4,7 +4,7 @@ import { AlarmResponseBody, User } from "@type/response";
 import { getValueFromSearch } from "@utils/utils";
 
 const getUserProfile = async (id: number): Promise<User> => {
-  const { data } = await GET(`/user/:${id}`);
+  const { data } = await GET(`/user/${id}`);
   return data;
 };
 export const useUserProfile = (id: number) => {

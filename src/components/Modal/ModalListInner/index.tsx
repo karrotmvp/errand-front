@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { innerModeType, Confirm, Content } from "..";
+import { Confirm, Content } from "..";
 
 type ModalListInnerProps = {
   list: Content[];
   closeModal: () => void;
-  openConfirmModal: (mode: innerModeType, content: Confirm) => void;
+  openConfirmModal: (content: Confirm) => void;
 };
 
 export default function ModalListInner({
@@ -15,8 +15,17 @@ export default function ModalListInner({
   return (
     <ModalContentListInnerWrapper>
       <div className="modal-inner__list">
-        {list.map((content, index) => (
-          <div className="modal-inner__item top-border">{content.text}</div>
+        {list.map((content) => (
+          <div
+            className="modal-inner__item top-border"
+            onClick={() => {
+              if (content.confirm) {
+                openConfirmModal(content.confirm);
+              }
+            }}
+          >
+            {content.text}
+          </div>
         ))}
       </div>
       <div className="modal-inner__item close" onClick={closeModal}>

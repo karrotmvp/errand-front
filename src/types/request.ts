@@ -1,9 +1,9 @@
 export type SelecteHelperRequestBody = {
-  helperId: number;
+  applierId: string;
 };
 
 export type ApplyHelperRequestBody = {
-  errandId: number;
+  errandId: string;
   phoneNumber: string;
   appeal: string;
   isSetAlarm?: boolean;
@@ -11,5 +11,5 @@ export type ApplyHelperRequestBody = {
 };
 
 export type CancelApplyRequestBody = {
-  errandId: number;
+  errandId: string;
 };

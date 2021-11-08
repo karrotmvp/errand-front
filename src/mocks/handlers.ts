@@ -40,7 +40,7 @@ export const handlers = [
   }),
 
   rest.get(
-    `${BASE_URL}errands/:errandId/helpers/:helperId`,
+    `${BASE_URL}errands/:errandId/helpers/:applierId`,
     (req, res, ctx) => {
       return res(ctx.status(200), ctx.json(resume));
     }

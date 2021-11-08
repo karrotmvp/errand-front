@@ -99,3 +99,14 @@ export type Alarm = {
   name: string;
   status: boolean;
 };
+
+export type Helper = {
+  helpId: number;
+  helper: {
+    id: number;
+    nickname: string;
+    profileImgUrl?: string;
+    regionName: string;
+    mannerTemp: number;
+  };
+};

@@ -7,14 +7,10 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
+import { WithQueryParamsProps } from "@hoc/withQueryParams";
 
-type ResumeProps = {
-  errandId: number;
-  helperId: number;
-};
-
-export default function Resume({ errandId, helperId }: ResumeProps) {
-  const { status, data: resume } = useHelperDetail(errandId, helperId);
+export default function Resume({ helpId }: WithQueryParamsProps) {
+  const { status, data: resume } = useHelperDetail(helpId);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
 
   const selectApplier = () => {};

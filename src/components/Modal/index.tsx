@@ -39,8 +39,8 @@ export default function Modal({
     return confirm ?? null;
   });
 
-  const openConfirmModal = (mode: innerModeType, content: Confirm) => {
-    setInnerMode(mode);
+  const openConfirmModal = (content: Confirm) => {
+    setInnerMode("confirm");
     setConfirmContent(content);
   };
 
