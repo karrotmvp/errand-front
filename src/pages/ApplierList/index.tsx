@@ -6,15 +6,18 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { WithParamsProps } from "@hoc/withParams";
 
 export default function ApplierList({ errandId }: WithParamsProps) {
-  const { status, data: helperList } = useHelperList(errandId);
+  const { status, data: resumePreviews } = useHelperList(errandId);
 
   return (
     <>
       <CustomScreenHelmet title="지원자 목록" />
       <ApplyListWrapper>
         {status !== "loading" ? (
-          helperList?.map((helper) => (
-            <ApplyItem helper={helper} key={helper.helpId} />
+          resumePreviews?.map((resumePreview) => (
+            <ApplyItem
+              resumePreview={resumePreview}
+              key={resumePreview.helpId}
+            />
           ))
         ) : (
           <div>로딩 중</div>
