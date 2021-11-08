@@ -1,9 +1,12 @@
+import { applyErrand } from "@api/help";
 import { useMyInfo } from "@api/users";
 import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
+import Modal from "@components/Modal";
 import Profile from "@components/Profile";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
+import useModal from "@hooks/useModal";
 import usePush from "@hooks/usePush";
 import {
   ErrorText,
@@ -13,6 +16,7 @@ import {
   StickyPageWrpper,
   TextAreaWrapper,
 } from "@styles/shared";
+import { getValueFromSearch } from "@utils/utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 
 type Inputs = {
@@ -29,16 +33,35 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     watch,
     formState: { errors },
   } = useForm<Inputs>();
+  const { isOpen, openModal, closeModal, innerMode } = useModal();
 
   const moveToErrandDetail = usePush(`/errands/${errandId}`);
   const watchTextArea = watch("appeal");
 
+  const modalInfo = {
+    confirm: {
+      text: "작성한 내용으로 지원을 완료합니다.",
+      no: <button onClick={closeModal}>아니요</button>,
+      yes: <button form="apply-form">지원하기</button>,
+    },
+  };
+
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
-    const isSuccess = true;
+    const { phoneNumber, appeal } = result;
+    const regionId = getValueFromSearch("region_id") ?? "";
+
+    const isSuccess = await applyErrand({
+      errandId,
+      phoneNumber,
+      appeal,
+      regionId,
+    });
+
     if (isSuccess) {
+      closeModal();
       moveToErrandDetail();
     } else {
-      console.log("no1");
+      console.log("지원 실패!");
     }
   };
 
@@ -106,7 +129,9 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                     />
                     <label htmlFor="term" />
                     <p>
-                      <span>(필수)</span> 개인정보 제공 동의
+                      <span>(필수)</span> 매칭 시 공개되는 심부름 장소, 휴대폰
+                      번호 등의 개인 정보를 심부름 목적 이외 사용하지
+                      않겠습니다.
                     </p>
                   </div>
                 </SectionTerms>
@@ -117,12 +142,17 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
           <div>로딩 중</div>
         )}
       </ApplyFormWrapper>
+      {isOpen && innerMode && (
+        <Modal {...{ closeModal, modalInfo, innerMode }} />
+      )}
       <StickyFooter fullArea>
         <Button
           buttonType="contained"
           color="primary"
-          form="apply-form"
           fullWidth
+          onClick={() => {
+            openModal("confirm");
+          }}
         >
           지원하기
         </Button>
