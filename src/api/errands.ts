@@ -4,7 +4,7 @@ import {
   ErrandPreviewResponseBody,
   ErrandDetailResponseBody,
   Resume,
-  User,
+  Helper,
 } from "@type/response";
 import { TabType } from "@type/client";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
@@ -68,54 +68,49 @@ export const registerErrand = async (requestBody: FormData) => {
 };
 
 const getErrandDetail = async (
-  id: number
+  errandId: string
 ): Promise<ErrandDetailResponseBody> => {
-  const { data } = await GET(`/errand/${id}`);
+  const { data } = await GET(`/errand/${errandId}`);
   return data;
 };
-export const useErrandDetail = (id: number) => {
-  return useQuery(["errandDetail"], () => getErrandDetail(id));
+export const useErrandDetail = (errandId: string) => {
+  return useQuery(["errandDetail"], () => getErrandDetail(errandId));
 };
 
-const getHelperList = async (): Promise<User[]> => {
-  const { data } = await GET(`/errand/:id/helpers`);
+const getHelperList = async (errandId: string): Promise<Helper[]> => {
+  const { data } = await GET(`/errand/${errandId}/helpers`);
   return data;
 };
-export const useHelperList = () => {
-  return useQuery(["helperList"], () => getHelperList());
+export const useHelperList = (errandId: string) => {
+  return useQuery(["helperList"], () => getHelperList(errandId));
 };
 
-const getHelperDetail = async (
-  errandId: number,
-  helperId: number
-): Promise<Resume> => {
-  const { data } = await GET(`/errand/:${errandId}/helpers/:${helperId}`);
+const getHelperDetail = async (helpId: string): Promise<Resume> => {
+  const { data } = await GET(`/help/${helpId}`);
   return data;
 };
-export const useHelperDetail = (errandId: number, helperId: number) => {
-  return useQuery(["helperDetail", errandId, helperId], () =>
-    getHelperDetail(errandId, helperId)
-  );
+export const useHelperDetail = (helpId: string) => {
+  return useQuery(["helperDetail", helpId], () => getHelperDetail(helpId));
 };
 
-export const selectHelper = async (errandId: number, helperId: number) => {
-  const { data } = await PATCH(`/errand/:${errandId}/helper`, { helperId });
+export const selectHelper = async (errandId: string, applierId: string) => {
+  const { data } = await PATCH(`/errand/${errandId}/helper`, { applierId });
   return data;
 };
 
-export const finishErrand = async (errandId: number) => {
-  const { data } = await PATCH(`/errand/:${errandId}/complete`);
-  return data;
+export const finishErrand = async (errandId: string) => {
+  const { status } = await PATCH(`/errand/${errandId}/complete`);
+  return status;
 };
 
 export const confirmIsAppliable = async (
   errandId: string
 ): Promise<{ helperCnt: number; canApply: boolean }> => {
-  const { data } = await GET(`/errand/:${errandId}/helper-count`);
+  const { data } = await GET(`/errand/${errandId}/helper-count`);
   return data;
 };
 
 export const deleteMyErrand = async (errandId: string) => {
-  const { data } = await DELETE(`/errand/:${errandId}`);
-  return data;
+  const { status } = await DELETE(`/errand/${errandId}`);
+  return status;
 };

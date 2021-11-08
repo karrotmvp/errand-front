@@ -1,4 +1,4 @@
-import { ApplyHelperRequestBody, CancelApplyRequestBody } from "@type/request";
+import { ApplyHelperRequestBody } from "@type/request";
 import { DELETE, POST } from "@utils/axios";
 
 export const applyErrand = async (requestBody: ApplyHelperRequestBody) => {
@@ -6,7 +6,7 @@ export const applyErrand = async (requestBody: ApplyHelperRequestBody) => {
   return data;
 };
 
-export const cancelApply = async (requestBody: CancelApplyRequestBody) => {
-  const { data } = await DELETE(`/help}`);
-  return data;
+export const cancelApply = async (helpId: string) => {
+  const { status } = await DELETE(`/help/${helpId}`);
+  return status;
 };
