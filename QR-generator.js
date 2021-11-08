@@ -6,7 +6,7 @@ dotenv.config();
 const { exec } = require("child_process");
 
 const PORT = process.env.PORT || 3000;
-const APP_ID = process.env.APP_ID || 0;
+const APP_ID = process.env.DEV_APP_ID || 0;
 
 async function generateQR() {
   try {
