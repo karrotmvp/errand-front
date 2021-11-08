@@ -3,6 +3,7 @@ import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Profile from "@components/Profile";
 import styled from "@emotion/styled";
+import { WithParamsProps } from "@hoc/withParams";
 import usePush from "@hooks/usePush";
 import {
   ErrorText,
@@ -20,7 +21,7 @@ type Inputs = {
   term: boolean;
 };
 
-export default function ApplyForm() {
+export default function ApplyForm({ errandId }: WithParamsProps) {
   const { status, data: my } = useMyInfo();
   const {
     register,
@@ -29,7 +30,7 @@ export default function ApplyForm() {
     formState: { errors },
   } = useForm<Inputs>();
 
-  const moveToErrandDetail = usePush(`/errands/1`);
+  const moveToErrandDetail = usePush(`/errands/${errandId}`);
   const watchTextArea = watch("appeal");
 
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
