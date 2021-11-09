@@ -19,5 +19,6 @@ export const useInfiniteScroll = (tabType: TabType, isAppliable?: boolean) => {
     isFetchingFirst: query.isFetching && !query.hasNextPage,
     isFetchingMore: query.isFetching,
     fetchTriggerElement: <div ref={ref}></div>,
+    refetch: query.refetch,
   };
 };
