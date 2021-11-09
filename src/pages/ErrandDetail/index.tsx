@@ -27,10 +27,11 @@ import { useNavigator } from "@karrotframe/navigator";
 import { WithParamsProps } from "@hoc/withParams";
 import { cancelApply } from "@api/help";
 import { ErrandDetailResponseBody } from "@type/response";
+import { useCallback } from "react";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const { status, data } = useErrandDetail(errandId);
+  const { status, data, refetch } = useErrandDetail(errandId);
   const [showTooltip, closeTooltip] = useTooltip();
   const {
     color,
@@ -44,9 +45,9 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
 
   const moveToHome = usePush("/");
   const moveToApplyForm = usePush(`/apply-form?errandId=${errandId}`);
-  const moveToResume = (helpId: string) => {
-    push(`/helps/${helpId}`);
-  };
+  const moveToResume = useCallback(() => {
+    push(`/helps/${data?.helpId}`);
+  }, [data, push]);
   const moveToAppliers = () => {
     push(`/errands/${errandId}/appliers`);
   };
@@ -67,19 +68,20 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       console.log("지원 불가");
     }
   };
-  const requestCancelApply = async () => {
-    const helpId = "1";
-    const status = await cancelApply(helpId);
-    if (status !== "OK") {
-      push("/404");
-    }
+  const requestCancelApply = useCallback(async () => {
+    if (!data) return;
+    const status = await cancelApply(String(data?.helpId));
+
+    status === "OK" ? moveToHome() : push("/404");
     closeModal();
-    moveToHome();
-  };
-  const requestCompleteErrand = async () => {
+  }, [data, closeModal, moveToHome, push]);
+  const requestCompleteErrand = useCallback(async () => {
+    if (!errandId) return;
     const status = await finishErrand(errandId);
-    status && moveToHome();
-  };
+    status === "OK" ? refetch() : push("/404");
+    closeModal();
+  }, [errandId, push, refetch, closeModal]);
+
   const handleClickButton = () => {
     if (buttonDisabled) {
       return;
@@ -92,8 +94,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         applyToErrand();
         break;
       case "moveToResume":
-        const applierId = "1";
-        moveToResume(applierId);
+        moveToResume();
         break;
       case "openConfirmModal":
         openModal("confirm");
@@ -146,9 +147,8 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         text: (
           <button
             onClick={() => {
-              //TODO applierID
               closeModal();
-              moveToResume("1");
+              moveToResume();
             }}
           >
             지원내역 보기
@@ -165,9 +165,8 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         text: (
           <button
             onClick={() => {
-              //TODO applierID
               closeModal();
-              moveToResume("1");
+              moveToResume();
             }}
           >
             지원내역 보기
@@ -184,9 +183,8 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         text: (
           <button
             onClick={() => {
-              //TODO applierID
               closeModal();
-              moveToResume("1");
+              moveToResume();
             }}
           >
             지원내역 보기
@@ -195,9 +193,9 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       },
     ],
     confirm: {
-      text: "심부름 완료?",
-      no: <button onClick={closeModal}>뒤로가기</button>,
-      yes: <button onClick={requestCompleteErrand}>완료함</button>,
+      text: "심부름을 완료했나요?",
+      no: <button onClick={closeModal}>아니요</button>,
+      yes: <button onClick={requestCompleteErrand}>완료했어요</button>,
     },
   };
 
