@@ -3,10 +3,9 @@ import { useQueryParams } from "@karrotframe/navigator";
 
 export type WithQueryParamsProps = {
   errandId: string;
-  helpId: string;
 };
 
-export type Params = "errandId" | "helpId";
+export type Params = "errandId";
 
 export function withQueryParams(
   Component: React.ElementType,
