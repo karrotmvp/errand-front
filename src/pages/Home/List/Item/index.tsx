@@ -1,4 +1,3 @@
-import { TabType } from "@type/client";
 import { ErrandPreviewResponseBody } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
