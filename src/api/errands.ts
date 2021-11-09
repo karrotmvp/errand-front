@@ -84,9 +84,9 @@ export const useHelperList = (errandId: string) => {
   return useQuery(["helperList"], () => getHelperList(errandId));
 };
 
-export const selectHelper = async (errandId: string, applierId: string) => {
-  const { data } = await PATCH(`/errand/${errandId}/helper`, { applierId });
-  return data;
+export const selectHelper = async (errandId: string, helperId: number) => {
+  const { status } = await PATCH(`/errand/${errandId}/helper`, { helperId });
+  return status;
 };
 
 export const finishErrand = async (errandId: string) => {
@@ -96,7 +96,7 @@ export const finishErrand = async (errandId: string) => {
 
 export const confirmIsAppliable = async (
   errandId: string
-): Promise<{ helperCnt: number; canApply: boolean }> => {
+): Promise<{ helperCount: number; canApply: boolean }> => {
   const { data } = await GET(`/errand/${errandId}/helper-count`);
   return data;
 };
