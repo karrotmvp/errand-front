@@ -37,7 +37,7 @@ export default function RequestForm() {
   } = useForm<Inputs>();
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchTextArea = watch("detail");
-  const { push } = useNavigator();
+  const { replace } = useNavigator();
   const watchImages = watch("images");
   const [imageList, setImageList] = useState<File[]>([]);
 
@@ -66,7 +66,7 @@ export default function RequestForm() {
     const { id } = await registerErrand(formData);
 
     closeModal();
-    push(`/errands/${id}`);
+    replace(`/errands/${id}`);
   };
 
   const removeImage = (targetLastModified: number) => {

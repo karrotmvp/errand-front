@@ -7,7 +7,7 @@ import Profile from "@components/Profile";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
 import useModal from "@hooks/useModal";
-import usePush from "@hooks/usePush";
+import { useNavigator } from "@karrotframe/navigator";
 import {
   ErrorText,
   SectionTerms,
@@ -34,8 +34,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     formState: { errors },
   } = useForm<Inputs>();
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-
-  const moveToErrandDetail = usePush(`/errands/${errandId}`);
+  const { replace } = useNavigator();
   const watchTextArea = watch("appeal");
 
   const modalInfo = {
@@ -59,7 +58,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
 
     if (isSuccess) {
       closeModal();
-      moveToErrandDetail();
+      replace(`/errands/${errandId}`);
     } else {
       console.log("지원 실패!");
     }

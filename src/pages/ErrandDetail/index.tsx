@@ -41,7 +41,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     modalInfoFlag = "noModal",
     buttonCallback,
   } = getRefinedFromData(data);
-  const { push } = useNavigator();
+  const { push, replace } = useNavigator();
 
   const moveToHome = usePush("/");
   const moveToApplyForm = usePush(`/apply-form?errandId=${errandId}`);
@@ -58,7 +58,9 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       push("/404");
     }
     closeModal();
-    moveToHome();
+    replace("/");
+    // moveToHome();
+    
   };
   const applyToErrand = async () => {
     const res = await confirmIsAppliable(errandId);
