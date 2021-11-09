@@ -1,13 +1,15 @@
 import { useQuery } from "react-query";
 import { GET, POST } from "@utils/axios";
 import { Region } from "@type/response";
+import { getValueFromSearch } from "@utils/utils";
 
-const getRegionInfo = async (regionId: string): Promise<Region> => {
+const getRegionInfo = async (): Promise<Region> => {
+  const regionId = getValueFromSearch("region_id");
   const { data } = await GET(`/region?regionId=${regionId}`);
   return data;
 };
-export const useRegionInfo = (regionId: string) => {
-  return useQuery(["regionInfo"], () => getRegionInfo(regionId));
+export const useRegionInfo = () => {
+  return useQuery(["regionInfo"], () => getRegionInfo());
 };
 
 export const reqeustLogin = async (code: string, regionId: string) => {
