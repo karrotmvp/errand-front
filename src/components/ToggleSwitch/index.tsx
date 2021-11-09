@@ -14,15 +14,20 @@ export default function ToggleSwitch({
   height = 2.8,
 }: ToggleSwitchProps) {
   const [toggle, setToggle] = useState(defaultValue);
-  const ref = useRef<boolean>(false);
+  const ref = useRef<boolean>(true);
+  const refToggle = useRef<boolean>(toggle);
 
   useDebounce(
     () => {
-      if (!ref.current) {
-        ref.current = true;
+      if (ref.current) {
+        ref.current = false;
+        return;
+      }
+      if (refToggle.current === toggle) {
         return;
       }
       callback(toggle);
+      refToggle.current = toggle;
     },
     1000,
     [toggle]

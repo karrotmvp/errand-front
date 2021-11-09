@@ -1,4 +1,3 @@
-import { TabType } from "@type/client";
 import { ErrandPreviewResponseBody } from "@type/response";
 import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
@@ -9,12 +8,12 @@ import { getRefinedFromData } from "@utils/getRefinedFromData";
 
 type ItemProps = {
   item: ErrandPreviewResponseBody;
-  tabType: TabType;
 };
 
-export default function Item({ item, tabType }: ItemProps) {
+export default function Item({ item }: ItemProps) {
   const { errand } = item;
   const moveTo = usePush(`/errands/${errand.id}`);
+
   return (
     <>
       <ItemWrapper>
@@ -76,8 +75,8 @@ const ItemWrapper = styled.li`
 
       &__detail {
         ${({ theme }) => theme.font("large", "regular")}
-        height: 2rem;
-        line-height: 1.1;
+        height: 1em;
+        line-height: 1;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -85,7 +84,6 @@ const ItemWrapper = styled.li`
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
       }
-
       &__sub {
         ${({ theme }) => theme.font("small", "regular")}
         color : ${({ theme }) => theme.color.grey4};
@@ -122,7 +120,7 @@ const renderItemStatus = (item: ErrandPreviewResponseBody) => {
   const refined = getRefinedFromData(item);
   return (
     <div className={`item-info__bottom__status ${refined.color}`}>
-      {refined.detailStatus}
+      {refined.statusText}
     </div>
   );
 };

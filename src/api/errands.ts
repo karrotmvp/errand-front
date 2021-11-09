@@ -3,8 +3,7 @@ import { DELETE, GET, PATCH, POST } from "@utils/axios";
 import {
   ErrandPreviewResponseBody,
   ErrandDetailResponseBody,
-  Resume,
-  Helper,
+  ResumePreview,
 } from "@type/response";
 import { TabType } from "@type/client";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
@@ -77,7 +76,7 @@ export const useErrandDetail = (errandId: string) => {
   return useQuery(["errandDetail"], () => getErrandDetail(errandId));
 };
 
-const getHelperList = async (errandId: string): Promise<Helper[]> => {
+const getHelperList = async (errandId: string): Promise<ResumePreview[]> => {
   const { data } = await GET(`/errand/${errandId}/helpers`);
   return data;
 };
@@ -85,17 +84,9 @@ export const useHelperList = (errandId: string) => {
   return useQuery(["helperList"], () => getHelperList(errandId));
 };
 
-const getHelperDetail = async (helpId: string): Promise<Resume> => {
-  const { data } = await GET(`/help/${helpId}`);
-  return data;
-};
-export const useHelperDetail = (helpId: string) => {
-  return useQuery(["helperDetail", helpId], () => getHelperDetail(helpId));
-};
-
-export const selectHelper = async (errandId: string, applierId: string) => {
-  const { data } = await PATCH(`/errand/${errandId}/helper`, { applierId });
-  return data;
+export const selectHelper = async (errandId: string, helperId: number) => {
+  const { status } = await PATCH(`/errand/${errandId}/helper`, { helperId });
+  return status;
 };
 
 export const finishErrand = async (errandId: string) => {
@@ -105,7 +96,7 @@ export const finishErrand = async (errandId: string) => {
 
 export const confirmIsAppliable = async (
   errandId: string
-): Promise<{ helperCnt: number; canApply: boolean }> => {
+): Promise<{ helperCount: number; canApply: boolean }> => {
   const { data } = await GET(`/errand/${errandId}/helper-count`);
   return data;
 };

@@ -28,8 +28,8 @@ type RefinedData = {
 
 const DEFAULT_REFINED_DATA = {
   color: "",
-  statusText: "",
-  buttonText: "",
+  statusText: "있을 수 없는 경우!",
+  buttonText: "있을 수 없는 경우!",
   buttonDisabled: true,
 };
 

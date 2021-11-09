@@ -39,6 +39,7 @@ export type ErrandPreviewResponseBody = {
 
 export type ErrandDetailResponseBody = {
   errand: ErrandDetail;
+  helpId: number;
   isMine: boolean;
   didIApply: boolean;
   wasIChosen: boolean;
@@ -59,8 +60,11 @@ export type Category = {
 };
 
 export type Resume = {
+  errandId: number;
   isMatched: boolean;
+  isCustomer: boolean;
   appeal: string;
+  phoneNumber?: string;
   helper: User;
 };
 
@@ -71,7 +75,7 @@ export type User = SimpleUser & {
 };
 
 export type SimpleUser = {
-  id?: number;
+  id: number;
   nickname: string;
 };
 
@@ -100,13 +104,8 @@ export type Alarm = {
   status: boolean;
 };
 
-export type Helper = {
+export type ResumePreview = {
   helpId: number;
-  helper: {
-    id: number;
-    nickname: string;
-    profileImgUrl?: string;
-    regionName: string;
-    mannerTemp: number;
-  };
+  helper: User;
+  appeal: string;
 };

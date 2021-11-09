@@ -1,3 +1,4 @@
+import { useRegionInfo } from "@api/etc";
 import { Check, Gear, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
@@ -11,7 +12,7 @@ export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
   const [showTooltip, setShowTooltip] = useState<boolean>(true);
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
-
+  const { status, data: location } = useRegionInfo();
   const closeTooltip = () => {
     setShowTooltip(false);
   };
@@ -37,7 +38,7 @@ export default function Home() {
             <div className="home__top">
               <div className="home__top__location">
                 <h2>
-                  <span>서현동</span> 주변
+                  <span>{status === "success" && location?.name}</span> 주변
                 </h2>
               </div>
               <div

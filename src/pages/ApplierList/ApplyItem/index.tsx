@@ -1,30 +1,31 @@
 import React from "react";
 import styled from "@emotion/styled";
-import { Helper } from "@type/response";
+import { ResumePreview } from "@type/response";
 import Profile from "@components/Profile";
 import usePush from "@hooks/usePush";
 import { Right } from "@assets/icon";
 
 type ApplyItemProps = {
-  helper: Helper;
+  resumePreview: ResumePreview;
 };
 
-export default function ApplyItem({ helper }: ApplyItemProps) {
+export default function ApplyItem({ resumePreview }: ApplyItemProps) {
   const {
     helpId,
-    helper: { nickname, regionName, mannerTemp, profileImgUrl },
-  } = helper;
-  const moveToUserDetail = usePush(`/helps/${helpId}`);
-  const appeal =
-    "저 강아지를 진짜 좋아해요 ㅎㅎ 지금 집에서 한마리 키우고 있는데 같이 산책하면 좋을 것";
+    helper: { id, nickname, regionName, mannerTemp, profileImgUrl },
+    appeal,
+  } = resumePreview;
+  const moveToResume = usePush(`/helps/${helpId}`);
 
   return (
-    <ApplyItemWrapper onClick={moveToUserDetail}>
+    <ApplyItemWrapper onClick={moveToResume}>
       <div className="apply-item__profile">
-        <Profile {...{ nickname, regionName, mannerTemp, profileImgUrl }} />
+        <Profile {...{ id, nickname, regionName, mannerTemp, profileImgUrl }} />
         <Right />
       </div>
-      <div className="apply-item__appeal">{appeal}</div>
+      <div className="apply-item__appeal">
+        <div>{appeal}</div>
+      </div>
     </ApplyItemWrapper>
   );
 }
@@ -46,6 +47,17 @@ const ApplyItemWrapper = styled.div`
       border-radius: 0.8rem;
       background: ${({ theme }) => theme.color.grey8};
       padding: 2rem 3.2rem;
+
+      & > div {
+        height: 3.7em;
+        line-height: 1.7;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        word-wrap: break-word;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+      }
     }
   }
 

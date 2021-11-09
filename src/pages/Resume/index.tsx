@@ -1,25 +1,44 @@
-import React from "react";
+import React, { useCallback } from "react";
 import styled from "@emotion/styled";
 import Profile from "@components/Profile";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
-import { useHelperDetail } from "@api/errands";
+import { useResume } from "@api/help";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
-import { WithQueryParamsProps } from "@hoc/withQueryParams";
+import ToolTip from "@components/ToolTip";
+import { useTooltip } from "@hooks/useTooltip";
+import { WithParamsProps } from "@hoc/withParams";
+import { selectHelper } from "@api/errands";
+import { useNavigator } from "@karrotframe/navigator";
 
-export default function Resume({ helpId }: WithQueryParamsProps) {
-  const { status, data: resume } = useHelperDetail(helpId);
+export default function Resume({ helpId }: WithParamsProps) {
+  const { status, data: resume, refetch } = useResume(helpId);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
+  const [showTooltip, closeTooltip] = useTooltip();
+  const { push } = useNavigator();
+  const resumeStatus: ResumeStatus = specifyStatus(
+    status,
+    resume?.isMatched,
+    resume?.isCustomer
+  );
 
-  const selectApplier = () => {};
+  const requestSelectHelper = useCallback(async () => {
+    if (!resume) return;
+    const status = await selectHelper(
+      String(resume.errandId),
+      resume.helper.id
+    );
+    status === "OK" ? refetch() : push("/404");
+    closeModal();
+  }, [resume, push, refetch, closeModal]);
 
   const modalInfo: ModalInfoType = {
     confirm: {
       text: "이 분에게 요청하면 입력하신 주소와 연락처가 전달돼요. 이 분에게 요청할까요?",
-      no: <button onClick={closeModal}>아니오</button>,
-      yes: <button onClick={selectApplier}>삭제하기</button>,
+      no: <button onClick={closeModal}>아니요</button>,
+      yes: <button onClick={requestSelectHelper}>네</button>,
     },
   };
 
@@ -35,28 +54,42 @@ export default function Resume({ helpId }: WithQueryParamsProps) {
     <StickyPageWrpper>
       <CustomScreenHelmet title="지원자 정보" />
       <ResumeWrapper>
-        {status !== "loading" && resume && <Profile {...resume.helper} />}
-        <div className="resume__phone">
-          <div>전화번호</div>
-          <div>매칭 후 공개돼요.</div>
-        </div>
-        <div className="resume__appeal">{resume?.appeal}</div>
+        {status !== "loading" && resume && (
+          <>
+            <Profile {...resume.helper} />
+            <div className="resume__phone">
+              <div>
+                전화번호
+                {showTooltip && resumeStatus === "customer-match" && (
+                  <ToolTip
+                    text="전화번호가 공개되었어요."
+                    closeTooltip={closeTooltip}
+                  />
+                )}
+              </div>
+              <div>{renderPhoneNumber(resume.phoneNumber)}</div>
+            </div>
+            <div className="resume__appeal">{resume?.appeal}</div>
+          </>
+        )}
       </ResumeWrapper>
       {isOpen && innerMode && (
         <Modal {...{ closeModal, modalInfo, innerMode }} />
       )}
       <StickyFooter>
-        <Button
-          buttonType="contained"
-          color="primary"
-          fullWidth
-          rounded
-          onClick={() => {
-            openModal("confirm");
-          }}
-        >
-          이 분에게 요청하기
-        </Button>
+        {resumeStatus === "customer-apply" && (
+          <Button
+            buttonType="contained"
+            color="primary"
+            fullWidth
+            rounded
+            onClick={() => {
+              openModal("confirm");
+            }}
+          >
+            이 분에게 요청하기
+          </Button>
+        )}
       </StickyFooter>
     </StickyPageWrpper>
   );
@@ -84,3 +117,42 @@ const ResumeWrapper = styled.div`
     }
   }
 `;
+
+type ResumeStatus =
+  | "loading"
+  | "customer-match"
+  | "customer-apply"
+  | "applier-match"
+  | "applier-apply"
+  | "none";
+
+const specifyStatus = (
+  status: string,
+  isMatched?: boolean,
+  isCustomer?: boolean
+): ResumeStatus => {
+  if (status !== "success") {
+    return "loading";
+  }
+  if (isMatched && isCustomer) {
+    return "customer-match";
+  }
+  if (!isMatched && isCustomer) {
+    return "customer-apply";
+  }
+  if (isMatched && !isCustomer) {
+    return "applier-match";
+  }
+  if (!isMatched && !isCustomer) {
+    return "applier-apply";
+  }
+  return "none";
+};
+
+const renderPhoneNumber = (phoneNumber?: string) => {
+  if (!phoneNumber) {
+    return "매칭 시 공개돼요";
+  }
+
+  return phoneNumber;
+};
