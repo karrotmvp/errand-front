@@ -42,14 +42,6 @@ export default function Resume({ helpId }: WithParamsProps) {
     },
   };
 
-  // const handleClickRequest = async () => {
-  //   if (resume?.helper?.id) {
-  //     const res = await selectHelper(1, resume?.helper.id);
-  //     console.log(res);
-  //     closeModal();
-  //   }
-  // };
-
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet title="지원자 정보" />

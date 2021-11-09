@@ -2,7 +2,7 @@ import { INavigatorTheme } from "@karrotframe/navigator";
 import dayjs from "dayjs";
 
 export const checkMobileType = (): INavigatorTheme => {
-  const UA = navigator.userAgent.toLowerCase(); // userAgent 값 얻기
+  const UA = navigator.userAgent.toLowerCase();
   if (UA.indexOf("android") > -1) return "Android";
   if (
     UA.indexOf("iphone") > -1 ||

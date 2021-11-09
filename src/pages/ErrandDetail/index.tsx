@@ -59,8 +59,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     }
     closeModal();
     replace("/");
-    // moveToHome();
-    
+     
   };
   const applyToErrand = async () => {
     const res = await confirmIsAppliable(errandId);

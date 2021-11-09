@@ -40,7 +40,7 @@ const fetchWrap = async ({
     console.log("에러 터짐요~~");
     throw new Error("에러다요");
     // localStorage.removeItem("token");
-    // window.location.href = "/401";
+    // window.location.href = "/404";
   }
 };
 export const GET = (url: string, params?: {}) =>
