@@ -28,8 +28,9 @@ export default function List({
   return (
     <PullToRefresh
       onPull={(dispose) => {
-        refetch();
-        dispose();
+        refetch().then(() => {
+          dispose();
+        });
       }}
     >
       <ListWrapper>
