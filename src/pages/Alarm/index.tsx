@@ -1,6 +1,6 @@
 import {
-  patchCategoryAlarm,
-  patchNewApplierAlarm,
+  usePatchCategoryAlarm,
+  usePatchNewApplierAlarm,
   useUserAlarms,
 } from "@api/user";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
@@ -11,6 +11,9 @@ import { SectionWrapper } from "@styles/shared";
 export default function Alarm() {
   const { status, data } = useUserAlarms();
 
+  const mutationCategoryAlarm = usePatchCategoryAlarm();
+  const mutationNewApplierAlarm = usePatchNewApplierAlarm();
+
   const toggleCurry =
     (callback: Function, ...rest: unknown[]) =>
     (on: boolean) => {
@@ -18,11 +21,11 @@ export default function Alarm() {
     };
 
   const toggleCategoryAlarm = (on: boolean, categoryId: number) => {
-    patchCategoryAlarm({ categoryId, on });
+    mutationCategoryAlarm.mutate({ categoryId, on });
   };
 
   const toggleNewApplierAlarm = (on: boolean) => {
-    patchNewApplierAlarm({ on });
+    mutationNewApplierAlarm.mutate({ on });
   };
 
   return (
