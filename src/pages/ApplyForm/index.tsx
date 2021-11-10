@@ -4,6 +4,7 @@ import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
 import Profile from "@components/Profile";
+import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
 import useModal from "@hooks/useModal";
@@ -31,8 +32,8 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+    formState: { errors, isValid },
+  } = useForm<Inputs>({ mode: "onChange" });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { pop } = useNavigator();
   const watchTextArea = watch("appeal");
@@ -86,9 +87,12 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               </div>
               <div className="section__content">
                 <input
-                  type="text"
+                  type="number"
                   placeholder="숫자만 입력해주세요."
-                  {...register("phoneNumber", { required: true })}
+                  {...register("phoneNumber", {
+                    required: true,
+                    pattern: PHONE_NUMBER_REGEX,
+                  })}
                 />
               </div>
             </SectionWrapper>
@@ -103,7 +107,11 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                 <textarea
                   maxLength={500}
                   placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해주세요."
-                  {...register("appeal", { required: true })}
+                  {...register("appeal", {
+                    required: true,
+                    minLength: 10,
+                    maxLength: 500,
+                  })}
                 />
                 <div>{watchTextArea?.length ?? 0}/500</div>
               </TextAreaWrapper>
@@ -145,6 +153,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
           buttonType="contained"
           color="primary"
           fullWidth
+          disabled={!isValid}
           onClick={() => {
             openModal("confirm");
           }}

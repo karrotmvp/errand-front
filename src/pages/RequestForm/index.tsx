@@ -18,6 +18,7 @@ import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
 import { getValueFromSearch } from "@utils/utils";
 import { useRegisterErrand } from "@api/errands";
+import { PHONE_NUMBER_REGEX } from "@constant/validation";
 
 type Inputs = {
   categoryId: number;
@@ -33,13 +34,14 @@ export default function RequestForm() {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
-  } = useForm<Inputs>();
+    formState: { errors, isValid },
+  } = useForm<Inputs>({ mode: "onChange" });
+
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchTextArea = watch("detail");
-  const { replace } = useNavigator();
   const watchImages = watch("images");
   const [imageList, setImageList] = useState<File[]>([]);
+  const { replace } = useNavigator();
 
   const mutationRegisterErrand = useRegisterErrand({
     onSuccess: (id: string) => {
@@ -99,14 +101,12 @@ export default function RequestForm() {
           </div>
           <div className="section__content">
             <select {...register("categoryId", { required: true })}>
-              <option value="default" disabled>
+              <option selected disabled>
                 카테고리를 선택해주세요.
               </option>
-              <option value="1" className="test">
-                벌레잡기
-              </option>
+              <option value="1">벌레잡기</option>
               <option value="2">반려동물 산책하기</option>
-              <option value="3">하나뭐였지</option>
+              <option value="3">사다주기</option>
               <option value="4">기타</option>
             </select>
           </div>
@@ -143,8 +143,12 @@ export default function RequestForm() {
           <TextAreaWrapper>
             <textarea
               className="section__content"
-              placeholder="세부사항을 입력하세요."
-              {...register("detail", { required: true })}
+              placeholder="세부사항을 입력하세요. "
+              {...register("detail", {
+                required: true,
+                minLength: 10,
+                maxLength: 500,
+              })}
             />
             <div>{watchTextArea?.length ?? 0}/500</div>
           </TextAreaWrapper>
@@ -190,7 +194,7 @@ export default function RequestForm() {
           <div className="section__title">
             <label>전화번호</label>
             {errors.phoneNumber && (
-              <ErrorText>전화번호를 입력해주세요.</ErrorText>
+              <ErrorText>올바른 전화번호를 입력해주세요.</ErrorText>
             )}
           </div>
           <p className="color-grey section__subscribe">
@@ -200,7 +204,10 @@ export default function RequestForm() {
             className="section__content"
             placeholder="전화번호를 입력하세요."
             type="number"
-            {...register("phoneNumber", { required: true })}
+            {...register("phoneNumber", {
+              required: true,
+              pattern: PHONE_NUMBER_REGEX,
+            })}
           />
         </SectionWrapper>
       </RequestFormWrapper>
@@ -212,6 +219,7 @@ export default function RequestForm() {
           buttonType="contained"
           color="primary"
           fullWidth
+          disabled={!isValid}
           onClick={() => {
             openModal("confirm");
           }}
