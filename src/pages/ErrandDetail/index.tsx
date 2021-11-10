@@ -12,7 +12,6 @@ import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@components/Button";
 import { getComparedTime } from "@utils/utils";
 import ToolTip from "@components/ToolTip";
