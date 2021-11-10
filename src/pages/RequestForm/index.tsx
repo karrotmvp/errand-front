@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { registerErrand } from "@api/errands";
 import {
   ErrorText,
   SectionWrapper,
@@ -18,6 +17,7 @@ import Button from "@components/Button";
 import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
 import { getValueFromSearch } from "@utils/utils";
+import { useRegisterErrand } from "@api/errands";
 
 type Inputs = {
   categoryId: number;
@@ -41,6 +41,13 @@ export default function RequestForm() {
   const watchImages = watch("images");
   const [imageList, setImageList] = useState<File[]>([]);
 
+  const mutationRegisterErrand = useRegisterErrand({
+    onSuccess: (id: string) => {
+      closeModal();
+      replace(`/errands/${id}`);
+    },
+  });
+
   const modalInfo: ModalInfoType = {
     confirm: {
       text: "작성 완료 후 수정할 수 없어요.\n완료 전 꼼곰하게 확인해 주세요.",
@@ -62,11 +69,7 @@ export default function RequestForm() {
     formData.append("detailAddress", detailAddress);
     formData.append("phoneNumber", phoneNumber);
     formData.append("regionId", regionId);
-
-    const { id } = await registerErrand(formData);
-
-    closeModal();
-    replace(`/errands/${id}`);
+    mutationRegisterErrand.mutate(formData);
   };
 
   const removeImage = (targetLastModified: number) => {

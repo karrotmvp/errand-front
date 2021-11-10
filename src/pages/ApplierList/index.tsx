@@ -1,12 +1,12 @@
 import React from "react";
 import styled from "@emotion/styled";
 import ApplyItem from "./ApplyItem";
-import { useHelperList } from "@api/errands";
+import { useResumePreviews } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { WithParamsProps } from "@hoc/withParams";
 
 export default function ApplierList({ errandId }: WithParamsProps) {
-  const { status, data: resumePreviews } = useHelperList(errandId);
+  const { status, data: resumePreviews } = useResumePreviews(errandId);
 
   return (
     <>

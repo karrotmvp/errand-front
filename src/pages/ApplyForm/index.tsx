@@ -1,5 +1,5 @@
-import { applyErrand } from "@api/help";
-import { useMyInfo } from "@api/users";
+import { useApplyToErrand } from "@api/help";
+import { useMyInfo } from "@api/user";
 import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
@@ -36,7 +36,15 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { replace } = useNavigator();
   const watchTextArea = watch("appeal");
-
+  const mutationApplyErrand = useApplyToErrand({
+    onSuccess: () => {
+      closeModal();
+      replace(`/errands/${errandId}`);
+    },
+    onError: () => {
+      console.log("fail");
+    },
+  });
   const modalInfo = {
     confirm: {
       text: "작성한 내용으로 지원을 완료합니다.",
@@ -49,19 +57,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     const { phoneNumber, appeal } = result;
     const regionId = getValueFromSearch("region_id") ?? "";
 
-    const isSuccess = await applyErrand({
-      errandId,
-      phoneNumber,
-      appeal,
-      regionId,
-    });
-
-    if (isSuccess) {
-      closeModal();
-      replace(`/errands/${errandId}`);
-    } else {
-      console.log("지원 실패!");
-    }
+    mutationApplyErrand.mutate({ errandId, phoneNumber, appeal, regionId });
   };
 
   return (

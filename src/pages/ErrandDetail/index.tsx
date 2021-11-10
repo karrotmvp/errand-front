@@ -3,8 +3,8 @@ import usePush from "@hooks/usePush";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
 import {
   confirmIsAppliable,
-  deleteMyErrand,
-  finishErrand,
+  useCompleteErrand,
+  useDeleteErrand,
   useErrandDetail,
 } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
@@ -25,13 +25,13 @@ import {
 } from "@utils/getRefinedFromData";
 import { useNavigator } from "@karrotframe/navigator";
 import { WithParamsProps } from "@hoc/withParams";
-import { cancelApply } from "@api/help";
 import { ErrandDetailResponseBody } from "@type/response";
 import { useCallback } from "react";
+import { useCancelAPply } from "@api/help";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const { status, data, refetch } = useErrandDetail(errandId);
+  const { status, data } = useErrandDetail(errandId);
   const [showTooltip, closeTooltip] = useTooltip();
   const {
     color,
@@ -43,7 +43,32 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
   } = getRefinedFromData(data);
   const { push, replace } = useNavigator();
 
-  const moveToHome = usePush("/");
+  const mutationDeleteErrand = useDeleteErrand({
+    onSuccess: () => {
+      closeModal();
+      replace("/");
+    },
+    onError: () => {
+      closeModal();
+    },
+  });
+  const mutationCancelApply = useCancelAPply({
+    onSuccess: () => {
+      closeModal();
+    },
+    onError: () => {
+      closeModal();
+    },
+  });
+  const mutationCompleteErrand = useCompleteErrand({
+    onSuccess: () => {
+      closeModal();
+    },
+    onError: () => {
+      closeModal();
+    },
+  });
+
   const moveToApplyForm = usePush(`/apply-form?errandId=${errandId}`);
   const moveToResume = useCallback(() => {
     push(`/helps/${data?.helpId}`);
@@ -52,15 +77,19 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     push(`/errands/${errandId}/appliers`);
   };
 
-  const requestDeleteMyErrand = async () => {
-    const status = await deleteMyErrand(errandId);
-    if (status !== "OK") {
-      push("/404");
-    }
-    closeModal();
-    replace("/");
-     
+  const requestDeleteMyErrand = () => {
+    if (!errandId) return;
+    mutationDeleteErrand.mutate(errandId);
   };
+  const requestCancelApply = () => {
+    if (!data) return;
+    mutationCancelApply.mutate(String(data?.helpId));
+  };
+  const requestCompleteErrand = () => {
+    if (!errandId) return;
+    mutationCompleteErrand.mutate(errandId);
+  };
+
   const applyToErrand = async () => {
     const res = await confirmIsAppliable(errandId);
     if (res.canApply) {
@@ -69,19 +98,6 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       console.log("지원 불가");
     }
   };
-  const requestCancelApply = useCallback(async () => {
-    if (!data) return;
-    const status = await cancelApply(String(data?.helpId));
-
-    status === "OK" ? moveToHome() : push("/404");
-    closeModal();
-  }, [data, closeModal, moveToHome, push]);
-  const requestCompleteErrand = useCallback(async () => {
-    if (!errandId) return;
-    const status = await finishErrand(errandId);
-    status === "OK" ? refetch() : push("/404");
-    closeModal();
-  }, [errandId, push, refetch, closeModal]);
 
   const handleClickButton = () => {
     if (buttonDisabled) {
