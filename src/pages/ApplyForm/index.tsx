@@ -34,12 +34,12 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     formState: { errors },
   } = useForm<Inputs>();
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const { replace } = useNavigator();
+  const { pop } = useNavigator();
   const watchTextArea = watch("appeal");
   const mutationApplyErrand = useApplyToErrand({
     onSuccess: () => {
       closeModal();
-      replace(`/errands/${errandId}`);
+      pop();
     },
     onError: () => {
       console.log("fail");

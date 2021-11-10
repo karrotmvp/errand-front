@@ -2,7 +2,6 @@ import React from "react";
 import styled from "@emotion/styled";
 import { ResumePreview } from "@type/response";
 import Profile from "@components/Profile";
-import usePush from "@hooks/usePush";
 import { Right } from "@assets/icon";
 import { useNavigator } from "@karrotframe/navigator";
 
