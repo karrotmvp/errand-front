@@ -58,7 +58,9 @@ export default function Home() {
               />
             )}
           </Container>
-          <List tabType="main" isAppliable={isAppliable} />
+          <div style={{ position: "relative" }}>
+            <List tabType="main" isAppliable={isAppliable} />
+          </div>
         </ContentWrapper>
         <button className="home__fixed-fab" onClick={moveToApplyForm}>
           <Plus stroke="white" />
@@ -92,15 +94,14 @@ const HomeWrapper = styled.main`
       align-items: center;
 
       &__location {
-        position: relative;
         font-size: 1.7rem;
         font-weight: 700;
 
         display: flex;
         align-items: center;
-        h2 {
+        & > h2 {
           font-family: Cafe24Ssurround;
-          span {
+          & > span {
             color: ${({ theme }) => theme.color.primary};
           }
         }
@@ -145,6 +146,7 @@ const HomeWrapper = styled.main`
       display: flex;
       justify-content: center;
       align-items: center;
+      z-index: 9999;
     }
   }
 `;

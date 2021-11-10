@@ -1,21 +1,15 @@
-import { useUserAlarm } from "@api/users";
+import {
+  patchCategoryAlarm,
+  patchNewApplierAlarm,
+  useUserAlarms,
+} from "@api/user";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToggleSwitch from "@components/ToggleSwitch";
 import styled from "@emotion/styled";
 import { SectionWrapper } from "@styles/shared";
-import { patchCategoryAlarm, patchNewApplierAlarm } from "@api/users";
-import { useMutation } from "react-query";
 
 export default function Alarm() {
-  const { status, data } = useUserAlarm();
-
-  const mutationCategory = useMutation(patchCategoryAlarm, {
-    onSuccess: () => console.log("성공"),
-  });
-
-  const mutationApplier = useMutation(patchNewApplierAlarm, {
-    onSuccess: () => console.log("성공"),
-  });
+  const { status, data } = useUserAlarms();
 
   const toggleCurry =
     (callback: Function, ...rest: unknown[]) =>
@@ -24,11 +18,11 @@ export default function Alarm() {
     };
 
   const toggleCategoryAlarm = (on: boolean, categoryId: number) => {
-    mutationCategory.mutate({ categoryId, on });
+    patchCategoryAlarm({ categoryId, on });
   };
 
   const toggleNewApplierAlarm = (on: boolean) => {
-    mutationApplier.mutate({ on });
+    patchNewApplierAlarm({ on });
   };
 
   return (

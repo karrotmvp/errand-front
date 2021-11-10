@@ -1,14 +1,33 @@
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import List from "@pages/Home/List";
 import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
-import { useMyInfo } from "@api/users";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
+import { useMyInfo } from "@api/user";
 
 export default function My() {
   const [activeTabKey, setActiveTabKey] = useState<string>("tab_1");
   const { status, data: myInfo } = useMyInfo();
+  const memo = useMemo(
+    () => [
+      {
+        key: "tab_1",
+        buttonLabel: "요청한 심부름",
+        component: () => (
+          <List tabType="request" activeTabKey={new Date().toString()} />
+        ),
+      },
+      {
+        key: "tab_2",
+        buttonLabel: "지원한 심부름",
+        component: () => (
+          <List tabType="help" activeTabKey={new Date().toString()} />
+        ),
+      },
+    ],
+    []
+  );
 
   return (
     <>
@@ -20,18 +39,7 @@ export default function My() {
         <Tabs
           className="my__tabs"
           activeTabKey={activeTabKey}
-          tabs={[
-            {
-              key: "tab_1",
-              buttonLabel: "요청한 심부름",
-              component: () => <List tabType="request" />,
-            },
-            {
-              key: "tab_2",
-              buttonLabel: "지원한 심부름",
-              component: () => <List tabType="help" />,
-            },
-          ]}
+          tabs={memo}
           onTabChange={(key) => {
             setActiveTabKey(key);
           }}
@@ -42,6 +50,9 @@ export default function My() {
 }
 
 const MyWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
   .my {
     &__info {
       padding: 2.5rem;
@@ -51,6 +62,7 @@ const MyWrapper = styled.div`
       justify-content: space-between;
     }
     &__tabs {
+      flex: 1;
       a {
         ${({ theme }) => theme.font("medium")}
 

@@ -1,4 +1,4 @@
-import React, { useCallback } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import Profile from "@components/Profile";
 import { StickyFooter, StickyPageWrpper } from "@styles/shared";
@@ -10,29 +10,35 @@ import Button from "@components/Button";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
 import { WithParamsProps } from "@hoc/withParams";
-import { selectHelper } from "@api/errands";
 import { useNavigator } from "@karrotframe/navigator";
+import { useSelectHelper } from "@api/errands";
 
 export default function Resume({ helpId }: WithParamsProps) {
-  const { status, data: resume, refetch } = useResume(helpId);
+  const { status, data: resume } = useResume(helpId);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const [showTooltip, closeTooltip] = useTooltip();
-  const { push } = useNavigator();
+  const { pop } = useNavigator();
   const resumeStatus: ResumeStatus = specifyStatus(
     status,
     resume?.isMatched,
     resume?.isCustomer
   );
-
-  const requestSelectHelper = useCallback(async () => {
+  const mutationSelectHelper = useSelectHelper({
+    onSuccess: () => {
+      pop().send(true);
+      closeModal();
+    },
+    onError: () => {
+      closeModal();
+    },
+  });
+  const requestSelectHelper = () => {
     if (!resume) return;
-    const status = await selectHelper(
-      String(resume.errandId),
-      resume.helper.id
-    );
-    status === "OK" ? refetch() : push("/404");
-    closeModal();
-  }, [resume, push, refetch, closeModal]);
+    mutationSelectHelper.mutate({
+      errandId: String(resume.errandId),
+      helperId: resume.helper.id,
+    });
+  };
 
   const modalInfo: ModalInfoType = {
     confirm: {
@@ -41,14 +47,6 @@ export default function Resume({ helpId }: WithParamsProps) {
       yes: <button onClick={requestSelectHelper}>네</button>,
     },
   };
-
-  // const handleClickRequest = async () => {
-  //   if (resume?.helper?.id) {
-  //     const res = await selectHelper(1, resume?.helper.id);
-  //     console.log(res);
-  //     closeModal();
-  //   }
-  // };
 
   return (
     <StickyPageWrpper>

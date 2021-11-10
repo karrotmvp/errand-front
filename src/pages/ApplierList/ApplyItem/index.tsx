@@ -2,8 +2,8 @@ import React from "react";
 import styled from "@emotion/styled";
 import { ResumePreview } from "@type/response";
 import Profile from "@components/Profile";
-import usePush from "@hooks/usePush";
 import { Right } from "@assets/icon";
+import { useNavigator } from "@karrotframe/navigator";
 
 type ApplyItemProps = {
   resumePreview: ResumePreview;
@@ -15,8 +15,13 @@ export default function ApplyItem({ resumePreview }: ApplyItemProps) {
     helper: { id, nickname, regionName, mannerTemp, profileImgUrl },
     appeal,
   } = resumePreview;
-  const moveToResume = usePush(`/helps/${helpId}`);
-
+  const { push, replace } = useNavigator();
+  const moveToResume = async () => {
+    const isSelectHelper = await push(`/helps/${helpId}`);
+    if (isSelectHelper) {
+      replace(`/helps/${helpId}`);
+    }
+  };
   return (
     <ApplyItemWrapper onClick={moveToResume}>
       <div className="apply-item__profile">

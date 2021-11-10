@@ -8,18 +8,19 @@ import { theme } from "./styles/theme";
 import {
   Alarm,
   ApplyForm,
-  ApplierList,
   ErrandDetail,
   ErrandRequest,
   Home,
   My,
   Resume,
+  ApplierList,
 } from "./pages";
 import { checkMobileType } from "@utils/utils";
 import withMini from "@hoc/withMini";
 import { withParams } from "@hoc/withParams";
 import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
+import { useCallback } from "react";
 
 // initMSW();
 
@@ -27,11 +28,21 @@ function App() {
   const NavigatorStyle = css`
     --kf_navigator_navbar-height: 5.8rem;
   `;
+  const onDepthChange = useCallback((depth: number) => {
+    localStorage.setItem("depth", depth.toString());
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
-      <Navigator theme={checkMobileType()} className={NavigatorStyle}>
+      <Navigator
+        theme={checkMobileType()}
+        className={NavigatorStyle}
+        onClose={() => {
+          console.log("close!");
+        }}
+        onDepthChange={onDepthChange}
+      >
         <Screen path="/" component={withMini(Home)} />
         <Screen
           path="/errands/:errandId"
@@ -39,7 +50,7 @@ function App() {
         />
         <Screen
           path="/errands/:errandId/appliers"
-          component={withParams(withMini(ApplierList), "errandId")}
+          component={withParams(ApplierList, "errandId")}
         />
         <Screen
           path="/helps/:helpId"
