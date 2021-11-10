@@ -13,6 +13,7 @@ import {
   Home,
   My,
   Resume,
+  ApplierList,
 } from "./pages";
 import { checkMobileType } from "@utils/utils";
 import withMini from "@hoc/withMini";
@@ -20,7 +21,6 @@ import { withParams } from "@hoc/withParams";
 import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
 import { useCallback } from "react";
-import { withHelpId } from "@hoc/withHelpId";
 
 // initMSW();
 
@@ -48,7 +48,10 @@ function App() {
           path="/errands/:errandId"
           component={withParams(withMini(ErrandDetail), "errandId")}
         />
-        <Screen path="/errands/:errandId/appliers" component={withHelpId()} />
+        <Screen
+          path="/errands/:errandId/appliers"
+          component={withParams(ApplierList, "errandId")}
+        />
         <Screen
           path="/helps/:helpId"
           component={withParams(Resume, "helpId")}
