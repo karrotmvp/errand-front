@@ -25,7 +25,7 @@ export default function Resume({ helpId }: WithParamsProps) {
   );
   const mutationSelectHelper = useSelectHelper({
     onSuccess: () => {
-      pop().send({ helpId });
+      pop().send(true);
       closeModal();
     },
     onError: () => {
