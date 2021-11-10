@@ -4,6 +4,7 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
+import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
 import { useState } from "react";
 import List from "./List";
@@ -30,7 +31,7 @@ export default function Home() {
             <span>Beta</span>
           </Title>
         }
-        appendRight={RightAppender()}
+        appendRight={RightAppender(setIsAppliable)}
       />
       <HomeWrapper>
         <ContentWrapper>
@@ -155,9 +156,16 @@ const ContentWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-const RightAppender = () => {
-  const moveToMy = usePush("/my");
+const RightAppender = (
+  setIsAppliable: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  const { push } = useNavigator();
   const moveToAlarm = usePush("/alarm");
+
+  const moveToMy = async () => {
+    const data = await push<{ isAppliable: boolean }>("/my");
+    data && setIsAppliable(data.isAppliable);
+  };
 
   return (
     <AppenderWrapper>
