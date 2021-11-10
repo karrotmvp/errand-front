@@ -12,7 +12,6 @@ import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
-import { Carousel } from "react-responsive-carousel";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@components/Button";
 import { getComparedTime } from "@utils/utils";
@@ -28,6 +27,7 @@ import { WithParamsProps } from "@hoc/withParams";
 import { ErrandDetailResponseBody } from "@type/response";
 import { useCallback } from "react";
 import { useCancelAPply } from "@api/help";
+import Slider from "react-slick";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -237,13 +237,20 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       <ErrandDetailWrapper>
         {status !== "loading" && data ? (
           <>
-            <Carousel showThumbs={false}>
+            <Slider
+              {...{
+                dots: true,
+                infinite: true,
+                speed: 500,
+                dotsClass: "errand-detail__dots",
+              }}
+            >
               {data?.errand.images?.map((image) => (
                 <div className="errand-detail__image">
                   <img src={image.url} alt="dummy" />
                 </div>
               ))}
-            </Carousel>
+            </Slider>
             <div className="errand-detail__contents">
               <div className="errand-detail__contents__title">
                 <div>
@@ -310,8 +317,80 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
 
 const ErrandDetailWrapper = styled.div`
   .errand-detail {
+    &__dots {
+      position: absolute;
+      bottom: 2.4rem;
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+      z-index: 99;
+
+      & > li {
+        position: relative;
+        display: inline-block;
+        width: 10px;
+        height: 20px;
+        margin: 0 5px;
+        padding: 0;
+        cursor: pointer;
+        & > button {
+          font-size: 0;
+          line-height: 0;
+          display: block;
+          width: 20px;
+          height: 20px;
+          padding: 5px;
+          cursor: pointer;
+          color: transparent;
+          border: 0;
+          outline: none;
+          background: transparent;
+
+          &:hover,
+          &:focus {
+            outline: none;
+          }
+          &:hover:before,
+          &:focus:before {
+            opacity: 1;
+          }
+          &:before {
+            font-family: "slick";
+            font-size: 6px;
+            line-height: 20px;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+
+            width: 20px;
+            height: 20px;
+
+            content: "•";
+            text-align: center;
+
+            opacity: 0.5;
+            color: white;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+        }
+        &.slick-active button:before {
+          opacity: 1;
+          color: white;
+        }
+      }
+    }
+
     &__image {
       width: 100%;
+      height: 30rem;
+      overflow: hidden;
+
       & > img {
         width: 100%;
       }

@@ -18,9 +18,7 @@ export default function Item({ item }: ItemProps) {
     <>
       <ItemWrapper>
         <div className="item-box" onClick={moveTo}>
-          <div className="item-image">
-            <img src={errand.thumbnailUrl ?? DEFAULT_IMAGE} alt="img" />
-          </div>
+          <Thumbnail url={errand.thumbnailUrl ?? DEFAULT_IMAGE} />
           <div className="item-info">
             <div className="item-info__detail">{errand.detail}</div>
             <div className="item-info__sub">
@@ -43,6 +41,22 @@ export default function Item({ item }: ItemProps) {
   );
 }
 
+const Thumbnail = styled.div<{ url: string }>`
+  min-width: 8rem;
+  min-height: 8rem;
+
+  max-width: 8rem;
+  max-height: 8rem;
+
+  width: 8rem;
+  height: 8rem;
+
+  overflow: hidden;
+  border-radius: 0.8rem;
+  background-image: url(${({ url }) => url});
+  background-size: cover;
+`;
+
 const ItemWrapper = styled.li`
   padding: 1.4rem 0;
   & + & {
@@ -62,6 +76,8 @@ const ItemWrapper = styled.li`
       width: 8rem;
       height: 8rem;
 
+      overflow: hidden;
+      border-radius: 0.8rem;
       img {
         width: 100%;
       }
