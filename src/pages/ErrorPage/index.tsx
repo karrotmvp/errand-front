@@ -1,10 +1,50 @@
 import React from "react";
 import styled from "@emotion/styled";
-
-// type ErrorPageProps = {};
+import Button from "@components/Button";
+import { useNavigator } from "@karrotframe/navigator";
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
 
 export default function ErrorPage() {
-  return <ErrorPageWrapper>에러났슈</ErrorPageWrapper>;
+  const { pop } = useNavigator();
+
+  return (
+    <>
+      <CustomScreenHelmet title="" />
+      <ErrorPageWrapper>
+        <h2>오류 발생!</h2>
+        <p>
+          찾고 계신 페이지에 오류가 생겼어요. <br />
+          잠시 후 다시 시도해 주세요.
+        </p>
+        <Button
+          buttonType="outline"
+          color="primary"
+          width="21rem"
+          onClick={() => pop()}
+          rounded
+        >
+          이전 페이지로 돌아가기
+        </Button>
+      </ErrorPageWrapper>
+    </>
+  );
 }
 
-const ErrorPageWrapper = styled.div``;
+const ErrorPageWrapper = styled.div`
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  justify-content: center;
+
+  & > h2 {
+    ${({ theme }) => theme.font("large", "bold")}
+  }
+  & > p {
+    ${({ theme }) => theme.font("large", "regular")}
+    text-align: center;
+    margin-top: 0.9rem;
+    margin-bottom: 4rem;
+  }
+`;
