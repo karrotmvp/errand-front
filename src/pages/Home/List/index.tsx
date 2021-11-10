@@ -8,9 +8,14 @@ import { PullToRefresh } from "@karrotframe/pulltorefresh";
 type ListProps = {
   tabType: TabType;
   isAppliable?: boolean;
+  activeTabKey?: string;
 };
 
-export default function List({ tabType, isAppliable }: ListProps) {
+export default function List({
+  tabType,
+  isAppliable,
+  activeTabKey,
+}: ListProps) {
   const {
     status,
     data,
@@ -18,8 +23,8 @@ export default function List({ tabType, isAppliable }: ListProps) {
     isFetchingMore,
     fetchTriggerElement,
     refetch,
-  } = useInfiniteScroll(tabType, isAppliable);
-  
+  } = useInfiniteScroll(tabType, activeTabKey ?? "", isAppliable);
+
   return (
     <PullToRefresh
       onPull={(dispose) => {
@@ -45,6 +50,7 @@ export default function List({ tabType, isAppliable }: ListProps) {
           {!isFetchingFirst && !isFetchingMore && fetchTriggerElement}
         </ul>
       </ListWrapper>
+      <div style={{ height: "2rem" }}></div>
     </PullToRefresh>
   );
 }
