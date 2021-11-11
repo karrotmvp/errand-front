@@ -47,10 +47,10 @@ const ApplyItemWrapper = styled.div`
       justify-content: space-between;
     }
     &__appeal {
-      ${({ theme }) => theme.font("medium", "regular")}
+      ${({ theme }) => theme.font("large", "regular")}
       margin-top: 2.3rem;
       border-radius: 0.8rem;
-      background: ${({ theme }) => theme.color.grey8};
+      background: ${({ theme }) => theme.color.grey10};
       padding: 2rem 3.2rem;
 
       & > div {
