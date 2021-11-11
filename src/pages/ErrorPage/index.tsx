@@ -18,6 +18,7 @@ export default function ErrorPage() {
         </p>
         <Button
           buttonType="outline"
+          size="small"
           color="primary"
           width="21rem"
           onClick={() => pop()}
