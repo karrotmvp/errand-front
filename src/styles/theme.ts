@@ -2,10 +2,11 @@ import { css, Theme } from "@emotion/react";
 import { FontSize, FontWeight } from "./emotion";
 
 const FONT_SIZE = {
+  xsmall: "1.2rem",
   small: "1.3rem",
   medium: "1.4rem",
   large: "1.6rem",
-  xlarge: "2rem",
+  xlarge: "1.8rem",
 };
 
 const FONT_WEIGHT = {
@@ -35,6 +36,8 @@ export const theme: Theme = {
     grey6: "#DCDCDC",
     grey7: "#EDEDED",
     grey8: "#F3F3F3",
+    grey9: "#EEF0F2",
+    grey10: "#F7F8F9",
   },
   font,
   container: css`
