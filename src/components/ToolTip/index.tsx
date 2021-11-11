@@ -28,11 +28,12 @@ export default function ToolTip({
 }
 
 const ToolTipWrapper = styled.div<{ tail: string }>`
+  padding-left: 1rem;
   position: relative;
   z-index: 99;
   .tooltip__inner {
     position: absolute;
-    bottom: ${({ tail }) => (tail === "up" ? "-8rem" : "2.5rem")};
+    bottom: ${({ tail }) => (tail === "up" ? "-7.5rem" : "2.5rem")};
     .tooltip__box {
       background: ${({ theme }) => theme.color.primary};
       color: white;

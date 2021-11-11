@@ -24,17 +24,20 @@ export default function NoData({ tabType }: NoDataProps) {
   return (
     <NoDataWrapper>
       {renderText(tabType)}
-      <div className="no-data__image">
-        <img src={NodataImage} alt="nodata" />
-      </div>
+      {tabType === "main" && (
+        <div className="no-data__image">
+          <img src={NodataImage} alt="nodata" />
+        </div>
+      )}
       <Button
+        size="small"
         buttonType="outline"
         color="primary"
         width="21rem"
         rounded
         onClick={handleClick}
       >
-        {tabType === "help" ? "지원 가능한 심부름 보기" : "심부름 등록"}
+        {tabType === "request" ? "심부름 등록하기" : "지원 가능한 심부름 보기"}
       </Button>
     </NoDataWrapper>
   );
@@ -46,14 +49,14 @@ const renderText = (tabType: TabType) => {
       return (
         <p>
           해당 지역에는 아직 등록된 심부름이 없어요.
-          <br /> 심부름을 등록해 볼까요?
+          <br /> 필요한 심부름을 먼저 등록해보세요.
         </p>
       );
     case "request":
       return (
         <p>
-          신청하신 심부름이 없어요. <br />
-          필요한 심부름이 있다면 등록해보세요.
+          신청한 심부름이 없어요. <br />
+          필요한 심부름을 등록해보세요.
         </p>
       );
     case "help":
@@ -61,16 +64,11 @@ const renderText = (tabType: TabType) => {
         <p>
           지원한 내역이 없어요.
           <br />
-          도움이 필요한 사람에게 도움을 줘볼까요?
+          지원 가능한 심부름을 확인해보세요.
         </p>
       );
     default:
-      return (
-        <p>
-          신청하신 심부름이 없어요.
-          <br /> 필요한 심부름이 있다면 등록해보세요.
-        </p>
-      );
+      return <p></p>;
   }
 };
 
@@ -91,11 +89,6 @@ const NoDataWrapper = styled.div`
   }
 
   & > .no-data__image {
-    width: 40%;
     margin-bottom: 3rem;
-
-    & > img {
-      width: 100%;
-    }
   }
 `;
