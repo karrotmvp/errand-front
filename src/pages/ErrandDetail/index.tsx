@@ -31,7 +31,7 @@ import Slider from "react-slick";
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { status, data } = useErrandDetail(errandId);
-  const [showTooltip, closeTooltip] = useTooltip();
+  const [showTooltip, closeTooltip] = useTooltip("detail");
   const {
     color,
     statusText,

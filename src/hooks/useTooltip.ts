@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { tooltipsAtom, TooltipType } from "@store/user";
+import { useRecoilState } from "recoil";
 
-export const useTooltip = (): [boolean, () => void] => {
-  const [showTooltip, setShowTooltip] = useState<boolean>(true);
+export const useTooltip = (target: TooltipType): [boolean, () => void] => {
+  const [isShowTooltip, setIsShowTooltip] = useRecoilState(tooltipsAtom);
   const closeTooltip = () => {
-    setShowTooltip(false);
+    setIsShowTooltip((current) => {
+      return { ...current, [target]: false };
+    });
   };
-  return [showTooltip, closeTooltip];
+  return [isShowTooltip[target], closeTooltip];
 };

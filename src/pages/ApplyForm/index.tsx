@@ -4,10 +4,12 @@ import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
 import Profile from "@components/Profile";
+import ToolTip from "@components/ToolTip";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
 import useModal from "@hooks/useModal";
+import { useTooltip } from "@hooks/useTooltip";
 import { useNavigator } from "@karrotframe/navigator";
 import {
   ErrorText,
@@ -36,6 +38,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
   } = useForm<Inputs>({ mode: "onChange" });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { pop } = useNavigator();
+  const [showTooltip, closeTooltip] = useTooltip("apply");
   const watchTextArea = watch("appeal");
   const mutationApplyErrand = useApplyToErrand({
     onSuccess: () => {
@@ -46,6 +49,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
       console.log("fail");
     },
   });
+
   const modalInfo = {
     confirm: {
       text: "작성한 내용으로 지원을 완료합니다.",
@@ -118,6 +122,13 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
             </SectionWrapper>
             <SectionWrapper>
               <div className="section__title">
+                {showTooltip && (
+                  <ToolTip
+                    text="요청장소와 전화번호는 매칭된 상대에게만 보여요."
+                    closeTooltip={closeTooltip}
+                    tail="down"
+                  />
+                )}
                 <label>이용약관</label>
                 {errors.term && <ErrorText>약관에 동의해주세요.</ErrorText>}
               </div>
@@ -131,6 +142,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                       {...register("term", { required: true })}
                     />
                     <label htmlFor="term" />
+
                     <p>
                       <span>(필수)</span> 매칭 시 공개되는 심부름 장소, 휴대폰
                       번호 등의 개인 정보를 심부름 목적 이외 사용하지

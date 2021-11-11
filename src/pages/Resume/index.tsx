@@ -16,7 +16,7 @@ import { useSelectHelper } from "@api/errands";
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const [showTooltip, closeTooltip] = useTooltip();
+  const [showTooltip, closeTooltip] = useTooltip("resume");
   const { pop } = useNavigator();
   const resumeStatus: ResumeStatus = specifyStatus(
     status,

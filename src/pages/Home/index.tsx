@@ -4,6 +4,7 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
+import { useTooltip } from "@hooks/useTooltip";
 import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
 import { useState } from "react";
@@ -11,12 +12,9 @@ import List from "./List";
 
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
-  const [showTooltip, setShowTooltip] = useState<boolean>(true);
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
+  const [isShowTooltip, closeTooltip] = useTooltip("home");
   const { status, data: location } = useRegionInfo();
-  const closeTooltip = () => {
-    setShowTooltip(false);
-  };
 
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
@@ -52,7 +50,7 @@ export default function Home() {
                 <span>지원가능한 심부름 보기</span>
               </div>
             </div>
-            {showTooltip && (
+            {isShowTooltip && (
               <ToolTip
                 text="당근마켓에서 인증한 동네에서 심부름을 요청할 수 있어요."
                 closeTooltip={closeTooltip}

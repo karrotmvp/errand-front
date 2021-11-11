@@ -1,4 +1,5 @@
 import { Close } from "@assets/icon";
+import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 type ToolTipProps = {
@@ -31,7 +32,7 @@ const ToolTipWrapper = styled.div<{ tail: string }>`
   z-index: 99;
   .tooltip__inner {
     position: absolute;
-    bottom: -8rem;
+    bottom: ${({ tail }) => (tail === "up" ? "-8rem" : "2.5rem")};
     .tooltip__box {
       background: ${({ theme }) => theme.color.primary};
       color: white;
@@ -54,15 +55,25 @@ const ToolTipWrapper = styled.div<{ tail: string }>`
       &::after {
         content: "";
         position: absolute;
-        top: 0;
         left: 10%;
         width: 0;
         height: 0;
-        border: 1rem solid transparent;
-        border-bottom-color: ${({ theme }) => theme.color.primary};
-        border-top: 0;
-        margin-left: -1rem;
-        margin-top: -1rem;
+        border: 20px solid transparent;
+        margin-left: -20px;
+        ${({ theme, tail }) =>
+          tail === "up"
+            ? css`
+                top: 0;
+                border-bottom-color: ${theme.color.primary};
+                border-top: 0;
+                margin-top: -1rem;
+              `
+            : css`
+                bottom: 0;
+                border-top-color: ${theme.color.primary};
+                border-bottom: 0;
+                margin-bottom: -1rem;
+              `}
       }
     }
   }
