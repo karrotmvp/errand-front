@@ -299,6 +299,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       <StickyFooter>
         <Button
           buttonType="contained"
+          size="small"
           color="primary"
           fullWidth
           rounded
@@ -331,7 +332,7 @@ const ErrandDetailWrapper = styled.div`
         position: relative;
         display: inline-block;
         width: 10px;
-        height: 20px;
+        height: 2rem;
         margin: 0 5px;
         padding: 0;
         cursor: pointer;
@@ -339,8 +340,8 @@ const ErrandDetailWrapper = styled.div`
           font-size: 0;
           line-height: 0;
           display: block;
-          width: 20px;
-          height: 20px;
+          width: 2rem;
+          height: 2rem;
           padding: 5px;
           cursor: pointer;
           color: transparent;
@@ -358,15 +359,14 @@ const ErrandDetailWrapper = styled.div`
           }
           &:before {
             font-family: "slick";
-            font-size: 6px;
-            line-height: 20px;
+            font-size: 0.6rem;
+            line-height: 2rem;
 
             position: absolute;
             top: 0;
             left: 0;
-
-            width: 20px;
-            height: 20px;
+            width: 2rem;
+            height: 2rem;
 
             content: "•";
             text-align: center;
@@ -387,7 +387,9 @@ const ErrandDetailWrapper = styled.div`
 
     &__image {
       width: 100%;
-      height: 30rem;
+      height: 0;
+      padding-bottom: 90%;
+      /* height: 30rem; */
       overflow: hidden;
 
       & > img {
@@ -414,7 +416,7 @@ const ErrandDetailWrapper = styled.div`
       }
 
       &__title {
-        ${({ theme }) => theme.font("small", "medium")}
+        ${({ theme }) => theme.font("xsmall", "regular")}
         color: ${({ theme }) => theme.color.grey4};
         margin-top: 0.7rem;
 
@@ -451,7 +453,9 @@ const ErrandDetailWrapper = styled.div`
       }
 
       & > p {
-        ${({ theme }) => theme.font("medium", "regular")}
+        border-top: 0.1rem solid ${({ theme }) => theme.color.grey7};
+        padding-top: 2rem;
+        ${({ theme }) => theme.font("large", "regular")};
         margin-top: 2.3rem;
         margin-bottom: 3.8rem;
       }
