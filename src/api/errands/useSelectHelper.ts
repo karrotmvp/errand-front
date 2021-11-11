@@ -14,13 +14,14 @@ const selectHelper = async ({
   const { status } = await PATCH(`/errand/${errandId}/helper`, { helperId });
   return status;
 };
+
 export const useSelectHelper = ({
   onSuccess,
   onError,
 }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
   const { push } = useNavigator();
-  
+
   return useMutation(selectHelper, {
     onSuccess: () => {
       queryClient.invalidateQueries(KEYS.ERRNDS);

@@ -7,6 +7,8 @@ import "@karrotframe/navigator/index.css";
 import "@karrotframe/tabs/index.css";
 import "@karrotframe/pulltorefresh/index.css";
 import "./index.css";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 import App from "./App";
 

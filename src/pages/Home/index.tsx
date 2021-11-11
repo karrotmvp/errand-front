@@ -4,18 +4,17 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
+import { useTooltip } from "@hooks/useTooltip";
+import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
 import { useState } from "react";
 import List from "./List";
 
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
-  const [showTooltip, setShowTooltip] = useState<boolean>(true);
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
+  const [isShowTooltip, closeTooltip] = useTooltip("home");
   const { status, data: location } = useRegionInfo();
-  const closeTooltip = () => {
-    setShowTooltip(false);
-  };
 
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
@@ -30,7 +29,7 @@ export default function Home() {
             <span>Beta</span>
           </Title>
         }
-        appendRight={RightAppender()}
+        appendRight={RightAppender(setIsAppliable)}
       />
       <HomeWrapper>
         <ContentWrapper>
@@ -48,10 +47,10 @@ export default function Home() {
                 onClick={toggleIsAppliable}
               >
                 <Check />
-                <span>지원가능한 심부름 보기</span>
+                <div>지원가능한 심부름 보기</div>
               </div>
             </div>
-            {showTooltip && (
+            {isShowTooltip && (
               <ToolTip
                 text="당근마켓에서 인증한 동네에서 심부름을 요청할 수 있어요."
                 closeTooltip={closeTooltip}
@@ -109,10 +108,10 @@ const HomeWrapper = styled.main`
       &__check {
         display: flex;
         align-items: center;
-        & > span {
-          margin-left: 0.4rem;
-          ${({ theme }) => theme.font("small", "medium")}
-          line-height: 0;
+        & > div {
+          margin-left: 0.5rem;
+          ${({ theme }) => theme.font("small", "medium")};
+          margin-bottom: 0.3rem;
         }
         &.primary {
           color: ${({ theme }) => theme.color.primary};
@@ -135,8 +134,8 @@ const HomeWrapper = styled.main`
     }
     &__fixed-fab {
       position: absolute;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 4rem;
+      right: 3rem;
 
       width: 5.7rem;
       height: 5.7rem;
@@ -155,9 +154,16 @@ const ContentWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-const RightAppender = () => {
-  const moveToMy = usePush("/my");
+const RightAppender = (
+  setIsAppliable: React.Dispatch<React.SetStateAction<boolean>>
+) => {
+  const { push } = useNavigator();
   const moveToAlarm = usePush("/alarm");
+
+  const moveToMy = async () => {
+    const data = await push<{ isAppliable: boolean }>("/my");
+    data && setIsAppliable(data.isAppliable);
+  };
 
   return (
     <AppenderWrapper>

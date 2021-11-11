@@ -5,11 +5,13 @@ import { innerModeType } from "..";
 type ModalInnerBoxProps = {
   innerMode: innerModeType;
   children: React.ReactNode;
+  closeModal: () => void;
 };
 
 export default function ModalInnerBox({
   innerMode,
   children,
+  closeModal,
 }: ModalInnerBoxProps) {
   return (
     <ModalInnerBoxWrapper innerMode={innerMode}>

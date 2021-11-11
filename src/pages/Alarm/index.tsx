@@ -54,6 +54,7 @@ export default function Alarm() {
               ))}
           </div>
         </SectionWrapper>
+        <Divider />
         <SectionWrapper>
           <div className="section__title">
             <h3>지원자 알림</h3>
@@ -91,4 +92,10 @@ const AlarmRow = styled.div`
   & + & {
     margin-top: 2rem;
   }
+`;
+
+const Divider = styled.div`
+  border-top: 0.1rem solid ${({ theme }) => theme.color.grey7};
+
+  margin: 3rem 0;
 `;

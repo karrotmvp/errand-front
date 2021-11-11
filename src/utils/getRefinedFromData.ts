@@ -45,7 +45,7 @@ export const getRefinedFromData = (
     switch (data.errand.status) {
       case "WAIT":
         return {
-          color: data.errand.helpCount > 0 ? "PRIMARY" : "GREY",
+          color: "",
           statusText: `지원 ${data.errand.helpCount}`,
           buttonText:
             data.errand.helpCount > 0
@@ -57,8 +57,8 @@ export const getRefinedFromData = (
         };
       case "PROCEED":
         return {
-          color: "PRIMARY",
-          statusText: "진행중",
+          color: "",
+          statusText: "심부름 진행중",
           buttonText: "지원자 정보 보기",
           buttonDisabled: false,
           modalInfoFlag: "isMyErrand",
@@ -67,7 +67,7 @@ export const getRefinedFromData = (
       case "COMPLETE":
         return {
           color: "GREY",
-          statusText: "완료",
+          statusText: "심부름 완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
           modalInfoFlag: "isMyErrand",
@@ -82,10 +82,7 @@ export const getRefinedFromData = (
     switch (data.errand.status) {
       case "WAIT":
         return {
-          color:
-            data.errand.helpCount === 0 || data.errand.helpCount === 5
-              ? "GREY"
-              : "",
+          color: data.errand.helpCount === 5 ? "GREY" : "",
           statusText:
             data.errand.helpCount >= 5
               ? "지원마감"
@@ -99,14 +96,14 @@ export const getRefinedFromData = (
       case "PROCEED":
         return {
           color: "GREY",
-          statusText: "진행중",
+          statusText: "심부름 진행중",
           buttonText: "심부름이 진행중이에요",
           buttonDisabled: true,
         };
       case "COMPLETE":
         return {
           color: "GREY",
-          statusText: "완료",
+          statusText: "심부름 완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
         };
@@ -131,7 +128,7 @@ export const getRefinedFromData = (
       case "COMPLETE":
         return {
           color: "GREY",
-          statusText: "완료",
+          statusText: "심부름 완료",
           buttonText: "심부름이 완료되었어요",
           buttonDisabled: true,
           modalInfoFlag: "resume",
@@ -154,8 +151,8 @@ export const getRefinedFromData = (
         return DEFAULT_REFINED_DATA;
       case "PROCEED":
         return {
-          color: "PRIMARY",
-          statusText: "진행중",
+          color: "",
+          statusText: "심부름 진행중",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: false,
           modalInfoFlag: "isHelper",
@@ -164,7 +161,7 @@ export const getRefinedFromData = (
       case "COMPLETE":
         return {
           color: "GREY",
-          statusText: "완료",
+          statusText: "심부름 완료",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: true,
           modalInfoFlag: "resume",

@@ -23,7 +23,7 @@ export const GlobalStyle = () => {
             “Segoe UI”, Roboto, “Helvetica Neue”, Arial, “Noto Sans”, sans-serif,
             “Apple Color Emoji”, “Segoe UI Emoji”, “Segoe UI Symbol”,
             “Noto Color Emoji”;
-          color: #333333;
+          color: #41474c;
           line-height: ${LINE_HEIGHT};
         }
         .flex {

@@ -45,14 +45,14 @@ const ModalContentListInnerWrapper = styled.div`
       background: white;
     }
     &__item {
-      ${({ theme }) => theme.font("medium", "medium")}
+      ${({ theme }) => theme.font("large", "medium")}
       text-align: center;
       background: white;
       border-radius: 0.8rem;
       padding: 1.3rem 0;
 
       &.close {
-        ${({ theme }) => theme.font("medium", "regular")}
+        ${({ theme }) => theme.font("large", "regular")}
         margin-top: 1.1rem;
       }
     }

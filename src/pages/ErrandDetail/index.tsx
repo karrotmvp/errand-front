@@ -12,8 +12,6 @@ import { Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
-import { Carousel } from "react-responsive-carousel";
-import "react-responsive-carousel/lib/styles/carousel.min.css";
 import Button from "@components/Button";
 import { getComparedTime } from "@utils/utils";
 import ToolTip from "@components/ToolTip";
@@ -28,11 +26,12 @@ import { WithParamsProps } from "@hoc/withParams";
 import { ErrandDetailResponseBody } from "@type/response";
 import { useCallback } from "react";
 import { useCancelAPply } from "@api/help";
+import Slider from "react-slick";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { status, data } = useErrandDetail(errandId);
-  const [showTooltip, closeTooltip] = useTooltip();
+  const [showTooltip, closeTooltip] = useTooltip("detail");
   const {
     color,
     statusText,
@@ -237,13 +236,20 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       <ErrandDetailWrapper>
         {status !== "loading" && data ? (
           <>
-            <Carousel showThumbs={false}>
+            <Slider
+              {...{
+                dots: true,
+                infinite: true,
+                speed: 500,
+                dotsClass: "errand-detail__dots",
+              }}
+            >
               {data?.errand.images?.map((image) => (
                 <div className="errand-detail__image">
                   <img src={image.url} alt="dummy" />
                 </div>
               ))}
-            </Carousel>
+            </Slider>
             <div className="errand-detail__contents">
               <div className="errand-detail__contents__title">
                 <div>
@@ -293,6 +299,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       <StickyFooter>
         <Button
           buttonType="contained"
+          size="small"
           color="primary"
           fullWidth
           rounded
@@ -310,8 +317,81 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
 
 const ErrandDetailWrapper = styled.div`
   .errand-detail {
+    &__dots {
+      position: absolute;
+      bottom: 2.4rem;
+      display: block;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+      text-align: center;
+      z-index: 99;
+
+      & > li {
+        position: relative;
+        display: inline-block;
+        width: 10px;
+        height: 2rem;
+        margin: 0 5px;
+        padding: 0;
+        cursor: pointer;
+        & > button {
+          font-size: 0;
+          line-height: 0;
+          display: block;
+          width: 2rem;
+          height: 2rem;
+          padding: 5px;
+          cursor: pointer;
+          color: transparent;
+          border: 0;
+          outline: none;
+          background: transparent;
+
+          &:hover,
+          &:focus {
+            outline: none;
+          }
+          &:hover:before,
+          &:focus:before {
+            opacity: 1;
+          }
+          &:before {
+            font-family: "slick";
+            font-size: 0.6rem;
+            line-height: 2rem;
+
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2rem;
+            height: 2rem;
+
+            content: "•";
+            text-align: center;
+
+            opacity: 0.5;
+            color: white;
+
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+          }
+        }
+        &.slick-active button:before {
+          opacity: 1;
+          color: white;
+        }
+      }
+    }
+
     &__image {
       width: 100%;
+      height: 0;
+      padding-bottom: 90%;
+      /* height: 30rem; */
+      overflow: hidden;
+
       & > img {
         width: 100%;
       }
@@ -336,7 +416,7 @@ const ErrandDetailWrapper = styled.div`
       }
 
       &__title {
-        ${({ theme }) => theme.font("small", "medium")}
+        ${({ theme }) => theme.font("xsmall", "regular")}
         color: ${({ theme }) => theme.color.grey4};
         margin-top: 0.7rem;
 
@@ -373,7 +453,9 @@ const ErrandDetailWrapper = styled.div`
       }
 
       & > p {
-        ${({ theme }) => theme.font("medium", "regular")}
+        border-top: 0.1rem solid ${({ theme }) => theme.color.grey7};
+        padding-top: 2rem;
+        ${({ theme }) => theme.font("large", "regular")};
         margin-top: 2.3rem;
         margin-bottom: 3.8rem;
       }
