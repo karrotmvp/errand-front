@@ -96,13 +96,17 @@ export default function RequestForm() {
           <div className="section__title">
             <label>카테고리</label>
             {errors.categoryId && (
-              <ErrorText>카테고리를 선택해주세요.</ErrorText>
+              <ErrorText>카테고리를 선택해 주세요.</ErrorText>
             )}
           </div>
           <div className="section__content">
-            <select {...register("categoryId", { required: true })}>
-              <option selected disabled>
-                카테고리를 선택해주세요.
+            {/* TODO 우측 드롭다운 화살표 패딩 옮기기  */}
+            <select
+              {...register("categoryId", { required: true })}
+              style={{ paddingRight: "5rem" }}
+            >
+              <option value="" selected disabled>
+                카테고리를 선택해 주세요.
               </option>
               <option value="1">벌레잡기</option>
               <option value="2">반려동물 산책하기</option>
@@ -138,53 +142,50 @@ export default function RequestForm() {
         <SectionWrapper>
           <div className="section__title">
             <label>세부사항</label>
-            {errors.detail && <ErrorText>세부사항을 입력주세요.</ErrorText>}
+            {errors.detail && <ErrorText>세부사항을 입력해 주세요.</ErrorText>}
           </div>
-          <TextAreaWrapper>
-            <textarea
-              className="section__content"
-              placeholder="세부사항을 입력하세요. "
-              {...register("detail", {
-                required: true,
-                minLength: 10,
-                maxLength: 500,
-              })}
-            />
-            <div>{watchTextArea?.length ?? 0}/500</div>
-          </TextAreaWrapper>
+          <div className="section__content">
+            <TextAreaWrapper>
+              <textarea
+                placeholder="세부사항을 입력하세요. "
+                {...register("detail", {
+                  required: true,
+                  minLength: 10,
+                  maxLength: 500,
+                })}
+              />
+              <div>{watchTextArea?.length ?? 0}/500</div>
+            </TextAreaWrapper>
+          </div>
         </SectionWrapper>
         <SectionWrapper>
           <div className="section__title">
             <label>심부름 금액</label>
             {errors.reward && (
-              <ErrorText>심부름 금액을 입력해주세요.</ErrorText>
+              <ErrorText>심부름 금액을 입력해 주세요.</ErrorText>
             )}
           </div>
           <input
             className="section__content"
-            placeholder="금액을 입력해주세요."
+            placeholder="금액을 입력해 주세요."
             type="number"
             {...register("reward", { required: true })}
           />
         </SectionWrapper>
         <SectionWrapper>
           <div className="section__title">
-            <label>요청장소</label>
+            <label>심부름 장소</label>
             {errors.detailAddress && (
-              <ErrorText>상세주소를 입력해주세요.</ErrorText>
+              <ErrorText>심부를 장소를 입력해 주세요.</ErrorText>
             )}
           </div>
           <p className="color-grey section__subscribe">
-            매칭되었을 때에만 상세주소가 공개돼요.
+            상세주소는 매칭된 상대에게만 보여요. <br />
+            현재는 <span>서현동</span>에서만 심부름을 신청할 수 있어요.
           </p>
           <div className="section__content">
             <input
-              className="section__disabled"
-              defaultValue="서현동"
-              disabled
-            />
-            <input
-              placeholder="상세주소를 입력해주세요."
+              placeholder="상세주소를 입력해 주세요."
               type="text"
               {...register("detailAddress", { required: true })}
             />
@@ -194,7 +195,7 @@ export default function RequestForm() {
           <div className="section__title">
             <label>전화번호</label>
             {errors.phoneNumber && (
-              <ErrorText>올바른 전화번호를 입력해주세요.</ErrorText>
+              <ErrorText>올바른 전화번호를 입력해 주세요.</ErrorText>
             )}
           </div>
           <p className="color-grey section__subscribe">
@@ -220,11 +221,12 @@ export default function RequestForm() {
           color="primary"
           fullWidth
           disabled={!isValid}
+          padding="1.7rem 0 4rem 0"
           onClick={() => {
             openModal("confirm");
           }}
         >
-          작성완료
+          심부름 요청하기
         </Button>
       </StickyFooter>
     </StickyPageWrpper>
@@ -232,7 +234,7 @@ export default function RequestForm() {
 }
 
 const RequestFormWrapper = styled.form`
-  padding: 2rem 0;
+  padding: 3rem 0;
   ${({ theme }) => theme.container}
 `;
 
