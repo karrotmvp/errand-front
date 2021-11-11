@@ -67,7 +67,9 @@ export default function Resume({ helpId }: WithParamsProps) {
               </div>
               <div>{renderPhoneNumber(resume.phoneNumber)}</div>
             </div>
-            <div className="resume__appeal">{resume?.appeal}</div>
+            <div className="resume__appeal">
+              <p>{resume?.appeal}</p>
+            </div>
           </>
         )}
       </ResumeWrapper>
@@ -78,6 +80,7 @@ export default function Resume({ helpId }: WithParamsProps) {
         {resumeStatus === "customer-apply" && (
           <Button
             buttonType="contained"
+            size="small"
             color="primary"
             fullWidth
             rounded
@@ -110,6 +113,9 @@ const ResumeWrapper = styled.div`
       }
     }
     &__appeal {
+      border-top: 0.1rem solid ${({ theme }) => theme.color.grey7};
+      padding-top: 2rem;
+
       ${({ theme }) => theme.font("large", "regular")}
       margin-top: 1.3rem;
     }
