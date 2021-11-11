@@ -83,7 +83,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <div className="section__title">
                 <label htmlFor="">전화번호</label>
                 {errors.phoneNumber && (
-                  <ErrorText>전화번호를 입력해주세요.</ErrorText>
+                  <ErrorText>전화번호를 입력해 주세요.</ErrorText>
                 )}
               </div>
               <div className="section__subscribe">
@@ -92,7 +92,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <div className="section__content">
                 <input
                   type="number"
-                  placeholder="숫자만 입력해주세요."
+                  placeholder="숫자만 입력해 주세요."
                   {...register("phoneNumber", {
                     required: true,
                     pattern: PHONE_NUMBER_REGEX,
@@ -104,13 +104,13 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <div className="section__title">
                 <label htmlFor="">하고싶은 말</label>
                 {errors.appeal && (
-                  <ErrorText>하고싶은 말을 입력해주세요.</ErrorText>
+                  <ErrorText>하고싶은 말을 입력해 주세요.</ErrorText>
                 )}
               </div>
               <TextAreaWrapper className="section__content">
                 <textarea
                   maxLength={500}
-                  placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해주세요."
+                  placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해 주세요."
                   {...register("appeal", {
                     required: true,
                     minLength: 10,
@@ -130,7 +130,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                   />
                 )}
                 <label>이용약관</label>
-                {errors.term && <ErrorText>약관에 동의해주세요.</ErrorText>}
+                {errors.term && <ErrorText>약관에 동의해 주세요.</ErrorText>}
               </div>
               <div className="section__content">
                 <SectionTerms>
@@ -165,6 +165,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
           buttonType="contained"
           color="primary"
           fullWidth
+          padding="1.7rem 0 4rem 0"
           disabled={!isValid}
           onClick={() => {
             openModal("confirm");
