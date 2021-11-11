@@ -47,7 +47,7 @@ export default function Home() {
                 onClick={toggleIsAppliable}
               >
                 <Check />
-                <span>지원가능한 심부름 보기</span>
+                <div>지원가능한 심부름 보기</div>
               </div>
             </div>
             {isShowTooltip && (
@@ -108,10 +108,10 @@ const HomeWrapper = styled.main`
       &__check {
         display: flex;
         align-items: center;
-        & > span {
-          margin-left: 0.4rem;
-          ${({ theme }) => theme.font("small", "medium")}
-          line-height: 0;
+        & > div {
+          margin-left: 0.5rem;
+          ${({ theme }) => theme.font("small", "medium")};
+          margin-bottom: 0.3rem;
         }
         &.primary {
           color: ${({ theme }) => theme.color.primary};
@@ -134,8 +134,8 @@ const HomeWrapper = styled.main`
     }
     &__fixed-fab {
       position: absolute;
-      bottom: 2rem;
-      right: 2rem;
+      bottom: 4rem;
+      right: 3rem;
 
       width: 5.7rem;
       height: 5.7rem;
