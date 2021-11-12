@@ -52,7 +52,7 @@ export default function Home() {
             </div>
             {isShowTooltip && (
               <ToolTip
-                text="당근마켓에서 인증한 동네에서 심부름을 요청할 수 있어요."
+                text="당근마켓으로 인증한 동네에서 심부름을 요청할 수 있어요."
                 closeTooltip={closeTooltip}
               />
             )}

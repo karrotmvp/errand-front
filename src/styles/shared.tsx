@@ -125,6 +125,7 @@ export const StickyFooter = styled.div<{ fullArea?: boolean }>`
   position: sticky;
   bottom: 0;
   width: 100%;
+  z-index: 99;
   ${({ fullArea }) =>
     fullArea ||
     css`
