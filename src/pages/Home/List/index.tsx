@@ -4,6 +4,7 @@ import Item from "./Item";
 import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 import NoData from "@components/Nodata";
 import { PullToRefresh } from "@karrotframe/pulltorefresh";
+import { ERREND_REQUEST_SIZE } from "@constant/request";
 
 type ListProps = {
   tabType: TabType;
@@ -43,12 +44,17 @@ export default function List({
             <NoData tabType={tabType} />
           ) : (
             data?.pages?.map((group) =>
-              group?.map((item) => (
-                <Item {...{ item, tabType }} key={item?.errand.id} />
+              group?.map((item, index, array) => (
+                <>
+                  {index === array.length - ERREND_REQUEST_SIZE / 2 &&
+                    !isFetchingFirst &&
+                    !isFetchingMore &&
+                    fetchTriggerElement}
+                  <Item {...{ item, tabType }} key={item?.errand.id} />
+                </>
               ))
             )
           )}
-          {!isFetchingFirst && !isFetchingMore && fetchTriggerElement}
         </ul>
       </ListWrapper>
       <div style={{ height: "2rem" }}></div>
