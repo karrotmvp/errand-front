@@ -75,7 +75,6 @@ const ItemWrapper = styled.li`
 
       &__detail {
         ${({ theme }) => theme.font("large", "medium")}
-        height: 1em;
         line-height: 1;
         overflow: hidden;
         text-overflow: ellipsis;
