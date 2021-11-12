@@ -9,8 +9,8 @@ export type ErrandPreview = {
   category: Category;
   helpCount: number;
   regionName: string;
-  createdAt: [number, number, number, number, number, number, number];
-  updatedAt: [number, number, number, number, number, number, number];
+  createdAt: string;
+  updatedAt: string;
 };
 
 export type ErrandDetail = {
@@ -23,8 +23,8 @@ export type ErrandDetail = {
   reward: number;
   detail: string;
   isCompleted: boolean;
-  createdAt: [number, number, number, number, number, number, number];
-  updatedAt: [number, number, number, number, number, number, number];
+  createdAt: string;
+  updatedAt: string;
   region: Region;
   helpCount: number;
   status: ErrandStatus;

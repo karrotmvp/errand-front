@@ -25,7 +25,7 @@ export default function Item({ item }: ItemProps) {
               <span>{errand.category.name}</span>
               <span>{errand.regionName}</span>
               <span>
-                {getComparedTime(new Date(), new Date(...errand.createdAt))}
+                {getComparedTime(new Date(), new Date(errand.createdAt))}
               </span>
             </div>
             <div className="item-info__reward">

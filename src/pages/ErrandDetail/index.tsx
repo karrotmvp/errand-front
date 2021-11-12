@@ -258,7 +258,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                   <span>
                     {getComparedTime(
                       new Date(),
-                      new Date(...data?.errand.createdAt)
+                      new Date(data?.errand.createdAt)
                     )}
                   </span>
                 </div>
