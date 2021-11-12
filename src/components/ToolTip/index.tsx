@@ -30,7 +30,7 @@ export default function ToolTip({
 const ToolTipWrapper = styled.div<{ tail: string }>`
   padding-left: 1rem;
   position: relative;
-  z-index: 99;
+  z-index: 9;
   .tooltip__inner {
     position: absolute;
     bottom: ${({ tail }) => (tail === "up" ? "-7.5rem" : "2.5rem")};
