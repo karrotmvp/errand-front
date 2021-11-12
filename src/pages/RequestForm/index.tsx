@@ -142,12 +142,14 @@ export default function RequestForm() {
         <SectionWrapper>
           <div className="section__title">
             <label>세부사항</label>
-            {errors.detail && <ErrorText>세부사항을 입력해 주세요.</ErrorText>}
+            {errors.detail && (
+              <ErrorText>세부사항을 10자 이상 입력해 주세요.</ErrorText>
+            )}
           </div>
           <div className="section__content">
             <TextAreaWrapper>
               <textarea
-                placeholder="세부사항을 입력하세요. "
+                placeholder="세부사항을 10자 이상 입력해 주세요."
                 {...register("detail", {
                   required: true,
                   minLength: 10,
@@ -176,7 +178,7 @@ export default function RequestForm() {
           <div className="section__title">
             <label>심부름 장소</label>
             {errors.detailAddress && (
-              <ErrorText>심부를 장소를 입력해 주세요.</ErrorText>
+              <ErrorText>심부름 장소를 입력해 주세요.</ErrorText>
             )}
           </div>
           <p className="color-grey section__subscribe">

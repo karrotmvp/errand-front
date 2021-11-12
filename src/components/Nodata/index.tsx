@@ -37,7 +37,7 @@ export default function NoData({ tabType }: NoDataProps) {
         rounded
         onClick={handleClick}
       >
-        {tabType === "request" ? "심부름 등록하기" : "지원 가능한 심부름 보기"}
+        {tabType === "help" ? "지원 가능한 심부름 보기" : "심부름 등록하기"}
       </Button>
     </NoDataWrapper>
   );

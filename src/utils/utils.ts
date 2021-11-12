@@ -26,7 +26,7 @@ export const getComparedTime = (timeA: Date, timeB: Date) => {
   const dateB = dayjs(timeB);
   const secondDiff = dateA.diff(dateB, "second");
   if (secondDiff < 60) {
-    return secondDiff + "초 전";
+    return "방금 전";
   }
 
   const minuteDiff = dateA.diff(dateB, "minute");

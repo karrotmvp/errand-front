@@ -104,7 +104,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <div className="section__title">
                 <label htmlFor="">하고싶은 말</label>
                 {errors.appeal && (
-                  <ErrorText>하고싶은 말을 입력해 주세요.</ErrorText>
+                  <ErrorText>하고싶은 말을 10자 이상 입력해 주세요.</ErrorText>
                 )}
               </div>
               <TextAreaWrapper className="section__content">
