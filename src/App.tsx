@@ -21,6 +21,7 @@ import { withParams } from "@hoc/withParams";
 import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
 import { useCallback } from "react";
+import mini from "@lib/mini";
 
 // initMSW();
 
@@ -39,7 +40,7 @@ function App() {
         theme={checkMobileType()}
         className={NavigatorStyle}
         onClose={() => {
-          console.log("close!");
+          mini.close();
         }}
         onDepthChange={onDepthChange}
       >

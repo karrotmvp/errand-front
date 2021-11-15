@@ -5,6 +5,7 @@ import { isLoginAtom } from "../store/user";
 import { getValueFromSearch } from "@utils/utils";
 import { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
+import Sample from "@assets/images/sample.png";
 
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
@@ -55,7 +56,11 @@ export default function withMini(Component: React.ElementType) {
     }, [isLogin, askAgreement, login]);
 
     if (!isLogin) {
-      return <div>로그인 중</div>;
+      return (
+        <div style={{ width: "100%", height: "100%" }}>
+          <img style={{ width: "100%" }} src={Sample} alt="sample" />
+        </div>
+      );
     }
 
     return <Component {...props} />;
