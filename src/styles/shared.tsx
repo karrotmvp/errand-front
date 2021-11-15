@@ -23,6 +23,9 @@ export const SectionWrapper = styled.div`
   }
   .section__subscribe {
     ${({ theme }) => theme.font("medium", "regular")}
+    span {
+      color: ${({ theme }) => theme.color.primary};
+    }
   }
 
   .section__content {
