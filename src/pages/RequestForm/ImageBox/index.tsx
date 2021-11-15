@@ -1,11 +1,12 @@
 import { Close } from "@assets/icon";
 import styled from "@emotion/styled";
+import { memo } from "react";
 
 type ImageBoxProps = {
   file: File;
   removeImage: (id: number) => void;
 };
-export default function ImageBox({ file, removeImage }: ImageBoxProps) {
+export default memo(function ImageBox({ file, removeImage }: ImageBoxProps) {
   return (
     <ImageBoxWrapper imgURL={URL.createObjectURL(file)}>
       <div className="image__remover">
@@ -13,7 +14,8 @@ export default function ImageBox({ file, removeImage }: ImageBoxProps) {
       </div>
     </ImageBoxWrapper>
   );
-}
+});
+
 export const BoxWrapper = styled.div`
   display: flex;
   justify-content: center;
