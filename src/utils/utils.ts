@@ -17,12 +17,13 @@ type TargetType = "code" | "preload" | "region_id";
 export const getValueFromSearch = (target: TargetType) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
   let result = urlSearchParams.get(target);
+  console.log(result);
 
   if (!result) {
     const urlHashParams = new URLSearchParams(window.location.hash);
     result = urlHashParams.get(target);
   }
-
+  console.log(result);
   return result;
 };
 
