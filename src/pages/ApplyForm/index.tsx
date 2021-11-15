@@ -1,5 +1,6 @@
 import { useApplyToErrand } from "@api/help";
 import { useMyInfo } from "@api/user";
+import { Check } from "@assets/icon";
 import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
@@ -79,7 +80,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                 <Profile {...my} />
               </div>
             </SectionWrapper>
-            <SectionWrapper>
+            <SectionWrapper isError={Boolean(errors.phoneNumber)}>
               <div className="section__title">
                 <label htmlFor="">전화번호</label>
                 {errors.phoneNumber && (
@@ -107,7 +108,10 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                   <ErrorText>하고싶은 말을 10자 이상 입력해 주세요.</ErrorText>
                 )}
               </div>
-              <TextAreaWrapper className="section__content">
+              <TextAreaWrapper
+                className="section__content"
+                isError={Boolean(errors.appeal)}
+              >
                 <textarea
                   maxLength={500}
                   placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해 주세요."
@@ -141,8 +145,9 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                       id="term"
                       {...register("term", { required: true })}
                     />
-                    <label htmlFor="term" />
-
+                    <label htmlFor="term">
+                      <Check width="3.6rem" height="3.6rem" />
+                    </label>
                     <p>
                       <span>(필수)</span> 매칭 시 공개되는 심부름 장소, 휴대폰
                       번호 등의 개인 정보를 심부름 목적 이외 사용하지
