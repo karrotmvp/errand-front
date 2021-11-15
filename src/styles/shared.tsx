@@ -1,10 +1,8 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
-export const SectionWrapper = styled.div`
-  & + & {
-    margin-top: 3.8rem;
-  }
+export const SectionWrapper = styled.div<{ isError?: boolean }>`
+  margin-bottom: 3.8rem;
 
   .section__title {
     display: flex;
@@ -43,7 +41,9 @@ export const SectionWrapper = styled.div`
 
   input,
   select {
-    border: 0.15rem solid ${({ theme }) => theme.color.grey6};
+    border: 0.15rem solid
+      ${({ theme, isError }) =>
+        isError ? theme.color.fail : theme.color.grey6};
     ${({ theme }) => css`
       ${theme.font("large", "regular")}
       border-radius: 1rem;
@@ -143,8 +143,9 @@ export const Container = styled.div`
   ${({ theme }) => theme.container}
 `;
 
-export const TextAreaWrapper = styled.div`
-  border: 0.15rem solid ${({ theme }) => theme.color.grey6};
+export const TextAreaWrapper = styled.div<{ isError: boolean }>`
+  border: 0.15rem solid
+    ${({ theme, isError }) => (isError ? theme.color.fail : theme.color.grey6)};
   ${({ theme }) => theme.font("medium")}
   border-radius: 1rem;
   padding: 1.5rem 1.8rem;

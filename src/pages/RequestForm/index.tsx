@@ -93,7 +93,7 @@ export default function RequestForm() {
     <StickyPageWrpper>
       <CustomScreenHelmet title="요청하기" />
       <RequestFormWrapper onSubmit={handleSubmit(onSubmit)} id="errand-form">
-        <SectionWrapper>
+        <SectionWrapper isError={Boolean(errors.categoryId)}>
           <div className="section__title">
             <label>카테고리</label>
             {errors.categoryId && (
@@ -143,7 +143,7 @@ export default function RequestForm() {
             )}
           </div>
           <div className="section__content">
-            <TextAreaWrapper>
+            <TextAreaWrapper isError={Boolean(errors.detail)}>
               <textarea
                 placeholder={
                   watchCategory
@@ -160,7 +160,7 @@ export default function RequestForm() {
             </TextAreaWrapper>
           </div>
         </SectionWrapper>
-        <SectionWrapper>
+        <SectionWrapper isError={Boolean(errors.reward)}>
           <div className="section__title">
             <label>심부름 금액</label>
             {errors.reward && (
@@ -180,7 +180,7 @@ export default function RequestForm() {
             />
           </div>
         </SectionWrapper>
-        <SectionWrapper>
+        <SectionWrapper isError={Boolean(errors.detailAddress)}>
           <div className="section__title">
             <label>심부름 장소</label>
             {errors.detailAddress && (
@@ -199,7 +199,7 @@ export default function RequestForm() {
             />
           </div>
         </SectionWrapper>
-        <SectionWrapper>
+        <SectionWrapper isError={Boolean(errors.phoneNumber)}>
           <div className="section__title">
             <label>전화번호</label>
             {errors.phoneNumber && (
@@ -209,15 +209,16 @@ export default function RequestForm() {
           <p className="color-grey section__subscribe">
             매칭되었을 때에만 전화번호가 공개돼요.
           </p>
-          <input
-            className="section__content"
-            placeholder="전화번호를 입력하세요."
-            type="number"
-            {...register("phoneNumber", {
-              required: true,
-              pattern: PHONE_NUMBER_REGEX,
-            })}
-          />
+          <div className="section__content">
+            <input
+              placeholder="전화번호를 입력하세요."
+              type="number"
+              {...register("phoneNumber", {
+                required: true,
+                pattern: PHONE_NUMBER_REGEX,
+              })}
+            />
+          </div>
         </SectionWrapper>
       </RequestFormWrapper>
       {isOpen && innerMode && (
