@@ -1,4 +1,3 @@
-import { useRegionInfo } from "@api/etc";
 import { Check, Gear, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import ToolTip from "@components/ToolTip";
@@ -7,6 +6,7 @@ import usePush from "@hooks/usePush";
 import { useTooltip } from "@hooks/useTooltip";
 import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
+import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "./List";
 
@@ -14,7 +14,7 @@ export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const [isShowTooltip, closeTooltip] = useTooltip("home");
-  const { status, data: location } = useRegionInfo();
+  const region = getRegion();
 
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
@@ -37,7 +37,7 @@ export default function Home() {
             <div className="home__top">
               <div className="home__top__location">
                 <h2>
-                  <span>{status === "success" && location?.name}</span> 주변
+                  <span>{region}</span> 주변
                 </h2>
               </div>
               <div
