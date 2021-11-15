@@ -16,7 +16,14 @@ type TargetType = "code" | "preload" | "region_id";
 
 export const getValueFromSearch = (target: TargetType) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
-  return urlSearchParams.get(target);
+  let result = urlSearchParams.get(target);
+
+  if (!result) {
+    const urlHashParams = new URLSearchParams(window.location.hash);
+    result = urlHashParams.get(target);
+  }
+
+  return result;
 };
 
 export const setCode = () => {};
@@ -26,7 +33,7 @@ export const getComparedTime = (timeA: Date, timeB: Date) => {
   const dateB = dayjs(timeB);
   const secondDiff = dateA.diff(dateB, "second");
   if (secondDiff < 60) {
-    return secondDiff + "초 전";
+    return "방금 전";
   }
 
   const minuteDiff = dateA.diff(dateB, "minute");
@@ -60,4 +67,8 @@ export const getComparedTime = (timeA: Date, timeB: Date) => {
   if (yearDiff < 12) {
     return yearDiff + "년 전";
   }
+};
+
+export const getRegion = () => {
+  return localStorage.getItem("region");
 };

@@ -18,22 +18,21 @@ export default function Item({ item }: ItemProps) {
     <>
       <ItemWrapper>
         <div className="item-box" onClick={moveTo}>
-          <div className="item-image">
-            <img src={errand.thumbnailUrl ?? DEFAULT_IMAGE} alt="img" />
-          </div>
+          <Thumbnail url={errand.thumbnailUrl ?? DEFAULT_IMAGE} />
           <div className="item-info">
             <div className="item-info__detail">{errand.detail}</div>
             <div className="item-info__sub">
               <span>{errand.category.name}</span>
               <span>{errand.regionName}</span>
               <span>
-                {getComparedTime(new Date(), new Date(...errand.createdAt))}
+                {getComparedTime(new Date(), new Date(errand.createdAt))}
               </span>
             </div>
+            <div className="item-info__reward">
+              {convertToKRW(errand.reward)}
+            </div>
             <div className="item-info__bottom">
-              <div className="item-info__bottom__reward">
-                {convertToKRW(errand.reward)}
-              </div>
+              <div className="item-info__bottom__reward"></div>
               {item && renderItemStatus(item)}
             </div>
           </div>
@@ -43,29 +42,30 @@ export default function Item({ item }: ItemProps) {
   );
 }
 
+const Thumbnail = styled.div<{ url: string }>`
+  min-width: 11rem;
+  min-height: 11rem;
+
+  max-width: 11rem;
+  max-height: 11rem;
+
+  width: 11rem;
+  height: 11rem;
+
+  overflow: hidden;
+  border-radius: 0.8rem;
+  background-image: url(${({ url }) => url});
+  background-size: cover;
+`;
+
 const ItemWrapper = styled.li`
-  padding: 1.4rem 0;
+  padding: 1.8rem 0;
   & + & {
-    border-top: 0.1rem solid ${({ theme }) => theme.color.grey6};
+    border-top: 0.15rem solid ${({ theme }) => theme.color.grey8};
   }
   .item-box {
     display: flex;
     position: relative;
-
-    .item-image {
-      min-width: 8rem;
-      min-height: 8rem;
-
-      max-width: 8rem;
-      max-height: 8rem;
-
-      width: 8rem;
-      height: 8rem;
-
-      img {
-        width: 100%;
-      }
-    }
 
     .item-info {
       flex: 1;
@@ -74,9 +74,8 @@ const ItemWrapper = styled.li`
       flex-direction: column;
 
       &__detail {
-        ${({ theme }) => theme.font("large", "regular")}
-        height: 1em;
-        line-height: 1;
+        ${({ theme }) => theme.font("large", "medium")}
+        line-height: 2;
         overflow: hidden;
         text-overflow: ellipsis;
         display: -webkit-box;
@@ -85,16 +84,21 @@ const ItemWrapper = styled.li`
         -webkit-box-orient: vertical;
       }
       &__sub {
-        ${({ theme }) => theme.font("small", "regular")}
+        ${({ theme }) => theme.font("xsmall", "regular")}
         color : ${({ theme }) => theme.color.grey4};
-        flex: 1;
+        margin-top: 0.3rem;
 
         & > span + span::before {
           content: " • ";
           margin: 0 0.5rem;
         }
       }
+      &__reward {
+        flex: 1;
+        margin-top: 0.6rem;
 
+        ${({ theme }) => theme.font("large", "regular")}
+      }
       &__bottom {
         display: flex;
         justify-content: space-between;
@@ -103,7 +107,7 @@ const ItemWrapper = styled.li`
         }
 
         &__status {
-          ${({ theme }) => theme.font("small", "medium")}
+          ${({ theme }) => theme.font("xsmall", "regular")}
           &.PRIMARY {
             color: ${({ theme }) => theme.color.primary};
           }

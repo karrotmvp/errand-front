@@ -19,5 +19,6 @@ module.exports = override(
     "@components": path.resolve(__dirname, "src/components"),
     "@assets": path.resolve(__dirname, "src/assets"),
     "@hoc": path.resolve(__dirname, "src/hoc"),
+    "@store": path.resolve(__dirname, "src/store"),
   })
 );

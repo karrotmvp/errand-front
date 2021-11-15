@@ -22,7 +22,6 @@ const fetchWrap = async ({
   try {
     const config: AxiosRequestConfig = {
       baseURL: envs.API_BASE_URL,
-      withCredentials: true,
       params,
       headers: {
         Authorization: `Bearer ${localStorage.getItem("token")}`,

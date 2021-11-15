@@ -2,33 +2,42 @@ import styled from "@emotion/styled";
 import Button from "@components/Button";
 import { TabType } from "@type/client";
 import usePush from "@hooks/usePush";
+import NodataImage from "@assets/images/no-data.png";
+import { useNavigator } from "@karrotframe/navigator";
 
 type NoDataProps = {
   tabType: TabType;
 };
 
 export default function NoData({ tabType }: NoDataProps) {
+  const { pop } = useNavigator();
   const moveToApplyForm = usePush("/errand-request");
-  const moveToHome = usePush("/");
 
   const handleClick = () => {
     if (tabType === "main" || tabType === "request") {
       moveToApplyForm();
     } else {
-      moveToHome();
+      pop().send({ isAppliable: true });
     }
   };
 
   return (
     <NoDataWrapper>
       {renderText(tabType)}
+      {tabType === "main" && (
+        <div className="no-data__image">
+          <img src={NodataImage} alt="nodata" />
+        </div>
+      )}
       <Button
+        size="small"
         buttonType="outline"
         color="primary"
         width="21rem"
+        rounded
         onClick={handleClick}
       >
-        {tabType === "help" ? "지원 가능한 심부름 보기" : "심부름 등록"}
+        {tabType === "help" ? "지원 가능한 심부름 보기" : "심부름 등록하기"}
       </Button>
     </NoDataWrapper>
   );
@@ -39,31 +48,27 @@ const renderText = (tabType: TabType) => {
     case "main":
       return (
         <p>
-          아직 올라온 심부름이 없어요.
-          <br /> 가장 먼저 심부름을 요청해보세요!.
+          해당 지역에는 아직 등록된 심부름이 없어요.
+          <br /> 필요한 심부름을 먼저 등록해보세요.
         </p>
       );
     case "request":
       return (
         <p>
-          지원한 내역이 없어요. <br /> 필요한 심부름이 있다면 등록해보세요.
+          신청한 심부름이 없어요. <br />
+          필요한 심부름을 등록해보세요.
         </p>
       );
     case "help":
       return (
         <p>
-          신청하신 심부름이 없어요.
+          지원한 내역이 없어요.
           <br />
-          도움이 필요한 사람에게 도움을 줘볼까요?
+          지원 가능한 심부름을 확인해보세요.
         </p>
       );
     default:
-      return (
-        <p>
-          신청하신 심부름이 없어요.
-          <br /> 필요한 심부름이 있다면 등록해보세요.
-        </p>
-      );
+      return <p></p>;
   }
 };
 
@@ -75,11 +80,15 @@ const NoDataWrapper = styled.div`
 
   padding-top: 15rem;
 
-  p {
+  & > p {
     ${({ theme }) => theme.font("medium", "regular")}
     color: ${({ theme }) => theme.color.grey4};
     text-align: center;
 
     margin-bottom: 1.7rem;
+  }
+
+  & > .no-data__image {
+    margin-bottom: 3rem;
   }
 `;

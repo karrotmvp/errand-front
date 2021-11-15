@@ -12,6 +12,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   rounded?: boolean;
   size?: "small" | "medium";
   disabled?: boolean;
+  padding?: string;
 }
 
 export default function Button({ children, ...props }: ButtonProps) {
@@ -19,8 +20,14 @@ export default function Button({ children, ...props }: ButtonProps) {
 }
 
 const ButtonWrapper = styled.button<ButtonProps>`
-  padding: 1.2rem 1.8rem 1.4rem 1.8rem;
-
+  ${({ padding }) =>
+    padding
+      ? css`
+          padding: ${padding};
+        `
+      : css`
+          padding: 1.2rem 1.8rem 1.4rem 1.8rem;
+        `}
   ${({ rounded }) =>
     rounded &&
     css`
@@ -29,8 +36,8 @@ const ButtonWrapper = styled.button<ButtonProps>`
 
   ${({ theme, size }) =>
     size === "small"
-      ? theme.font("small", "regular")
-      : theme.font("medium", "medium")}
+      ? theme.font("large", "medium")
+      : theme.font("xlarge", "medium")}
 
   color: ${({ theme, color }) => {
     return color === "primary"
@@ -48,7 +55,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
     buttonType === "contained" &&
     css`
       color: ${color === "primary" ? "white" : "black"};
-      background: ${disabled ? theme.color.grey5 : getColor(color, theme)};
+      background: ${disabled ? theme.color.grey6 : getColor(color, theme)};
     `}
   ${({ buttonType, color, theme }) =>
     buttonType === "outline" &&

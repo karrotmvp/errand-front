@@ -44,12 +44,6 @@ export default function Modal({
     setConfirmContent(content);
   };
 
-  const onMaskClick = (e: React.MouseEvent<HTMLElement>) => {
-    if (closeModal) {
-      closeModal();
-    }
-  };
-
   useEffect(() => {
     document.body.style.cssText = `position: fixed; top: -${window.scrollY}px`;
     return () => {
@@ -61,8 +55,8 @@ export default function Modal({
 
   return (
     <Portal>
-      <ModalOverlay onClick={onMaskClick} />
-      <ModalInnerBox innerMode={innerMode}>
+      <ModalOverlay />
+      <ModalInnerBox innerMode={innerMode} closeModal={closeModal}>
         {innerMode === "list" && list ? (
           <ModalListInner
             {...{

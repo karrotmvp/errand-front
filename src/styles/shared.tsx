@@ -12,14 +12,20 @@ export const SectionWrapper = styled.div`
 
     & > h3,
     & > label {
-      ${({ theme }) => theme.font("small", "bold")}
+      ${({ theme }) => theme.font("medium", "bold")}
+
       & + span {
+        ${({ theme }) => theme.font("medium", "regular")}
+
         margin-left: 0.5rem;
       }
     }
   }
   .section__subscribe {
     ${({ theme }) => theme.font("medium", "regular")}
+    span {
+      color: ${({ theme }) => theme.color.primary};
+    }
   }
 
   .section__content {
@@ -37,14 +43,15 @@ export const SectionWrapper = styled.div`
 
   input,
   select {
-    border: 0.1rem solid ${({ theme }) => theme.color.grey6};
+    border: 0.15rem solid ${({ theme }) => theme.color.grey6};
     ${({ theme }) => css`
-      ${theme.font("medium")}
+      ${theme.font("large", "regular")}
       border-radius: 1rem;
     `}
     width: 100%;
-    padding: 1rem 1.8rem;
+    padding: 1.3rem 1.8rem;
     &::placeholder {
+      ${({ theme }) => theme.font("large", "regular")}
       color: ${({ theme }) => theme.color.grey4};
     }
   }
@@ -73,7 +80,12 @@ export const SectionWrapper = styled.div`
   }
 
   textarea {
+    ${({ theme }) => theme.font("large", "regular")}
     height: 16rem;
+    &::placeholder {
+      ${({ theme }) => theme.font("large", "regular")}
+      color: ${({ theme }) => theme.color.grey4};
+    }
   }
 `;
 
@@ -116,10 +128,13 @@ export const StickyFooter = styled.div<{ fullArea?: boolean }>`
   position: sticky;
   bottom: 0;
   width: 100%;
+  z-index: 99;
   ${({ fullArea }) =>
     fullArea ||
     css`
-      padding: 1.2rem 2rem;
+      padding: 0 2rem;
+      padding-top: 1.2rem;
+      padding-bottom: 3.2rem;
     `}
   background: white;
 `;
@@ -129,7 +144,7 @@ export const Container = styled.div`
 `;
 
 export const TextAreaWrapper = styled.div`
-  border: 0.1rem solid ${({ theme }) => theme.color.grey6};
+  border: 0.15rem solid ${({ theme }) => theme.color.grey6};
   ${({ theme }) => theme.font("medium")}
   border-radius: 1rem;
   padding: 1.5rem 1.8rem;
@@ -143,5 +158,6 @@ export const TextAreaWrapper = styled.div`
   & > div {
     text-align: right;
     color: ${({ theme }) => theme.color.grey4};
+    ${({ theme }) => theme.font("medium", "regular")}
   }
 `;
