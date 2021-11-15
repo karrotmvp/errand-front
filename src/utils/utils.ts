@@ -16,14 +16,17 @@ type TargetType = "code" | "preload" | "region_id";
 
 export const getValueFromSearch = (target: TargetType) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
+  console.log("urlSearchParams : ", urlSearchParams);
   let result = urlSearchParams.get(target);
-  console.log(result);
+  console.log("맨 위쪽 result : ", result);
 
   if (!result) {
     const urlHashParams = new URLSearchParams(window.location.hash);
+    console.log("urlHashParams : ", urlHashParams);
     result = urlHashParams.get(target);
+    console.log("!result 안쪽 : ", result);
   }
-  console.log(result);
+  console.log("마지막 result : ", result);
   return result;
 };
 
