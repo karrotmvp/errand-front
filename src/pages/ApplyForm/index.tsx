@@ -1,5 +1,6 @@
 import { useApplyToErrand } from "@api/help";
 import { useMyInfo } from "@api/user";
+import { Check } from "@assets/icon";
 import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
@@ -144,7 +145,9 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                       id="term"
                       {...register("term", { required: true })}
                     />
-                    <label htmlFor="term" />
+                    <label htmlFor="term">
+                      <Check width="3.6rem" height="3.6rem" />
+                    </label>
                     <p>
                       <span>(필수)</span> 매칭 시 공개되는 심부름 장소, 휴대폰
                       번호 등의 개인 정보를 심부름 목적 이외 사용하지

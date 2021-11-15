@@ -66,12 +66,17 @@ export const SectionWrapper = styled.div<{ isError?: boolean }>`
       display: inline-block;
       min-width: 3.6rem;
       min-height: 3.6rem;
-      border-radius: 1.8rem;
-      border: 1px solid ${({ theme }) => theme.color.grey6};
+      & > svg {
+        fill: ${({ theme }) => theme.color.grey6};
+        stroke: ${({ theme }) => theme.color.grey4};
+        stroke-width: 0.05rem;
+      }
     }
     &:checked + label {
-      background: ${({ theme }) => theme.color.primary};
-      border: none;
+      & > svg {
+        fill: ${({ theme }) => theme.color.primary};
+        stroke: white;
+      }
     }
   }
 
