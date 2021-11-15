@@ -39,7 +39,13 @@ const CustomBack = () => (
 );
 
 const CustomClose = () => (
-  <div style={leftButtonStyle}>
+  <div
+    style={leftButtonStyle}
+    onClick={(e) => {
+      e.stopPropagation();
+      console.log("멈춰!");
+    }}
+  >
     <Close stroke="black" />
   </div>
 );

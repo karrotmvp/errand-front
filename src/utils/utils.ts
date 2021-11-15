@@ -25,8 +25,6 @@ export const getValueFromSearch = (target: TargetType) => {
   return result;
 };
 
-export const setCode = () => {};
-
 export const getComparedTime = (timeA: Date, timeB: Date) => {
   const dateA = dayjs(timeA);
   const dateB = dayjs(timeB);
