@@ -1,14 +1,15 @@
 import { Back, Close } from "@assets/icon";
-import { ScreenHelmet } from "@karrotframe/navigator";
+import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { checkMobileType } from "@utils/utils";
 
 const CustomScreenHelmet: typeof ScreenHelmet = ({ title, appendRight }) => {
   const theme = checkMobileType();
+  const { replace } = useNavigator();
 
   return (
     <ScreenHelmet
       customBackButton={CustomBack()}
-      customCloseButton={CustomClose()}
+      customCloseButton={CustomClose(replace)}
       title={<Title title={title} theme={theme} />}
       appendRight={<AppendRight appendRight={appendRight} />}
     />
@@ -38,17 +39,31 @@ const CustomBack = () => (
   </div>
 );
 
-const CustomClose = () => (
-  <div
-    style={leftButtonStyle}
-    onClick={(e) => {
-      e.stopPropagation();
-      console.log("멈춰!");
-    }}
-  >
-    <Close stroke="black" />
-  </div>
-);
+const CustomClose = (
+  replace: (
+    to: string,
+    options?:
+      | {
+          animate?: boolean | undefined;
+        }
+      | undefined
+  ) => void
+) => {
+  const isDetail = window.location.pathname;
+  console.log("in close", isDetail);
+  return (
+    <div
+      style={leftButtonStyle}
+      onClick={(e) => {
+        e.stopPropagation();
+        // TODO 중간URL로 들어왔다는 Flag를 잡아서 replace('/')하기
+        replace("/");
+      }}
+    >
+      <Close stroke="black" />
+    </div>
+  );
+};
 
 const Title = ({ title, theme }: { title: React.ReactNode; theme: string }) => (
   <div
