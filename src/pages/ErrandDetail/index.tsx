@@ -29,8 +29,6 @@ import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
-  const isDetail = window.location.pathname.split("/");
-  console.log("in detail", isDetail);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { status, data } = useErrandDetail(errandId);
   const [showTooltip, closeTooltip] = useTooltip("detail");

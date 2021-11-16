@@ -1,15 +1,15 @@
 import { Back, Close } from "@assets/icon";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
 import { checkMobileType } from "@utils/utils";
+import { useLocation } from "react-router-dom";
 
 const CustomScreenHelmet: typeof ScreenHelmet = ({ title, appendRight }) => {
   const theme = checkMobileType();
-  const { replace } = useNavigator();
 
   return (
     <ScreenHelmet
       customBackButton={CustomBack()}
-      customCloseButton={CustomClose(replace)}
+      customCloseButton={CustomClose()}
       title={<Title title={title} theme={theme} />}
       appendRight={<AppendRight appendRight={appendRight} />}
     />
@@ -39,28 +39,21 @@ const CustomBack = () => (
   </div>
 );
 
-const CustomClose = (
-  replace: (
-    to: string,
-    options?:
-      | {
-          animate?: boolean | undefined;
-        }
-      | undefined
-  ) => void
-) => {
-  const isDetail = window.location.pathname;
-  console.log("in close", isDetail);
+const CustomClose = () => {
+  const { replace } = useNavigator();
+  const location = useLocation();
+
   return (
     <div
       style={leftButtonStyle}
       onClick={(e) => {
-        e.stopPropagation();
-        // TODO 중간URL로 들어왔다는 Flag를 잡아서 replace('/')하기
-        replace("/");
+        if (location.pathname !== "/") {
+          e.stopPropagation();
+          replace("/");
+        }
       }}
     >
-      <Close stroke="black" />
+      {location.pathname !== "/" ? <Back /> : <Close stroke="black" />}
     </div>
   );
 };
