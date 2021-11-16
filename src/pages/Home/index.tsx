@@ -8,7 +8,7 @@ import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
 import { getRegion } from "@utils/utils";
 import { useState } from "react";
-import List from "./List";
+import List from "@components/List";
 
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");

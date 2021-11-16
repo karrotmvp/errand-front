@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import styled from "@emotion/styled";
-import List from "@pages/Home/List";
+import List from "@components/List";
 import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";

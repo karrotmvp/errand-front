@@ -37,9 +37,11 @@ export default function List({
       <ListWrapper>
         <ul>
           {status === "loading" ? (
-            <li>로딩 중</li>
+            // TODO Loading..
+            <li></li>
           ) : status === "error" ? (
-            <li>에뤄</li>
+             // TODO Error..
+            <li></li>
           ) : data?.pages[0].length === 0 ? (
             <NoData tabType={tabType} />
           ) : (
