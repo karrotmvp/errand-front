@@ -111,6 +111,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <TextAreaWrapper
                 className="section__content"
                 isError={Boolean(errors.appeal)}
+                textLength={watchTextArea?.length ?? 0}
               >
                 <textarea
                   maxLength={500}
@@ -159,7 +160,8 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
             </SectionWrapper>
           </>
         ) : (
-          <div>로딩 중</div>
+          // TODO Loading..
+          <div></div>
         )}
       </ApplyFormWrapper>
       {isOpen && innerMode && (
