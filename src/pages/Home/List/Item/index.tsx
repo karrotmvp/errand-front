@@ -3,7 +3,7 @@ import { convertToKRW } from "@utils/convert";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
-import { DEFAULT_IMAGE } from "@constant/default";
+import { DEFAULT_THUMBNAIL } from "@constant/default";
 import { getRefinedFromData } from "@utils/getRefinedFromData";
 
 type ItemProps = {
@@ -18,7 +18,7 @@ export default function Item({ item }: ItemProps) {
     <>
       <ItemWrapper>
         <div className="item-box" onClick={moveTo}>
-          <Thumbnail url={errand.thumbnailUrl ?? DEFAULT_IMAGE} />
+          <Thumbnail url={errand.thumbnailUrl ?? DEFAULT_THUMBNAIL} />
           <div className="item-info">
             <div className="item-info__detail">{errand.detail}</div>
             <div className="item-info__sub">

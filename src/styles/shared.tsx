@@ -19,6 +19,7 @@ export const SectionWrapper = styled.div<{ isError?: boolean }>`
       }
     }
   }
+
   .section__subscribe {
     ${({ theme }) => theme.font("medium", "regular")}
     span {
@@ -54,6 +55,11 @@ export const SectionWrapper = styled.div<{ isError?: boolean }>`
       ${({ theme }) => theme.font("large", "regular")}
       color: ${({ theme }) => theme.color.grey4};
     }
+  }
+
+  select {
+    -webkit-appearance: none;
+    appearance: none;
   }
 
   input + input {

@@ -23,6 +23,7 @@ export const BoxWrapper = styled.div`
   border-radius: 1rem;
   min-width: 7rem;
   min-height: 7rem;
+  width: 7rem;
   height: 7rem;
 `;
 
