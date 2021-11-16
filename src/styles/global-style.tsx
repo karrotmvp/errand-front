@@ -26,6 +26,7 @@ export const GlobalStyle = () => {
           color: #41474c;
           line-height: ${LINE_HEIGHT};
         }
+
         .flex {
           display: flex;
         }

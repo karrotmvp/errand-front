@@ -8,3 +8,4 @@ export { ReactComponent as Plus } from "./plus.svg";
 export { ReactComponent as Check } from "./check.svg";
 export { ReactComponent as DefaultProfile } from "./default_profile.svg";
 export { ReactComponent as Right } from "./right.svg";
+export { ReactComponent as Dropdown } from "./dropdown.svg";

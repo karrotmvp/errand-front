@@ -19,6 +19,7 @@ import ImageAppender from "./ImageAppender";
 import { getRegion, getValueFromSearch } from "@utils/utils";
 import { useRegisterErrand } from "@api/errands";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
+import { Dropdown } from "@assets/icon";
 
 type Inputs = {
   categoryId: number;
@@ -101,19 +102,25 @@ export default function RequestForm() {
             )}
           </div>
           <div className="section__content">
-            {/* TODO 우측 드롭다운 화살표 패딩 옮기기  */}
-            <select
-              {...register("categoryId", { required: true })}
-              style={{ paddingRight: "5rem" }}
-            >
-              <option value="" selected disabled>
-                카테고리를 선택해 주세요.
-              </option>
-              <option value="1">벌레잡기</option>
-              <option value="2">반려동물 산책하기</option>
-              <option value="3">사다주기</option>
-              <option value="4">기타</option>
-            </select>
+            <div style={{ position: "relative" }}>
+              <Dropdown
+                style={{
+                  position: "absolute",
+                  top: "50%",
+                  right: "2rem",
+                  transform: "translateY(-40%)",
+                }}
+              />
+              <select {...register("categoryId", { required: true })}>
+                <option value="" selected disabled>
+                  카테고리를 선택해 주세요.
+                </option>
+                <option value="1">벌레잡기</option>
+                <option value="2">반려동물 산책하기</option>
+                <option value="3">사다주기</option>
+                <option value="4">기타</option>
+              </select>
+            </div>
           </div>
         </SectionWrapper>
         <SectionWrapper>
