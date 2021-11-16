@@ -37,7 +37,6 @@ export default function RequestForm() {
     watch,
     formState: { errors, isValid },
   } = useForm<Inputs>({ mode: "onChange" });
-
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchCategory = watch("categoryId");
   const watchTextArea = watch("detail");
@@ -51,7 +50,6 @@ export default function RequestForm() {
       replace(`/errands/${id}`);
     },
   });
-
   const modalInfo: ModalInfoType = {
     confirm: {
       text: "작성 완료 후 수정할 수 없어요.\n완료 전 꼼곰하게 확인해 주세요.",
@@ -129,8 +127,14 @@ export default function RequestForm() {
             <span className="color-grey">(선택)</span>
           </div>
           <ImageSlider>
-            <ImageAppender>
-              <input id="input__file" type="file" {...register("images")} />
+            <ImageAppender len={imageList.length} watchImages={watchImages}>
+              <input
+                id="input__file"
+                type="file"
+                max="5"
+                multiple
+                {...register("images")}
+              />
             </ImageAppender>
             {imageList &&
               imageList.map((file) => (
