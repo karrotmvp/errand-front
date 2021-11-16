@@ -69,7 +69,7 @@ export type Resume = {
 };
 
 export type User = SimpleUser & {
-  profileImgUrl?: string;
+  profileImageUrl?: string;
   regionName: string;
   mannerTemp: number;
 };

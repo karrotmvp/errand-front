@@ -6,7 +6,7 @@ export const user: User = {
   nickname: "테스트맨",
   regionName: "논현동",
   mannerTemp: 37.5,
-  profileImgUrl:
+  profileImageUrl:
     "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
 };
 
@@ -16,7 +16,7 @@ export const applyList: User[] = [
     nickname: "DD",
     regionName: "반포1동",
     mannerTemp: 39.5,
-    profileImgUrl:
+    profileImageUrl:
       "https://user-images.githubusercontent.com/41738385/137061472-e444943d-64dd-4ec9-8aa6-601e86706aa2.jpg",
   },
   {
@@ -50,7 +50,7 @@ export const resume: Resume = {
     nickname: "Christine",
     regionName: "연남동",
     mannerTemp: 40,
-    profileImgUrl: DEFAULT_THUMBNAIL,
+    profileImageUrl: DEFAULT_THUMBNAIL,
   },
 };
 

@@ -1,5 +1,5 @@
 import { DefaultProfile } from "@assets/icon";
-import { DEFAULT_THUMBNAIL } from "@constant/default";
+import { DEFAULT_PROFILE } from "@constant/default";
 import styled from "@emotion/styled";
 import { User } from "@type/response";
 
@@ -9,13 +9,13 @@ export default function Profile({
   nickname,
   regionName,
   mannerTemp,
-  profileImgUrl = DEFAULT_THUMBNAIL,
+  profileImageUrl = DEFAULT_PROFILE,
 }: ProfileProps) {
   return (
     <ProfileWrapper>
       <div className="my-profile__image">
-        {profileImgUrl ? (
-          <img src={profileImgUrl} alt="thumbnail" />
+        {profileImageUrl ? (
+          <img src={profileImageUrl} alt="thumbnail" />
         ) : (
           <DefaultProfile />
         )}
