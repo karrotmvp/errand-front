@@ -5,12 +5,10 @@ import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
 import Profile from "@components/Profile";
-import ToolTip from "@components/ToolTip";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
 import useModal from "@hooks/useModal";
-import { useTooltip } from "@hooks/useTooltip";
 import { useNavigator } from "@karrotframe/navigator";
 import {
   ErrorText,
@@ -39,7 +37,6 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
   } = useForm<Inputs>({ mode: "onChange" });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { pop } = useNavigator();
-  const [showTooltip, closeTooltip] = useTooltip("apply");
   const watchTextArea = watch("appeal");
   const mutationApplyErrand = useApplyToErrand({
     onSuccess: () => {
@@ -127,13 +124,6 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
             </SectionWrapper>
             <SectionWrapper>
               <div className="section__title">
-                {showTooltip && (
-                  <ToolTip
-                    text="요청장소와 전화번호는 매칭된 상대에게만 보여요."
-                    closeTooltip={closeTooltip}
-                    tail="down"
-                  />
-                )}
                 <label>이용약관</label>
                 {errors.term && <ErrorText>약관에 동의해 주세요.</ErrorText>}
               </div>
