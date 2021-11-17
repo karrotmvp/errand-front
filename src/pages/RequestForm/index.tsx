@@ -154,8 +154,12 @@ export default function RequestForm() {
             )}
           </div>
           <div className="section__content">
-            <TextAreaWrapper isError={Boolean(errors.detail)}>
+            <TextAreaWrapper
+              isError={Boolean(errors.detail)}
+              textLength={watchTextArea?.length ?? 0}
+            >
               <textarea
+                maxLength={500}
                 placeholder={
                   watchCategory
                     ? messages[watchCategory].placeholder

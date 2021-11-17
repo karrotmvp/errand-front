@@ -10,7 +10,7 @@ export const convertToNumber = (str: string): string => {
 };
 
 export const convertToKRW = (reward: number) => {
-  return (reward?.toLocaleString() ?? 0) + "원";
+  return (Number(reward).toLocaleString() ?? 0) + "원";
 };
 
 export const convertToPhoneNumber = (origin?: string): string => {
