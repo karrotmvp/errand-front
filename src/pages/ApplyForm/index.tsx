@@ -141,7 +141,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                     </label>
                     <p>
                       <span>(필수)</span> 매칭 시 공개되는 심부름 장소, 휴대폰
-                      번호 등의 개인 정보를 심부름 목적 이외 사용하지
+                      번호 등의 개인 정보를 심부름 목적 이외에 사용하지
                       않겠습니다.
                     </p>
                   </div>
