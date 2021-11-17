@@ -9,6 +9,7 @@ import { Container } from "@styles/shared";
 import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
+import ErrorBoundary from "@components/ErrorBoundary";
 
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
@@ -58,7 +59,9 @@ export default function Home() {
             )}
           </Container>
           <div style={{ position: "relative" }}>
-            <List tabType="main" isAppliable={isAppliable} />
+            <ErrorBoundary fallback={<h1>custom error</h1>}>
+              <List tabType="main" isAppliable={isAppliable} />
+            </ErrorBoundary>
           </div>
         </ContentWrapper>
         <button className="home__fixed-fab" onClick={moveToApplyForm}>
@@ -69,7 +72,7 @@ export default function Home() {
   );
 }
 
-const Title = styled.div`
+export const Title = styled.div`
   display: flex;
   align-items: flex-end;
 
@@ -123,8 +126,8 @@ const HomeWrapper = styled.main`
         &.grey {
           color: ${({ theme }) => theme.color.grey4};
           & > svg {
-            fill: ${({ theme }) => theme.color.grey7};
-            stroke: ${({ theme }) => theme.color.grey5};
+            fill: ${({ theme }) => theme.color.grey8};
+            stroke: ${({ theme }) => theme.color.grey6};
           }
         }
       }
@@ -154,7 +157,7 @@ const ContentWrapper = styled.div`
   overflow-y: scroll;
 `;
 
-const RightAppender = (
+export const RightAppender = (
   setIsAppliable: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const { push } = useNavigator();
@@ -177,7 +180,7 @@ const RightAppender = (
   );
 };
 
-const AppenderWrapper = styled.div`
+export const AppenderWrapper = styled.div`
   display: flex;
 
   & > div {
