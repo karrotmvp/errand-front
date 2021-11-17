@@ -154,7 +154,10 @@ export const Container = styled.div`
   ${({ theme }) => theme.container}
 `;
 
-export const TextAreaWrapper = styled.div<{ isError: boolean }>`
+export const TextAreaWrapper = styled.div<{
+  isError: boolean;
+  textLength: number;
+}>`
   border: 0.15rem solid
     ${({ theme, isError }) => (isError ? theme.color.fail : theme.color.grey6)};
   ${({ theme }) => theme.font("medium")}
@@ -162,6 +165,7 @@ export const TextAreaWrapper = styled.div<{ isError: boolean }>`
   padding: 1.5rem 1.8rem;
   & > textarea {
     width: 100%;
+
     &::placeholder {
       color: ${({ theme }) => theme.color.grey4};
     }
@@ -169,7 +173,8 @@ export const TextAreaWrapper = styled.div<{ isError: boolean }>`
 
   & > div {
     text-align: right;
-    color: ${({ theme }) => theme.color.grey4};
+    color: ${({ theme, textLength }) =>
+      textLength === 500 ? theme.color.primary : theme.color.grey4};
     ${({ theme }) => theme.font("medium", "regular")}
   }
 `;
