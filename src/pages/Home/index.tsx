@@ -1,9 +1,7 @@
 import { Check, Gear, Me, Plus } from "@assets/icon";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
-import ToolTip from "@components/ToolTip";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
-import { useTooltip } from "@hooks/useTooltip";
 import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
 import { getRegion } from "@utils/utils";
@@ -14,7 +12,6 @@ import MixPanel from "@utils/mixpanel";
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
-  const [isShowTooltip, closeTooltip] = useTooltip("home");
   const region = getRegion();
 
   const toggleIsAppliable = () => {
@@ -51,12 +48,6 @@ export default function Home() {
                 <div>지원가능한 심부름 보기</div>
               </div>
             </div>
-            {isShowTooltip && (
-              <ToolTip
-                text="당근마켓으로 인증한 동네에서 심부름을 요청할 수 있어요."
-                closeTooltip={closeTooltip}
-              />
-            )}
           </Container>
           <div style={{ position: "relative" }}>
             <List tabType="main" isAppliable={isAppliable} />

@@ -14,8 +14,6 @@ import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
 import { getComparedTime } from "@utils/utils";
-import ToolTip from "@components/ToolTip";
-import { useTooltip } from "@hooks/useTooltip";
 import {
   getRefinedFromData,
   modalInfoFlagType,
@@ -31,7 +29,6 @@ import Slider from "react-slick";
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { status, data } = useErrandDetail(errandId);
-  const [showTooltip, closeTooltip] = useTooltip("detail");
   const {
     color,
     statusText,
@@ -274,15 +271,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                   {renderPrivateData(data, "detailAddress")}
                 </div>
                 <div>
-                  <div>
-                    전화번호
-                    {showTooltip && (
-                      <ToolTip
-                        text="요청장소와 전화번호는 매칭된 상대에게만 보여요."
-                        closeTooltip={closeTooltip}
-                      />
-                    )}
-                  </div>
+                  <div>전화번호</div>
                   {renderPrivateData(data, "customerPhoneNumber")}
                 </div>
               </div>
