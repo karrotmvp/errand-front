@@ -28,12 +28,14 @@ jobs:
           PROD_APP_ID: ${{ secrets.PROD_APP_ID }}
           PROD_API_URL: ${{ secrets.PROD_API_URL }}
           PROD_MINI_PRESET_URL: ${{ secrets.PROD_MINI_PRESET_URL }}
+          PROD_MIXPANEL_TOKEN: ${{ secrets.PROD_MIXPANEL_TOKEN }}
+
         run: |
           touch .env
-          echo APP_ID="$PROD_APP_ID" >> .env
-          echo API_URL="$PROD_API_URL" >> .env
-          echo MINI_PRESET_URL="$PROD_MINI_PRESET_URL" >> .env
-          echo GA_KEY="$GA_KEY" >> .env
+          echo REACT_APP_APP_ID="$PROD_APP_ID" >> .env
+          echo REACT_APP_API_URL="$PROD_API_URL" >> .env
+          echo REACT_APP_MINI_PRESET_URL="$PROD_MINI_PRESET_URL" >> .env
+          echo REACT_APP_MIXPANEL_TOKEN="$PROD_MIXPANEL_TOKEN" >> .env
           cat .env
 
       - name: Install Dependencies
