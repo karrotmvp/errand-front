@@ -9,7 +9,7 @@ import { Container } from "@styles/shared";
 import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
-import ErrorBoundary from "@components/ErrorBoundary";
+import MixPanel from "@utils/mixpanel";
 
 export default function Home() {
   const moveToApplyForm = usePush("/errand-request");
@@ -59,12 +59,19 @@ export default function Home() {
             )}
           </Container>
           <div style={{ position: "relative" }}>
-            <ErrorBoundary fallback={<h1>custom error</h1>}>
-              <List tabType="main" isAppliable={isAppliable} />
-            </ErrorBoundary>
+            <List tabType="main" isAppliable={isAppliable} />
           </div>
         </ContentWrapper>
-        <button className="home__fixed-fab" onClick={moveToApplyForm}>
+        <button
+          className="home__fixed-fab"
+          onClick={() => {
+            moveToApplyForm();
+            MixPanel.track("요청하기 버튼 누름", {
+              test: "test prop",
+              유저ID: "17",
+            });
+          }}
+        >
           <Plus stroke="white" />
         </button>
       </HomeWrapper>
