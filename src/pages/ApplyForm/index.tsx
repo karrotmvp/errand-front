@@ -36,12 +36,12 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     formState: { errors, isValid },
   } = useForm<Inputs>({ mode: "onChange" });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const { pop } = useNavigator();
+  const { replace } = useNavigator();
   const watchTextArea = watch("appeal");
   const mutationApplyErrand = useApplyToErrand({
-    onSuccess: () => {
+    onSuccess: (helpId: string) => {
       closeModal();
-      pop();
+      replace(`/helps/${helpId}`);
     },
     onError: () => {
       console.log("fail");

@@ -15,12 +15,12 @@ const useApplyToErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
   const { push } = useNavigator();
 
   return useMutation(applyErrand, {
-    onSuccess: () => {
+    onSuccess: ({ id }) => {
       queryClient.invalidateQueries(KEYS.ERRNDS);
       queryClient.invalidateQueries(KEYS.ERRND_DETAIL);
       queryClient.invalidateQueries(KEYS.APPLIERS);
       queryClient.invalidateQueries(KEYS.RESUME);
-      onSuccess && onSuccess();
+      onSuccess && onSuccess(id);
     },
     onError: () => {
       onError && onError();
