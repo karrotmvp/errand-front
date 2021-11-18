@@ -20,7 +20,8 @@ export default function ApplierList({ errandId }: WithParamsProps) {
             />
           ))
         ) : (
-          <div>로딩 중</div>
+          // TODO Loading..
+          <div></div>
         )}
       </ApplyListWrapper>
     </>

@@ -5,7 +5,10 @@ import { isLoginAtom } from "../store/user";
 import { getValueFromSearch } from "@utils/utils";
 import { useCallback, useEffect } from "react";
 import { useRecoilState } from "recoil";
-import Sample from "@assets/images/sample.png";
+import Sample from "@assets/images/sample.jpg";
+import CustomScreenHelmet from "@components/CustomScreenHelmet";
+import { AppenderWrapper, Title } from "@pages/Home";
+import { Gear, Me } from "@assets/icon";
 
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
@@ -58,6 +61,24 @@ export default function withMini(Component: React.ElementType) {
     if (!isLogin) {
       return (
         <div style={{ width: "100%", height: "100%" }}>
+          <CustomScreenHelmet
+            title={
+              <Title>
+                <h1>당근심부름</h1>
+                <span>Beta</span>
+              </Title>
+            }
+            appendRight={
+              <AppenderWrapper>
+                <div>
+                  <Me />
+                </div>
+                <div>
+                  <Gear />
+                </div>
+              </AppenderWrapper>
+            }
+          />
           <img style={{ width: "100%" }} src={Sample} alt="sample" />
         </div>
       );

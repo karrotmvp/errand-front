@@ -73,8 +73,8 @@ export const SectionWrapper = styled.div<{ isError?: boolean }>`
       min-width: 3.6rem;
       min-height: 3.6rem;
       & > svg {
-        fill: ${({ theme }) => theme.color.grey6};
-        stroke: ${({ theme }) => theme.color.grey4};
+        fill: ${({ theme }) => theme.color.grey8};
+        stroke: ${({ theme }) => theme.color.grey6};
         stroke-width: 0.05rem;
       }
     }
@@ -113,7 +113,7 @@ export const SectionTerms = styled.div`
     display: flex;
     align-items: center;
 
-    p {
+    & > p {
       margin-left: 1.4rem;
       ${({ theme }) => theme.font("medium")}
       span {

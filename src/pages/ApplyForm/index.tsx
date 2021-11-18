@@ -36,12 +36,12 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     formState: { errors, isValid },
   } = useForm<Inputs>({ mode: "onChange" });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const { pop } = useNavigator();
+  const { replace } = useNavigator();
   const watchTextArea = watch("appeal");
   const mutationApplyErrand = useApplyToErrand({
-    onSuccess: () => {
+    onSuccess: (helpId: string) => {
       closeModal();
-      pop();
+      replace(`/helps/${helpId}`);
     },
     onError: () => {
       console.log("fail");
@@ -141,7 +141,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                     </label>
                     <p>
                       <span>(필수)</span> 매칭 시 공개되는 심부름 장소, 휴대폰
-                      번호 등의 개인 정보를 심부름 목적 이외 사용하지
+                      번호 등의 개인 정보를 심부름 목적 이외에 사용하지
                       않겠습니다.
                     </p>
                   </div>
