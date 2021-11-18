@@ -28,11 +28,13 @@ jobs:
           DEV_APP_ID: ${{ secrets.DEV_APP_ID }}
           DEV_API_BASE_URL: ${{ secrets.DEV_API_BASE_URL }}
           DEV_MINI_PRESET_URL: ${{ secrets.DEV_MINI_PRESET_URL }}
+          DEV_MIXPANEL_TOKEN: ${{ secrets.DEV_MIXPANEL_TOKEN }}
         run: |
           touch .env
           echo REACT_APP_APP_ID="$DEV_APP_ID" >> .env
           echo REACT_APP_API_BASE_URL="$DEV_API_BASE_URL" >> .env
           echo REACT_APP_MINI_PRESET_URL="$DEV_MINI_PRESET_URL" >> .env
+          echo REACT_APP_MIXPANEL_TOKEN="$DEV_MIXPANEL_TOKEN" >> .env
           cat .env
 
       - name: Install Dependencies
