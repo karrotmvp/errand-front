@@ -4,7 +4,7 @@ import { createPortal } from "react-dom";
 import ModalConfirmInner from "./ModalConfirmInner.tsx";
 import ModalListInner from "./ModalListInner";
 import ModalInnerBox from "./ModalInnerBox";
-import useBlockBack from "@hooks/useBlockBack";
+import useBack from "@hooks/useBack";
 
 export type Confirm = {
   text: React.ReactNode;
@@ -53,7 +53,7 @@ export default function Modal({
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
     };
   }, []);
-  useBlockBack(closeModal);
+  useBack(closeModal);
   return (
     <Portal>
       <ModalOverlay />
