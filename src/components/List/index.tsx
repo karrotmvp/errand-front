@@ -30,7 +30,7 @@ export default function List({
   return (
     <PullToRefresh
       onPull={(dispose) => {
-        CustomMixPanel.track(CustomMixPanel.eventName.refresh);
+        CustomMixPanel.track(CustomMixPanel.eventName.refresh, { tabType });
         refetch().then(() => {
           dispose();
         });

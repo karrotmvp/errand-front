@@ -10,6 +10,7 @@ import Button from "@components/Button";
 import { WithParamsProps } from "@hoc/withParams";
 import { useNavigator } from "@karrotframe/navigator";
 import { useSelectHelper } from "@api/errands";
+import CustomMixPanel from "@utils/mixpanel";
 
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
@@ -40,7 +41,19 @@ export default function Resume({ helpId }: WithParamsProps) {
   const modalInfo: ModalInfoType = {
     confirm: {
       text: "이 분에게 요청하면 입력하신 주소와 연락처가 전달돼요. 이 분에게 요청할까요?",
-      no: <button onClick={closeModal}>아니요</button>,
+      no: (
+        <button
+          onClick={() => {
+            CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+              page: "지원내역",
+              confirm: "헬퍼지정",
+            });
+            closeModal();
+          }}
+        >
+          아니요
+        </button>
+      ),
       yes: <button onClick={requestSelectHelper}>네</button>,
     },
   };

@@ -55,7 +55,10 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
       no: (
         <button
           onClick={() => {
-            CustomMixPanel.track(CustomMixPanel.eventName.refresh);
+            CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+              page: "지원하기",
+              confirm: "지원완료",
+            });
             closeModal();
           }}
         >

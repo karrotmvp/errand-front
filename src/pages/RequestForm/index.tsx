@@ -54,7 +54,19 @@ export default function RequestForm() {
   const modalInfo: ModalInfoType = {
     confirm: {
       text: "작성 완료 후 수정할 수 없어요.\n완료 전 꼼곰하게 확인해 주세요.",
-      no: <button onClick={closeModal}>뒤로가기</button>,
+      no: (
+        <button
+          onClick={() => {
+            CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+              page: "요청하기",
+              confirm: "요청하기",
+            });
+            closeModal();
+          }}
+        >
+          뒤로가기
+        </button>
+      ),
       yes: <button form="errand-form">작성완료</button>,
     },
   };
@@ -283,7 +295,7 @@ export default function RequestForm() {
             openModal("confirm");
             CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
               page: "요청하기",
-              clickTarget: "심부름 요청하기"
+              clickTarget: "심부름 요청하기",
             });
           }}
         >
