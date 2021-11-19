@@ -26,14 +26,14 @@ jobs:
         shell: bash
         env:
           PROD_APP_ID: ${{ secrets.PROD_APP_ID }}
-          PROD_API_URL: ${{ secrets.PROD_API_URL }}
+          PROD_API_BASE_URL: ${{ secrets.PROD_API_BASE_URL }}
           PROD_MINI_PRESET_URL: ${{ secrets.PROD_MINI_PRESET_URL }}
           PROD_MIXPANEL_TOKEN: ${{ secrets.PROD_MIXPANEL_TOKEN }}
 
         run: |
           touch .env
           echo REACT_APP_APP_ID="$PROD_APP_ID" >> .env
-          echo REACT_APP_API_URL="$PROD_API_URL" >> .env
+          echo REACT_APP_API_BASE_URL="$PROD_API_BASE_URL" >> .env
           echo REACT_APP_MINI_PRESET_URL="$PROD_MINI_PRESET_URL" >> .env
           echo REACT_APP_MIXPANEL_TOKEN="$PROD_MIXPANEL_TOKEN" >> .env
           cat .env
