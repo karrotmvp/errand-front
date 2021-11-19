@@ -37,9 +37,8 @@ const fetchWrap = async ({
     return data;
   } catch (error) {
     console.log("에러 터짐요~~");
-    throw new Error("에러다요");
-    // localStorage.removeItem("token");
-    // window.location.href = "/404";
+    localStorage.removeItem("token");
+    throw new Error("API Error");
   }
 };
 export const GET = (url: string, params?: {}) =>

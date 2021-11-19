@@ -10,10 +10,14 @@ import Button from "@components/Button";
 import { WithParamsProps } from "@hoc/withParams";
 import { useNavigator } from "@karrotframe/navigator";
 import { useSelectHelper } from "@api/errands";
+import CustomMixPanel from "@utils/mixpanel";
+import ToolTip from "@components/ToolTip";
+import { useTooltip } from "@hooks/useTooltip";
 
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
+  const [showTooltip, closeTooltip] = useTooltip("resume");
   const { pop } = useNavigator();
   const resumeStatus: ResumeStatus = specifyStatus(
     status,
@@ -40,7 +44,19 @@ export default function Resume({ helpId }: WithParamsProps) {
   const modalInfo: ModalInfoType = {
     confirm: {
       text: "이 분에게 요청하면 입력하신 주소와 연락처가 전달돼요. 이 분에게 요청할까요?",
-      no: <button onClick={closeModal}>아니요</button>,
+      no: (
+        <button
+          onClick={() => {
+            CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+              page: "지원내역",
+              confirm: "헬퍼지정",
+            });
+            closeModal();
+          }}
+        >
+          아니요
+        </button>
+      ),
       yes: <button onClick={requestSelectHelper}>네</button>,
     },
   };
@@ -53,7 +69,15 @@ export default function Resume({ helpId }: WithParamsProps) {
           <>
             <Profile {...resume.helper} />
             <div className="resume__phone">
-              <div>전화번호</div>
+              <div>
+                전화번호
+                {showTooltip && resumeStatus === "customer-match" && (
+                  <ToolTip
+                    text="전화번호가 공개되었어요."
+                    closeTooltip={closeTooltip}
+                  />
+                )}
+              </div>
               <div>{renderPhoneNumber(resume.phoneNumber)}</div>
             </div>
             <div className="resume__appeal">

@@ -3,7 +3,7 @@ import envs from "@config/dotenv";
 import mini from "@lib/mini";
 import { isLoginAtom } from "../store/user";
 import { getValueFromSearch } from "@utils/utils";
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
 import Sample from "@assets/images/sample.jpg";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
@@ -13,6 +13,7 @@ import { Gear, Me } from "@assets/icon";
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
     const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
+    const [isClosed, setIsClosed] = useState<boolean>(false);
 
     const login = useCallback(
       async (code: string, regionId: string) => {
@@ -31,10 +32,13 @@ export default function withMini(Component: React.ElementType) {
         mini.startPreset({
           preset: envs.MINI_PRESET_URL || "",
           params: { appId: envs.APP_ID || "" },
-          async onSuccess(result: { code: string }) {
+          onSuccess(result: { code: string }) {
             if (result && result.code) {
               login(result.code, regionId);
             }
+          },
+          onClose() {
+            setIsClosed(true);
           },
         });
       } else {
@@ -45,16 +49,21 @@ export default function withMini(Component: React.ElementType) {
     }, [login]);
 
     useEffect(() => {
+      if (isClosed && !isLogin) {
+        mini.close();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isClosed, isLogin]);
+
+    useEffect(() => {
       if (isLogin) {
         return;
       }
-
       const result = checkAgreedUser();
       if (result) {
         login(result.codeParams, result.regionId);
         return;
       }
-
       askAgreement();
     }, [isLogin, askAgreement, login]);
 

@@ -26,6 +26,7 @@ import { useCallback } from "react";
 import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -160,7 +161,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               onClick={() => {
                 CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
                   page: "심부름 상세",
-                  clickTarget: "삭제",
+                  confirm: "삭제하기",
                 });
                 closeModal();
               }}
@@ -186,7 +187,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               onClick={() => {
                 CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
                   page: "심부름 상세",
-                  clickTarget: "지원취소",
+                  confirm: "지원취소",
                 });
                 closeModal();
               }}
@@ -248,7 +249,19 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     ],
     confirm: {
       text: "심부름을 완료했나요?",
-      no: <button onClick={closeModal}>아니요</button>,
+      no: (
+        <button
+          onClick={() => {
+            CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+              page: "심부름 상세",
+              confirm: "심부름 완료",
+            });
+            closeModal();
+          }}
+        >
+          아니요
+        </button>
+      ),
       yes: <button onClick={requestCompleteErrand}>완료했어요</button>,
     },
   };
@@ -274,20 +287,22 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       <ErrandDetailWrapper>
         {status !== "loading" && data ? (
           <>
-            <Slider
-              {...{
-                dots: true,
-                infinite: true,
-                speed: 500,
-                dotsClass: "errand-detail__dots",
-              }}
-            >
-              {data?.errand.images?.map((image) => (
-                <div className="errand-detail__image">
-                  <img src={image.url} alt="dummy" />
-                </div>
-              ))}
-            </Slider>
+            <div style={{ overflow: "hidden" }}>
+              <Slider
+                {...{
+                  dots: true,
+                  infinite: true,
+                  speed: 500,
+                  dotsClass: "errand-detail__dots",
+                }}
+              >
+                {data?.errand.images?.map((image) => (
+                  <div className="errand-detail__image">
+                    <img src={image.url} alt="" />
+                  </div>
+                ))}
+              </Slider>
+            </div>
             <div className="errand-detail__contents">
               <div className="errand-detail__contents__title">
                 <div>
@@ -501,7 +516,19 @@ const renderPrivateData = (
     return <div>{data.errand.detailAddress}</div>;
   }
   if (data.errand.customerPhoneNumber && target === "customerPhoneNumber") {
-    return <div>{data.errand.customerPhoneNumber}</div>;
+    return (
+      <>
+        <div>{data.errand.customerPhoneNumber}</div>
+        <CopyToClipboard
+          text={data.errand.customerPhoneNumber ?? ""}
+          onCopy={() => {
+            console.log("copy!");
+          }}
+        >
+          <span>복사</span>
+        </CopyToClipboard>
+      </>
+    );
   }
 
   if (
