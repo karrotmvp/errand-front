@@ -18,6 +18,7 @@ import {
   StickyPageWrpper,
   TextAreaWrapper,
 } from "@styles/shared";
+import CustomMixPanel from "@utils/mixpanel";
 import { getValueFromSearch } from "@utils/utils";
 import { SubmitHandler, useForm } from "react-hook-form";
 
@@ -51,7 +52,16 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
   const modalInfo = {
     confirm: {
       text: "작성한 내용으로 지원을 완료합니다.",
-      no: <button onClick={closeModal}>아니요</button>,
+      no: (
+        <button
+          onClick={() => {
+            CustomMixPanel.track(CustomMixPanel.eventName.refresh);
+            closeModal();
+          }}
+        >
+          아니요
+        </button>
+      ),
       yes: <button form="apply-form">지원하기</button>,
     },
   };
@@ -91,6 +101,12 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                 <input
                   type="number"
                   placeholder="숫자만 입력해 주세요."
+                  onClick={() => {
+                    CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                      page: "지원하기",
+                      clickTarget: "전화번호",
+                    });
+                  }}
                   {...register("phoneNumber", {
                     required: true,
                     pattern: PHONE_NUMBER_REGEX,
@@ -113,6 +129,12 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                 <textarea
                   maxLength={500}
                   placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해 주세요."
+                  onClick={() => {
+                    CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                      page: "지원하기",
+                      clickTarget: "하고싶은 말",
+                    });
+                  }}
                   {...register("appeal", {
                     required: true,
                     minLength: 10,
@@ -134,6 +156,15 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                       type="checkbox"
                       value="term"
                       id="term"
+                      onClick={() => {
+                        CustomMixPanel.track(
+                          CustomMixPanel.eventName.clickInput,
+                          {
+                            page: "지원하기",
+                            clickTarget: "약관동의",
+                          }
+                        );
+                      }}
                       {...register("term", { required: true })}
                     />
                     <label htmlFor="term">
@@ -166,6 +197,10 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
           disabled={!isValid}
           onClick={() => {
             openModal("confirm");
+            CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+              page: "지원하기",
+              clickTarget: "심부름 요청하기",
+            });
           }}
         >
           지원하기

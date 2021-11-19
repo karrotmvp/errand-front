@@ -1,4 +1,5 @@
 import { GET, POST } from "@utils/axios";
+import CustomMixPanel from "@utils/mixpanel";
 import { getValueFromSearch } from "@utils/utils";
 
 export const reqeustLogin = async (code: string, regionId: string) => {
@@ -13,6 +14,8 @@ export const reqeustLogin = async (code: string, regionId: string) => {
 
     localStorage.removeItem("region");
     localStorage.setItem("region", region.name);
+
+    if (data.userId) CustomMixPanel.setUserId(String(data.userId));
 
     return status;
   } else {

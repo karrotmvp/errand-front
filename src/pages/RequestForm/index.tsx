@@ -20,6 +20,7 @@ import { getRegion, getValueFromSearch } from "@utils/utils";
 import { useRegisterErrand } from "@api/errands";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import { Dropdown } from "@assets/icon";
+import CustomMixPanel from "@utils/mixpanel";
 
 type Inputs = {
   categoryId: number;
@@ -109,7 +110,15 @@ export default function RequestForm() {
                   transform: "translateY(-40%)",
                 }}
               />
-              <select {...register("categoryId", { required: true })}>
+              <select
+                onClick={() => {
+                  CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                    page: "요청하기",
+                    clickTarget: "카테고리",
+                  });
+                }}
+                {...register("categoryId", { required: true })}
+              >
                 <option value="" selected disabled>
                   카테고리를 선택해 주세요.
                 </option>
@@ -165,6 +174,12 @@ export default function RequestForm() {
                     ? messages[watchCategory].placeholder
                     : "세부사항을 10자 이상 입력해 주세요."
                 }
+                onClick={() => {
+                  CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                    page: "요청하기",
+                    clickTarget: "세부사항",
+                  });
+                }}
                 {...register("detail", {
                   required: true,
                   minLength: 10,
@@ -191,6 +206,12 @@ export default function RequestForm() {
             <input
               placeholder="금액을 입력해 주세요."
               type="number"
+              onClick={() => {
+                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                  page: "요청하기",
+                  clickTarget: "금액",
+                });
+              }}
               {...register("reward", { required: true })}
             />
           </div>
@@ -208,8 +229,14 @@ export default function RequestForm() {
           </p>
           <div className="section__content">
             <input
-              placeholder="상세주소를 입력해 주세요."
+              placeholder="심부름 장소를 입력해 주세요."
               type="text"
+              onClick={() => {
+                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                  page: "요청하기",
+                  clickTarget: "심부름 장소",
+                });
+              }}
               {...register("detailAddress", { required: true })}
             />
           </div>
@@ -228,6 +255,12 @@ export default function RequestForm() {
             <input
               placeholder="전화번호를 입력하세요."
               type="number"
+              onClick={() => {
+                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                  page: "요청하기",
+                  clickTarget: "전화번호",
+                });
+              }}
               {...register("phoneNumber", {
                 required: true,
                 pattern: PHONE_NUMBER_REGEX,
@@ -248,6 +281,10 @@ export default function RequestForm() {
           padding="1.7rem 0 4rem 0"
           onClick={() => {
             openModal("confirm");
+            CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+              page: "요청하기",
+              clickTarget: "심부름 요청하기"
+            });
           }}
         >
           심부름 요청하기

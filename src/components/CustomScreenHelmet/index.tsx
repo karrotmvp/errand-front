@@ -1,5 +1,7 @@
 import { Back, Close } from "@assets/icon";
+import useBack from "@hooks/useBack";
 import { ScreenHelmet, useNavigator } from "@karrotframe/navigator";
+import CustomMixPanel from "@utils/mixpanel";
 import { checkMobileType } from "@utils/utils";
 import { useLocation } from "react-router-dom";
 
@@ -33,11 +35,27 @@ const rightButtonStyle = {
   alignItems: "center",
 };
 
-const CustomBack = () => (
-  <div style={leftButtonStyle}>
-    <Back />
-  </div>
-);
+const CustomBack = () => {
+  const location = useLocation();
+  const handleMixpanle = () => {
+    if (location.pathname.includes("errand-request")) {
+      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, { page: "요청하기" });
+    }
+    if (location.pathname.includes("apply-form")) {
+      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, { page: "지원하기" });
+    }
+    if (location.pathname.includes("appliers")) {
+      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, { page: "지원자 목록" });
+    }
+  };
+  useBack(handleMixpanle, undefined);
+
+  return (
+    <div style={leftButtonStyle} onClick={handleMixpanle}>
+      <Back />
+    </div>
+  );
+};
 
 const CustomClose = () => {
   const { replace } = useNavigator();
