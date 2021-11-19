@@ -148,6 +148,7 @@ export const StickyFooter = styled.div<{ fullArea?: boolean }>`
       padding-bottom: 3.2rem;
     `}
   background: white;
+  border-top: 0.075rem solid ${({ theme }) => theme.color.grey7};
 `;
 
 export const Container = styled.div`

@@ -216,7 +216,7 @@ export default function RequestForm() {
           )}
           <div className="section__content">
             <input
-              placeholder="금액을 입력해 주세요."
+              placeholder="₩  금액을 입력해 주세요."
               type="number"
               onClick={() => {
                 CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {

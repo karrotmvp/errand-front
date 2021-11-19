@@ -26,6 +26,7 @@ import { useCallback } from "react";
 import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -297,7 +298,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               >
                 {data?.errand.images?.map((image) => (
                   <div className="errand-detail__image">
-                    <img src={image.url} alt="dummy" />
+                    <img src={image.url} alt="" />
                   </div>
                 ))}
               </Slider>
@@ -515,7 +516,19 @@ const renderPrivateData = (
     return <div>{data.errand.detailAddress}</div>;
   }
   if (data.errand.customerPhoneNumber && target === "customerPhoneNumber") {
-    return <div>{data.errand.customerPhoneNumber}</div>;
+    return (
+      <>
+        <div>{data.errand.customerPhoneNumber}</div>
+        <CopyToClipboard
+          text={data.errand.customerPhoneNumber ?? ""}
+          onCopy={() => {
+            console.log("copy!");
+          }}
+        >
+          <span>복사</span>
+        </CopyToClipboard>
+      </>
+    );
   }
 
   if (
