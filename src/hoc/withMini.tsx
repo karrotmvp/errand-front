@@ -1,4 +1,4 @@
-// import { reqeustLogin } from "@api/etc";
+import { reqeustLogin } from "@api/etc";
 import envs from "@config/dotenv";
 import mini from "@lib/mini";
 import { isLoginAtom } from "../store/user";
@@ -12,7 +12,7 @@ import { Gear, Me } from "@assets/icon";
 
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
-    const [isLogin] = useRecoilState(isLoginAtom);
+    const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
     const [isClosed, setIsClosed] = useState<boolean>(false);
     const [isSigned, setIsSigned] = useState<boolean>(() => {
       const codeParams = getValueFromSearch("code");
@@ -30,7 +30,7 @@ export default function withMini(Component: React.ElementType) {
       const codeParams = getValueFromSearch("code");
       const regionId = getValueFromSearch("region_id");
       const preload = getValueFromSearch("preload");
-      console.log("codeParams ", codeParams);
+
       if (preload !== "true" && !codeParams && regionId) {
         console.log("mini start preset!!");
         mini.startPreset({
@@ -51,7 +51,7 @@ export default function withMini(Component: React.ElementType) {
           `preload : ${preload}, codeParams : ${codeParams}, regionId : ${regionId} 중 하나가 비정상!`
         );
       }
-    }, []);
+    }, [login]);
 
     useEffect(() => {
       if (isClosed && !isSigned) {
@@ -66,12 +66,11 @@ export default function withMini(Component: React.ElementType) {
       }
       const result = checkAgreedUser();
       if (result) {
-        console.log("result : ", result);
-        // login(result.codeParams, result.regionId);
+        login(result.codeParams, result.regionId);
         return;
       }
       askAgreement();
-    }, [isLogin, askAgreement]);
+    }, [isLogin, askAgreement, login]);
 
     if (!isLogin) {
       return (
