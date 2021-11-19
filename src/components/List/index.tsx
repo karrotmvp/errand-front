@@ -5,6 +5,7 @@ import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 import NoData from "@components/Nodata";
 import { PullToRefresh } from "@karrotframe/pulltorefresh";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
+import CustomMixPanel from "@utils/mixpanel";
 
 type ListProps = {
   tabType: TabType;
@@ -29,6 +30,7 @@ export default function List({
   return (
     <PullToRefresh
       onPull={(dispose) => {
+        CustomMixPanel.track(CustomMixPanel.eventName.refresh);
         refetch().then(() => {
           dispose();
         });
@@ -40,7 +42,7 @@ export default function List({
             // TODO Loading..
             <li></li>
           ) : status === "error" ? (
-             // TODO Error..
+            // TODO Error..
             <li></li>
           ) : data?.pages[0].length === 0 ? (
             <NoData tabType={tabType} />

@@ -7,8 +7,6 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
-import ToolTip from "@components/ToolTip";
-import { useTooltip } from "@hooks/useTooltip";
 import { WithParamsProps } from "@hoc/withParams";
 import { useNavigator } from "@karrotframe/navigator";
 import { useSelectHelper } from "@api/errands";
@@ -16,7 +14,6 @@ import { useSelectHelper } from "@api/errands";
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
   const { isOpen, openModal, closeModal, innerMode } = useModal();
-  const [showTooltip, closeTooltip] = useTooltip("resume");
   const { pop } = useNavigator();
   const resumeStatus: ResumeStatus = specifyStatus(
     status,
@@ -56,15 +53,7 @@ export default function Resume({ helpId }: WithParamsProps) {
           <>
             <Profile {...resume.helper} />
             <div className="resume__phone">
-              <div>
-                전화번호
-                {showTooltip && resumeStatus === "customer-match" && (
-                  <ToolTip
-                    text="전화번호가 공개되었어요."
-                    closeTooltip={closeTooltip}
-                  />
-                )}
-              </div>
+              <div>전화번호</div>
               <div>{renderPhoneNumber(resume.phoneNumber)}</div>
             </div>
             <div className="resume__appeal">

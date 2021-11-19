@@ -14,8 +14,6 @@ import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
 import { getComparedTime } from "@utils/utils";
-import ToolTip from "@components/ToolTip";
-import { useTooltip } from "@hooks/useTooltip";
 import {
   getRefinedFromData,
   modalInfoFlagType,
@@ -27,11 +25,11 @@ import { ErrandDetailResponseBody } from "@type/response";
 import { useCallback } from "react";
 import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
+import CustomMixPanel from "@utils/mixpanel";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const { status, data } = useErrandDetail(errandId);
-  const [showTooltip, closeTooltip] = useTooltip("detail");
   const {
     color,
     statusText,
@@ -104,15 +102,31 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     }
     switch (buttonCallback) {
       case "moveToAppliers":
+        CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+          page: "심부름 상세",
+          clickTarget: "지원자 보기",
+        });
         moveToAppliers();
         break;
       case "moveToApplyForm":
+        CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+          page: "심부름 상세",
+          clickTarget: "지원하기",
+        });
         applyToErrand();
         break;
       case "moveToResume":
+        CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+          page: "심부름 상세",
+          clickTarget: "지원내역 보기",
+        });
         moveToResume();
         break;
       case "openConfirmModal":
+        CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+          page: "심부름 상세",
+          clickTarget: "심부름 완료",
+        });
         openModal("confirm");
         break;
       default:
@@ -141,7 +155,19 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         text: "삭제",
         confirm: {
           text: "삭제하시겠습니까?",
-          no: <button onClick={closeModal}>아니오</button>,
+          no: (
+            <button
+              onClick={() => {
+                CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+                  page: "심부름 상세",
+                  clickTarget: "삭제",
+                });
+                closeModal();
+              }}
+            >
+              아니오
+            </button>
+          ),
           yes: <button onClick={requestDeleteMyErrand}>삭제하기</button>,
         },
       },
@@ -155,7 +181,19 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         text: "지원취소",
         confirm: {
           text: "지원을 취소하시겠습니까?",
-          no: <button onClick={closeModal}>뒤로가기</button>,
+          no: (
+            <button
+              onClick={() => {
+                CustomMixPanel.track(CustomMixPanel.eventName.clickNoConfirm, {
+                  page: "심부름 상세",
+                  clickTarget: "지원취소",
+                });
+                closeModal();
+              }}
+            >
+              뒤로가기
+            </button>
+          ),
           yes: <button onClick={requestCancelApply}>취소하기</button>,
         },
       },
@@ -270,19 +308,11 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                   <div>{convertToKRW(data?.errand.reward ?? 0)}</div>
                 </div>
                 <div>
-                  <div>요청장소</div>
+                  <div>심부름 장소</div>
                   {renderPrivateData(data, "detailAddress")}
                 </div>
                 <div>
-                  <div>
-                    전화번호
-                    {showTooltip && (
-                      <ToolTip
-                        text="요청장소와 전화번호는 매칭된 상대에게만 보여요."
-                        closeTooltip={closeTooltip}
-                      />
-                    )}
-                  </div>
+                  <div>전화번호</div>
                   {renderPrivateData(data, "customerPhoneNumber")}
                 </div>
               </div>

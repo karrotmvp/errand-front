@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import styled from "@emotion/styled";
 import { BoxWrapper } from "../ImageBox";
 import { Loader, Plus } from "@assets/icon";
+import CustomMixPanel from "@utils/mixpanel";
 
 interface ImageAppenderProps {
   len: number;
@@ -38,7 +39,14 @@ export default function ImageAppender({
           />
         ) : (
           <>
-            <Plus className="appender__plus" />
+            <Plus
+              className="appender__plus"
+              onClick={() => {
+                CustomMixPanel.track("사진첨부 Input 클릭", {
+                  page: "요청하기",
+                });
+              }}
+            />
             <span>{len} / 10</span>
           </>
         )}

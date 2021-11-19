@@ -4,6 +4,7 @@ import { ResumePreview } from "@type/response";
 import Profile from "@components/Profile";
 import { Right } from "@assets/icon";
 import { useNavigator } from "@karrotframe/navigator";
+import CustomMixPanel from "@utils/mixpanel";
 
 type ApplyItemProps = {
   resumePreview: ResumePreview;
@@ -23,7 +24,15 @@ export default function ApplyItem({ resumePreview }: ApplyItemProps) {
     }
   };
   return (
-    <ApplyItemWrapper onClick={moveToResume}>
+    <ApplyItemWrapper
+      onClick={() => {
+        CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+          page: "지원자 목록",
+          clickTarget: "지원자 아이템",
+        });
+        moveToResume();
+      }}
+    >
       <div className="apply-item__profile">
         <Profile
           {...{ id, nickname, regionName, mannerTemp, profileImageUrl }}
