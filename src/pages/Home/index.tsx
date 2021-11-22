@@ -49,7 +49,7 @@ export default function Home() {
               </div>
             </div>
           </Container>
-          <div style={{ position: "relative", height: "100%" }}>
+          <div style={{ position: "relative", flex: "1" }}>
             <List tabType="main" isAppliable={isAppliable} />
           </div>
         </ContentWrapper>
@@ -153,6 +153,8 @@ const HomeWrapper = styled.main`
 const ContentWrapper = styled.div`
   height: 100%;
   overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
 `;
 
 export const RightAppender = (
