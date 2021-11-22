@@ -64,7 +64,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
   const mutationCompleteErrand = useCompleteErrand({
     onSuccess: () => {
       closeModal();
-      toast("고마워요!");
+      toast("🎉 수고했어요 🎉");
     },
     onError: () => {
       closeModal();

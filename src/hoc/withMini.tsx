@@ -14,7 +14,10 @@ export default function withMini(Component: React.ElementType) {
   return (props: any) => {
     const [isLogin, setIsLogin] = useRecoilState(isLoginAtom);
     const [isClosed, setIsClosed] = useState<boolean>(false);
-
+    const [isSigned, setIsSigned] = useState<boolean>(() => {
+      const codeParams = getValueFromSearch("code");
+      return Boolean(codeParams);
+    });
     const login = useCallback(
       async (code: string, regionId: string) => {
         const res = await reqeustLogin(code, regionId);
@@ -29,11 +32,13 @@ export default function withMini(Component: React.ElementType) {
       const preload = getValueFromSearch("preload");
 
       if (preload !== "true" && !codeParams && regionId) {
+        console.log("mini start preset!!");
         mini.startPreset({
           preset: envs.MINI_PRESET_URL || "",
           params: { appId: envs.APP_ID || "" },
           onSuccess(result: { code: string }) {
             if (result && result.code) {
+              setIsSigned(true);
               login(result.code, regionId);
             }
           },
@@ -49,7 +54,7 @@ export default function withMini(Component: React.ElementType) {
     }, [login]);
 
     useEffect(() => {
-      if (isClosed && !isLogin) {
+      if (isClosed && !isSigned) {
         mini.close();
       }
       // eslint-disable-next-line react-hooks/exhaustive-deps
