@@ -57,6 +57,8 @@ type Customer = {
 export type Category = {
   id: number;
   name: string;
+  subscribe?: string;
+  imageUrl?: string;
 };
 
 export type Resume = {

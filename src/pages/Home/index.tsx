@@ -10,7 +10,7 @@ import List from "@components/List";
 import CustomMixPanel from "@utils/mixpanel";
 
 export default function Home() {
-  const moveToApplyForm = usePush("/errand-request");
+  const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const region = getRegion();
 
@@ -56,7 +56,7 @@ export default function Home() {
         <button
           className="home__fixed-fab"
           onClick={() => {
-            moveToApplyForm();
+            moveToErrandRequestForm();
             CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
               page: "홈",
               clickTarget: "요청하기",

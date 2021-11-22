@@ -31,13 +31,16 @@ type Inputs = {
   phoneNumber: string;
 };
 
-export default function RequestForm() {
+export default function RequestForm({ categoryId }: { categoryId?: string }) {
   const {
     register,
     handleSubmit,
     watch,
     formState: { errors, isValid },
-  } = useForm<Inputs>({ mode: "onChange" });
+  } = useForm<Inputs>({
+    mode: "onChange",
+    defaultValues: { categoryId: Number(categoryId) },
+  });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchCategory = watch("categoryId");
   const watchTextArea = watch("detail");
@@ -84,6 +87,7 @@ export default function RequestForm() {
     formData.append("detailAddress", detailAddress);
     formData.append("phoneNumber", phoneNumber);
     formData.append("regionId", regionId);
+
     mutationRegisterErrand.mutate(formData);
   };
 
@@ -131,7 +135,7 @@ export default function RequestForm() {
                 }}
                 {...register("categoryId", { required: true })}
               >
-                <option value="" selected disabled>
+                <option value="0" disabled>
                   카테고리를 선택해 주세요.
                 </option>
                 <option value="1">벌레잡기</option>

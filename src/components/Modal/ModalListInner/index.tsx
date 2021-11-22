@@ -15,7 +15,7 @@ export default function ModalListInner({
   return (
     <ModalContentListInnerWrapper>
       <div className="modal-inner__list">
-        {list.map((content) => (
+        {list.map((content, index) => (
           <div
             className="modal-inner__item top-border"
             onClick={() => {
@@ -23,6 +23,7 @@ export default function ModalListInner({
                 openConfirmModal(content.confirm);
               }
             }}
+            key={index}
           >
             {content.text}
           </div>

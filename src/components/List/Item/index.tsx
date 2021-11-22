@@ -60,7 +60,7 @@ const Thumbnail = styled.div<{ url: string }>`
 
 const ItemWrapper = styled.li`
   padding: 1.8rem 0;
-  & + & {
+  &:not(:first-child) {
     border-top: 0.15rem solid ${({ theme }) => theme.color.grey8};
   }
   .item-box {

@@ -22,6 +22,7 @@ import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
 import { useCallback } from "react";
 import mini from "@lib/mini";
+import Feed from "@pages/Feed";
 
 // initMSW();
 
@@ -45,6 +46,7 @@ function App() {
         onDepthChange={onDepthChange}
       >
         <Screen path="/" component={withMini(Home)} />
+        <Screen path="/feed" component={Feed} />
         <Screen
           path="/errands/:errandId"
           component={withParams(withMini(ErrandDetail), "errandId")}
@@ -62,7 +64,10 @@ function App() {
           component={withQueryParams(ApplyForm, "errandId")}
         />
         <Screen path="/alarm" component={Alarm} />
-        <Screen path="/errand-request" component={ErrandRequest} />
+        <Screen
+          path="/errand-request"
+          component={withQueryParams(ErrandRequest, "categoryId")}
+        />
         <Screen path="/my" component={My} />
         <Screen path="/404" component={ErrorPage} />
       </Navigator>
