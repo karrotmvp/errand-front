@@ -11,11 +11,11 @@ type NoDataProps = {
 
 export default function NoData({ tabType }: NoDataProps) {
   const { pop } = useNavigator();
-  const moveToApplyForm = usePush("/errand-request");
+  const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
 
   const handleClick = () => {
     if (tabType === "main" || tabType === "request") {
-      moveToApplyForm();
+      moveToErrandRequestForm();
     } else {
       pop().send({ isAppliable: true });
     }
