@@ -77,7 +77,7 @@ const ApplyItemWrapper = styled.div`
     }
   }
 
-  & + & {
+  &:not(:first-child) {
     margin-top: 0.1rem solid black;
   }
 `;
