@@ -10,3 +10,4 @@ export { ReactComponent as DefaultProfile } from "./default_profile.svg";
 export { ReactComponent as Right } from "./right.svg";
 export { ReactComponent as Dropdown } from "./dropdown.svg";
 export { ReactComponent as Loader } from "./loader.svg";
+export { ReactComponent as Copy } from "./copy.svg";

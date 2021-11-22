@@ -8,7 +8,7 @@ import {
   useErrandDetail,
 } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
-import { Meatballs } from "@assets/icon";
+import { Copy, Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
@@ -27,6 +27,7 @@ import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { toast } from "@components/Toast/Index";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -45,6 +46,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     onSuccess: () => {
       closeModal();
       replace("/");
+      toast("심부름이 삭제되었어요");
     },
     onError: () => {
       closeModal();
@@ -53,6 +55,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
   const mutationCancelApply = useCancelAPply({
     onSuccess: () => {
       closeModal();
+      toast("지원이 취소되었어요");
     },
     onError: () => {
       closeModal();
@@ -61,6 +64,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
   const mutationCompleteErrand = useCompleteErrand({
     onSuccess: () => {
       closeModal();
+      toast("🎉 수고했어요 🎉");
     },
     onError: () => {
       closeModal();
@@ -507,7 +511,9 @@ const ErrandDetailWrapper = styled.div`
     }
   }
 `;
+
 type privateDataType = "detailAddress" | "customerPhoneNumber";
+
 const renderPrivateData = (
   data: ErrandDetailResponseBody,
   target: privateDataType
@@ -517,7 +523,11 @@ const renderPrivateData = (
   }
   if (data.errand.customerPhoneNumber && target === "customerPhoneNumber") {
     return (
-      <>
+      <div
+        style={{
+          display: "flex",
+        }}
+      >
         <div>{data.errand.customerPhoneNumber}</div>
         <CopyToClipboard
           text={data.errand.customerPhoneNumber ?? ""}
@@ -525,9 +535,15 @@ const renderPrivateData = (
             console.log("copy!");
           }}
         >
-          <span>복사</span>
+          <span
+            style={{
+              marginLeft: "0.5rem",
+            }}
+          >
+            <Copy />
+          </span>
         </CopyToClipboard>
-      </>
+      </div>
     );
   }
 

@@ -1,10 +1,10 @@
 import styled from "@emotion/styled";
-import { useEffect, useMemo, useState } from "react";
-import { createPortal } from "react-dom";
+import { useEffect, useState } from "react";
 import ModalConfirmInner from "./ModalConfirmInner.tsx";
 import ModalListInner from "./ModalListInner";
 import ModalInnerBox from "./ModalInnerBox";
 import useBack from "@hooks/useBack";
+import Portal from "@components/Portal";
 
 export type Confirm = {
   text: React.ReactNode;
@@ -55,7 +55,7 @@ export default function Modal({
   }, []);
   useBack(closeModal);
   return (
-    <Portal>
+    <Portal target="modal-root">
       <ModalOverlay />
       <ModalInnerBox innerMode={innerMode} closeModal={closeModal}>
         {innerMode === "list" && list ? (
@@ -86,17 +86,3 @@ const ModalOverlay = styled.div`
   background-color: rgba(0, 0, 0, 0.3);
   z-index: 999;
 `;
-
-type PortalProps = {
-  children: React.ReactNode;
-};
-
-const Portal = ({ children }: PortalProps) => {
-  const rootElement = useMemo(() => document.getElementById("modal-root"), []);
-
-  if (!rootElement) {
-    throw new Error("없음");
-  }
-
-  return createPortal(children, rootElement);
-};

@@ -43,6 +43,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     onSuccess: (helpId: string) => {
       closeModal();
       replace(`/helps/${helpId}`);
+      alert("지원이 완료되었어요");
     },
     onError: () => {
       console.log("fail");
