@@ -532,7 +532,7 @@ const renderPrivateData = (
         <CopyToClipboard
           text={data.errand.customerPhoneNumber ?? ""}
           onCopy={() => {
-            console.log("copy!");
+            toast("전화번호가 복사되었어요.");
           }}
         >
           <span
