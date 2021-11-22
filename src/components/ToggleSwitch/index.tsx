@@ -29,7 +29,7 @@ export default function ToggleSwitch({
       callback(toggle);
       refToggle.current = toggle;
     },
-    1000,
+    500,
     [toggle]
   );
 
