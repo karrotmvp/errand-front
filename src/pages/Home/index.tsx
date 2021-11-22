@@ -49,7 +49,7 @@ export default function Home() {
               </div>
             </div>
           </Container>
-          <div style={{ position: "relative", flex: "1" }}>
+          <div className="home__list-wrapper">
             <List tabType="main" isAppliable={isAppliable} />
           </div>
         </ContentWrapper>
@@ -133,6 +133,13 @@ const HomeWrapper = styled.main`
     &__container {
       ${({ theme }) => theme.container}
     }
+
+    &__list-wrapper {
+      position: relative;
+      height: 100%;
+      overflow: hidden;
+    }
+
     &__fixed-fab {
       position: absolute;
       bottom: 4rem;
