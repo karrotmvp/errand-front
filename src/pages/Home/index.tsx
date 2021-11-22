@@ -49,7 +49,7 @@ export default function Home() {
               </div>
             </div>
           </Container>
-          <div style={{ position: "relative" }}>
+          <div style={{ position: "relative", height: "100%" }}>
             <List tabType="main" isAppliable={isAppliable} />
           </div>
         </ContentWrapper>

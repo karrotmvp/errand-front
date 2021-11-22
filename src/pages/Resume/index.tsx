@@ -15,6 +15,7 @@ import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
 import CopyToClipboard from "react-copy-to-clipboard";
 import { Copy } from "@assets/icon";
+import { toast } from "@components/Toast/Index";
 
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
@@ -183,7 +184,7 @@ const renderPhoneNumber = (phoneNumber?: string) => {
       <CopyToClipboard
         text={phoneNumber}
         onCopy={() => {
-          alert("전화번호가 복사되었어요");
+          toast("전화번호가 복사되었어요");
         }}
       >
         <span

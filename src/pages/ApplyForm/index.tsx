@@ -5,6 +5,7 @@ import Button from "@components/Button";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
 import Profile from "@components/Profile";
+import { toast } from "@components/Toast/Index";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
@@ -43,7 +44,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     onSuccess: (helpId: string) => {
       closeModal();
       replace(`/helps/${helpId}`);
-      alert("지원이 완료되었어요");
+      toast("지원이 완료되었어요");
     },
     onError: () => {
       console.log("fail");
