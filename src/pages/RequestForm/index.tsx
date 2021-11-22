@@ -21,6 +21,7 @@ import { useRegisterErrand } from "@api/errands";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import { Dropdown } from "@assets/icon";
 import CustomMixPanel from "@utils/mixpanel";
+import { toast } from "@components/Toast/Index";
 
 type Inputs = {
   categoryId: number;
@@ -52,6 +53,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
     onSuccess: (id: string) => {
       closeModal();
       replace(`/errands/${id}`);
+      toast("요청이 완료되었어요");
     },
   });
   const modalInfo: ModalInfoType = {
@@ -213,10 +215,12 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
               <ErrorText>심부름 금액을 입력해 주세요.</ErrorText>
             )}
           </div>
-          {watchCategory && (
+          {watchCategory ? (
             <p className="section__subscribe">
               {messages[watchCategory].price}
             </p>
+          ) : (
+            ""
           )}
           <div className="section__content">
             <input
@@ -294,7 +298,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
           color="primary"
           fullWidth
           disabled={!isValid}
-          padding="1.7rem 0 4rem 0"
+          padding="1.8rem 0"
           onClick={() => {
             openModal("confirm");
             CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {

@@ -13,6 +13,8 @@ import { useSelectHelper } from "@api/errands";
 import CustomMixPanel from "@utils/mixpanel";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
+import CopyToClipboard from "react-copy-to-clipboard";
+import { Copy } from "@assets/icon";
 
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
@@ -73,12 +75,12 @@ export default function Resume({ helpId }: WithParamsProps) {
                 전화번호
                 {showTooltip && resumeStatus === "customer-match" && (
                   <ToolTip
-                    text="전화번호가 공개되었어요."
+                    text="전화번호가 공개되었어요"
                     closeTooltip={closeTooltip}
                   />
                 )}
               </div>
-              <div>{renderPhoneNumber(resume.phoneNumber)}</div>
+              {renderPhoneNumber(resume.phoneNumber)}
             </div>
             <div className="resume__appeal">
               <p>{resume?.appeal}</p>
@@ -168,8 +170,30 @@ const specifyStatus = (
 
 const renderPhoneNumber = (phoneNumber?: string) => {
   if (!phoneNumber) {
-    return "매칭 시 공개돼요";
+    return <div>매칭 시 공개돼요</div>;
   }
 
-  return phoneNumber;
+  return (
+    <div
+      style={{
+        display: "flex",
+      }}
+    >
+      <div>{phoneNumber}</div>
+      <CopyToClipboard
+        text={phoneNumber}
+        onCopy={() => {
+          alert("전화번호가 복사되었어요");
+        }}
+      >
+        <span
+          style={{
+            marginLeft: "0.5rem",
+          }}
+        >
+          <Copy />
+        </span>
+      </CopyToClipboard>
+    </div>
+  );
 };
