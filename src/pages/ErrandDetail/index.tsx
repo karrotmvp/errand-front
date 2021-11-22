@@ -297,7 +297,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                 }}
               >
                 {data?.errand.images?.map((image) => (
-                  <div className="errand-detail__image">
+                  <div className="errand-detail__image" key={image.id}>
                     <img src={image.url} alt="" />
                   </div>
                 ))}

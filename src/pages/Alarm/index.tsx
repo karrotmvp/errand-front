@@ -43,12 +43,11 @@ export default function Alarm() {
             {status !== "loading" &&
               data &&
               data.categoryStatusList.map((row) => (
-                <AlarmRow>
+                <AlarmRow key={row.categoryId}>
                   <p>{row.name}</p>
                   <ToggleSwitch
                     callback={toggleCurry(toggleCategoryAlarm, row.categoryId)}
                     defaultValue={row.status}
-                    key={row.categoryId}
                   />
                 </AlarmRow>
               ))}
@@ -60,7 +59,7 @@ export default function Alarm() {
             <h3>지원자 알림</h3>
           </div>
           <div className="section__subscribe">
-            심부름에 새로운 지원자가 들록될 때마다 알림을 받아요.
+            심부름에 새로운 지원자가 등록될 때마다 알림을 받아요.
           </div>
           <div className="section__content">
             {status !== "loading" && data && (
@@ -89,7 +88,7 @@ const AlarmRow = styled.div`
   display: flex;
   justify-content: space-between;
 
-  & + & {
+  &:not(:first-child) {
     margin-top: 2rem;
   }
 `;
