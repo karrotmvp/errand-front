@@ -337,6 +337,11 @@ type Message = {
 };
 
 const messages: { [key: number]: Message } = {
+  0: {
+    name: "카테고리를 선택해주세요.",
+    price: <div></div>,
+    placeholder: "세부사항을 10자 이상 입력해 주세요.",
+  },
   1: {
     name: "벌레잡기",
     price: (
