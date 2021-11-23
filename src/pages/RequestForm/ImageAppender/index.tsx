@@ -44,6 +44,7 @@ export default function ImageAppender({
               onClick={() => {
                 CustomMixPanel.track("사진첨부 Input 클릭", {
                   page: "요청하기",
+                  clickTarget: '사진 추가'
                 });
               }}
             />

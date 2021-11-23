@@ -204,7 +204,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
             openModal("confirm");
             CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
               page: "지원하기",
-              clickTarget: "심부름 요청하기",
+              clickTarget: "지원하기",
             });
           }}
         >

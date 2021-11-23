@@ -229,7 +229,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
               onClick={() => {
                 CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                   page: "요청하기",
-                  clickTarget: "금액",
+                  clickTarget: "심부름 금액",
                 });
               }}
               {...register("reward", { required: true })}

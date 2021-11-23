@@ -109,7 +109,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       case "moveToAppliers":
         CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
           page: "심부름 상세",
-          clickTarget: "지원자 보기",
+          clickTarget: "지원자 선택하기",
         });
         moveToAppliers();
         break;
@@ -123,7 +123,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       case "moveToResume":
         CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
           page: "심부름 상세",
-          clickTarget: "지원내역 보기",
+          clickTarget: "지원자 정보 보기",
         });
         moveToResume();
         break;
