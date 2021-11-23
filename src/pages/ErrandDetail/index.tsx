@@ -97,7 +97,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     if (res.canApply) {
       moveToApplyForm();
     } else {
-      console.log("지원 불가");
+      toast("지원이 불가능해요");
     }
   };
 
