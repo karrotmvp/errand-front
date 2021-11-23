@@ -20,7 +20,7 @@ export default function ErrorPage() {
           buttonType="outline"
           size="small"
           color="primary"
-          width="21rem"
+          minWidth="21rem"
           onClick={() => pop()}
           rounded
         >

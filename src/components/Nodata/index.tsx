@@ -33,7 +33,7 @@ export default function NoData({ tabType }: NoDataProps) {
         size="small"
         buttonType="outline"
         color="primary"
-        width="21rem"
+        minWidth="21rem"
         rounded
         onClick={handleClick}
       >

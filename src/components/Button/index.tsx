@@ -8,7 +8,7 @@ export interface ButtonProps extends HTMLAttributes<HTMLButtonElement> {
   fullWidth?: boolean;
   children: React.ReactNode;
   form?: string;
-  width?: string;
+  minWidth?: string;
   rounded?: boolean;
   size?: "small" | "medium";
   disabled?: boolean;
@@ -47,8 +47,8 @@ const ButtonWrapper = styled.button<ButtonProps>`
       : "black";
   }};
 
-  width: ${({ fullWidth, width }) => {
-    return fullWidth ? "100%" : width ?? "auto";
+  min-width: ${({ fullWidth, minWidth }) => {
+    return fullWidth ? "100%" : minWidth ?? "auto";
   }};
 
   ${({ buttonType, color, theme, disabled }) =>
@@ -57,6 +57,7 @@ const ButtonWrapper = styled.button<ButtonProps>`
       color: ${color === "primary" ? "white" : "black"};
       background: ${disabled ? theme.color.grey6 : getColor(color, theme)};
     `}
+
   ${({ buttonType, color, theme }) =>
     buttonType === "outline" &&
     css`
