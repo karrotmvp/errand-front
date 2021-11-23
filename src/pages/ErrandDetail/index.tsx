@@ -339,7 +339,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
             </div>
           </>
         ) : (
-          <div>로딩 중</div>
+          <div></div>
         )}
       </ErrandDetailWrapper>
       {isOpen && modalInfo && innerMode && (
@@ -455,7 +455,6 @@ const ErrandDetailWrapper = styled.div`
     }
     &__contents {
       background: white;
-      border-radius: 1.3rem;
       padding: 2.2rem 0;
       ${({ theme }) => theme.container}
       transform: translateY(-2rem);
@@ -526,6 +525,7 @@ const renderPrivateData = (
       <div
         style={{
           display: "flex",
+          alignItems: "center",
         }}
       >
         <div>{data.errand.customerPhoneNumber}</div>
@@ -535,13 +535,7 @@ const renderPrivateData = (
             toast("전화번호가 복사되었어요.");
           }}
         >
-          <span
-            style={{
-              marginLeft: "0.5rem",
-            }}
-          >
-            <Copy />
-          </span>
+          <Copy style={{ marginLeft: "0.5rem" }} />
         </CopyToClipboard>
       </div>
     );

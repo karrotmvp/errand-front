@@ -187,13 +187,7 @@ const renderPhoneNumber = (phoneNumber?: string) => {
           toast("전화번호가 복사되었어요");
         }}
       >
-        <span
-          style={{
-            marginLeft: "0.5rem",
-          }}
-        >
-          <Copy />
-        </span>
+        <Copy style={{ marginLeft: "0.5rem" }} />
       </CopyToClipboard>
     </div>
   );

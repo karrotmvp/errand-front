@@ -198,7 +198,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
           buttonType="contained"
           color="primary"
           fullWidth
-          padding="1.7rem 0 4rem 0"
+          padding="1.8rem 0"
           disabled={!isValid}
           onClick={() => {
             openModal("confirm");
