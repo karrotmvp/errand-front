@@ -26,7 +26,6 @@ export default function List({
     fetchTriggerElement,
     refetch,
   } = useInfiniteScroll(tabType, activeTabKey ?? "", isAppliable);
-
   return (
     <PullToRefresh
       onPull={(dispose) => {

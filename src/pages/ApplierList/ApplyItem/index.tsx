@@ -47,8 +47,7 @@ export default function ApplyItem({ resumePreview }: ApplyItemProps) {
 }
 
 const ApplyItemWrapper = styled.div`
-  padding: 2.5rem;
-  ${({ theme }) => theme.container}
+  padding: 2.5rem 0;
 
   .apply-item {
     &__profile {
@@ -78,6 +77,6 @@ const ApplyItemWrapper = styled.div`
   }
 
   &:not(:first-child) {
-    margin-top: 0.1rem solid black;
+    border-top: 0.1rem solid ${({ theme }) => theme.color.grey7};
   }
 `;

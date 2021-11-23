@@ -28,4 +28,6 @@ export default function ApplierList({ errandId }: WithParamsProps) {
   );
 }
 
-const ApplyListWrapper = styled.div``;
+const ApplyListWrapper = styled.div`
+  ${({ theme }) => theme.container}
+`;

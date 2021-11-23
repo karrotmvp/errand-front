@@ -87,7 +87,6 @@ const AlarmRow = styled.div`
   ${({ theme }) => theme.font("large", "regular")}
   display: flex;
   justify-content: space-between;
-
   &:not(:first-child) {
     margin-top: 2rem;
   }
