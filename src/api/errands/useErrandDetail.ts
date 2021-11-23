@@ -11,7 +11,9 @@ const getErrandDetail = async (
 };
 
 const useErrandDetail = (errandId: string) => {
-  return useQuery([KEYS.ERRND_DETAIL], () => getErrandDetail(errandId));
+  return useQuery([KEYS.ERRND_DETAIL], () => getErrandDetail(errandId), {
+    cacheTime: 0,
+  });
 };
 
 export default useErrandDetail;
