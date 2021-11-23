@@ -30,6 +30,9 @@ export default function ImageAppender({
       <label htmlFor="input__file">
         {isUploading ? (
           <Loader
+            width={50}
+            height={50}
+            fill="#DCDCDC"
             className="appender__loader"
             onClick={(e) => {
               e.preventDefault();
@@ -44,7 +47,7 @@ export default function ImageAppender({
               onClick={() => {
                 CustomMixPanel.track("사진첨부 Input 클릭", {
                   page: "요청하기",
-                  clickTarget: '사진 추가'
+                  clickTarget: "사진 추가",
                 });
               }}
             />

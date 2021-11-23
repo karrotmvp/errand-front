@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import Sample from "@assets/images/sample.jpg";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { AppenderWrapper, Title } from "@pages/Home";
-import { Gear, Me } from "@assets/icon";
+import { Gear, Loader, Me } from "@assets/icon";
 
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
@@ -18,10 +18,18 @@ export default function withMini(Component: React.ElementType) {
       const codeParams = getValueFromSearch("code");
       return Boolean(codeParams);
     });
+    const [isLoading, setIsLoading] = useState<boolean>(false);
     const login = useCallback(
       async (code: string, regionId: string) => {
-        const res = await reqeustLogin(code, regionId);
-        setIsLogin(res === "OK");
+        try {
+          setIsLoading(true);
+          const res = await reqeustLogin(code, regionId);
+          setIsLogin(res === "OK");
+        } catch {
+          console.log("catch");
+        } finally {
+          setIsLoading(false);
+        }
       },
       [setIsLogin]
     );
@@ -74,7 +82,15 @@ export default function withMini(Component: React.ElementType) {
 
     if (!isLogin) {
       return (
-        <div style={{ width: "100%", height: "100%" }}>
+        <div
+          style={{
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <CustomScreenHelmet
             title={
               <Title>
@@ -93,7 +109,13 @@ export default function withMini(Component: React.ElementType) {
               </AppenderWrapper>
             }
           />
-          <img style={{ width: "100%" }} src={Sample} alt="sample" />
+          {isLoading ? (
+            <Loader width={70} height={70} fill="#FF7E36" />
+          ) : (
+            <>
+              <img style={{ width: "100%" }} src={Sample} alt="sample" />
+            </>
+          )}
         </div>
       );
     }
