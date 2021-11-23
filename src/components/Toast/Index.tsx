@@ -77,13 +77,12 @@ const AlertWrapper = styled.div`
   ${({ theme }) => theme.container}
 
   .alert__message {
-    padding: 1.5rem;
+    padding: 1.3rem;
     width: 100%;
     text-align: center;
     margin: auto;
     background-color: #333333;
     ${({ theme }) => theme.font("medium", "regular")}
-    font-size: 1.8rem;
     color: white;
     border-radius: 0.8rem;
     opacity: 0.8;
