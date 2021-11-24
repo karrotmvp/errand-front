@@ -40,7 +40,7 @@ export const SectionWrapper = styled.div<{ isError?: boolean }>`
     color: ${({ theme }) => theme.color.grey3};
   }
 
-  input,
+  input:not(.price),
   select {
     border: 0.15rem solid
       ${({ theme, isError }) =>
@@ -151,6 +151,40 @@ export const StickyFooter = styled.div<{ fullArea?: boolean }>`
 
 export const Container = styled.div`
   ${({ theme }) => theme.container}
+`;
+
+export const PriceInput = styled.div<{ isError?: boolean }>`
+  border: 0.15rem solid
+    ${({ theme, isError }) => (isError ? theme.color.fail : theme.color.grey6)};
+
+  ${({ theme }) => css`
+    ${theme.font("large", "regular")}
+    border-radius: 1rem;
+  `}
+
+  padding: 1.3rem 1.8rem;
+
+  position: relative;
+  display: flex;
+
+  &::before {
+    color: ${({ theme }) => theme.color.grey4};
+    content: "₩";
+    margin-right: 0.6rem;
+  }
+
+  &:focus {
+    border: 2px solid black;
+  }
+
+  input {
+    flex: 1;
+    padding-right: 1rem;
+    &::placeholder {
+      ${({ theme }) => theme.font("large", "regular")}
+      color: ${({ theme }) => theme.color.grey4};
+    }
+  }
 `;
 
 export const TextAreaWrapper = styled.div<{

@@ -67,7 +67,7 @@ function App() {
         <Screen path="/alarm" component={Alarm} />
         <Screen
           path="/errand-request"
-          component={withQueryParams(ErrandRequest, "categoryId")}
+          component={withMini(withQueryParams(ErrandRequest, "categoryId"))}
         />
         <Screen path="/my" component={My} />
         <Screen path="/404" component={ErrorPage} />
