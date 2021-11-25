@@ -34,7 +34,7 @@ const getMainErrandPreviews = async ({
   );
   return data;
 };
-
+                                                                                     
 const getAppliableErrandPreviews = async ({
   pageParam = null,
 }): Promise<ErrandPreviewResponseBody[]> => {
