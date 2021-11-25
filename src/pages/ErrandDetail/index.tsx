@@ -40,12 +40,16 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     modalInfoFlag = "noModal",
     buttonCallback,
   } = getRefinedFromData(data);
-  const { push, replace } = useNavigator();
+  const { push, replace, pop } = useNavigator();
 
   const mutationDeleteErrand = useDeleteErrand({
     onSuccess: () => {
       closeModal();
-      replace("/");
+      if (localStorage.getItem("depth") === "0") {
+        replace("/");
+      } else {
+        pop();
+      }
       toast("심부름이 삭제되었어요");
     },
     onError: () => {
