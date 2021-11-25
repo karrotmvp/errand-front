@@ -37,7 +37,7 @@ const fetchWrap = async ({
     return data;
   } catch (error) {
     console.log("에러 터짐요~~");
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
     throw new Error("API Error");
   }
 };
