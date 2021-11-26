@@ -177,6 +177,7 @@ const renderPhoneNumber = (phoneNumber?: string) => {
   return (
     <div
       style={{
+        alignItems: "center",
         display: "flex",
       }}
     >
