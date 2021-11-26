@@ -4,6 +4,7 @@ import { TabType } from "@type/client";
 import usePush from "@hooks/usePush";
 import NodataImage from "@assets/images/no-data.png";
 import { useNavigator } from "@karrotframe/navigator";
+import CustomMixPanel from "@utils/mixpanel";
 
 type NoDataProps = {
   tabType: TabType;
@@ -15,9 +16,16 @@ export default function NoData({ tabType }: NoDataProps) {
 
   const handleClick = () => {
     if (tabType === "main" || tabType === "request") {
+      CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+        page: tabType === "main" ? "홈" : "마이",
+      });
       moveToErrandRequestForm();
     } else {
       pop().send({ isAppliable: true });
+      CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+        page: "마이",
+        clickTarget: '지원 가능한 심부름 보러가기'
+      });
     }
   };
 
