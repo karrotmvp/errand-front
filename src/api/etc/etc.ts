@@ -15,7 +15,10 @@ export const reqeustLogin = async (code: string, regionId: string) => {
     localStorage.removeItem("region");
     localStorage.setItem("region", region.name);
 
-    if (data.userId) CustomMixPanel.setUserId(String(data.userId));
+    if (data.userId) {
+      CustomMixPanel.setUserId(String(data.userId));
+      CustomMixPanel.track(CustomMixPanel.eventName.login);
+    }
 
     return status;
   } else {
