@@ -14,6 +14,8 @@ import {
   My,
   Resume,
   ApplierList,
+  FeedRequestForm,
+  FeedErrandDetail,
 } from "./pages";
 import { checkMobileType } from "@utils/utils";
 import withMini from "@hoc/withMini";
@@ -47,7 +49,6 @@ function App() {
         onDepthChange={onDepthChange}
       >
         <Screen path="/" component={withMini(Home)} />
-        {/* <Screen path="/" component={Feed} /> */}
         <Screen
           path="/errands/:errandId"
           component={withParams(withMini(ErrandDetail), "errandId")}
@@ -71,6 +72,15 @@ function App() {
         />
         <Screen path="/my" component={My} />
         <Screen path="/404" component={ErrorPage} />
+        <Screen
+          path="/feed/errand-request"
+          component={withMini(withQueryParams(FeedRequestForm, "categoryId"))}
+        />
+        <Screen
+          path="/feed/errands/:errandId"
+          component={withParams(withMini(FeedErrandDetail), "errandId")}
+        />
+        '
       </Navigator>
       <Toast />
     </ThemeProvider>
