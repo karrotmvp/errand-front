@@ -14,8 +14,6 @@ import {
   My,
   Resume,
   ApplierList,
-  FeedRequestForm,
-  FeedErrandDetail,
 } from "./pages";
 import { checkMobileType, checkSubScribe } from "@utils/utils";
 import withMini from "@hoc/withMini";
@@ -23,7 +21,6 @@ import { withParams } from "@hoc/withParams";
 import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
 import { useCallback } from "react";
-// import Feed from "@pages/Feed";
 import Toast from "@components/Toast/Index";
 
 // initMSW();
@@ -69,15 +66,6 @@ function App() {
         />
         <Screen path="/my" component={My} />
         <Screen path="/404" component={ErrorPage} />
-        <Screen
-          path="/feed/errand-request"
-          component={withMini(withQueryParams(FeedRequestForm, "categoryId"))}
-        />
-        <Screen
-          path="/feed/errands/:errandId"
-          component={withParams(withMini(FeedErrandDetail), "errandId")}
-        />
-        '
       </Navigator>
       <Toast />
     </ThemeProvider>
