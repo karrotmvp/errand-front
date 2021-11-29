@@ -17,13 +17,12 @@ import {
   FeedRequestForm,
   FeedErrandDetail,
 } from "./pages";
-import { checkMobileType } from "@utils/utils";
+import { checkMobileType, checkSubScribe } from "@utils/utils";
 import withMini from "@hoc/withMini";
 import { withParams } from "@hoc/withParams";
 import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
 import { useCallback } from "react";
-import mini from "@lib/mini";
 // import Feed from "@pages/Feed";
 import Toast from "@components/Toast/Index";
 
@@ -43,9 +42,7 @@ function App() {
       <Navigator
         theme={checkMobileType()}
         className={NavigatorStyle}
-        onClose={() => {
-          mini.close();
-        }}
+        onClose={checkSubScribe}
         onDepthChange={onDepthChange}
       >
         <Screen path="/" component={withMini(Home)} />
