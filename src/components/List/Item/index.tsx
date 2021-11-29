@@ -5,6 +5,7 @@ import usePush from "@hooks/usePush";
 import { getComparedTime } from "@utils/utils";
 import { DEFAULT_THUMBNAIL } from "@constant/default";
 import { getRefinedFromData } from "@utils/getRefinedFromData";
+import CustomMixPanel from "@utils/mixpanel";
 
 type ItemProps = {
   item: ErrandPreviewResponseBody;
@@ -17,7 +18,15 @@ export default function Item({ item }: ItemProps) {
   return (
     <>
       <ItemWrapper>
-        <div className="item-box" onClick={moveTo}>
+        <div
+          className="item-box"
+          onClick={() => {
+            CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+              clickTarget: `${errand.id} 상세 페이지로 이동`,
+            });
+            moveTo();
+          }}
+        >
           <Thumbnail url={errand.thumbnailUrl ?? DEFAULT_THUMBNAIL} />
           <div className="item-info">
             <div className="item-info__detail">{errand.detail}</div>

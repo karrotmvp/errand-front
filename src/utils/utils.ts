@@ -80,7 +80,7 @@ export const checkSubScribe = () => {
     return;
   }
   mini.startPreset({
-    preset: envs.MINI_PRESET_URL || "",
+    preset: envs.MINI_SUBSCRIBE_PRESET_URL || "",
     params: { appId: envs.APP_ID || "" },
     onSuccess(result) {
       if (result.ok) {
