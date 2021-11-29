@@ -22,7 +22,8 @@ export default function Item({ item }: ItemProps) {
           className="item-box"
           onClick={() => {
             CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
-              clickTarget: `${errand.id} 상세 페이지로 이동`,
+              clickTarget: "상세 페이지로 이동",
+              detailId: errand.id,
             });
             moveTo();
           }}
