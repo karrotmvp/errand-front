@@ -53,7 +53,8 @@ export default function Modal({
       window.scrollTo(0, parseInt(scrollY || "0") * -1);
     };
   }, []);
-  useBack(closeModal);
+  useBack(closeModal, false);
+
   return (
     <Portal target="modal-root">
       <ModalOverlay />
