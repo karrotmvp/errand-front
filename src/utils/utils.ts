@@ -1,4 +1,7 @@
+import { toast } from "@components/Toast/Index";
+import envs from "@config/dotenv";
 import { INavigatorTheme } from "@karrotframe/navigator";
+import mini from "@lib/mini";
 import dayjs from "dayjs";
 
 export const checkMobileType = (): INavigatorTheme => {
@@ -12,7 +15,7 @@ export const checkMobileType = (): INavigatorTheme => {
     return "Cupertino";
   return "Android";
 };
-type TargetType = "code" | "preload" | "region_id";
+type TargetType = "code" | "preload" | "region_id" | "installed";
 
 export const getValueFromSearch = (target: TargetType) => {
   const urlSearchParams = new URLSearchParams(window.location.search);
@@ -68,4 +71,27 @@ export const getComparedTime = (timeA: Date, timeB: Date) => {
 
 export const getRegion = () => {
   return localStorage.getItem("region");
+};
+
+export const checkSubScribe = () => {
+  const isInstalled = getValueFromSearch("installed");
+  if (isInstalled === "true") {
+    mini.close();
+    return;
+  }
+  mini.startPreset({
+    preset: envs.MINI_PRESET_URL || "",
+    params: { appId: envs.APP_ID || "" },
+    onSuccess(result) {
+      if (result.ok) {
+        toast("구독해주셔서 감사합니다!");
+        setTimeout(() => {
+          mini.close();
+        }, 1800);
+      }
+    },
+    onClose() {
+      mini.close();
+    },
+  });
 };

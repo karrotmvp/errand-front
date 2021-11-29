@@ -4,19 +4,22 @@ import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
-import { getRegion } from "@utils/utils";
+import { checkSubScribe, getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
 import CustomMixPanel from "@utils/mixpanel";
+import useBack from "@hooks/useBack";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const region = getRegion();
-
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
+  // Home에서 뒤로가기는 언마운트가 아닌 아예 서비스 종료처리가 되는 거 같다. 그래서 history에 안잡히는거 강튼데/
+  // 이몬 어떠헥 했는지 물어보기 
+  useBack(checkSubScribe, false);
 
   return (
     <>

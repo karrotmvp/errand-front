@@ -39,16 +39,22 @@ const CustomBack = () => {
   const location = useLocation();
   const handleMixpanle = () => {
     if (location.pathname.includes("errand-request")) {
-      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, { page: "요청하기" });
+      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, {
+        page: "요청하기",
+      });
     }
     if (location.pathname.includes("apply-form")) {
-      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, { page: "지원하기" });
+      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, {
+        page: "지원하기",
+      });
     }
     if (location.pathname.includes("appliers")) {
-      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, { page: "지원자 목록" });
+      CustomMixPanel.track(CustomMixPanel.eventName.clickBack, {
+        page: "지원자 목록",
+      });
     }
   };
-  useBack(handleMixpanle, undefined);
+  useBack(handleMixpanle);
 
   return (
     <div style={leftButtonStyle} onClick={handleMixpanle}>
