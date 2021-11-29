@@ -29,6 +29,7 @@ jobs:
           PROD_API_BASE_URL: ${{ secrets.PROD_API_BASE_URL }}
           PROD_MINI_PRESET_URL: ${{ secrets.PROD_MINI_PRESET_URL }}
           PROD_MIXPANEL_TOKEN: ${{ secrets.PROD_MIXPANEL_TOKEN }}
+          PROD_MINI_SUBSCRIBE_PRESET_URL: ${{ secrets.PROD_MINI_SUBSCRIBE_PRESET_URL }}
 
         run: |
           touch .env
@@ -36,6 +37,7 @@ jobs:
           echo REACT_APP_API_BASE_URL="$PROD_API_BASE_URL" >> .env
           echo REACT_APP_MINI_PRESET_URL="$PROD_MINI_PRESET_URL" >> .env
           echo REACT_APP_MIXPANEL_TOKEN="$PROD_MIXPANEL_TOKEN" >> .env
+          echo REACT_APP_MINI_SUBSCRIBE_PRESET_URL="$PROD_MINI_SUBSCRIBE_PRESET_URL" >> .env
           cat .env
 
       - name: Install Dependencies
