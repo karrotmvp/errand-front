@@ -18,6 +18,7 @@ export default function NoData({ tabType }: NoDataProps) {
     if (tabType === "main" || tabType === "request") {
       CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
         page: tabType === "main" ? "홈" : "마이",
+        clickTarget: '심부름 요청하기'
       });
       moveToErrandRequestForm();
     } else {
