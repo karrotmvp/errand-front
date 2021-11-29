@@ -9,6 +9,7 @@ import Sample from "@assets/images/sample.jpg";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { AppenderWrapper, Title } from "@pages/Home";
 import { Gear, Loader, Me } from "@assets/icon";
+import CustomMixPanel from "@utils/mixpanel";
 
 export default function withMini(Component: React.ElementType) {
   return (props: any) => {
@@ -20,13 +21,16 @@ export default function withMini(Component: React.ElementType) {
     });
     const [isLoading, setIsLoading] = useState<boolean>(false);
     const login = useCallback(
-      async (code: string, regionId: string) => {
+      async (code: string, regionId: string, isFirst: boolean = false) => {
         try {
           setIsLoading(true);
           const res = await reqeustLogin(code, regionId);
           setIsLogin(res === "OK");
+          if (res === "OK" && isFirst) {
+            CustomMixPanel.track(CustomMixPanel.eventName.firstLogin);
+          }
         } catch {
-          console.log("catch");
+          throw new Error("login error");
         } finally {
           setIsLoading(false);
         }
@@ -47,7 +51,7 @@ export default function withMini(Component: React.ElementType) {
           onSuccess(result: { code: string }) {
             if (result && result.code) {
               setIsSigned(true);
-              login(result.code, regionId);
+              login(result.code, regionId, true);
             }
           },
           onClose() {
