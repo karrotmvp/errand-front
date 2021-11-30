@@ -4,13 +4,13 @@ import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
-import { checkSubScribe, getRegion } from "@utils/utils";
+import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
 import CustomMixPanel from "@utils/mixpanel";
-import useBack from "@hooks/useBack";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
+import { BannerImage } from "@assets/images";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
@@ -18,12 +18,14 @@ export default function Home() {
 
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const region = getRegion();
+  const { push } = useNavigator();
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
 
-  useBack(checkSubScribe, false);
-
+  const handleClickBanner = () => {
+    push("/description");
+  };
   return (
     <>
       <CustomScreenHelmet
@@ -37,6 +39,9 @@ export default function Home() {
       />
       <HomeWrapper>
         <ContentWrapper>
+          <div onClick={handleClickBanner}>
+            <img src={BannerImage} alt="banner" />
+          </div>
           <Container>
             <div className="home__top">
               <div className="home__top__location">

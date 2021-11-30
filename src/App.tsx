@@ -14,6 +14,7 @@ import {
   My,
   Resume,
   ApplierList,
+  Description,
 } from "./pages";
 import { checkMobileType, checkSubScribe } from "@utils/utils";
 import withMini from "@hoc/withMini";
@@ -66,6 +67,7 @@ function App() {
         />
         <Screen path="/my" component={My} />
         <Screen path="/404" component={ErrorPage} />
+        <Screen path="/description" component={Description} />
       </Navigator>
       <Toast />
     </ThemeProvider>

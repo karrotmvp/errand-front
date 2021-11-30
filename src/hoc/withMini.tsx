@@ -5,7 +5,7 @@ import { isLoginAtom } from "../store/user";
 import { getValueFromSearch } from "@utils/utils";
 import { useCallback, useEffect, useState } from "react";
 import { useRecoilState } from "recoil";
-import Sample from "@assets/images/sample.jpg";
+import { Sample } from "@assets/images";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { AppenderWrapper, Title } from "@pages/Home";
 import { Gear, Loader, Me } from "@assets/icon";
