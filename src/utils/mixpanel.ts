@@ -10,6 +10,7 @@ interface Dict {
   page?: PageType;
   confirm?: ConfirmType;
   clickTarget?: string;
+  detailId?: number;
 }
 
 const env_check = true;

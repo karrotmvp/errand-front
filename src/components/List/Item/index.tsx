@@ -22,7 +22,8 @@ export default function Item({ item }: ItemProps) {
           className="item-box"
           onClick={() => {
             CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
-              clickTarget: `${errand.id} 상세 페이지로 이동`,
+              clickTarget: "상세 페이지로 이동",
+              detailId: errand.id,
             });
             moveTo();
           }}
@@ -52,14 +53,14 @@ export default function Item({ item }: ItemProps) {
 }
 
 const Thumbnail = styled.div<{ url: string }>`
-  min-width: 11rem;
-  min-height: 11rem;
+  min-width: 10rem;
+  min-height: 10rem;
 
-  max-width: 11rem;
-  max-height: 11rem;
+  max-width: 10rem;
+  max-height: 10rem;
 
-  width: 11rem;
-  height: 11rem;
+  width: 10rem;
+  height: 10rem;
 
   overflow: hidden;
   border-radius: 0.8rem;
