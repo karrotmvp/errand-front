@@ -149,6 +149,62 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             </div>
           </div>
         </SectionWrapper>
+        <SectionWrapper isError={Boolean(errors.detailAddress)}>
+          <div className="section__title">
+            <label>심부름 장소</label>
+            {errors.detailAddress && (
+              <ErrorText>심부름 장소를 입력해 주세요.</ErrorText>
+            )}
+          </div>
+          <p className="section__subscribe">
+            심부름 장소는 매칭된 상대에게만 보여요. <br />
+            현재는 <span>{region}</span>에서만 심부름을 신청할 수 있어요.
+          </p>
+          <div className="section__content">
+            <input
+              placeholder="예) 당근아파트 101동 101호"
+              type="text"
+              onClick={() => {
+                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                  page: "요청하기",
+                  clickTarget: "심부름 장소",
+                });
+              }}
+              {...register("detailAddress", { required: true })}
+            />
+          </div>
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
+            <label>심부름 금액</label>
+            {errors.reward && (
+              <ErrorText>심부름 금액을 입력해 주세요.</ErrorText>
+            )}
+          </div>
+          {watchCategory ? (
+            <p className="section__subscribe">
+              {messages[watchCategory].price}
+            </p>
+          ) : (
+            ""
+          )}
+          <div className="section__content">
+            <PriceInput isError={Boolean(errors.reward)}>
+              <input
+                className="price"
+                placeholder="심부름 금액을 입력해 주세요."
+                type="number"
+                onClick={() => {
+                  CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
+                    page: "요청하기",
+                    clickTarget: "심부름 금액",
+                  });
+                }}
+                {...register("reward", { required: true })}
+              />
+            </PriceInput>
+          </div>
+        </SectionWrapper>
         <SectionWrapper>
           <div className="section__title">
             <label>사진첨부</label>
@@ -207,62 +263,6 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
               />
               <div>{watchTextArea?.length ?? 0}/500</div>
             </TextAreaWrapper>
-          </div>
-        </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <label>심부름 금액</label>
-            {errors.reward && (
-              <ErrorText>심부름 금액을 입력해 주세요.</ErrorText>
-            )}
-          </div>
-          {watchCategory ? (
-            <p className="section__subscribe">
-              {messages[watchCategory].price}
-            </p>
-          ) : (
-            ""
-          )}
-          <div className="section__content">
-            <PriceInput isError={Boolean(errors.reward)}>
-              <input
-                className="price"
-                placeholder="심부름 금액을 입력해 주세요."
-                type="number"
-                onClick={() => {
-                  CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
-                    page: "요청하기",
-                    clickTarget: "심부름 금액",
-                  });
-                }}
-                {...register("reward", { required: true })}
-              />
-            </PriceInput>
-          </div>
-        </SectionWrapper>
-        <SectionWrapper isError={Boolean(errors.detailAddress)}>
-          <div className="section__title">
-            <label>심부름 장소</label>
-            {errors.detailAddress && (
-              <ErrorText>심부름 장소를 입력해 주세요.</ErrorText>
-            )}
-          </div>
-          <p className="section__subscribe">
-            심부름 장소는 매칭된 상대에게만 보여요. <br />
-            현재는 <span>{region}</span>에서만 심부름을 신청할 수 있어요.
-          </p>
-          <div className="section__content">
-            <input
-              placeholder="예) 당근아파트 101동 101호"
-              type="text"
-              onClick={() => {
-                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
-                  page: "요청하기",
-                  clickTarget: "심부름 장소",
-                });
-              }}
-              {...register("detailAddress", { required: true })}
-            />
           </div>
         </SectionWrapper>
         <SectionWrapper isError={Boolean(errors.phoneNumber)}>
