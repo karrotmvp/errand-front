@@ -10,6 +10,7 @@ interface Dict {
   page?: PageType;
   confirm?: ConfirmType;
   clickTarget?: string;
+  detailId?: number;
 }
 
 const env_check = true;
@@ -50,6 +51,7 @@ const CustomMixPanel = {
     },
   },
   eventName: {
+    firstLogin: "최초 로그인",
     login: "유저 로그인",
     clickBack: "뒤로가기 클릭",
     refresh: "리스트 새로고침",
