@@ -1,4 +1,21 @@
-import { atom } from "recoil";
+import { atom, DefaultValue } from "recoil";
+
+const localStorageEffect =
+  (key: string) =>
+  ({ setSelf, onSet }: { setSelf: any; onSet: any }) => {
+    const savedValue = localStorage.getItem(key);
+    if (savedValue !== null) {
+      setSelf(JSON.parse(savedValue));
+    }
+
+    onSet((newValue: any) => {
+      if (newValue instanceof DefaultValue) {
+        localStorage.removeItem(key);
+      } else {
+        localStorage.setItem(key, JSON.stringify(newValue));
+      }
+    });
+  };
 
 export const codeAtom = atom<string | undefined>({
   key: "codeAtom",
@@ -22,4 +39,5 @@ export const tooltipsAtom = atom<{
     apply: true,
     resume: true,
   },
+  effects_UNSTABLE: [localStorageEffect("tooltip")],
 });

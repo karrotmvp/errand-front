@@ -5,7 +5,7 @@ const FONT_SIZE = {
   xsmall: "1.2rem",
   small: "1.3rem",
   medium: "1.4rem",
-  large: "1.6rem",
+  large: "1.5rem",
   xlarge: "1.8rem",
 };
 
