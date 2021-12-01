@@ -160,7 +160,7 @@ const HomeWrapper = styled.main`
       right: 3rem;
       z-index: 9999;
 
-      &__fab {
+      & > button {
         width: 5.7rem;
         height: 5.7rem;
         background: ${({ theme }) => theme.color.primary};
