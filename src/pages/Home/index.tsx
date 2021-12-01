@@ -9,16 +9,19 @@ import { useState } from "react";
 import List from "@components/List";
 import CustomMixPanel from "@utils/mixpanel";
 import useBack from "@hooks/useBack";
+import ToolTip from "@components/ToolTip";
+import { useTooltip } from "@hooks/useTooltip";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
+  const [showTooltip, closeTooltip] = useTooltip("home");
+
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const region = getRegion();
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
-  // Home에서 뒤로가기는 언마운트가 아닌 아예 서비스 종료처리가 되는 거 같다. 그래서 history에 안잡히는거 강튼데/
-  // 이몬 어떠헥 했는지 물어보기 
+
   useBack(checkSubScribe, false);
 
   return (
@@ -56,18 +59,27 @@ export default function Home() {
             <List tabType="main" isAppliable={isAppliable} />
           </div>
         </ContentWrapper>
-        <button
-          className="home__fixed-fab"
-          onClick={() => {
-            moveToErrandRequestForm();
-            CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
-              page: "홈",
-              clickTarget: "요청하기",
-            });
-          }}
-        >
-          <Plus stroke="white" />
-        </button>
+        <div className="home__fixed">
+          {showTooltip && (
+            <ToolTip
+              text="이웃에게 심부름을 부탁해 보세요."
+              closeTooltip={closeTooltip}
+              verticalTail="down"
+              horizontalTail="right"
+            />
+          )}
+          <button
+            onClick={() => {
+              moveToErrandRequestForm();
+              CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+                page: "홈",
+                clickTarget: "요청하기",
+              });
+            }}
+          >
+            <Plus stroke="white" />
+          </button>
+        </div>
       </HomeWrapper>
     </>
   );
@@ -142,21 +154,22 @@ const HomeWrapper = styled.main`
       height: 100%;
       overflow: hidden;
     }
-
-    &__fixed-fab {
+    &__fixed {
       position: absolute;
       bottom: 4rem;
       right: 3rem;
-
-      width: 5.7rem;
-      height: 5.7rem;
-      background: ${({ theme }) => theme.color.primary};
-      border-radius: 3rem;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
       z-index: 9999;
+
+      & > button {
+        width: 5.7rem;
+        height: 5.7rem;
+        background: ${({ theme }) => theme.color.primary};
+        border-radius: 3rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
     }
   }
 `;

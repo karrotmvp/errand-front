@@ -1,68 +1,95 @@
 import { Close } from "@assets/icon";
+// import { css } from "@emotion/css";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 type ToolTipProps = {
   text: string;
-  tail?: "up" | "down";
+  verticalTail?: "up" | "down";
+  horizontalTail?: "left" | "right";
   closeTooltip: () => void;
 };
 
 export default function ToolTip({
   text,
-  tail = "up",
+  verticalTail = "up",
+  horizontalTail = "left",
   closeTooltip,
 }: ToolTipProps) {
   return (
-    <ToolTipWrapper tail={tail}>
+    <ToolTipWrapper verticalTail={verticalTail} horizontalTail={horizontalTail}>
       <div className="tooltip__inner">
         <div className="tooltip__box">
-          <p>{text}</p>
-          <div className="tooltip__close">
-            <Close onClick={closeTooltip} fill="white" stroke="white" />
-          </div>
+          <div className="text">{text}</div>
+          <Close
+            className="tooltip__close"
+            onClick={closeTooltip}
+            fill="white"
+            stroke="white"
+          />
         </div>
       </div>
     </ToolTipWrapper>
   );
 }
 
-const ToolTipWrapper = styled.div<{ tail: string }>`
+const ToolTipWrapper = styled.div<{
+  verticalTail: string;
+  horizontalTail: string;
+}>`
   padding-left: 1rem;
   position: relative;
   z-index: 9;
+
   .tooltip__inner {
     position: absolute;
-    bottom: ${({ tail }) => (tail === "up" ? "-7.5rem" : "2.5rem")};
+    bottom: ${({ verticalTail }) =>
+      verticalTail === "up" ? "-7.5rem" : "2.5rem"};
+
+    ${({ horizontalTail }) =>
+      horizontalTail === "right"
+        ? css`
+            right: 0;
+          `
+        : ""}
     .tooltip__box {
       background: ${({ theme }) => theme.color.primary};
       color: white;
-      width: 30.6rem;
       padding: 1.2rem 1.4rem;
       border-radius: 0.8rem;
 
       display: flex;
       justify-content: space-between;
+      align-items: center;
 
-      p {
+      .text {
+        width: max-content;
+        max-width: 20rem;
         font-size: 1.4rem;
         font-weight: 500;
       }
 
       .tooltip__close {
-        margin-left: 2.8rem;
+        margin-left: 1.4rem;
       }
 
       &::after {
         content: "";
         position: absolute;
-        left: 10%;
+        ${({ horizontalTail }) =>
+          horizontalTail === "left"
+            ? css`
+                left: 5%;
+              `
+            : css`
+                right: 5%;
+              `}
         width: 0;
         height: 0;
         border: 20px solid transparent;
-        margin-left: -20px;
-        ${({ theme, tail }) =>
-          tail === "up"
+
+        ${({ theme, verticalTail }) =>
+          verticalTail === "up"
             ? css`
                 top: 0;
                 border-bottom-color: ${theme.color.primary};
@@ -74,7 +101,7 @@ const ToolTipWrapper = styled.div<{ tail: string }>`
                 border-top-color: ${theme.color.primary};
                 border-bottom: 0;
                 margin-bottom: -1rem;
-              `}
+              `};
       }
     }
   }
