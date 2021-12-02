@@ -54,6 +54,7 @@ const CustomMixPanel = {
     firstLogin: "최초 로그인",
     login: "유저 로그인",
     clickBack: "뒤로가기 클릭",
+    clickClose: "앱 닫기 클릭",
     refresh: "리스트 새로고침",
     clickInput: "Input 클릭",
     clickCTA: "CTA 클릭",

@@ -76,7 +76,10 @@ export const getRegion = () => {
 export const checkSubScribe = () => {
   const isInstalled = getValueFromSearch("installed");
   if (isInstalled === "true") {
-    mini.close();
+    return;
+  }
+  const isRejected = localStorage.getItem("isrejectInstalled");
+  if (isRejected === "true") {
     return;
   }
   mini.startPreset({
@@ -85,13 +88,11 @@ export const checkSubScribe = () => {
     onSuccess(result) {
       if (result.ok) {
         toast("구독해주셔서 감사합니다!");
-        setTimeout(() => {
-          mini.close();
-        }, 1800);
+        localStorage.setItem("isrejectInstalled", "true");
       }
     },
     onClose() {
-      mini.close();
+      localStorage.setItem("isrejectInstalled", "true");
     },
   });
 };

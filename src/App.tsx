@@ -14,14 +14,17 @@ import {
   My,
   Resume,
   ApplierList,
+  Description,
 } from "./pages";
-import { checkMobileType, checkSubScribe } from "@utils/utils";
+import { checkMobileType } from "@utils/utils";
 import withMini from "@hoc/withMini";
 import { withParams } from "@hoc/withParams";
 import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import Toast from "@components/Toast/Index";
+import mini from "@lib/mini";
+import CustomMixPanel from "@utils/mixpanel";
 
 // initMSW();
 
@@ -33,13 +36,22 @@ function App() {
     localStorage.setItem("depth", depth.toString());
   }, []);
 
+  useEffect(() => {
+    localStorage.setItem("countOfVisitToDetail", String(0));
+  }, []);
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyle />
       <Navigator
         theme={checkMobileType()}
         className={NavigatorStyle}
-        onClose={checkSubScribe}
+        onClose={() => {
+          CustomMixPanel.track(CustomMixPanel.eventName.clickClose, {
+            page: "홈",
+          });
+          mini.close();
+        }}
         onDepthChange={onDepthChange}
       >
         <Screen path="/" component={withMini(Home)} />
@@ -66,6 +78,7 @@ function App() {
         />
         <Screen path="/my" component={My} />
         <Screen path="/404" component={ErrorPage} />
+        <Screen path="/description" component={Description} />
       </Navigator>
       <Toast />
     </ThemeProvider>

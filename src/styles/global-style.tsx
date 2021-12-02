@@ -25,6 +25,13 @@ export const GlobalStyle = () => {
             “Noto Color Emoji”;
           color: #41474c;
           line-height: ${LINE_HEIGHT};
+          appearance: none;
+        }
+        input {
+          -webkit-appearance: none;
+        }
+        textarea {
+          -webkit-appearance: none;
         }
 
         .flex {

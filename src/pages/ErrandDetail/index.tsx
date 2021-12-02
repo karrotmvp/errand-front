@@ -13,7 +13,7 @@ import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
-import { getComparedTime } from "@utils/utils";
+import { checkSubScribe, getComparedTime } from "@utils/utils";
 import {
   getRefinedFromData,
   modalInfoFlagType,
@@ -22,7 +22,7 @@ import {
 import { useNavigator } from "@karrotframe/navigator";
 import { WithParamsProps } from "@hoc/withParams";
 import { ErrandDetailResponseBody } from "@type/response";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
@@ -275,6 +275,20 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
   };
 
   const modalInfo = getModalInfo(modalInfoFlag);
+
+  useEffect(() => {
+    const countOfVisitToDetail = Number(
+      localStorage.getItem("countOfVisitToDetail")
+    );
+    console.log("countOfVisitToDetail", countOfVisitToDetail);
+    if (countOfVisitToDetail === 1) {
+      checkSubScribe();
+    }
+    localStorage.setItem(
+      "countOfVisitToDetail",
+      String(countOfVisitToDetail + 1)
+    );
+  }, []);
 
   return (
     <StickyPageWrpper>
