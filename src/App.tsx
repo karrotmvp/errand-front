@@ -23,6 +23,8 @@ import { withQueryParams } from "@hoc/withQueryParams";
 import ErrorPage from "@pages/ErrorPage";
 import { useCallback } from "react";
 import Toast from "@components/Toast/Index";
+import mini from "@lib/mini";
+import CustomMixPanel from "@utils/mixpanel";
 
 // initMSW();
 
@@ -40,7 +42,12 @@ function App() {
       <Navigator
         theme={checkMobileType()}
         className={NavigatorStyle}
-        onClose={checkSubScribe}
+        onClose={() => {
+          CustomMixPanel.track(CustomMixPanel.eventName.clickClose, {
+            page: "홈",
+          });
+          mini.close();
+        }}
         onDepthChange={onDepthChange}
       >
         <Screen path="/" component={withMini(Home)} />
