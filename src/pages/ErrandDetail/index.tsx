@@ -280,7 +280,6 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
     const countOfVisitToDetail = Number(
       localStorage.getItem("countOfVisitToDetail")
     );
-    console.log("countOfVisitToDetail", countOfVisitToDetail);
     if (countOfVisitToDetail === 1) {
       checkSubScribe();
     }
@@ -326,6 +325,15 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               </Slider>
             </div>
             <div className="errand-detail__contents">
+              <div className="errand-detail__contents__profile">
+                <div>
+                  <img
+                    src={data?.errand.customer.profileImageUrl}
+                    alt="profile"
+                  />
+                </div>
+                <span>{data?.errand.customer.nickname}</span>
+              </div>
               <div className="errand-detail__contents__title">
                 <div>
                   <span>{data?.errand.category.name}</span>
@@ -480,11 +488,27 @@ const ErrandDetailWrapper = styled.div`
       h2 {
         ${({ theme }) => theme.font("large", "bold")}
       }
+      &__profile {
+        display: flex;
+        align-items: center;
+        ${({ theme }) => theme.font("large", "regular")}
+        margin: 2rem 0;
+        & > div {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 3rem;
+          overflow: hidden;
+          margin-right: 0.8rem;
 
+          & > img {
+            width: 100%;
+          }
+        }
+      }
       &__title {
         ${({ theme }) => theme.font("xsmall", "regular")}
         color: ${({ theme }) => theme.color.grey4};
-        margin-top: 0.7rem;
+        margin-top: 0.5rem;
 
         display: flex;
         justify-content: space-between;
@@ -497,7 +521,7 @@ const ErrandDetailWrapper = styled.div`
 
       &__info {
         ${({ theme }) => theme.font("large", "regular")}
-        margin-top: 3rem;
+        margin-top: 1rem;
 
         & > div {
           display: flex;
@@ -514,7 +538,7 @@ const ErrandDetailWrapper = styled.div`
         }
 
         & > div + div {
-          margin-top: 2.4rem;
+          margin-top: 1rem;
         }
       }
 
