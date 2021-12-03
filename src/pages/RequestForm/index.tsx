@@ -181,6 +181,7 @@ export default function RequestForm({
                 className="price"
                 placeholder="심부름 금액을 입력해 주세요."
                 type="number"
+                inputMode="decimal"
                 onClick={() => {
                   CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                     page: "요청하기",
@@ -267,6 +268,7 @@ export default function RequestForm({
             <input
               placeholder="전화번호를 입력하세요."
               type="number"
+              inputMode="decimal"
               onClick={() => {
                 CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                   page: "요청하기",

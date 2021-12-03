@@ -105,6 +105,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <div className="section__content">
                 <input
                   type="number"
+                  inputMode="decimal"
                   placeholder="숫자만 입력해 주세요."
                   onClick={() => {
                     CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {

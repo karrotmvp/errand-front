@@ -28,6 +28,7 @@ import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "@components/Toast/Index";
+import LoaderScreen from "@components/LoaderScreen";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -209,6 +210,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       {
         text: (
           <button
+            style={{ width: "100%" }}
             onClick={() => {
               closeModal();
               moveToResume();
@@ -295,19 +297,26 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         title="상세페이지"
         appendRight={
           modalInfo ? (
-            <Meatballs
-              onClick={() => {
-                openModal("list");
+            <div
+              style={{
+                padding: "1rem 1.6rem 1rem 1rem",
               }}
-            />
+            >
+              <Meatballs
+                onClick={() => {
+                  openModal("list");
+                }}
+              />
+            </div>
           ) : (
             ""
           )
         }
       />
-      <ErrandDetailWrapper>
-        {status !== "loading" && data ? (
-          <>
+
+      {status !== "loading" && data ? (
+        <>
+          <ErrandDetailWrapper>
             <div style={{ overflow: "hidden" }}>
               <Slider
                 {...{
@@ -318,9 +327,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                 }}
               >
                 {data?.errand.images?.map((image) => (
-                  <div className="errand-detail__image" key={image.id}>
-                    <img src={image.url} alt="" />
-                  </div>
+                  <ImageItem key={image.id} imgUrl={image.url} />
                 ))}
               </Slider>
             </div>
@@ -359,29 +366,29 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               </div>
               <p>{data?.errand.detail}</p>
             </div>
-          </>
-        ) : (
-          <div></div>
-        )}
-      </ErrandDetailWrapper>
-      {isOpen && modalInfo && innerMode && (
-        <Modal {...{ closeModal, modalInfo, innerMode }} />
+          </ErrandDetailWrapper>
+          {isOpen && modalInfo && innerMode && (
+            <Modal {...{ closeModal, modalInfo, innerMode }} />
+          )}
+          <StickyFooter>
+            <Button
+              buttonType="contained"
+              size="small"
+              color="primary"
+              fullWidth
+              rounded
+              onClick={() => {
+                handleClickButton();
+              }}
+              disabled={buttonDisabled}
+            >
+              {buttonText}
+            </Button>
+          </StickyFooter>
+        </>
+      ) : (
+        <LoaderScreen />
       )}
-      <StickyFooter>
-        <Button
-          buttonType="contained"
-          size="small"
-          color="primary"
-          fullWidth
-          rounded
-          onClick={() => {
-            handleClickButton();
-          }}
-          disabled={buttonDisabled}
-        >
-          {buttonText}
-        </Button>
-      </StickyFooter>
     </StickyPageWrpper>
   );
 }
@@ -458,9 +465,7 @@ const ErrandDetailWrapper = styled.div`
 
     &__image {
       width: 100%;
-      height: 0;
       padding-bottom: 90%;
-      /* height: 30rem; */
       overflow: hidden;
 
       & > img {
@@ -477,9 +482,8 @@ const ErrandDetailWrapper = styled.div`
     }
     &__contents {
       background: white;
-      padding: 2.2rem 0;
+      padding-bottom: 2.2rem;
       ${({ theme }) => theme.container}
-      transform: translateY(-2rem);
       z-index: 10;
       h2 {
         ${({ theme }) => theme.font("large", "bold")}
@@ -488,7 +492,8 @@ const ErrandDetailWrapper = styled.div`
         display: flex;
         align-items: center;
         ${({ theme }) => theme.font("large", "regular")}
-        margin: 2rem 0;
+        margin: 1rem 0;
+
         & > div {
           width: 3rem;
           height: 3rem;
@@ -589,3 +594,10 @@ const renderPrivateData = (
 const renderStatus = (color: string, detailStatus: string) => {
   return <div className={`errand-detail__status ${color}`}>{detailStatus}</div>;
 };
+
+const ImageItem = styled.div<{ imgUrl: string }>`
+  width: 100%;
+  padding-bottom: 90%;
+  background: ${({ imgUrl }) => `url(${imgUrl})`};
+  background-size: cover;
+`;

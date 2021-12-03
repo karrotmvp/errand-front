@@ -61,7 +61,7 @@ export default function ImageAppender({
 }
 
 const ImageAppenderWrapper = styled(BoxWrapper)`
-  border: 0.1rem solid ${({ theme }) => theme.color.grey6};
+  border: 0.12rem solid ${({ theme }) => theme.color.grey6};
   width: 7rem;
   height: 7rem;
   & > label {
