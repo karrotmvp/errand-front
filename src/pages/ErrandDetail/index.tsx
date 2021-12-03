@@ -474,9 +474,8 @@ const ErrandDetailWrapper = styled.div`
     }
     &__contents {
       background: white;
-      padding: 2.2rem 0;
+      padding-bottom: 2.2rem;
       ${({ theme }) => theme.container}
-      transform: translateY(-2rem);
       z-index: 10;
       h2 {
         ${({ theme }) => theme.font("large", "bold")}
@@ -485,7 +484,8 @@ const ErrandDetailWrapper = styled.div`
         display: flex;
         align-items: center;
         ${({ theme }) => theme.font("large", "regular")}
-        margin: 2rem 0;
+        margin: 1rem 0;
+
         & > div {
           width: 3rem;
           height: 3rem;
