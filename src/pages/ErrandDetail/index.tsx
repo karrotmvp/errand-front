@@ -28,6 +28,7 @@ import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "@components/Toast/Index";
+import { url } from "inspector";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -318,9 +319,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                 }}
               >
                 {data?.errand.images?.map((image) => (
-                  <div className="errand-detail__image" key={image.id}>
-                    <img src={image.url} alt="" />
-                  </div>
+                  <ImageItem key={image.id} imgUrl={image.url} />
                 ))}
               </Slider>
             </div>
@@ -458,9 +457,7 @@ const ErrandDetailWrapper = styled.div`
 
     &__image {
       width: 100%;
-      height: 0;
       padding-bottom: 90%;
-      /* height: 30rem; */
       overflow: hidden;
 
       & > img {
@@ -589,3 +586,10 @@ const renderPrivateData = (
 const renderStatus = (color: string, detailStatus: string) => {
   return <div className={`errand-detail__status ${color}`}>{detailStatus}</div>;
 };
+
+const ImageItem = styled.div<{ imgUrl: string }>`
+  width: 100%;
+  padding-bottom: 90%;
+  background: ${({ imgUrl }) => `url(${imgUrl})`};
+  background-size: cover;
+`;
