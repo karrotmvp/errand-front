@@ -353,10 +353,6 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                   <div>{convertToKRW(data?.errand.reward ?? 0)}</div>
                 </div>
                 <div>
-                  <div>심부름 장소</div>
-                  {renderPrivateData(data, "detailAddress")}
-                </div>
-                <div>
                   <div>전화번호</div>
                   {renderPrivateData(data, "customerPhoneNumber")}
                 </div>
@@ -553,15 +549,12 @@ const ErrandDetailWrapper = styled.div`
   }
 `;
 
-type privateDataType = "detailAddress" | "customerPhoneNumber";
+type privateDataType = "customerPhoneNumber";
 
 const renderPrivateData = (
   data: ErrandDetailResponseBody,
   target: privateDataType
 ) => {
-  if (data.errand.detailAddress && target === "detailAddress") {
-    return <div>{data.errand.detailAddress}</div>;
-  }
   if (data.errand.customerPhoneNumber && target === "customerPhoneNumber") {
     return (
       <div

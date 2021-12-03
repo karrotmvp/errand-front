@@ -15,7 +15,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "WAIT",
       category: {
         id: 1,
@@ -51,7 +51,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "WAIT",
       helpCount: 2,
       category: {
@@ -87,7 +87,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "WAIT",
       helpCount: 5,
       category: {
@@ -116,7 +116,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "PROCEED",
       helpCount: 1,
       category: {
@@ -145,7 +145,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "PROCEED",
       helpCount: 5,
       category: {
@@ -174,7 +174,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       helpCount: 5,
       category: {
@@ -203,7 +203,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       category: {
         id: 1,
@@ -232,7 +232,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       category: {
         id: 1,
@@ -450,7 +450,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       category: {
         id: 1,
@@ -695,7 +695,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       category: {
         id: 1,
@@ -725,7 +725,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "PROCEED",
       category: {
         id: 1,
@@ -754,7 +754,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "PROCEED",
       helpCount: 5,
       category: {
@@ -837,7 +837,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       category: {
         id: 1,
@@ -866,7 +866,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       helpCount: 1,
       category: {
@@ -895,7 +895,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "COMPLETE",
       helpCount: 5,
       category: {
@@ -924,7 +924,7 @@ export const errandDetail: { [key: number]: any } = {
       reward: 7000,
       images: [],
       customerPhoneNumber: "01023456788",
-      detailAddress: "교보타워 10b 뒷집",
+
       status: "WAIT",
       category: {
         id: 1,

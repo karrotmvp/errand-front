@@ -19,7 +19,6 @@ export type ErrandDetail = {
   customerPhoneNumber?: string;
   images: Image[];
   category: Category;
-  detailAddress?: string;
   reward: number;
   detail: string;
   isCompleted: boolean;

@@ -17,7 +17,7 @@ import Modal, { ModalInfoType } from "@components/Modal";
 import Button from "@components/Button";
 import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
-import { getRegion, getValueFromSearch } from "@utils/utils";
+import { getValueFromSearch } from "@utils/utils";
 import { useRegisterErrand } from "@api/errands";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import { Dropdown } from "@assets/icon";
@@ -29,11 +29,20 @@ type Inputs = {
   images?: File[];
   detail: string;
   reward: number;
-  detailAddress: string;
   phoneNumber: string;
 };
 
-export default function RequestForm({ categoryId }: { categoryId?: string }) {
+type RequestFormProps = {
+  categoryId?: string;
+  reward?: string;
+  detail?: string;
+  image?: string;
+};
+export default function RequestForm({
+  categoryId = "0",
+  reward,
+  detail = "",
+}: RequestFormProps) {
   const {
     register,
     handleSubmit,
@@ -41,7 +50,11 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
     formState: { errors, isValid },
   } = useForm<Inputs>({
     mode: "onChange",
-    defaultValues: { categoryId: Number(categoryId) },
+    defaultValues: {
+      categoryId: Number(categoryId),
+      reward: Number(reward),
+      detail,
+    },
   });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchCategory = watch("categoryId");
@@ -49,7 +62,6 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
   const watchImages = watch("images");
   const [imageList, setImageList] = useState<File[]>([]);
   const { replace } = useNavigator();
-  const region = getRegion();
   const mutationRegisterErrand = useRegisterErrand({
     onSuccess: (id: string) => {
       closeModal();
@@ -78,7 +90,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
-    const { categoryId, detail, reward, detailAddress, phoneNumber } = result;
+    const { categoryId, detail, reward, phoneNumber } = result;
     const regionId = getValueFromSearch("region_id") ?? "";
     const formData = new FormData();
     imageList.forEach((file) => {
@@ -87,7 +99,6 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
     formData.append("categoryId", String(categoryId));
     formData.append("detail", detail);
     formData.append("reward", String(reward));
-    formData.append("detailAddress", detailAddress);
     formData.append("phoneNumber", phoneNumber);
     formData.append("regionId", regionId);
 
@@ -149,31 +160,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             </div>
           </div>
         </SectionWrapper>
-        <SectionWrapper isError={Boolean(errors.detailAddress)}>
-          <div className="section__title">
-            <label>심부름 장소</label>
-            {errors.detailAddress && (
-              <ErrorText>심부름 장소를 입력해 주세요.</ErrorText>
-            )}
-          </div>
-          <p className="section__subscribe">
-            심부름 장소는 매칭된 상대에게만 보여요. <br />
-            현재는 <span>{region}</span>에서만 심부름을 신청할 수 있어요.
-          </p>
-          <div className="section__content">
-            <input
-              placeholder="예) 당근아파트 101동 101호"
-              type="text"
-              onClick={() => {
-                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
-                  page: "요청하기",
-                  clickTarget: "심부름 장소",
-                });
-              }}
-              {...register("detailAddress", { required: true })}
-            />
-          </div>
-        </SectionWrapper>
+
         <SectionWrapper>
           <div className="section__title">
             <label>심부름 금액</label>
@@ -205,31 +192,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             </PriceInput>
           </div>
         </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <label>사진첨부</label>
-            <span className="color-grey">(선택)</span>
-          </div>
-          <ImageSlider>
-            <ImageAppender len={imageList.length} watchImages={watchImages}>
-              <input
-                id="input__file"
-                type="file"
-                max="5"
-                multiple
-                {...register("images")}
-              />
-            </ImageAppender>
-            {imageList &&
-              imageList.map((file) => (
-                <ImageBox
-                  file={file}
-                  removeImage={removeImage}
-                  key={file.lastModified}
-                />
-              ))}
-          </ImageSlider>
-        </SectionWrapper>
+
         <SectionWrapper>
           <div className="section__title">
             <label>세부사항</label>
@@ -264,6 +227,31 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
               <div>{watchTextArea?.length ?? 0}/500</div>
             </TextAreaWrapper>
           </div>
+        </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
+            <label>사진첨부</label>
+            <span className="color-grey">(선택)</span>
+          </div>
+          <ImageSlider>
+            <ImageAppender len={imageList.length} watchImages={watchImages}>
+              <input
+                id="input__file"
+                type="file"
+                max="5"
+                multiple
+                {...register("images")}
+              />
+            </ImageAppender>
+            {imageList &&
+              imageList.map((file) => (
+                <ImageBox
+                  file={file}
+                  removeImage={removeImage}
+                  key={file.lastModified}
+                />
+              ))}
+          </ImageSlider>
         </SectionWrapper>
         <SectionWrapper isError={Boolean(errors.phoneNumber)}>
           <div className="section__title">
