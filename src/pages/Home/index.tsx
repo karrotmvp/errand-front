@@ -108,7 +108,7 @@ const HomeWrapper = styled.main`
   .home {
     &__top {
       margin-top: 2rem;
-
+      margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -156,8 +156,8 @@ const HomeWrapper = styled.main`
 
     &__list-wrapper {
       position: relative;
-      height: 100%;
-      overflow: hidden;
+      /* height: 100%; */
+      /* overflow: hidden; */
     }
     &__fixed {
       position: absolute;
