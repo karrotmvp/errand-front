@@ -8,7 +8,7 @@ import {
   useErrandDetail,
 } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
-import { Copy, Meatballs } from "@assets/icon";
+import { Copy, Loader, Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
@@ -28,7 +28,7 @@ import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "@components/Toast/Index";
-import { url } from "inspector";
+import LoaderScreen from "@components/LoaderScreen";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -210,6 +210,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       {
         text: (
           <button
+            style={{ width: "100%" }}
             onClick={() => {
               closeModal();
               moveToResume();
@@ -306,9 +307,10 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
           )
         }
       />
-      <ErrandDetailWrapper>
-        {status !== "loading" && data ? (
-          <>
+
+      {status !== "loading" && data ? (
+        <>
+          <ErrandDetailWrapper>
             <div style={{ overflow: "hidden" }}>
               <Slider
                 {...{
@@ -358,29 +360,29 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               </div>
               <p>{data?.errand.detail}</p>
             </div>
-          </>
-        ) : (
-          <div></div>
-        )}
-      </ErrandDetailWrapper>
-      {isOpen && modalInfo && innerMode && (
-        <Modal {...{ closeModal, modalInfo, innerMode }} />
+          </ErrandDetailWrapper>
+          {isOpen && modalInfo && innerMode && (
+            <Modal {...{ closeModal, modalInfo, innerMode }} />
+          )}
+          <StickyFooter>
+            <Button
+              buttonType="contained"
+              size="small"
+              color="primary"
+              fullWidth
+              rounded
+              onClick={() => {
+                handleClickButton();
+              }}
+              disabled={buttonDisabled}
+            >
+              {buttonText}
+            </Button>
+          </StickyFooter>
+        </>
+      ) : (
+        <LoaderScreen />
       )}
-      <StickyFooter>
-        <Button
-          buttonType="contained"
-          size="small"
-          color="primary"
-          fullWidth
-          rounded
-          onClick={() => {
-            handleClickButton();
-          }}
-          disabled={buttonDisabled}
-        >
-          {buttonText}
-        </Button>
-      </StickyFooter>
     </StickyPageWrpper>
   );
 }
