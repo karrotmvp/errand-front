@@ -8,10 +8,13 @@ export const GlobalStyle = () => {
     <Global
       styles={css`
         ${reset}
-
+        * {
+          /* outline: 1px solid red; */
+        }
         #root,
         html,
         body {
+          -webkit-tap-highlight-color: transparent;
           height: 100%;
           width: 100%;
         }
