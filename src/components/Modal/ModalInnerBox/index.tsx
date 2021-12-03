@@ -14,7 +14,14 @@ export default function ModalInnerBox({
   closeModal,
 }: ModalInnerBoxProps) {
   return (
-    <ModalInnerBoxWrapper innerMode={innerMode}>
+    <ModalInnerBoxWrapper
+      innerMode={innerMode}
+      onClick={(e: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
+        if (e.currentTarget === e.target) {
+          closeModal();
+        }
+      }}
+    >
       <div className="modal-inner">{children}</div>
     </ModalInnerBoxWrapper>
   );
