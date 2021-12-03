@@ -52,6 +52,9 @@ export type ErrendCreateResponseBody = {
 type Customer = {
   id: number;
   daangnId: string;
+  nickname: string;
+  profileImageUrl: string;
+  mannerTemp: number;
 };
 
 export type Category = {
