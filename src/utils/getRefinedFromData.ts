@@ -27,7 +27,7 @@ type RefinedData = {
 };
 
 const DEFAULT_REFINED_DATA = {
-  color: "",
+  color: "GREY",
   statusText: "있을 수 없는 경우!",
   buttonText: "있을 수 없는 경우!",
   buttonDisabled: true,
@@ -45,7 +45,7 @@ export const getRefinedFromData = (
     switch (data.errand.status) {
       case "WAIT":
         return {
-          color: "",
+          color: "GREY",
           statusText: `지원 ${data.errand.helpCount}`,
           buttonText:
             data.errand.helpCount > 0
@@ -57,7 +57,7 @@ export const getRefinedFromData = (
         };
       case "PROCEED":
         return {
-          color: "",
+          color: "GREY",
           statusText: "심부름 진행중",
           buttonText: "지원자 정보 보기",
           buttonDisabled: false,
@@ -82,7 +82,7 @@ export const getRefinedFromData = (
     switch (data.errand.status) {
       case "WAIT":
         return {
-          color: data.errand.helpCount === 5 ? "GREY" : "",
+          color: "GREY",
           statusText:
             data.errand.helpCount >= 5
               ? "지원마감"
@@ -151,7 +151,7 @@ export const getRefinedFromData = (
         return DEFAULT_REFINED_DATA;
       case "PROCEED":
         return {
-          color: "",
+          color: "GREY",
           statusText: "심부름 진행중",
           buttonText: "심부름을 완료했어요",
           buttonDisabled: false,
