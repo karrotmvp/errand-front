@@ -6,6 +6,4 @@ export { default as ErrandRequest } from "./RequestForm";
 export { default as Home } from "./Home";
 export { default as My } from "./My";
 export { default as Resume } from "./Resume";
-export { default as FeedErrandDetail } from "./feeds/FeedErrandDetail";
-export { default as FeedRequestForm } from "./feeds/FeedRequestForm";
 export { default as Description } from "./Description";

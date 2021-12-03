@@ -17,12 +17,12 @@ const BASE_URL = envs.API_BASE_URL;
 
 export const handlers = [
   // login
-  rest.post(`${BASE_URL}auth`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({ data: { token: "12345678sdfgtwer" }, status: "OK" })
-    );
-  }),
+  // rest.post(`${BASE_URL}auth`, (req, res, ctx) => {
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json({ data: { token: "12345678sdfgtwer" }, status: "OK" })
+  //   );
+  // }),
   // errand
   rest.get(`${BASE_URL}errands`, (req, res, ctx) => {
     return res(ctx.status(200), ctx.json({ data: [...q, ...w, ...e, ...r] }));
@@ -119,15 +119,15 @@ export const handlers = [
   }),
 
   // ETC
-  rest.get(`${BASE_URL}region`, (req, res, ctx) => {
-    return res(
-      ctx.status(200),
-      ctx.json({
-        name: "역삼1동",
-        name1: "서울특별시",
-        name2: "강남구",
-        name3: "역삼1동",
-      })
-    );
-  }),
+  // rest.get(`${BASE_URL}region`, (req, res, ctx) => {
+  //   return res(
+  //     ctx.status(200),
+  //     ctx.json({
+  //       name: "역삼1동",
+  //       name1: "서울특별시",
+  //       name2: "강남구",
+  //       name3: "역삼1동",
+  //     })
+  //   );
+  // }),
 ];

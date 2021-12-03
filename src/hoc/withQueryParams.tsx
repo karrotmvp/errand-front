@@ -3,7 +3,9 @@ import { useQueryParams } from "@karrotframe/navigator";
 
 export type WithQueryParamsProps = {
   errandId: string;
-  categoryId: string;
+  categoryId?: string;
+  reward?: string;
+  detail?: string;
 };
 
 export type Params = "errandId" | "categoryId";

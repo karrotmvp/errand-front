@@ -5,5 +5,6 @@ export { default as Category3 } from "./category_3.png";
 export { default as Category4 } from "./category_4.png";
 export { default as DefaultProfile } from "./default_profile.png";
 export { default as DefaultThumbnail } from "./default_thumbnail.png";
-export { default as BannerImage } from "./banner.png";
+export { default as BannerImage } from "./banner.jpg";
+export { default as BannerDetail } from "./banner_detail.jpg";
 export { default as Sample } from "./sample.jpg";

@@ -46,7 +46,7 @@ export default function Resume({ helpId }: WithParamsProps) {
 
   const modalInfo: ModalInfoType = {
     confirm: {
-      text: "이 분에게 요청하면 입력하신 주소와 연락처가 전달돼요. 이 분에게 요청할까요?",
+      text: "이 분에게 요청하면 입력하신 연락처가 전달돼요. 이 분에게 요청할까요?",
       no: (
         <button
           onClick={() => {
