@@ -23,6 +23,7 @@ import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import { Dropdown } from "@assets/icon";
 import CustomMixPanel from "@utils/mixpanel";
 import { toast } from "@components/Toast/Index";
+import { uploadImage } from "@utils/uploadImage";
 
 type Inputs = {
   categoryId: number;
@@ -60,7 +61,9 @@ export default function RequestForm({
   const watchCategory = watch("categoryId");
   const watchTextArea = watch("detail");
   const watchImages = watch("images");
-  const [imageList, setImageList] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
+
   const { replace } = useNavigator();
   const mutationRegisterErrand = useRegisterErrand({
     onSuccess: (id: string) => {
@@ -93,8 +96,9 @@ export default function RequestForm({
     const { categoryId, detail, reward, phoneNumber } = result;
     const regionId = getValueFromSearch("region_id") ?? "";
     const formData = new FormData();
-    imageList.forEach((file) => {
-      formData.append("images", file);
+    // 굳이 formData일 필요가 없다?
+    imageUrls.forEach((URL) => {
+      formData.append("images", URL);
     });
     formData.append("categoryId", String(categoryId));
     formData.append("detail", detail);
@@ -105,18 +109,31 @@ export default function RequestForm({
     mutationRegisterErrand.mutate(formData);
   };
 
-  const removeImage = useCallback((targetLastModified: number) => {
-    setImageList((images) => {
-      return images.filter(
-        (image) => image.lastModified !== targetLastModified
-      );
+  const removeImage = useCallback((targetIndex: number) => {
+    setImageUrls((URLs) => {
+      return URLs.filter((_, index) => index !== targetIndex);
     });
   }, []);
 
+  const uploadImages = async (files: File[]) => {
+    setIsUploadingImage(true);
+    const responsedURLs = await Promise.all(
+      files.map((file) => uploadImage(file))
+    );
+    setIsUploadingImage(false);
+    setImageUrls((URLs) => [...URLs, ...responsedURLs]);
+  };
+
   useEffect(() => {
-    if (watchImages) {
-      setImageList(Array.from(watchImages));
+    if (!watchImages) return;
+
+    if (watchImages.length > 10 || watchImages.length + imageUrls.length > 10) {
+      toast("이미지는 10개 이상 추가할 수 없어요!");
+      return;
     }
+    uploadImages(Array.from(watchImages));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchImages]);
 
   return (
@@ -235,22 +252,20 @@ export default function RequestForm({
             <span className="color-grey">(선택)</span>
           </div>
           <ImageSlider>
-            <ImageAppender len={imageList.length} watchImages={watchImages}>
+            <ImageAppender
+              len={imageUrls.length}
+              isUploadingImage={isUploadingImage}
+            >
               <input
                 id="input__file"
                 type="file"
-                max="5"
                 multiple
                 {...register("images")}
               />
             </ImageAppender>
-            {imageList &&
-              imageList.map((file) => (
-                <ImageBox
-                  file={file}
-                  removeImage={removeImage}
-                  key={file.lastModified}
-                />
+            {imageUrls &&
+              imageUrls.map((URL, index) => (
+                <ImageBox {...{ URL, removeImage, index }} key={URL} />
               ))}
           </ImageSlider>
         </SectionWrapper>
@@ -291,7 +306,7 @@ export default function RequestForm({
           buttonType="contained"
           color="primary"
           fullWidth
-          disabled={!isValid}
+          disabled={!isValid || isUploadingImage}
           padding="1.8rem 0"
           onClick={() => {
             openModal("confirm");

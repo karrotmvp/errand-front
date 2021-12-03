@@ -7,28 +7,18 @@ import CustomMixPanel from "@utils/mixpanel";
 interface ImageAppenderProps {
   len: number;
   children: React.ReactNode;
-  watchImages: File[] | undefined;
+  isUploadingImage: boolean;
 }
 
 export default function ImageAppender({
   children,
   len,
-  watchImages,
+  isUploadingImage,
 }: ImageAppenderProps) {
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsUploading(false);
-  }, [watchImages]);
-
   return (
-    <ImageAppenderWrapper
-      onClick={() => {
-        setIsUploading(true);
-      }}
-    >
+    <ImageAppenderWrapper>
       <label htmlFor="input__file">
-        {isUploading ? (
+        {isUploadingImage ? (
           <Loader
             width={50}
             height={50}
@@ -37,7 +27,6 @@ export default function ImageAppender({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              setIsUploading(false);
             }}
           />
         ) : (
