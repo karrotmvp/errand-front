@@ -8,7 +8,7 @@ import {
   useErrandDetail,
 } from "@api/errands";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
-import { Copy, Loader, Meatballs } from "@assets/icon";
+import { Copy, Meatballs } from "@assets/icon";
 import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
@@ -297,11 +297,17 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
         title="상세페이지"
         appendRight={
           modalInfo ? (
-            <Meatballs
-              onClick={() => {
-                openModal("list");
+            <div
+              style={{
+                padding: "1rem 1.6rem 1rem 1rem",
               }}
-            />
+            >
+              <Meatballs
+                onClick={() => {
+                  openModal("list");
+                }}
+              />
+            </div>
           ) : (
             ""
           )

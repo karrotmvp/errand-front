@@ -27,12 +27,13 @@ const leftButtonStyle = {
   marginLeft: "2rem",
   display: "flex",
   alignItems: "center",
+  padding: "1rem",
 };
 
 const rightButtonStyle = {
-  marginRight: "2rem",
   display: "flex",
   alignItems: "center",
+  // transform: "translateX(-1rem)",
 };
 
 const CustomBack = () => {
