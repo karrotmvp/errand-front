@@ -27,7 +27,7 @@ import { uploadImage } from "@utils/uploadImage";
 
 type Inputs = {
   categoryId: number;
-  images?: File[];
+  images: File[];
   detail: string;
   reward: number;
   phoneNumber: string;
@@ -95,18 +95,15 @@ export default function RequestForm({
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
     const { categoryId, detail, reward, phoneNumber } = result;
     const regionId = getValueFromSearch("region_id") ?? "";
-    const formData = new FormData();
-    // 굳이 formData일 필요가 없다?
-    imageUrls.forEach((URL) => {
-      formData.append("images", URL);
-    });
-    formData.append("categoryId", String(categoryId));
-    formData.append("detail", detail);
-    formData.append("reward", String(reward));
-    formData.append("phoneNumber", phoneNumber);
-    formData.append("regionId", regionId);
 
-    mutationRegisterErrand.mutate(formData);
+    mutationRegisterErrand.mutate({
+      images: imageUrls,
+      categoryId: Number(categoryId),
+      detail,
+      reward: Number(reward),
+      phoneNumber,
+      regionId,
+    });
   };
 
   const removeImage = useCallback((targetIndex: number) => {
