@@ -1,7 +1,7 @@
 import { atom } from "recoil";
 
-export const alertState = atom({
-  key: "isOpen",
+export const ToastState = atom({
+  key: "isOpenToast",
   default: {
     isOpened: false,
     message: "",
