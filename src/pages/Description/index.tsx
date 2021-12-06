@@ -7,6 +7,7 @@ import { BannerDetail } from "@assets/images";
 import { useNavigator } from "@karrotframe/navigator";
 import Button from "@components/Button";
 import { css } from "@emotion/react";
+import CustomMixPanel from "@utils/mixpanel";
 
 export default function Description() {
   const { push } = useNavigator();
@@ -30,6 +31,7 @@ export default function Description() {
             fullWidth
             rounded
             onClick={() => {
+              CustomMixPanel.track(CustomMixPanel.eventName.clickBannerButton, {page: '배너'});
               push(
                 "/errand-request?categoryId=3&reward=3000&detail=안녕하세요! 붕어빵 사다주실 수 있나요?"
               );

@@ -25,6 +25,7 @@ export default function Home() {
 
   const handleClickBanner = () => {
     push("/description");
+    CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, { page: "홈" });
   };
   return (
     <>
