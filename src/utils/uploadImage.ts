@@ -1,6 +1,10 @@
+import dayjs from "dayjs";
+
 export const uploadImage = async (file: File): Promise<string> => {
   return new Promise(async (resolve) => {
-    const preSignedUrl = await getPreSignedUrl(file.name);
+    const preSignedUrl = await getPreSignedUrl(
+      file.name.split(".")[0] + dayjs(new Date()).format("YYYY-MM-DDTHH:mm:ss")
+    );
     const imageUrl = await uploadToBucket(preSignedUrl, file);
     resolve(imageUrl as string);
   });

@@ -19,7 +19,7 @@ import { toast } from "@components/Toast/Index";
 
 export default function Resume({ helpId }: WithParamsProps) {
   const { status, data: resume } = useResume(helpId);
-  const { isOpen, openModal, closeModal, innerMode } = useModal();
+  const { isOpenModal, openModal, closeModal, innerMode } = useModal();
   const [showTooltip, closeTooltip] = useTooltip("resume");
   const { pop } = useNavigator();
   const resumeStatus: ResumeStatus = specifyStatus(
@@ -89,7 +89,7 @@ export default function Resume({ helpId }: WithParamsProps) {
           </>
         )}
       </ResumeWrapper>
-      {isOpen && innerMode && (
+      {isOpenModal && innerMode && (
         <Modal {...{ closeModal, modalInfo, innerMode }} />
       )}
       <StickyFooter>

@@ -1,6 +1,6 @@
 import Portal from "@components/Portal";
 import styled from "@emotion/styled";
-import { alertState } from "@store/state";
+import { ToastState } from "@store/state";
 import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 
@@ -13,7 +13,7 @@ interface AlertEvent extends Event {
 }
 
 const Alert = () => {
-  const [alert, setAlert] = useRecoilState(alertState);
+  const [alert, setAlert] = useRecoilState(ToastState);
 
   const hideAlert = () => {
     setAlert({

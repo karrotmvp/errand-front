@@ -92,7 +92,7 @@ export type Region = {
   name3: string;
 };
 
-type Image = {
+export type Image = {
   id: number;
   url: string;
 };

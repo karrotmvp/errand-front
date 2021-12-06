@@ -2,7 +2,7 @@ import { innerModeType } from "@components/Modal";
 import { useState } from "react";
 
 const useModal = () => {
-  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isOpenModal, setIsOpen] = useState<boolean>(false);
   const [innerMode, setInnerMode] = useState<innerModeType | null>(null);
 
   const openModal = (mode: innerModeType) => {
@@ -15,7 +15,7 @@ const useModal = () => {
     setIsOpen(false);
   };
 
-  return { isOpen, openModal, closeModal, innerMode };
+  return { isOpenModal, openModal, closeModal, innerMode };
 };
 
 export default useModal;
