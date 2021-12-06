@@ -2,9 +2,9 @@ import styled from "@emotion/styled";
 import Button from "@components/Button";
 import { TabType } from "@type/client";
 import usePush from "@hooks/usePush";
-import NodataImage from "@assets/images/no-data.png";
 import { useNavigator } from "@karrotframe/navigator";
 import CustomMixPanel from "@utils/mixpanel";
+import { NoDataImage } from "@assets/images";
 
 type NoDataProps = {
   tabType: TabType;
@@ -18,14 +18,14 @@ export default function NoData({ tabType }: NoDataProps) {
     if (tabType === "main" || tabType === "request") {
       CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
         page: tabType === "main" ? "홈" : "마이",
-        clickTarget: '심부름 요청하기'
+        clickTarget: "심부름 요청하기",
       });
       moveToErrandRequestForm();
     } else {
       pop().send({ isAppliable: true });
       CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
         page: "마이",
-        clickTarget: '지원 가능한 심부름 보러가기'
+        clickTarget: "지원 가능한 심부름 보러가기",
       });
     }
   };
@@ -35,7 +35,7 @@ export default function NoData({ tabType }: NoDataProps) {
       {renderText(tabType)}
       {tabType === "main" && (
         <div className="no-data__image">
-          <img src={NodataImage} alt="nodata" />
+          <img src={NoDataImage} alt="nodata" />
         </div>
       )}
       <Button

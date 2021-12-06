@@ -42,7 +42,7 @@ export const SectionWrapper = styled.div<{ isError?: boolean }>`
 
   input:not(.price),
   select {
-    border: 0.15rem solid
+    border: 0.12rem solid
       ${({ theme, isError }) =>
         isError ? theme.color.fail : theme.color.grey6};
     ${({ theme }) => css`
@@ -154,7 +154,7 @@ export const Container = styled.div`
 `;
 
 export const PriceInput = styled.div<{ isError?: boolean }>`
-  border: 0.15rem solid
+  border: 0.12rem solid
     ${({ theme, isError }) => (isError ? theme.color.fail : theme.color.grey6)};
 
   ${({ theme }) => css`
@@ -191,7 +191,7 @@ export const TextAreaWrapper = styled.div<{
   isError: boolean;
   textLength: number;
 }>`
-  border: 0.15rem solid
+  border: 0.12rem solid
     ${({ theme, isError }) => (isError ? theme.color.fail : theme.color.grey6)};
   ${({ theme }) => theme.font("medium")}
   border-radius: 1rem;

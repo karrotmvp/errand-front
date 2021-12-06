@@ -3,14 +3,19 @@ import styled from "@emotion/styled";
 import { memo } from "react";
 
 type ImageBoxProps = {
-  file: File;
+  URL: string;
+  index: number;
   removeImage: (id: number) => void;
 };
-export default memo(function ImageBox({ file, removeImage }: ImageBoxProps) {
+export default memo(function ImageBox({
+  URL,
+  removeImage,
+  index,
+}: ImageBoxProps) {
   return (
-    <ImageBoxWrapper imgURL={URL.createObjectURL(file)}>
+    <ImageBoxWrapper imgURL={URL}>
       <div className="image__remover">
-        <Close stroke="white" onClick={() => removeImage(file.lastModified)} />
+        <Close stroke="white" onClick={() => removeImage(index)} />
       </div>
     </ImageBoxWrapper>
   );

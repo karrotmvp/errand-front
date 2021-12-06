@@ -55,7 +55,7 @@ const ToolTipWrapper = styled.div<{
     .tooltip__box {
       background: ${({ theme }) => theme.color.primary};
       color: white;
-      padding: 1.2rem 1.4rem;
+      padding: 1rem 1.4rem;
       border-radius: 0.8rem;
 
       display: flex;

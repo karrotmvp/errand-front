@@ -4,13 +4,13 @@ import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { useNavigator } from "@karrotframe/navigator";
 import { Container } from "@styles/shared";
-import { checkSubScribe, getRegion } from "@utils/utils";
+import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
 import CustomMixPanel from "@utils/mixpanel";
-import useBack from "@hooks/useBack";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
+import { BannerImage } from "@assets/images";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
@@ -18,12 +18,14 @@ export default function Home() {
 
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const region = getRegion();
+  const { push } = useNavigator();
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
 
-  useBack(checkSubScribe, false);
-
+  const handleClickBanner = () => {
+    push("/description");
+  };
   return (
     <>
       <CustomScreenHelmet
@@ -37,6 +39,9 @@ export default function Home() {
       />
       <HomeWrapper>
         <ContentWrapper>
+          <div onClick={handleClickBanner}>
+            <img src={BannerImage} alt="banner" />
+          </div>
           <Container>
             <div className="home__top">
               <div className="home__top__location">
@@ -68,7 +73,8 @@ export default function Home() {
               horizontalTail="right"
             />
           )}
-          <button
+          <div
+            className="home__fixed__fab"
             onClick={() => {
               moveToErrandRequestForm();
               CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
@@ -77,8 +83,10 @@ export default function Home() {
               });
             }}
           >
-            <Plus stroke="white" />
-          </button>
+            <button>
+              <Plus stroke="white" />
+            </button>
+          </div>
         </div>
       </HomeWrapper>
     </>
@@ -103,7 +111,7 @@ const HomeWrapper = styled.main`
   .home {
     &__top {
       margin-top: 2rem;
-
+      margin-bottom: 1rem;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -151,24 +159,27 @@ const HomeWrapper = styled.main`
 
     &__list-wrapper {
       position: relative;
-      height: 100%;
-      overflow: hidden;
+      /* height: 100%; */
+      /* overflow: hidden; */
     }
     &__fixed {
       position: absolute;
-      bottom: 4rem;
-      right: 3rem;
+      bottom: 0;
+      right: 0;
       z-index: 9999;
 
-      & > button {
-        width: 5.7rem;
-        height: 5.7rem;
-        background: ${({ theme }) => theme.color.primary};
-        border-radius: 3rem;
+      &__fab {
+        padding: 1rem 3rem 3rem 1rem;
+        & > button {
+          width: 5.7rem;
+          height: 5.7rem;
+          background: ${({ theme }) => theme.color.primary};
+          border-radius: 3rem;
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
     }
   }
@@ -209,8 +220,9 @@ export const AppenderWrapper = styled.div`
   & > div {
     display: flex;
     align-items: center;
+    padding: 1rem;
   }
   & > div + div {
-    margin-left: 1.8rem;
+    margin-left: 0rem;
   }
 `;

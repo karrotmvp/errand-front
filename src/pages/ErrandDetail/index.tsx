@@ -13,7 +13,7 @@ import { convertToKRW } from "@utils/convert";
 import Modal, { ModalInfoType } from "@components/Modal";
 import useModal from "@hooks/useModal";
 import Button from "@components/Button";
-import { getComparedTime } from "@utils/utils";
+import { checkSubScribe, getComparedTime } from "@utils/utils";
 import {
   getRefinedFromData,
   modalInfoFlagType,
@@ -22,12 +22,13 @@ import {
 import { useNavigator } from "@karrotframe/navigator";
 import { WithParamsProps } from "@hoc/withParams";
 import { ErrandDetailResponseBody } from "@type/response";
-import { useCallback } from "react";
+import { useCallback, useEffect } from "react";
 import { useCancelAPply } from "@api/help";
 import Slider from "react-slick";
 import CustomMixPanel from "@utils/mixpanel";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "@components/Toast/Index";
+import LoaderScreen from "@components/LoaderScreen";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
   const { isOpen, openModal, closeModal, innerMode } = useModal();
@@ -209,6 +210,7 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
       {
         text: (
           <button
+            style={{ width: "100%" }}
             onClick={() => {
               closeModal();
               moveToResume();
@@ -276,25 +278,45 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
 
   const modalInfo = getModalInfo(modalInfoFlag);
 
+  useEffect(() => {
+    const countOfVisitToDetail = Number(
+      localStorage.getItem("countOfVisitToDetail")
+    );
+    if (countOfVisitToDetail === 1) {
+      checkSubScribe();
+    }
+    localStorage.setItem(
+      "countOfVisitToDetail",
+      String(countOfVisitToDetail + 1)
+    );
+  }, []);
+
   return (
     <StickyPageWrpper>
       <CustomScreenHelmet
         title="상세페이지"
         appendRight={
           modalInfo ? (
-            <Meatballs
-              onClick={() => {
-                openModal("list");
+            <div
+              style={{
+                padding: "1rem 1.6rem 1rem 1rem",
               }}
-            />
+            >
+              <Meatballs
+                onClick={() => {
+                  openModal("list");
+                }}
+              />
+            </div>
           ) : (
             ""
           )
         }
       />
-      <ErrandDetailWrapper>
-        {status !== "loading" && data ? (
-          <>
+
+      {status !== "loading" && data ? (
+        <>
+          <ErrandDetailWrapper>
             <div style={{ overflow: "hidden" }}>
               <Slider
                 {...{
@@ -305,13 +327,20 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                 }}
               >
                 {data?.errand.images?.map((image) => (
-                  <div className="errand-detail__image" key={image.id}>
-                    <img src={image.url} alt="" />
-                  </div>
+                  <ImageItem key={image.id} imgUrl={image.url} />
                 ))}
               </Slider>
             </div>
             <div className="errand-detail__contents">
+              <div className="errand-detail__contents__profile">
+                <div>
+                  <img
+                    src={data?.errand.customer.profileImageUrl}
+                    alt="profile"
+                  />
+                </div>
+                <span>{data?.errand.customer.nickname}</span>
+              </div>
               <div className="errand-detail__contents__title">
                 <div>
                   <span>{data?.errand.category.name}</span>
@@ -331,39 +360,35 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                   <div>{convertToKRW(data?.errand.reward ?? 0)}</div>
                 </div>
                 <div>
-                  <div>심부름 장소</div>
-                  {renderPrivateData(data, "detailAddress")}
-                </div>
-                <div>
                   <div>전화번호</div>
                   {renderPrivateData(data, "customerPhoneNumber")}
                 </div>
               </div>
               <p>{data?.errand.detail}</p>
             </div>
-          </>
-        ) : (
-          <div></div>
-        )}
-      </ErrandDetailWrapper>
-      {isOpen && modalInfo && innerMode && (
-        <Modal {...{ closeModal, modalInfo, innerMode }} />
+          </ErrandDetailWrapper>
+          {isOpen && modalInfo && innerMode && (
+            <Modal {...{ closeModal, modalInfo, innerMode }} />
+          )}
+          <StickyFooter>
+            <Button
+              buttonType="contained"
+              size="small"
+              color="primary"
+              fullWidth
+              rounded
+              onClick={() => {
+                handleClickButton();
+              }}
+              disabled={buttonDisabled}
+            >
+              {buttonText}
+            </Button>
+          </StickyFooter>
+        </>
+      ) : (
+        <LoaderScreen />
       )}
-      <StickyFooter>
-        <Button
-          buttonType="contained"
-          size="small"
-          color="primary"
-          fullWidth
-          rounded
-          onClick={() => {
-            handleClickButton();
-          }}
-          disabled={buttonDisabled}
-        >
-          {buttonText}
-        </Button>
-      </StickyFooter>
     </StickyPageWrpper>
   );
 }
@@ -440,9 +465,7 @@ const ErrandDetailWrapper = styled.div`
 
     &__image {
       width: 100%;
-      height: 0;
       padding-bottom: 90%;
-      /* height: 30rem; */
       overflow: hidden;
 
       & > img {
@@ -459,18 +482,34 @@ const ErrandDetailWrapper = styled.div`
     }
     &__contents {
       background: white;
-      padding: 2.2rem 0;
+      padding-bottom: 2.2rem;
       ${({ theme }) => theme.container}
-      transform: translateY(-2rem);
       z-index: 10;
       h2 {
         ${({ theme }) => theme.font("large", "bold")}
       }
+      &__profile {
+        display: flex;
+        align-items: center;
+        ${({ theme }) => theme.font("large", "regular")}
+        margin: 1rem 0;
 
+        & > div {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 3rem;
+          overflow: hidden;
+          margin-right: 0.8rem;
+
+          & > img {
+            width: 100%;
+          }
+        }
+      }
       &__title {
         ${({ theme }) => theme.font("xsmall", "regular")}
         color: ${({ theme }) => theme.color.grey4};
-        margin-top: 0.7rem;
+        margin-top: 0.5rem;
 
         display: flex;
         justify-content: space-between;
@@ -483,7 +522,7 @@ const ErrandDetailWrapper = styled.div`
 
       &__info {
         ${({ theme }) => theme.font("large", "regular")}
-        margin-top: 3rem;
+        margin-top: 1rem;
 
         & > div {
           display: flex;
@@ -500,7 +539,7 @@ const ErrandDetailWrapper = styled.div`
         }
 
         & > div + div {
-          margin-top: 2.4rem;
+          margin-top: 1rem;
         }
       }
 
@@ -515,15 +554,12 @@ const ErrandDetailWrapper = styled.div`
   }
 `;
 
-type privateDataType = "detailAddress" | "customerPhoneNumber";
+type privateDataType = "customerPhoneNumber";
 
 const renderPrivateData = (
   data: ErrandDetailResponseBody,
   target: privateDataType
 ) => {
-  if (data.errand.detailAddress && target === "detailAddress") {
-    return <div>{data.errand.detailAddress}</div>;
-  }
   if (data.errand.customerPhoneNumber && target === "customerPhoneNumber") {
     return (
       <div
@@ -558,3 +594,10 @@ const renderPrivateData = (
 const renderStatus = (color: string, detailStatus: string) => {
   return <div className={`errand-detail__status ${color}`}>{detailStatus}</div>;
 };
+
+const ImageItem = styled.div<{ imgUrl: string }>`
+  width: 100%;
+  padding-bottom: 90%;
+  background: ${({ imgUrl }) => `url(${imgUrl})`};
+  background-size: cover;
+`;

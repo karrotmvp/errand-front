@@ -17,23 +17,33 @@ import Modal, { ModalInfoType } from "@components/Modal";
 import Button from "@components/Button";
 import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
-import { getRegion, getValueFromSearch } from "@utils/utils";
+import { getValueFromSearch } from "@utils/utils";
 import { useRegisterErrand } from "@api/errands";
 import { PHONE_NUMBER_REGEX } from "@constant/validation";
 import { Dropdown } from "@assets/icon";
 import CustomMixPanel from "@utils/mixpanel";
 import { toast } from "@components/Toast/Index";
+import { uploadImage } from "@utils/uploadImage";
 
 type Inputs = {
   categoryId: number;
-  images?: File[];
+  images: File[];
   detail: string;
   reward: number;
-  detailAddress: string;
   phoneNumber: string;
 };
 
-export default function RequestForm({ categoryId }: { categoryId?: string }) {
+type RequestFormProps = {
+  categoryId?: string;
+  reward?: string;
+  detail?: string;
+  image?: string;
+};
+export default function RequestForm({
+  categoryId = "0",
+  reward,
+  detail = "",
+}: RequestFormProps) {
   const {
     register,
     handleSubmit,
@@ -41,15 +51,20 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
     formState: { errors, isValid },
   } = useForm<Inputs>({
     mode: "onChange",
-    defaultValues: { categoryId: Number(categoryId) },
+    defaultValues: {
+      categoryId: Number(categoryId),
+      reward: Number(reward),
+      detail,
+    },
   });
   const { isOpen, openModal, closeModal, innerMode } = useModal();
   const watchCategory = watch("categoryId");
   const watchTextArea = watch("detail");
   const watchImages = watch("images");
-  const [imageList, setImageList] = useState<File[]>([]);
+  const [imageUrls, setImageUrls] = useState<string[]>([]);
+  const [isUploadingImage, setIsUploadingImage] = useState<boolean>(false);
+
   const { replace } = useNavigator();
-  const region = getRegion();
   const mutationRegisterErrand = useRegisterErrand({
     onSuccess: (id: string) => {
       closeModal();
@@ -78,34 +93,44 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
   };
 
   const onSubmit: SubmitHandler<Inputs> = async (result) => {
-    const { categoryId, detail, reward, detailAddress, phoneNumber } = result;
+    const { categoryId, detail, reward, phoneNumber } = result;
     const regionId = getValueFromSearch("region_id") ?? "";
-    const formData = new FormData();
-    imageList.forEach((file) => {
-      formData.append("images", file);
-    });
-    formData.append("categoryId", String(categoryId));
-    formData.append("detail", detail);
-    formData.append("reward", String(reward));
-    formData.append("detailAddress", detailAddress);
-    formData.append("phoneNumber", phoneNumber);
-    formData.append("regionId", regionId);
 
-    mutationRegisterErrand.mutate(formData);
+    mutationRegisterErrand.mutate({
+      images: imageUrls,
+      categoryId: Number(categoryId),
+      detail,
+      reward: Number(reward),
+      phoneNumber,
+      regionId,
+    });
   };
 
-  const removeImage = useCallback((targetLastModified: number) => {
-    setImageList((images) => {
-      return images.filter(
-        (image) => image.lastModified !== targetLastModified
-      );
+  const removeImage = useCallback((targetIndex: number) => {
+    setImageUrls((URLs) => {
+      return URLs.filter((_, index) => index !== targetIndex);
     });
   }, []);
 
+  const uploadImages = async (files: File[]) => {
+    setIsUploadingImage(true);
+    const responsedURLs = await Promise.all(
+      files.map((file) => uploadImage(file))
+    );
+    setIsUploadingImage(false);
+    setImageUrls((URLs) => [...URLs, ...responsedURLs]);
+  };
+
   useEffect(() => {
-    if (watchImages) {
-      setImageList(Array.from(watchImages));
+    if (!watchImages) return;
+
+    if (watchImages.length > 10 || watchImages.length + imageUrls.length > 10) {
+      toast("이미지는 10개 이상 추가할 수 없어요!");
+      return;
     }
+    uploadImages(Array.from(watchImages));
+
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [watchImages]);
 
   return (
@@ -149,31 +174,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             </div>
           </div>
         </SectionWrapper>
-        <SectionWrapper isError={Boolean(errors.detailAddress)}>
-          <div className="section__title">
-            <label>심부름 장소</label>
-            {errors.detailAddress && (
-              <ErrorText>심부름 장소를 입력해 주세요.</ErrorText>
-            )}
-          </div>
-          <p className="section__subscribe">
-            심부름 장소는 매칭된 상대에게만 보여요. <br />
-            현재는 <span>{region}</span>에서만 심부름을 신청할 수 있어요.
-          </p>
-          <div className="section__content">
-            <input
-              placeholder="예) 당근아파트 101동 101호"
-              type="text"
-              onClick={() => {
-                CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
-                  page: "요청하기",
-                  clickTarget: "심부름 장소",
-                });
-              }}
-              {...register("detailAddress", { required: true })}
-            />
-          </div>
-        </SectionWrapper>
+
         <SectionWrapper>
           <div className="section__title">
             <label>심부름 금액</label>
@@ -194,6 +195,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
                 className="price"
                 placeholder="심부름 금액을 입력해 주세요."
                 type="number"
+                inputMode="decimal"
                 onClick={() => {
                   CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                     page: "요청하기",
@@ -205,31 +207,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             </PriceInput>
           </div>
         </SectionWrapper>
-        <SectionWrapper>
-          <div className="section__title">
-            <label>사진첨부</label>
-            <span className="color-grey">(선택)</span>
-          </div>
-          <ImageSlider>
-            <ImageAppender len={imageList.length} watchImages={watchImages}>
-              <input
-                id="input__file"
-                type="file"
-                max="5"
-                multiple
-                {...register("images")}
-              />
-            </ImageAppender>
-            {imageList &&
-              imageList.map((file) => (
-                <ImageBox
-                  file={file}
-                  removeImage={removeImage}
-                  key={file.lastModified}
-                />
-              ))}
-          </ImageSlider>
-        </SectionWrapper>
+
         <SectionWrapper>
           <div className="section__title">
             <label>세부사항</label>
@@ -265,6 +243,29 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             </TextAreaWrapper>
           </div>
         </SectionWrapper>
+        <SectionWrapper>
+          <div className="section__title">
+            <label>사진첨부</label>
+            <span className="color-grey">(선택)</span>
+          </div>
+          <ImageSlider>
+            <ImageAppender
+              len={imageUrls.length}
+              isUploadingImage={isUploadingImage}
+            >
+              <input
+                id="input__file"
+                type="file"
+                multiple
+                {...register("images")}
+              />
+            </ImageAppender>
+            {imageUrls &&
+              imageUrls.map((URL, index) => (
+                <ImageBox {...{ URL, removeImage, index }} key={URL} />
+              ))}
+          </ImageSlider>
+        </SectionWrapper>
         <SectionWrapper isError={Boolean(errors.phoneNumber)}>
           <div className="section__title">
             <label>전화번호</label>
@@ -279,6 +280,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
             <input
               placeholder="전화번호를 입력하세요."
               type="number"
+              inputMode="decimal"
               onClick={() => {
                 CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                   page: "요청하기",
@@ -301,7 +303,7 @@ export default function RequestForm({ categoryId }: { categoryId?: string }) {
           buttonType="contained"
           color="primary"
           fullWidth
-          disabled={!isValid}
+          disabled={!isValid || isUploadingImage}
           padding="1.8rem 0"
           onClick={() => {
             openModal("confirm");

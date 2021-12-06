@@ -8,10 +8,13 @@ export const GlobalStyle = () => {
     <Global
       styles={css`
         ${reset}
-
+        * {
+          /* outline: 1px solid red; */
+        }
         #root,
         html,
         body {
+          -webkit-tap-highlight-color: transparent;
           height: 100%;
           width: 100%;
         }
@@ -25,6 +28,13 @@ export const GlobalStyle = () => {
             “Noto Color Emoji”;
           color: #41474c;
           line-height: ${LINE_HEIGHT};
+          appearance: none;
+        }
+        input {
+          -webkit-appearance: none;
+        }
+        textarea {
+          -webkit-appearance: none;
         }
 
         .flex {

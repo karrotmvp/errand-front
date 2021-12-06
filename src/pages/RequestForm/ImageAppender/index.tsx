@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import styled from "@emotion/styled";
 import { BoxWrapper } from "../ImageBox";
 import { Loader, Plus } from "@assets/icon";
@@ -7,28 +7,18 @@ import CustomMixPanel from "@utils/mixpanel";
 interface ImageAppenderProps {
   len: number;
   children: React.ReactNode;
-  watchImages: File[] | undefined;
+  isUploadingImage: boolean;
 }
 
 export default function ImageAppender({
   children,
   len,
-  watchImages,
+  isUploadingImage,
 }: ImageAppenderProps) {
-  const [isUploading, setIsUploading] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsUploading(false);
-  }, [watchImages]);
-
   return (
-    <ImageAppenderWrapper
-      onClick={() => {
-        setIsUploading(true);
-      }}
-    >
+    <ImageAppenderWrapper>
       <label htmlFor="input__file">
-        {isUploading ? (
+        {isUploadingImage ? (
           <Loader
             width={50}
             height={50}
@@ -37,7 +27,6 @@ export default function ImageAppender({
             onClick={(e) => {
               e.preventDefault();
               e.stopPropagation();
-              setIsUploading(false);
             }}
           />
         ) : (
@@ -61,7 +50,7 @@ export default function ImageAppender({
 }
 
 const ImageAppenderWrapper = styled(BoxWrapper)`
-  border: 0.1rem solid ${({ theme }) => theme.color.grey6};
+  border: 0.12rem solid ${({ theme }) => theme.color.grey6};
   width: 7rem;
   height: 7rem;
   & > label {

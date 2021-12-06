@@ -190,6 +190,7 @@ export const reset = css`
   button,
   select,
   textarea {
+    padding: 0;
     &:focus {
       outline: none;
     }

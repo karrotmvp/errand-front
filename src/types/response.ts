@@ -19,7 +19,6 @@ export type ErrandDetail = {
   customerPhoneNumber?: string;
   images: Image[];
   category: Category;
-  detailAddress?: string;
   reward: number;
   detail: string;
   isCompleted: boolean;
@@ -52,6 +51,9 @@ export type ErrendCreateResponseBody = {
 type Customer = {
   id: number;
   daangnId: string;
+  nickname: string;
+  profileImageUrl: string;
+  mannerTemp: number;
 };
 
 export type Category = {
