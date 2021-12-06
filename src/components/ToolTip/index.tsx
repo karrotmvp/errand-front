@@ -21,12 +21,9 @@ export default function ToolTip({
       <div className="tooltip__inner">
         <div className="tooltip__box">
           <div className="text">{text}</div>
-          <Close
-            className="tooltip__close"
-            onClick={closeTooltip}
-            fill="white"
-            stroke="white"
-          />
+          <div className="tooltip__close">
+            <Close onClick={closeTooltip} fill="white" stroke="white" />
+          </div>
         </div>
       </div>
     </ToolTipWrapper>
@@ -70,7 +67,9 @@ const ToolTipWrapper = styled.div<{
       }
 
       .tooltip__close {
-        margin-left: 1.4rem;
+        & > svg {
+          margin-left: 1.4rem;
+        }
       }
 
       &::after {

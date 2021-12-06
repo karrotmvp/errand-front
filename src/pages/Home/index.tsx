@@ -65,14 +65,16 @@ export default function Home() {
           </div>
         </ContentWrapper>
         <div className="home__fixed">
-          {showTooltip && (
-            <ToolTip
-              text="이웃에게 심부름을 부탁해 보세요."
-              closeTooltip={closeTooltip}
-              verticalTail="down"
-              horizontalTail="right"
-            />
-          )}
+          <div className="home__fixed__tooltip">
+            {showTooltip && (
+              <ToolTip
+                text="이웃에게 심부름을 부탁해 보세요."
+                closeTooltip={closeTooltip}
+                verticalTail="down"
+                horizontalTail="right"
+              />
+            )}
+          </div>
           <div
             className="home__fixed__fab"
             onClick={() => {
@@ -108,6 +110,7 @@ export const Title = styled.div`
 const HomeWrapper = styled.main`
   height: 100%;
   position: relative;
+
   .home {
     &__top {
       margin-top: 2rem;
@@ -167,9 +170,11 @@ const HomeWrapper = styled.main`
       bottom: 0;
       right: 0;
       z-index: 9999;
-
+      &__tooltip {
+        padding-right: 2rem;
+      }
       &__fab {
-        padding: 1rem 3rem 3rem 1rem;
+        padding: 0rem 3rem 3rem 1rem;
         & > button {
           width: 5.7rem;
           height: 5.7rem;

@@ -8,9 +8,7 @@ export const GlobalStyle = () => {
     <Global
       styles={css`
         ${reset}
-        * {
-          /* outline: 1px solid red; */
-        }
+
         #root,
         html,
         body {
