@@ -3,7 +3,15 @@ import { MutationCallbacks } from "@type/react-query";
 import { POST } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
-const registerErrand = async (requestBody: FormData) => {
+type RegisterBody = {
+  categoryId: number;
+  images: string[];
+  detail: string;
+  reward: number;
+  phoneNumber: string;
+  regionId: string;
+};
+const registerErrand = async (requestBody: RegisterBody) => {
   const { data } = await POST(`/errand`, requestBody);
   return data;
 };
