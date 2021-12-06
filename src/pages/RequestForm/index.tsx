@@ -57,7 +57,7 @@ export default function RequestForm({
       detail,
     },
   });
-  const { isOpen, openModal, closeModal, innerMode } = useModal();
+  const { isOpenModal, openModal, closeModal, innerMode } = useModal();
   const watchCategory = watch("categoryId");
   const watchTextArea = watch("detail");
   const watchImages = watch("images");
@@ -295,7 +295,7 @@ export default function RequestForm({
           </div>
         </SectionWrapper>
       </RequestFormWrapper>
-      {isOpen && innerMode && (
+      {isOpenModal && innerMode && (
         <Modal {...{ closeModal, modalInfo, innerMode }} />
       )}
       <StickyFooter fullArea>

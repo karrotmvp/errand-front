@@ -37,7 +37,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
     watch,
     formState: { errors, isValid },
   } = useForm<Inputs>({ mode: "onChange" });
-  const { isOpen, openModal, closeModal, innerMode } = useModal();
+  const { isOpenModal, openModal, closeModal, innerMode } = useModal();
   const { replace } = useNavigator();
   const watchTextArea = watch("appeal");
   const mutationApplyErrand = useApplyToErrand({
@@ -191,7 +191,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
           <div></div>
         )}
       </ApplyFormWrapper>
-      {isOpen && innerMode && (
+      {isOpenModal && innerMode && (
         <Modal {...{ closeModal, modalInfo, innerMode }} />
       )}
       <StickyFooter fullArea>

@@ -29,9 +29,18 @@ import CustomMixPanel from "@utils/mixpanel";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { toast } from "@components/Toast/Index";
 import LoaderScreen from "@components/LoaderScreen";
+import ImageViewer from "@components/ImageViewer";
+import useImageViewer from "@hooks/useImageViewer";
 
 export default function ErrandDetail({ errandId }: WithParamsProps) {
-  const { isOpen, openModal, closeModal, innerMode } = useModal();
+  const { isOpenModal, openModal, closeModal, innerMode } = useModal();
+  const {
+    isOpenImageViewer,
+    openImageViewer,
+    closeImageViewer,
+    initialSlideIndex,
+  } = useImageViewer();
+
   const { status, data } = useErrandDetail(errandId);
   const {
     color,
@@ -323,11 +332,15 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
                   dots: true,
                   infinite: true,
                   speed: 500,
-                  dotsClass: "errand-detail__dots",
+                  dotsClass: "slider__dots",
                 }}
               >
-                {data?.errand.images?.map((image) => (
-                  <ImageItem key={image.id} imgUrl={image.url} />
+                {data?.errand.images?.map((image, index) => (
+                  <ImageItem
+                    key={image.id}
+                    imgUrl={image.url}
+                    onClick={() => openImageViewer(index)}
+                  />
                 ))}
               </Slider>
             </div>
@@ -367,8 +380,15 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
               <p>{data?.errand.detail}</p>
             </div>
           </ErrandDetailWrapper>
-          {isOpen && modalInfo && innerMode && (
+          {isOpenModal && modalInfo && innerMode && (
             <Modal {...{ closeModal, modalInfo, innerMode }} />
+          )}
+          {isOpenImageViewer && (
+            <ImageViewer
+              items={data?.errand.images}
+              closeImageViewer={closeImageViewer}
+              initialSlideIndex={initialSlideIndex}
+            />
           )}
           <StickyFooter>
             <Button
@@ -395,74 +415,6 @@ export default function ErrandDetail({ errandId }: WithParamsProps) {
 
 const ErrandDetailWrapper = styled.div`
   .errand-detail {
-    &__dots {
-      position: absolute;
-      bottom: 2.4rem;
-      display: block;
-      width: 100%;
-      padding: 0;
-      margin: 0;
-      list-style: none;
-      text-align: center;
-      z-index: 99;
-
-      & > li {
-        position: relative;
-        display: inline-block;
-        width: 10px;
-        height: 2rem;
-        margin: 0 5px;
-        padding: 0;
-        cursor: pointer;
-        & > button {
-          font-size: 0;
-          line-height: 0;
-          display: block;
-          width: 2rem;
-          height: 2rem;
-          padding: 5px;
-          cursor: pointer;
-          color: transparent;
-          border: 0;
-          outline: none;
-          background: transparent;
-
-          &:hover,
-          &:focus {
-            outline: none;
-          }
-          &:hover:before,
-          &:focus:before {
-            opacity: 1;
-          }
-          &:before {
-            font-family: "slick";
-            font-size: 0.6rem;
-            line-height: 2rem;
-
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2rem;
-            height: 2rem;
-
-            content: "•";
-            text-align: center;
-
-            opacity: 0.5;
-            color: white;
-
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-          }
-        }
-        &.slick-active button:before {
-          opacity: 1;
-          color: white;
-        }
-      }
-    }
-
     &__image {
       width: 100%;
       padding-bottom: 90%;
