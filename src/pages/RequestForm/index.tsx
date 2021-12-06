@@ -256,6 +256,7 @@ export default function RequestForm({
               <input
                 id="input__file"
                 type="file"
+                accept="image/*"
                 multiple
                 {...register("images")}
               />
