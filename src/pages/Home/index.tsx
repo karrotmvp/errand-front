@@ -201,9 +201,17 @@ export const RightAppender = (
   setIsAppliable: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const { push } = useNavigator();
-  const moveToAlarm = usePush("/alarm");
+  const moveToAlarm = () => {
+    CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+      clickTarget: "알람설정으로 이동",
+    });
+    push("/alarm");
+  };
 
   const moveToMy = async () => {
+    CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+      clickTarget: "마이페이지로 이동",
+    });
     const data = await push<{ isAppliable: boolean }>("/my");
     data && setIsAppliable(data.isAppliable);
   };

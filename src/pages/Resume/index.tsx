@@ -76,7 +76,7 @@ export default function Resume({ helpId }: WithParamsProps) {
                 전화번호
                 {showTooltip && resumeStatus === "customer-match" && (
                   <ToolTip
-                    text="전화번호가 공개되었어요"
+                    text="공개된 번호로 지원자와 문자를 시작해 주세요!"
                     closeTooltip={closeTooltip}
                   />
                 )}
