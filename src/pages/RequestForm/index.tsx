@@ -166,9 +166,10 @@ export default function RequestForm({
                 <option value="0" disabled>
                   카테고리를 선택해 주세요.
                 </option>
+                <option value="5">설치/조립하기</option>
+                <option value="3">사다주기</option>
                 <option value="1">벌레잡기</option>
                 <option value="2">반려동물 돌봐주기</option>
-                <option value="3">사다주기</option>
                 <option value="4">기타</option>
               </select>
             </div>
@@ -384,5 +385,15 @@ const messages: { [key: number]: Message } = {
     price: "",
     placeholder:
       "예) 창문 닫기, 전등 달기, 전자제품 끄기, 못 박기, 직접수령 부탁하기 등 필요한 도움을 상세히 적어주시면 더 빠른 매칭이 이루어질 수 있어요.",
+  },
+  5: {
+    name: "설치/조립하기",
+    price: (
+      <div>
+        설치/조립하기는 <span>자유로운 금액</span>으로 책정되고 있어요.
+      </div>
+    ),
+    placeholder:
+      "설치/조립할 물건의 이미지를 첨부하시면 더 빠른 매칭이 이루어질 수 있어요.",
   },
 };
