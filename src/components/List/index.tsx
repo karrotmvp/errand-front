@@ -35,36 +35,30 @@ export default function List({
         });
       }}
     >
-      <ListWrapper>
-        <ul>
-          {status === "loading" ? (
-            // TODO Loading..
-            <li></li>
-          ) : status === "error" ? (
-            // TODO Error..
-            <li></li>
-          ) : data?.pages[0].length === 0 ? (
-            <NoData tabType={tabType} />
-          ) : (
-            data?.pages?.map((group) =>
-              group?.map((item, index, array) => (
-                <>
-                  {index === array.length - ERREND_REQUEST_SIZE / 2 &&
-                    !isFetchingFirst &&
-                    !isFetchingMore &&
-                    fetchTriggerElement}
-                  <Item {...{ item, tabType }} key={item?.errand.id} />
-                </>
-              ))
-            )
-          )}
-        </ul>
-      </ListWrapper>
+      <ul>
+        {status === "loading" ? (
+          // TODO Loading..
+          <li></li>
+        ) : status === "error" ? (
+          // TODO Error..
+          <li></li>
+        ) : data?.pages[0].length === 0 ? (
+          <NoData tabType={tabType} />
+        ) : (
+          data?.pages?.map((group) =>
+            group?.map((item, index, array) => (
+              <>
+                {index === array.length - ERREND_REQUEST_SIZE / 2 &&
+                  !isFetchingFirst &&
+                  !isFetchingMore &&
+                  fetchTriggerElement}
+                <Item {...{ item, tabType }} key={item?.errand.id} />
+              </>
+            ))
+          )
+        )}
+      </ul>
       <div style={{ height: "2rem" }}></div>
     </PullToRefresh>
   );
 }
-
-const ListWrapper = styled.section`
-  ${({ theme }) => theme.container};
-`;

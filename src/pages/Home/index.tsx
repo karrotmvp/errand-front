@@ -11,6 +11,8 @@ import CustomMixPanel from "@utils/mixpanel";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
 import { BannerImage } from "@assets/images";
+import Slider from "react-slick";
+import { css } from "@emotion/react";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
@@ -39,28 +41,43 @@ export default function Home() {
         appendRight={RightAppender(setIsAppliable)}
       />
       <HomeWrapper>
+        <div onClick={handleClickBanner}>
+          <img src={BannerImage} alt="banner" />
+        </div>
         <ContentWrapper>
-          <div onClick={handleClickBanner}>
-            <img src={BannerImage} alt="banner" />
+          <div className="home__panel">
+            <span>🥕</span>
+            <Slider
+              {...{
+                infinite: true,
+                autoplay: true,
+                autoplaySpeed: 3500,
+                vertical: true,
+                arrows: false,
+              }}
+            >
+              <div className="home__panel__text">
+                현재 <span>92.5%</span>의 심부름이 매칭되고 있어요.
+              </div>
+              <div className="home__panel__text">
+                서초구에 <span>1024명</span>이 당근심부름을 이용중이에요.
+              </div>
+            </Slider>
           </div>
-          <Container>
-            <div className="home__top">
-              <div className="home__top__location">
-                <h2>
-                  <span>{region}</span> 주변
-                </h2>
-              </div>
-              <div
-                className={`home__top__check ${
-                  isAppliable ? "primary" : "grey"
-                }`}
-                onClick={toggleIsAppliable}
-              >
-                <Check />
-                <div>지원가능한 심부름 보기</div>
-              </div>
+          <div className="home__top">
+            <div className="home__top__location">
+              <h2>
+                <span>{region}</span> 주변
+              </h2>
             </div>
-          </Container>
+            <div
+              className={`home__top__check ${isAppliable ? "primary" : "grey"}`}
+              onClick={toggleIsAppliable}
+            >
+              <Check />
+              <div>지원가능한 심부름 보기</div>
+            </div>
+          </div>
           <div className="home__list-wrapper">
             <List tabType="main" isAppliable={isAppliable} />
           </div>
@@ -113,6 +130,28 @@ const HomeWrapper = styled.main`
   position: relative;
 
   .home {
+    &__panel {
+      ${({ theme }) =>
+        css`
+          ${theme.font("small", "regular")}
+        `}
+      display: flex;
+      background: #ffebe2;
+      padding: 1.1rem 1.4rem;
+      border-radius: 0.8rem;
+      margin-top: 1rem;
+
+      & > span {
+        margin-right: 1.5rem;
+        ${({ theme }) => theme.font("large", "regular")}
+      }
+      &__text {
+        & > span {
+          color: ${({ theme }) => theme.color.primary};
+          ${({ theme }) => theme.font("small", "bold")}
+        }
+      }
+    }
     &__top {
       margin-top: 2rem;
       margin-bottom: 1rem;
@@ -157,9 +196,6 @@ const HomeWrapper = styled.main`
         }
       }
     }
-    &__container {
-      ${({ theme }) => theme.container}
-    }
 
     &__list-wrapper {
       position: relative;
@@ -191,6 +227,7 @@ const HomeWrapper = styled.main`
   }
 `;
 const ContentWrapper = styled.div`
+  ${({ theme }) => theme.container}
   height: 100%;
   overflow-y: scroll;
   display: flex;
@@ -240,3 +277,5 @@ export const AppenderWrapper = styled.div`
     margin-left: 0rem;
   }
 `;
+
+const PanelText = styled.div``;
