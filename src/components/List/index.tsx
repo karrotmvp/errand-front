@@ -1,4 +1,3 @@
-import styled from "@emotion/styled";
 import { TabType } from "@type/client";
 import Item from "./Item";
 import { useInfiniteScroll } from "@hooks/useInfinityScroll";
@@ -26,6 +25,7 @@ export default function List({
     fetchTriggerElement,
     refetch,
   } = useInfiniteScroll(tabType, activeTabKey ?? "", isAppliable);
+
   return (
     <PullToRefresh
       onPull={(dispose) => {
@@ -35,7 +35,7 @@ export default function List({
         });
       }}
     >
-      <ul>
+      <ul style={{ minHeight: "100%" }}>
         {status === "loading" ? (
           // TODO Loading..
           <li></li>

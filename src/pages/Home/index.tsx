@@ -33,6 +33,7 @@ export default function Home() {
     push("/description");
     CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, { page: "홈" });
   };
+
   return (
     <>
       <CustomScreenHelmet
@@ -45,13 +46,14 @@ export default function Home() {
         appendRight={RightAppender(setIsAppliable)}
       />
       <HomeWrapper>
-        <div onClick={handleClickBanner}>
-          <img src={BannerImage} alt="banner" />
-        </div>
         <ContentWrapper>
-          <div className="home__panel">
-            <span>🥕</span>
-            {/* <Slider
+          <div onClick={handleClickBanner}>
+            <img src={BannerImage} alt="banner" />
+          </div>
+          <div className="home__container">
+            <div className="home__panel">
+              <span>🥕</span>
+              {/* <Slider
               {...{
                 infinite: true,
                 autoplay: true,
@@ -60,36 +62,39 @@ export default function Home() {
                 arrows: false,
               }}
             > */}
-            <div className="home__panel__text">
-              현재&nbsp;
-              <span>
-                {currentDataStatus === "success"
-                  ? currentData?.userAlarmOnCnt
-                  : 0}
-              </span>
-              명이 당근심부름 알림을 받고 있어요.
+              <div className="home__panel__text">
+                현재&nbsp;
+                <span>
+                  {currentDataStatus === "success"
+                    ? currentData?.userAlarmOnCnt
+                    : 0}
+                </span>
+                명이 당근심부름 알림을 받고 있어요.
+              </div>
+              {/* </Slider> */}
             </div>
-            {/* </Slider> */}
-          </div>
-          <div className="home__top">
-            <div className="home__top__location">
-              <h2>
-                <span>{region}</span> 주변
-              </h2>
+            <div className="home__top">
+              <div className="home__top__location">
+                <h2>
+                  <span>{region}</span> 주변
+                </h2>
+              </div>
+              <div
+                className={`home__top__check ${
+                  isAppliable ? "primary" : "grey"
+                }`}
+                onClick={toggleIsAppliable}
+              >
+                <Check />
+                <div>지원가능한 심부름 보기</div>
+              </div>
             </div>
-            <div
-              className={`home__top__check ${isAppliable ? "primary" : "grey"}`}
-              onClick={toggleIsAppliable}
-            >
-              <Check />
-              <div>지원가능한 심부름 보기</div>
+            <div className="home__list-wrapper">
+              <OverflowSwitchWrapper overflow={overflow}>
+                <List tabType="main" isAppliable={isAppliable} />
+                {fetchTriggerElement}
+              </OverflowSwitchWrapper>
             </div>
-          </div>
-          <div className="home__list-wrapper">
-            <OverflowSwitchWrapper overflow={overflow}>
-              <List tabType="main" isAppliable={isAppliable} />
-              {fetchTriggerElement}
-            </OverflowSwitchWrapper>
           </div>
         </ContentWrapper>
         <div className="home__fixed">
@@ -138,7 +143,6 @@ export const Title = styled.div`
 const HomeWrapper = styled.main`
   height: 100%;
   position: relative;
-  overflow: scroll;
 
   .home {
     &__panel {
@@ -237,11 +241,14 @@ const HomeWrapper = styled.main`
   }
 `;
 const ContentWrapper = styled.div`
-  ${({ theme }) => theme.container}
   height: 100%;
   overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
+
+  .home {
+    &__container {
+      ${({ theme }) => theme.container}
+    }
+  }
 `;
 
 export const RightAppender = (
@@ -292,5 +299,7 @@ export type OverflowType = "scroll" | "hidden";
 const OverflowSwitchWrapper = styled.div<{ overflow: OverflowType }>`
   height: 100%;
   position: relative;
-  /* overflow: ${({ overflow }) => overflow}; */
+  & > div > div:nth-of-type(2) {
+    overflow-y: ${({ overflow }) => overflow};
+  }
 `;
