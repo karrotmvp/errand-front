@@ -167,7 +167,7 @@ export default function RequestForm({
                   카테고리를 선택해 주세요.
                 </option>
                 <option value="1">벌레잡기</option>
-                <option value="2">반려동물 산책하기</option>
+                <option value="2">반려동물 돌봐주기</option>
                 <option value="3">사다주기</option>
                 <option value="4">기타</option>
               </select>
@@ -360,10 +360,10 @@ const messages: { [key: number]: Message } = {
       "벌레의 종, 현재 상황 등을 구체적으로 적어주시면 더 빠른 매칭이 이루어질 수 있어요.",
   },
   2: {
-    name: "반려동물 산책하기",
+    name: "반려동물 돌봐주기",
     price: (
       <div>
-        반려동물 산책하기는 <span>자유로운 금액</span>으로 책정되고 있어요.
+        반려동물 돌봐주기는 <span>자유로운 금액</span>으로 책정되고 있어요.
       </div>
     ),
     placeholder:
