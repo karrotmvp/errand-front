@@ -28,7 +28,6 @@ export default function Home() {
     setIsAppliable((current) => !current);
   };
   const { overflow, fetchTriggerElement } = useIntersection();
-
   const handleClickBanner = () => {
     push("/description");
     CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, { page: "홈" });
@@ -97,8 +96,8 @@ export default function Home() {
             </div>
           </div>
         </ContentWrapper>
-        <div className="home__fixed">
-          <div className="home__fixed__tooltip">
+        <FixedWrapper>
+          <div className="fixed__tooltip">
             {showTooltip && (
               <ToolTip
                 text="이웃에게 심부름을 부탁해 보세요."
@@ -109,7 +108,7 @@ export default function Home() {
             )}
           </div>
           <div
-            className="home__fixed__fab"
+            className="fixed__fab"
             onClick={() => {
               moveToErrandRequestForm();
               CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
@@ -122,7 +121,7 @@ export default function Home() {
               <Plus stroke="white" />
             </button>
           </div>
-        </div>
+        </FixedWrapper>
       </HomeWrapper>
     </>
   );
@@ -145,6 +144,16 @@ const HomeWrapper = styled.main`
   position: relative;
 
   .home {
+  }
+`;
+const ContentWrapper = styled.div`
+  height: 100%;
+  overflow-y: scroll;
+
+  .home {
+    &__container {
+      ${({ theme }) => theme.container}
+    }
     &__panel {
       ${({ theme }) =>
         css`
@@ -216,37 +225,28 @@ const HomeWrapper = styled.main`
     &__list-wrapper {
       height: 100%;
     }
-    &__fixed {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      z-index: 9999;
-      &__tooltip {
-        padding-right: 2rem;
-      }
-      &__fab {
-        padding: 0rem 3rem 3rem 1rem;
-        & > button {
-          width: 5.7rem;
-          height: 5.7rem;
-          background: ${({ theme }) => theme.color.primary};
-          border-radius: 3rem;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
-    }
   }
 `;
-const ContentWrapper = styled.div`
-  height: 100%;
-  overflow-y: scroll;
 
-  .home {
-    &__container {
-      ${({ theme }) => theme.container}
+const FixedWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  .fixed__tooltip {
+    padding-right: 2rem;
+  }
+  .fixed__fab {
+    padding: 0rem 3rem 3rem 1rem;
+    & > button {
+      width: 5.7rem;
+      height: 5.7rem;
+      background: ${({ theme }) => theme.color.primary};
+      border-radius: 3rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 `;
