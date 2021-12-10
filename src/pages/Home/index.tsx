@@ -3,7 +3,6 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { useNavigator } from "@karrotframe/navigator";
-import { Container } from "@styles/shared";
 import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
@@ -11,19 +10,24 @@ import CustomMixPanel from "@utils/mixpanel";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
 import { BannerImage } from "@assets/images";
-import Slider from "react-slick";
+// import Slider from "react-slick";
 import { css } from "@emotion/react";
+import { useIntersection } from "@hooks/useIntersection";
+import useCurrentData from "@api/errands/useCurrentData";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
   const [showTooltip, closeTooltip] = useTooltip("home");
 
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
+  const { status: currentDataStatus, data: currentData } = useCurrentData();
+
   const region = getRegion();
   const { push } = useNavigator();
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
+  const { overflow, fetchTriggerElement } = useIntersection();
 
   const handleClickBanner = () => {
     push("/description");
@@ -47,7 +51,7 @@ export default function Home() {
         <ContentWrapper>
           <div className="home__panel">
             <span>🥕</span>
-            <Slider
+            {/* <Slider
               {...{
                 infinite: true,
                 autoplay: true,
@@ -55,14 +59,17 @@ export default function Home() {
                 vertical: true,
                 arrows: false,
               }}
-            >
-              <div className="home__panel__text">
-                현재 <span>92.5%</span>의 심부름이 매칭되고 있어요.
-              </div>
-              <div className="home__panel__text">
-                서초구에 <span>1024명</span>이 당근심부름을 이용중이에요.
-              </div>
-            </Slider>
+            > */}
+            <div className="home__panel__text">
+              현재&nbsp;
+              <span>
+                {currentDataStatus === "success"
+                  ? currentData?.userAlarmOnCnt
+                  : 0}
+              </span>
+              명이 당근심부름 알림을 받고 있어요.
+            </div>
+            {/* </Slider> */}
           </div>
           <div className="home__top">
             <div className="home__top__location">
@@ -79,7 +86,10 @@ export default function Home() {
             </div>
           </div>
           <div className="home__list-wrapper">
-            <List tabType="main" isAppliable={isAppliable} />
+            <OverflowSwitchWrapper overflow={overflow}>
+              <List tabType="main" isAppliable={isAppliable} />
+              {fetchTriggerElement}
+            </OverflowSwitchWrapper>
           </div>
         </ContentWrapper>
         <div className="home__fixed">
@@ -128,6 +138,7 @@ export const Title = styled.div`
 const HomeWrapper = styled.main`
   height: 100%;
   position: relative;
+  overflow: scroll;
 
   .home {
     &__panel {
@@ -136,6 +147,7 @@ const HomeWrapper = styled.main`
           ${theme.font("small", "regular")}
         `}
       display: flex;
+      align-items: center;
       background: #ffebe2;
       padding: 1.1rem 1.4rem;
       border-radius: 0.8rem;
@@ -198,9 +210,7 @@ const HomeWrapper = styled.main`
     }
 
     &__list-wrapper {
-      position: relative;
-      /* height: 100%; */
-      /* overflow: hidden; */
+      height: 100%;
     }
     &__fixed {
       position: absolute;
@@ -278,4 +288,9 @@ export const AppenderWrapper = styled.div`
   }
 `;
 
-const PanelText = styled.div``;
+export type OverflowType = "scroll" | "hidden";
+const OverflowSwitchWrapper = styled.div<{ overflow: OverflowType }>`
+  height: 100%;
+  position: relative;
+  /* overflow: ${({ overflow }) => overflow}; */
+`;

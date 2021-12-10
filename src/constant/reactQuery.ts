@@ -7,4 +7,5 @@ export const KEYS = {
   USER_PROFILE: "userProfile",
   MY_INFO: "my-info",
   USER_ALRAMS: "user-alarms",
+  CURRENT_DATA: "current-data",
 };
