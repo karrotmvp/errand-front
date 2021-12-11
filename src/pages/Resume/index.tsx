@@ -101,6 +101,10 @@ export default function Resume({ helpId }: WithParamsProps) {
             fullWidth
             rounded
             onClick={() => {
+              CustomMixPanel.track(CustomMixPanel.eventName.clickCTA, {
+                clickTarget: "이 분에게 요청하기",
+                page: "지원내역",
+              });
               openModal("confirm");
             }}
           >
