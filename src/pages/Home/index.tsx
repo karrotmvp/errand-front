@@ -3,7 +3,6 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import styled from "@emotion/styled";
 import usePush from "@hooks/usePush";
 import { useNavigator } from "@karrotframe/navigator";
-import { Container } from "@styles/shared";
 import { getRegion } from "@utils/utils";
 import { useState } from "react";
 import List from "@components/List";
@@ -11,22 +10,29 @@ import CustomMixPanel from "@utils/mixpanel";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
 import { BannerImage } from "@assets/images";
+// import Slider from "react-slick";
+import { css } from "@emotion/react";
+import { useIntersection } from "@hooks/useIntersection";
+import useCurrentData from "@api/errands/useCurrentData";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
   const [showTooltip, closeTooltip] = useTooltip("home");
 
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
+  const { status: currentDataStatus, data: currentData } = useCurrentData();
+
   const region = getRegion();
   const { push } = useNavigator();
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
-
+  const { overflow, fetchTriggerElement } = useIntersection();
   const handleClickBanner = () => {
     push("/description");
     CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, { page: "홈" });
   };
+
   return (
     <>
       <CustomScreenHelmet
@@ -43,7 +49,29 @@ export default function Home() {
           <div onClick={handleClickBanner}>
             <img src={BannerImage} alt="banner" />
           </div>
-          <Container>
+          <div className="home__container">
+            <div className="home__panel">
+              <span>🥕</span>
+              {/* <Slider
+              {...{
+                infinite: true,
+                autoplay: true,
+                autoplaySpeed: 3500,
+                vertical: true,
+                arrows: false,
+              }}
+            > */}
+              <div className="home__panel__text">
+                현재&nbsp;
+                <span>
+                  {currentDataStatus === "success"
+                    ? currentData?.userAlarmOnCnt
+                    : 0}
+                </span>
+                명이 당근심부름 알림을 받고 있어요.
+              </div>
+              {/* </Slider> */}
+            </div>
             <div className="home__top">
               <div className="home__top__location">
                 <h2>
@@ -60,13 +88,16 @@ export default function Home() {
                 <div>지원가능한 심부름 보기</div>
               </div>
             </div>
-          </Container>
-          <div className="home__list-wrapper">
-            <List tabType="main" isAppliable={isAppliable} />
+            <div className="home__list-wrapper">
+              <OverflowSwitchWrapper overflow={overflow}>
+                <List tabType="main" isAppliable={isAppliable} />
+                {fetchTriggerElement}
+              </OverflowSwitchWrapper>
+            </div>
           </div>
         </ContentWrapper>
-        <div className="home__fixed">
-          <div className="home__fixed__tooltip">
+        <FixedWrapper>
+          <div className="fixed__tooltip">
             {showTooltip && (
               <ToolTip
                 text="이웃에게 심부름을 부탁해 보세요."
@@ -77,7 +108,7 @@ export default function Home() {
             )}
           </div>
           <div
-            className="home__fixed__fab"
+            className="fixed__fab"
             onClick={() => {
               moveToErrandRequestForm();
               CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
@@ -90,7 +121,7 @@ export default function Home() {
               <Plus stroke="white" />
             </button>
           </div>
-        </div>
+        </FixedWrapper>
       </HomeWrapper>
     </>
   );
@@ -113,6 +144,39 @@ const HomeWrapper = styled.main`
   position: relative;
 
   .home {
+  }
+`;
+const ContentWrapper = styled.div`
+  height: 100%;
+  overflow-y: scroll;
+
+  .home {
+    &__container {
+      ${({ theme }) => theme.container}
+    }
+    &__panel {
+      ${({ theme }) =>
+        css`
+          ${theme.font("small", "regular")}
+        `}
+      display: flex;
+      align-items: center;
+      background: #ffebe2;
+      padding: 1.1rem 1.4rem;
+      border-radius: 0.8rem;
+      margin-top: 1rem;
+
+      & > span {
+        margin-right: 1.5rem;
+        ${({ theme }) => theme.font("large", "regular")}
+      }
+      &__text {
+        & > span {
+          color: ${({ theme }) => theme.color.primary};
+          ${({ theme }) => theme.font("small", "bold")}
+        }
+      }
+    }
     &__top {
       margin-top: 2rem;
       margin-bottom: 1rem;
@@ -157,53 +221,51 @@ const HomeWrapper = styled.main`
         }
       }
     }
-    &__container {
-      ${({ theme }) => theme.container}
-    }
 
     &__list-wrapper {
-      position: relative;
-      /* height: 100%; */
-      /* overflow: hidden; */
-    }
-    &__fixed {
-      position: absolute;
-      bottom: 0;
-      right: 0;
-      z-index: 9999;
-      &__tooltip {
-        padding-right: 2rem;
-      }
-      &__fab {
-        padding: 0rem 3rem 3rem 1rem;
-        & > button {
-          width: 5.7rem;
-          height: 5.7rem;
-          background: ${({ theme }) => theme.color.primary};
-          border-radius: 3rem;
-
-          display: flex;
-          justify-content: center;
-          align-items: center;
-        }
-      }
+      height: 100%;
     }
   }
 `;
-const ContentWrapper = styled.div`
-  height: 100%;
-  overflow-y: scroll;
-  display: flex;
-  flex-direction: column;
+
+const FixedWrapper = styled.div`
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  z-index: 9999;
+  .fixed__tooltip {
+    padding-right: 2rem;
+  }
+  .fixed__fab {
+    padding: 0rem 3rem 3rem 1rem;
+    & > button {
+      width: 5.7rem;
+      height: 5.7rem;
+      background: ${({ theme }) => theme.color.primary};
+      border-radius: 3rem;
+
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+  }
 `;
 
 export const RightAppender = (
   setIsAppliable: React.Dispatch<React.SetStateAction<boolean>>
 ) => {
   const { push } = useNavigator();
-  const moveToAlarm = usePush("/alarm");
+  const moveToAlarm = () => {
+    CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+      clickTarget: "알람설정으로 이동",
+    });
+    push("/alarm");
+  };
 
   const moveToMy = async () => {
+    CustomMixPanel.track(CustomMixPanel.eventName.clickETC, {
+      clickTarget: "마이페이지로 이동",
+    });
     const data = await push<{ isAppliable: boolean }>("/my");
     data && setIsAppliable(data.isAppliable);
   };
@@ -230,5 +292,14 @@ export const AppenderWrapper = styled.div`
   }
   & > div + div {
     margin-left: 0rem;
+  }
+`;
+
+export type OverflowType = "scroll" | "hidden";
+const OverflowSwitchWrapper = styled.div<{ overflow: OverflowType }>`
+  height: 100%;
+  position: relative;
+  & > div > div:nth-of-type(2) {
+    overflow-y: ${({ overflow }) => overflow};
   }
 `;

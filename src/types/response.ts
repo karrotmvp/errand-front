@@ -36,6 +36,12 @@ export type ErrandPreviewResponseBody = {
   wasIChosen: boolean;
 };
 
+export type CurrentData = {
+  matchedRate: number;
+  userAlarmOnCnt: number;
+  userCnt: number;
+};
+
 export type ErrandDetailResponseBody = {
   errand: ErrandDetail;
   helpId: number;

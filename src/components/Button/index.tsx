@@ -54,7 +54,11 @@ const ButtonWrapper = styled.button<ButtonProps>`
   ${({ buttonType, color, theme, disabled }) =>
     buttonType === "contained" &&
     css`
-      color: ${color === "primary" ? "white" : "black"};
+      color: ${color === "primary"
+        ? "white"
+        : color === "grey"
+        ? theme.color.grey5
+        : "black"};
       background: ${disabled ? theme.color.grey6 : getColor(color, theme)};
     `}
 
@@ -69,6 +73,6 @@ const getColor = (color: string, theme: Theme) => {
   return color === "primary"
     ? theme.color.primary
     : color === "grey"
-    ? theme.color.grey5
+    ? theme.color.grey8
     : "white";
 };
