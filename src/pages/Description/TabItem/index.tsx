@@ -19,6 +19,10 @@ export default function TabItem({ imgURL, button }: TabItemProps) {
 
 const TabItemWrapper = styled.div`
   .container {
+    margin-top: 2.4rem;
     ${({ theme }) => theme.container}
+    & > button:not(:first-of-type) {
+      margin-top: 1rem;
+    }
   }
 `;
