@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "@emotion/styled";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { Title } from "@pages/Home";
@@ -11,6 +11,16 @@ import CustomMixPanel from "@utils/mixpanel";
 
 export default function Description() {
   const { push, replace, pop } = useNavigator();
+
+  useEffect(() => {
+    const depth = localStorage.getItem("depth");
+    if (depth === "0") {
+      CustomMixPanel.track(CustomMixPanel.eventName.fromFeed, {
+        page: "배너",
+      });
+    }
+  }, []);
+
   return (
     <DescriptionWrapper>
       <CustomScreenHelmet
