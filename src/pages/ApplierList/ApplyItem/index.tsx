@@ -15,6 +15,7 @@ export default function ApplyItem({ resumePreview }: ApplyItemProps) {
     helpId,
     helper: { id, nickname, regionName, mannerTemp, profileImageUrl },
     appeal,
+    createdAt,
   } = resumePreview;
   const { push, replace } = useNavigator();
   const moveToResume = async () => {
@@ -23,6 +24,7 @@ export default function ApplyItem({ resumePreview }: ApplyItemProps) {
       replace(`/helps/${helpId}`);
     }
   };
+
   return (
     <ApplyItemWrapper
       onClick={() => {
@@ -35,7 +37,14 @@ export default function ApplyItem({ resumePreview }: ApplyItemProps) {
     >
       <div className="apply-item__profile">
         <Profile
-          {...{ id, nickname, regionName, mannerTemp, profileImageUrl }}
+          {...{
+            id,
+            nickname,
+            regionName,
+            mannerTemp,
+            profileImageUrl,
+            createdAt,
+          }}
         />
         <Right />
       </div>
