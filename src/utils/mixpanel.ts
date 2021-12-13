@@ -56,7 +56,7 @@ const CustomMixPanel = {
     login: "유저 로그인",
     refresh: "리스트 새로고침",
     clickBanner: "배너 클릭",
-    clickBannerButton: "붕어빵 요청하기 클릭",
+    clickBannerButton: "배너 버튼 클릭",
     clickBack: "뒤로가기 클릭",
     clickClose: "앱 닫기 클릭",
     clickInput: "Input 클릭",
