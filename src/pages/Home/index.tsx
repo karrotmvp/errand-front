@@ -30,7 +30,10 @@ export default function Home() {
   const { overflow, fetchTriggerElement } = useIntersection();
   const handleClickBanner = () => {
     push("/description");
-    CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, { page: "홈" });
+    CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, {
+      page: "홈",
+      clickTarget: "커피 이벤트",
+    });
   };
 
   return (
@@ -88,12 +91,13 @@ export default function Home() {
                 <div>지원가능한 심부름 보기</div>
               </div>
             </div>
-            <div className="home__list-wrapper">
-              <OverflowSwitchWrapper overflow={overflow}>
-                <List tabType="main" isAppliable={isAppliable} />
-                {fetchTriggerElement}
-              </OverflowSwitchWrapper>
-            </div>
+          </div>
+
+          <div className="home__list-wrapper">
+            <OverflowSwitchWrapper overflow={overflow}>
+              <List tabType="main" isAppliable={isAppliable} />
+              {fetchTriggerElement}
+            </OverflowSwitchWrapper>
           </div>
         </ContentWrapper>
         <FixedWrapper>

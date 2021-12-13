@@ -1,11 +1,10 @@
-import React, { useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import styled from "@emotion/styled";
 import List from "@components/List";
 import { Tabs } from "@karrotframe/tabs";
 import Profile from "@components/Profile";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import { useMyInfo } from "@api/user";
-import { Container } from "@styles/shared";
 
 export default function My() {
   const [activeTabKey, setActiveTabKey] = useState<string>("tab_1");
@@ -16,18 +15,14 @@ export default function My() {
         key: "tab_1",
         buttonLabel: "요청한 심부름",
         component: () => (
-          <Container>
-            <List tabType="request" activeTabKey={new Date().toString()} />
-          </Container>
+          <List tabType="request" activeTabKey={new Date().toString()} />
         ),
       },
       {
         key: "tab_2",
         buttonLabel: "지원한 심부름",
         component: () => (
-          <Container>
-            <List tabType="help" activeTabKey={new Date().toString()} />
-          </Container>
+          <List tabType="help" activeTabKey={new Date().toString()} />
         ),
       },
     ],
