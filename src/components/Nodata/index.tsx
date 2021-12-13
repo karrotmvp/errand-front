@@ -99,5 +99,10 @@ const NoDataWrapper = styled.div`
 
   & > .no-data__image {
     margin-bottom: 3rem;
+    max-width: 18.3rem;
+
+    & > img {
+      width: 100%;
+    }
   }
 `;
