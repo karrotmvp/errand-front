@@ -3,16 +3,19 @@ import { TabType } from "@type/client";
 import { useEffect } from "react";
 import { useInView } from "react-intersection-observer";
 
-export const useInfiniteScroll = (
-  tabType: TabType,
-  activeTabKey: string,
-  isAppliable?: boolean
-) => {
-  const query = useErrands(tabType, activeTabKey, isAppliable);
+export type InfinityScrollType = {
+  tabType: TabType;
+  activeTabKey?: string;
+  isAppliable?: boolean;
+  options?: {};
+};
 
+export const useInfiniteScroll = (prop: InfinityScrollType) => {
+  const query = useErrands(prop);
   const { ref, inView } = useInView({
     threshold: 0.1,
   });
+
   useEffect(() => {
     if (inView && query.hasNextPage) {
       query.fetchNextPage();
