@@ -1,6 +1,6 @@
-import { OverflowType } from "@pages/Home";
 import { useEffect, useState } from "react";
 import { useInView } from "react-intersection-observer";
+export type OverflowType = "scroll" | "hidden";
 
 export const useIntersection = () => {
   const [overflow, setOverflow] = useState<OverflowType>("hidden");

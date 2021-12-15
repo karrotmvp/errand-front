@@ -12,22 +12,30 @@ import { useTooltip } from "@hooks/useTooltip";
 import { BannerImage } from "@assets/images";
 // import Slider from "react-slick";
 import { css } from "@emotion/react";
-import { useIntersection } from "@hooks/useIntersection";
 import useCurrentData from "@api/errands/useCurrentData";
+import { PullToRefresh } from "@karrotframe/pulltorefresh";
+import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 
 export default function Home() {
   const moveToErrandRequestForm = usePush("/errand-request?categoryId=0");
   const [showTooltip, closeTooltip] = useTooltip("home");
-
   const [isAppliable, setIsAppliable] = useState<boolean>(false);
   const { status: currentDataStatus, data: currentData } = useCurrentData();
+  const {
+    status: listStatus,
+    data: list,
+    isFetchingFirst,
+    isFetchingMore,
+    fetchTriggerElement,
+    refetch: listRefetch,
+  } = useInfiniteScroll({ tabType: "main", isAppliable });
 
   const region = getRegion();
   const { push } = useNavigator();
+
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
-  const { overflow, fetchTriggerElement } = useIntersection();
   const handleClickBanner = () => {
     push("/description");
     CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, {
@@ -49,13 +57,23 @@ export default function Home() {
       />
       <HomeWrapper>
         <ContentWrapper>
-          <div onClick={handleClickBanner}>
-            <img src={BannerImage} alt="banner" />
-          </div>
-          <div className="home__container">
-            <div className="home__panel">
-              <span>🥕</span>
-              {/* <Slider
+          <PullToRefresh
+            onPull={(dispose) => {
+              CustomMixPanel.track(CustomMixPanel.eventName.refresh, {
+                tabType: "main",
+              });
+              listRefetch().then(() => {
+                dispose();
+              });
+            }}
+          >
+            <div onClick={handleClickBanner}>
+              <img src={BannerImage} alt="banner" />
+            </div>
+            <div className="home__container">
+              <div className="home__panel">
+                <span>🥕</span>
+                {/* <Slider
               {...{
                 infinite: true,
                 autoplay: true,
@@ -64,41 +82,46 @@ export default function Home() {
                 arrows: false,
               }}
             > */}
-              <div className="home__panel__text">
-                현재&nbsp;
-                <span>
-                  {currentDataStatus === "success"
-                    ? currentData?.userAlarmOnCnt
-                    : 0}
-                </span>
-                명이 당근심부름 알림을 받고 있어요.
+                <div className="home__panel__text">
+                  현재&nbsp;
+                  <span>
+                    {currentDataStatus === "success"
+                      ? currentData?.userAlarmOnCnt
+                      : 0}
+                  </span>
+                  명이 당근심부름 알림을 받고 있어요.
+                </div>
+                {/* </Slider> */}
               </div>
-              {/* </Slider> */}
+              <div className="home__top">
+                <div className="home__top__location">
+                  <h2>
+                    <span>{region}</span> 주변
+                  </h2>
+                </div>
+                <div
+                  className={`home__top__check ${
+                    isAppliable ? "primary" : "grey"
+                  }`}
+                  onClick={toggleIsAppliable}
+                >
+                  <Check />
+                  <div>지원가능한 심부름 보기</div>
+                </div>
+              </div>
             </div>
-            <div className="home__top">
-              <div className="home__top__location">
-                <h2>
-                  <span>{region}</span> 주변
-                </h2>
-              </div>
-              <div
-                className={`home__top__check ${
-                  isAppliable ? "primary" : "grey"
-                }`}
-                onClick={toggleIsAppliable}
-              >
-                <Check />
-                <div>지원가능한 심부름 보기</div>
-              </div>
-            </div>
-          </div>
 
-          <div className="home__list-wrapper">
-            <OverflowSwitchWrapper overflow={overflow}>
-              <List tabType="main" isAppliable={isAppliable} />
-              {fetchTriggerElement}
-            </OverflowSwitchWrapper>
-          </div>
+            <div className="home__list-wrapper">
+              {listStatus !== "loading" && list && (
+                <List
+                  tabType="main"
+                  list={list}
+                  fetchTriggerElement={fetchTriggerElement}
+                  isDoneFetch={!isFetchingFirst && !isFetchingMore}
+                />
+              )}
+            </div>
+          </PullToRefresh>
         </ContentWrapper>
         <FixedWrapper>
           <div className="fixed__tooltip">
@@ -296,14 +319,5 @@ export const AppenderWrapper = styled.div`
   }
   & > div + div {
     margin-left: 0rem;
-  }
-`;
-
-export type OverflowType = "scroll" | "hidden";
-const OverflowSwitchWrapper = styled.div<{ overflow: OverflowType }>`
-  height: 100%;
-  position: relative;
-  & > div > div:nth-of-type(2) {
-    overflow-y: ${({ overflow }) => overflow};
   }
 `;
