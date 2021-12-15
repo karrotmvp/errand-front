@@ -1637,10 +1637,10 @@
   resolved "https://registry.yarnpkg.com/@karrotframe/pulltorefresh/-/pulltorefresh-0.1.2.tgz#d18ef8b3670c16537dd9a4f8df93bd68e3b83303"
   integrity sha512-T7ByJ9+G9D63MAQWj7cppFnt4N9ye4Q+Ww98cc+CxM0N/RzH6/QF+eo7n8dr1d56z/P2XEFSy+tp9DnUGwOtlA==
 
-"@karrotframe/tabs@^0.3.3":
-  version "0.3.3"
-  resolved "https://registry.yarnpkg.com/@karrotframe/tabs/-/tabs-0.3.3.tgz#62d63686e0cbd192863f0bcf8e5150d5bdd79de4"
-  integrity sha512-0Jth3417vOrBk5jmvLERNdzE37Ej1Xrx8n9JX7JBjkDgPQPdviQ89nKtGYyszEG8HuzeBp8IPQo8fsraxTSVCQ==
+"@karrotframe/tabs@^0.4.1":
+  version "0.4.1"
+  resolved "https://registry.yarnpkg.com/@karrotframe/tabs/-/tabs-0.4.1.tgz#29ce2e43c7b5b631736b0379d511300eb8baa599"
+  integrity sha512-AJ4RcFl/R5hxivYr2ui9+1wjsGLxgQtJ0YZfuTkkKKDoktYYvy5blz/EQiS4TKmvBjQVqRq0zUjRldD3o4v7Ew==
   dependencies:
     "@vanilla-extract/dynamic" "^2.0.0"
 
