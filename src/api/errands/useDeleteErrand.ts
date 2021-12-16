@@ -11,20 +11,20 @@ const deleteErrand = async (errandId: string) => {
 
 const useDeleteErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push , replace } = useNavigator();
+  const { push, replace } = useNavigator();
 
   return useMutation(deleteErrand, {
     onSuccess: () => {
       queryClient.invalidateQueries(KEYS.ERRNDS);
       onSuccess && onSuccess();
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
       const current = localStorage.getItem("depth");
       if (current === "0") {
-        replace("/404");
+        replace(`/error?status=${e.status}`);
       } else {
-        push("/404");
+        push(`/error?status=${e.status}`);
       }
     },
   });
