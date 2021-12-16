@@ -2,7 +2,7 @@ import { KEYS } from "@constant/reactQuery";
 import { useNavigator } from "@karrotframe/navigator";
 import { MutationCallbacks } from "@type/react-query";
 import { ApplyHelperRequestBody } from "@type/request";
-import { POST } from "@utils/axios";
+import { CustomError, POST } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 const applyErrand = async (requestBody: ApplyHelperRequestBody) => {
