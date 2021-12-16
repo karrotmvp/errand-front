@@ -2,14 +2,18 @@ import { DefaultProfile } from "@assets/icon";
 import { DEFAULT_PROFILE } from "@constant/default";
 import styled from "@emotion/styled";
 import { User } from "@type/response";
+import { getComparedTime } from "@utils/utils";
 
-type ProfileProps = User;
+type ProfileProps = User & {
+  createdAt?: string;
+};
 
 export default function Profile({
   nickname,
   regionName,
   mannerTemp,
   profileImageUrl = DEFAULT_PROFILE,
+  createdAt,
 }: ProfileProps) {
   return (
     <ProfileWrapper>
@@ -25,6 +29,9 @@ export default function Profile({
         <div className="my-profile__info__sub">
           <span>{regionName}</span>
           <span>{mannerTemp} °C</span>
+          {createdAt && (
+            <span>{getComparedTime(new Date(), new Date(createdAt))}</span>
+          )}
         </div>
       </div>
     </ProfileWrapper>

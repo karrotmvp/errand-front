@@ -1,56 +1,39 @@
 import { TabType } from "@type/client";
 import Item from "./Item";
-import { useInfiniteScroll } from "@hooks/useInfinityScroll";
 import NoData from "@components/Nodata";
-import { PullToRefresh } from "@karrotframe/pulltorefresh";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
-import CustomMixPanel from "@utils/mixpanel";
+import { Container } from "@styles/shared";
+import { InfiniteData } from "react-query";
+import { ErrandPreviewResponseBody } from "@type/response";
 
 type ListProps = {
   tabType: TabType;
-  isAppliable?: boolean;
-  activeTabKey?: string;
+  list?: InfiniteData<ErrandPreviewResponseBody[]>;
+  fetchTriggerElement: React.ReactNode;
+  isDoneFetch: boolean;
 };
 
 export default function List({
   tabType,
-  isAppliable,
-  activeTabKey,
+  list,
+  fetchTriggerElement,
+  isDoneFetch,
 }: ListProps) {
-  const {
-    status,
-    data,
-    isFetchingFirst,
-    isFetchingMore,
-    fetchTriggerElement,
-    refetch,
-  } = useInfiniteScroll(tabType, activeTabKey ?? "", isAppliable);
+  if (!list) {
+    return null;
+  }
 
   return (
-    <PullToRefresh
-      onPull={(dispose) => {
-        CustomMixPanel.track(CustomMixPanel.eventName.refresh, { tabType });
-        refetch().then(() => {
-          dispose();
-        });
-      }}
-    >
+    <Container>
       <ul style={{ minHeight: "100%" }}>
-        {status === "loading" ? (
-          // TODO Loading..
-          <li></li>
-        ) : status === "error" ? (
-          // TODO Error..
-          <li></li>
-        ) : data?.pages[0].length === 0 ? (
+        {list?.pages[0].length === 0 ? (
           <NoData tabType={tabType} />
         ) : (
-          data?.pages?.map((group) =>
+          list?.pages?.map((group) =>
             group?.map((item, index, array) => (
               <>
                 {index === array.length - ERREND_REQUEST_SIZE / 2 &&
-                  !isFetchingFirst &&
-                  !isFetchingMore &&
+                  isDoneFetch &&
                   fetchTriggerElement}
                 <Item {...{ item, tabType }} key={item?.errand.id} />
               </>
@@ -59,6 +42,6 @@ export default function List({
         )}
       </ul>
       <div style={{ height: "2rem" }}></div>
-    </PullToRefresh>
+    </Container>
   );
 }

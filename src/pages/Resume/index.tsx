@@ -70,7 +70,7 @@ export default function Resume({ helpId }: WithParamsProps) {
       <ResumeWrapper>
         {status !== "loading" && resume && (
           <>
-            <Profile {...resume.helper} />
+            <Profile {...resume.helper} createdAt={resume.createdAt} />
             <div className="resume__phone">
               <div>
                 전화번호

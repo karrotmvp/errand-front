@@ -52,6 +52,7 @@ export const resume: Resume = {
     mannerTemp: 40,
     profileImageUrl: DEFAULT_THUMBNAIL,
   },
+  createdAt: "",
 };
 
 export const region = {

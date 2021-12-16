@@ -1,17 +1,19 @@
 import { getMyErrandPreviews, getMyHelpPreviews } from "@api/my";
 import { KEYS } from "@constant/reactQuery";
 import { ERREND_REQUEST_SIZE } from "@constant/request";
+import { InfinityScrollType } from "@hooks/useInfinityScroll";
 import { TabType } from "@type/client";
 import { ErrandPreviewResponseBody } from "@type/response";
 import { GET } from "@utils/axios";
 import { getValueFromSearch } from "@utils/utils";
 import { useInfiniteQuery } from "react-query";
 
-const useErrands = (
-  tabType: TabType,
-  activeTabKey: string,
-  isAppliable?: boolean
-) => {
+const useErrands = ({
+  tabType,
+  activeTabKey,
+  isAppliable,
+  options,
+}: InfinityScrollType) => {
   return useInfiniteQuery(
     [KEYS.ERRNDS, tabType, isAppliable, activeTabKey],
     switchWrap(tabType, isAppliable),
@@ -20,6 +22,7 @@ const useErrands = (
         const lastErrand = lastErrans[lastErrans.length - 1];
         return lastErrand?.errand?.id;
       },
+      ...options,
     }
   );
 };
@@ -34,7 +37,7 @@ const getMainErrandPreviews = async ({
   );
   return data;
 };
-                                                                                     
+
 const getAppliableErrandPreviews = async ({
   pageParam = null,
 }): Promise<ErrandPreviewResponseBody[]> => {

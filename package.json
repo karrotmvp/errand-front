@@ -8,7 +8,7 @@
     "@emotion/styled": "^11.3.0",
     "@karrotframe/navigator": "^0.17.3",
     "@karrotframe/pulltorefresh": "^0.1.2",
-    "@karrotframe/tabs": "^0.3.3",
+    "@karrotframe/tabs": "^0.4.1",
     "@karrotmarket/mini": "^0.12.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",

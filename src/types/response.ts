@@ -76,6 +76,7 @@ export type Resume = {
   appeal: string;
   phoneNumber?: string;
   helper: User;
+  createdAt: string;
 };
 
 export type User = SimpleUser & {
@@ -118,4 +119,5 @@ export type ResumePreview = {
   helpId: number;
   helper: User;
   appeal: string;
+  createdAt: string;
 };

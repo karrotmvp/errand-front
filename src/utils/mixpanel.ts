@@ -63,6 +63,7 @@ const CustomMixPanel = {
     clickCTA: "CTA 클릭",
     clickNoConfirm: "confirm 모달 '아니오' 클릭",
     clickETC: "기타 클릭",
+    fromFeed: "풍성피드 접속",
   },
 };
 
