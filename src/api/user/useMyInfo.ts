@@ -1,6 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
+import { useNavigator } from "@karrotframe/navigator";
 import { User } from "@type/response";
-import { GET } from "@utils/axios";
+import { CustomError, GET } from "@utils/axios";
 import { getValueFromSearch } from "@utils/utils";
 import { useQuery } from "react-query";
 
@@ -10,7 +11,13 @@ const getMyInfo = async (): Promise<User> => {
   return data;
 };
 const useMyInfo = () => {
-  return useQuery([KEYS.MY_INFO], () => getMyInfo());
+  const { push } = useNavigator();
+
+  return useQuery([KEYS.MY_INFO], () => getMyInfo(), {
+    onError: (e: CustomError) => {
+      push(`/error?status=${e.status}`);
+    },
+  });
 };
 
 export default useMyInfo;

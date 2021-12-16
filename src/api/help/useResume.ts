@@ -1,6 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
+import { useNavigator } from "@karrotframe/navigator";
 import { Resume } from "@type/response";
-import { GET } from "@utils/axios";
+import { CustomError, GET } from "@utils/axios";
 import { useQuery } from "react-query";
 
 const getResume = async (helpId: string): Promise<Resume> => {
@@ -8,7 +9,13 @@ const getResume = async (helpId: string): Promise<Resume> => {
   return data;
 };
 const useResume = (helpId: string) => {
-  return useQuery([KEYS.RESUME, helpId], () => getResume(helpId));
+  const { push } = useNavigator();
+
+  return useQuery([KEYS.RESUME, helpId], () => getResume(helpId), {
+    onError: (e: CustomError) => {
+      push(`/error?status=${e.status}`);
+    },
+  });
 };
 
 export default useResume;

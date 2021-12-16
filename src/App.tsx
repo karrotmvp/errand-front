@@ -77,7 +77,7 @@ function App() {
           component={withMini(withQueryParams(ErrandRequest, "categoryId"))}
         />
         <Screen path="/my" component={My} />
-        <Screen path="/404" component={ErrorPage} />
+        <Screen path="/error" component={withQueryParams(ErrorPage)} />
         <Screen path="/description" component={Description} />
       </Navigator>
       <Toast />

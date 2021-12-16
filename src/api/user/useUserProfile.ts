@@ -1,6 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
+import { useNavigator } from "@karrotframe/navigator";
 import { User } from "@type/response";
-import { GET } from "@utils/axios";
+import { CustomError, GET } from "@utils/axios";
 import { useQuery } from "react-query";
 
 const getUserProfile = async (id: number): Promise<User> => {
@@ -8,7 +9,13 @@ const getUserProfile = async (id: number): Promise<User> => {
   return data;
 };
 export const useUserProfile = (id: number) => {
-  return useQuery([KEYS.USER_PROFILE], () => getUserProfile(id));
+  const { push } = useNavigator();
+
+  return useQuery([KEYS.USER_PROFILE], () => getUserProfile(id), {
+    onError: (e: CustomError) => {
+      push(`/error?status=${e.status}`);
+    },
+  });
 };
 
 export default useUserProfile;

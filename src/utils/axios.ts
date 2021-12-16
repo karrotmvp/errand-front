@@ -35,10 +35,8 @@ const fetchWrap = async ({
       (method === "patch" && (await axios.patch(url, body, config))) ||
       {};
     return data;
-  } catch (error) {
-    console.log("에러 터짐요~~");
-    // localStorage.removeItem("token");
-    throw new Error("API Error");
+  } catch (error: any) {
+    throw new CustomError(error.response.status, "API 에러!");
   }
 };
 export const GET = (url: string, params?: {}) =>
@@ -54,3 +52,14 @@ export const DELETE = (url: string) => fetchWrap({ method: "delete", url });
 
 export const PATCH = (url: string, body?: {}) =>
   fetchWrap({ method: "patch", url, body });
+
+type StatusCode = 400 | 401 | 404 | 500;
+
+export class CustomError extends Error {
+  status: StatusCode;
+
+  constructor(status: StatusCode, message?: string) {
+    super(message);
+    this.status = status;
+  }
+}
