@@ -8,7 +8,6 @@ const getErrandDetail = async (
   errandId: string
 ): Promise<ErrandDetailResponseBody> => {
   const { data } = await GET(`/errand/${errandId}`);
-  throw new CustomError(400);
   return data;
 };
 

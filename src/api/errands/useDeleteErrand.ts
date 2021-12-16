@@ -1,7 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
 import { useNavigator } from "@karrotframe/navigator";
 import { MutationCallbacks } from "@type/react-query";
-import { DELETE } from "@utils/axios";
+import { CustomError, DELETE } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 const deleteErrand = async (errandId: string) => {
