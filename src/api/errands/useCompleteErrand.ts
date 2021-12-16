@@ -10,7 +10,7 @@ const completeErrand = async (errandId: string) => {
 };
 const useCompleteErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push } = useNavigator();
+  const { push, replace } = useNavigator();
 
   return useMutation(completeErrand, {
     onSuccess: () => {
@@ -21,7 +21,12 @@ const useCompleteErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
     },
     onError: () => {
       onError && onError();
-      push("/404");
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace("/404");
+      } else {
+        push("/404");
+      }
     },
   });
 };

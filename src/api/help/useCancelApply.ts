@@ -11,7 +11,7 @@ const cancelApply = async (helpId: string) => {
 
 const useCancelApply = ({ onSuccess, onError }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push } = useNavigator();
+  const { push, replace  } = useNavigator();
 
   return useMutation(cancelApply, {
     onSuccess: () => {
@@ -23,7 +23,12 @@ const useCancelApply = ({ onSuccess, onError }: MutationCallbacks = {}) => {
     },
     onError: () => {
       onError && onError();
-      push("/404");
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace("/404");
+      } else {
+        push("/404");
+      }
     },
   });
 };

@@ -20,7 +20,7 @@ export const useSelectHelper = ({
   onError,
 }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push } = useNavigator();
+  const { push , replace } = useNavigator();
 
   return useMutation(selectHelper, {
     onSuccess: () => {
@@ -31,7 +31,12 @@ export const useSelectHelper = ({
     },
     onError: () => {
       onError && onError();
-      push("/404");
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace("/404");
+      } else {
+        push("/404");
+      }
     },
   });
 };

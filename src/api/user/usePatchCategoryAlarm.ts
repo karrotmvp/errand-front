@@ -13,7 +13,7 @@ export const usePatchCategoryAlarm = ({
   onError,
 }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push } = useNavigator();
+  const { push, replace  } = useNavigator();
 
   return useMutation(patchCategoryAlarm, {
     onSuccess: () => {
@@ -22,7 +22,12 @@ export const usePatchCategoryAlarm = ({
     },
     onError: () => {
       onError && onError();
-      push("/404");
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace("/404");
+      } else {
+        push("/404");
+      }
     },
   });
 };
