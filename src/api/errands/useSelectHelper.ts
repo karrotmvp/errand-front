@@ -1,7 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
 import { useNavigator } from "@karrotframe/navigator";
 import { MutationCallbacks } from "@type/react-query";
-import { PATCH } from "@utils/axios";
+import { CustomError, PATCH } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 const selectHelper = async ({
@@ -20,7 +20,7 @@ export const useSelectHelper = ({
   onError,
 }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push } = useNavigator();
+  const { push, replace } = useNavigator();
 
   return useMutation(selectHelper, {
     onSuccess: () => {
@@ -29,9 +29,14 @@ export const useSelectHelper = ({
       queryClient.invalidateQueries(KEYS.RESUME);
       onSuccess && onSuccess();
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
-      push("/404");
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace(`/error?status=${e.status}`);
+      } else {
+        push(`/error?status=${e.status}`);
+      }
     },
   });
 };

@@ -1,7 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
 import { useNavigator } from "@karrotframe/navigator";
 import { MutationCallbacks } from "@type/react-query";
-import { DELETE } from "@utils/axios";
+import { CustomError, DELETE } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 const deleteErrand = async (errandId: string) => {
@@ -11,16 +11,21 @@ const deleteErrand = async (errandId: string) => {
 
 const useDeleteErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push } = useNavigator();
-  
+  const { push, replace } = useNavigator();
+
   return useMutation(deleteErrand, {
     onSuccess: () => {
       queryClient.invalidateQueries(KEYS.ERRNDS);
       onSuccess && onSuccess();
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
-      push("/404");
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace(`/error?status=${e.status}`);
+      } else {
+        push(`/error?status=${e.status}`);
+      }
     },
   });
 };

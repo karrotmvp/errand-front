@@ -1,6 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
+import { useNavigator } from "@karrotframe/navigator";
 import { AlarmResponseBody } from "@type/response";
-import { GET } from "@utils/axios";
+import { CustomError, GET } from "@utils/axios";
 import { useQuery } from "react-query";
 
 const getUserAlarms = async (): Promise<AlarmResponseBody> => {
@@ -9,7 +10,13 @@ const getUserAlarms = async (): Promise<AlarmResponseBody> => {
 };
 
 const useUserAlarms = () => {
-  return useQuery([KEYS.USER_ALRAMS], () => getUserAlarms());
+  const { push } = useNavigator();
+  
+  return useQuery([KEYS.USER_ALRAMS], () => getUserAlarms(), {
+    onError: (e: CustomError) => {
+      push(`/error?status=${e.status}`);
+    },
+  });
 };
 
 export default useUserAlarms;

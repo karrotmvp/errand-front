@@ -4,8 +4,11 @@ import Button from "@components/Button";
 import { useNavigator } from "@karrotframe/navigator";
 import CustomScreenHelmet from "@components/CustomScreenHelmet";
 
-export default function ErrorPage() {
-  const { pop } = useNavigator();
+type ErrorPageProps = {
+  status?: string;
+};
+export default function ErrorPage({ status }: ErrorPageProps) {
+  const { pop, replace } = useNavigator();
 
   return (
     <>
@@ -21,10 +24,17 @@ export default function ErrorPage() {
           size="small"
           color="primary"
           minWidth="21rem"
-          onClick={() => pop()}
+          onClick={() => {
+            const current = localStorage.getItem("depth");
+            if (current === "0") {
+              replace("/");
+            } else {
+              pop(Number(current));
+            }
+          }}
           rounded
         >
-          이전 페이지로 돌아가기
+          메인 페이지로 돌아가기
         </Button>
       </ErrorPageWrapper>
     </>

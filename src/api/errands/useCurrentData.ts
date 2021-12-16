@@ -1,6 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
+import { useNavigator } from "@karrotframe/navigator";
 import { CurrentData } from "@type/response";
-import { GET } from "@utils/axios";
+import { CustomError, GET } from "@utils/axios";
 import { useQuery } from "react-query";
 
 const getCurrentData = async (): Promise<CurrentData> => {
@@ -9,7 +10,13 @@ const getCurrentData = async (): Promise<CurrentData> => {
 };
 
 const useCurrentData = () => {
-  return useQuery([KEYS.CURRENT_DATA], () => getCurrentData());
+  const { push } = useNavigator();
+
+  return useQuery([KEYS.CURRENT_DATA], () => getCurrentData(), {
+    onError: (e: CustomError) => {
+      push(`/error?status=${e.status}`);
+    },
+  });
 };
 
 export default useCurrentData;

@@ -1,6 +1,6 @@
 import { KEYS } from "@constant/reactQuery";
 import { MutationCallbacks } from "@type/react-query";
-import { POST } from "@utils/axios";
+import { CustomError, POST } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 type RegisterBody = {
@@ -23,7 +23,7 @@ const useRegisterErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
       queryClient.invalidateQueries(KEYS.ERRNDS);
       onSuccess && onSuccess(id);
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
     },
   });

@@ -6,6 +6,7 @@ export type WithQueryParamsProps = {
   categoryId?: string;
   reward?: string;
   detail?: string;
+  status?: string;
 };
 
 export type Params = "errandId" | "categoryId";
