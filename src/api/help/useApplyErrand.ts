@@ -12,7 +12,7 @@ const applyErrand = async (requestBody: ApplyHelperRequestBody) => {
 
 const useApplyToErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
   const queryClient = useQueryClient();
-  const { push , replace } = useNavigator();
+  const { push, replace } = useNavigator();
 
   return useMutation(applyErrand, {
     onSuccess: ({ id }) => {
@@ -22,13 +22,13 @@ const useApplyToErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
       queryClient.invalidateQueries(KEYS.RESUME);
       onSuccess && onSuccess(id);
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
       const current = localStorage.getItem("depth");
       if (current === "0") {
-        replace("/404");
+        replace(`/error?status=${e.status}`);
       } else {
-        push("/404");
+        push(`/error?status=${e.status}`);
       }
     },
   });

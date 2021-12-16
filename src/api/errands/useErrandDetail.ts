@@ -8,16 +8,21 @@ const getErrandDetail = async (
   errandId: string
 ): Promise<ErrandDetailResponseBody> => {
   const { data } = await GET(`/errand/${errandId}`);
-
+  throw new CustomError(400);
   return data;
 };
 
 const useErrandDetail = (errandId: string) => {
-  const { push } = useNavigator();
+  const { push, replace } = useNavigator();
   return useQuery([KEYS.ERRND_DETAIL], () => getErrandDetail(errandId), {
     cacheTime: 0,
     onError: (e: CustomError) => {
-      push(`/error?status=${e.status}`);
+      const current = localStorage.getItem("depth");
+      if (current === "0") {
+        replace(`/error?status=${e.status}`);
+      } else {
+        push(`/error?status=${e.status}`);
+      }
     },
   });
 };

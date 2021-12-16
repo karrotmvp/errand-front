@@ -1,7 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
 import { useNavigator } from "@karrotframe/navigator";
 import { MutationCallbacks } from "@type/react-query";
-import { PATCH } from "@utils/axios";
+import { CustomError, PATCH } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 export const patchNewApplierAlarm = (body: { on: boolean }) => {
@@ -20,13 +20,13 @@ export const usePatchNewApplierAlarm = ({
       queryClient.invalidateQueries(KEYS.USER_ALRAMS);
       onSuccess && onSuccess();
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
       const current = localStorage.getItem("depth");
       if (current === "0") {
-        replace("/404");
+        replace(`/error?status=${e.status}`);
       } else {
-        push("/404");
+        push(`/error?status=${e.status}`);
       }
     },
   });

@@ -28,9 +28,9 @@ export default function ErrorPage({ status }: ErrorPageProps) {
             const current = localStorage.getItem("depth");
             if (current === "0") {
               replace("/");
-              return;
+            } else {
+              pop(Number(current));
             }
-            pop(Number(current));
           }}
           rounded
         >

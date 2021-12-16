@@ -1,7 +1,7 @@
 import { KEYS } from "@constant/reactQuery";
 import { useNavigator } from "@karrotframe/navigator";
 import { MutationCallbacks } from "@type/react-query";
-import { PATCH } from "@utils/axios";
+import { CustomError, PATCH } from "@utils/axios";
 import { useMutation, useQueryClient } from "react-query";
 
 const completeErrand = async (errandId: string) => {
@@ -19,13 +19,13 @@ const useCompleteErrand = ({ onSuccess, onError }: MutationCallbacks = {}) => {
       queryClient.invalidateQueries(KEYS.RESUME);
       onSuccess && onSuccess();
     },
-    onError: () => {
+    onError: (e: CustomError) => {
       onError && onError();
       const current = localStorage.getItem("depth");
       if (current === "0") {
-        replace("/404");
+        replace(`/error?status=${e.status}`);
       } else {
-        push("/404");
+        push(`/error?status=${e.status}`);
       }
     },
   });
