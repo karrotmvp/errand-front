@@ -8,7 +8,7 @@ type ErrorPageProps = {
   status?: string;
 };
 export default function ErrorPage({ status }: ErrorPageProps) {
-  const { pop } = useNavigator();
+  const { pop, replace } = useNavigator();
 
   return (
     <>
@@ -26,6 +26,10 @@ export default function ErrorPage({ status }: ErrorPageProps) {
           minWidth="21rem"
           onClick={() => {
             const current = localStorage.getItem("depth");
+            if (current === "0") {
+              replace("/");
+              return;
+            }
             pop(Number(current));
           }}
           rounded
