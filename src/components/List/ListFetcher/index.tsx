@@ -45,4 +45,6 @@ export default function ListFetcher({
   );
 }
 
-const ListFetcherWrapper = styled.div``;
+const ListFetcherWrapper = styled.div`
+  height: 100%;
+`;

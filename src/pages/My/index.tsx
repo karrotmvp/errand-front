@@ -52,6 +52,8 @@ export default function My() {
 
 const MyWrapper = styled.div`
   height: 100%;
+  display: flex;
+  flex-direction: column;
 
   .my {
     &__info {
@@ -63,14 +65,7 @@ const MyWrapper = styled.div`
     }
 
     &__tabs {
-      height: auto;
-      min-height: 100%;
-      & > div:nth-child(2) {
-        min-height: 100%;
-        & > div:nth-child(2) {
-          min-height: 100%;
-        }
-      }
+      flex: 1;
       a {
         ${({ theme }) => theme.font("medium")}
         padding: 1.5rem 0;
