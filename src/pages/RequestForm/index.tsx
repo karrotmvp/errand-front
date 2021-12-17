@@ -4,6 +4,7 @@ import { useNavigator } from "@karrotframe/navigator";
 import { useForm, SubmitHandler } from "react-hook-form";
 import {
   ErrorText,
+  InputTooltip,
   PriceInput,
   SectionWrapper,
   StickyFooter,
@@ -221,6 +222,10 @@ export default function RequestForm({
               isError={Boolean(errors.detail)}
               textLength={watchTextArea?.length ?? 0}
             >
+              <InputTooltip>
+                🔥 <span>심부름이 필요한 시간, 심부름 장소</span> 등을 상세히
+                작성하면 심부름 매칭이 더 잘 이루어져요.
+              </InputTooltip>
               <textarea
                 maxLength={500}
                 placeholder={
@@ -240,7 +245,7 @@ export default function RequestForm({
                   maxLength: 500,
                 })}
               />
-              <div>{watchTextArea?.length ?? 0}/500</div>
+              <div className="textarea__counter">{watchTextArea?.length ?? 0}/500</div>
             </TextAreaWrapper>
           </div>
         </SectionWrapper>
