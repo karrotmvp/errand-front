@@ -20,7 +20,7 @@ import ImageBox from "./ImageBox";
 import ImageAppender from "./ImageAppender";
 import { getValueFromSearch } from "@utils/utils";
 import { useRegisterErrand } from "@api/errands";
-import { PHONE_NUMBER_REGEX } from "@constant/validation";
+import { MIN_LENGTH_TEXTAREA, PHONE_NUMBER_REGEX } from "@constant/validation";
 import { Dropdown } from "@assets/icon";
 import CustomMixPanel from "@utils/mixpanel";
 import { toast } from "@components/Toast/Index";
@@ -214,7 +214,9 @@ export default function RequestForm({
           <div className="section__title">
             <label>세부사항</label>
             {errors.detail && (
-              <ErrorText>세부사항을 10자 이상 입력해 주세요.</ErrorText>
+              <ErrorText>
+                세부사항을 {MIN_LENGTH_TEXTAREA}자 이상 입력해 주세요.
+              </ErrorText>
             )}
           </div>
           <div className="section__content">
@@ -222,17 +224,9 @@ export default function RequestForm({
               isError={Boolean(errors.detail)}
               textLength={watchTextArea?.length ?? 0}
             >
-              <InputTooltip>
-                🔥 <span>심부름이 필요한 시간, 심부름 장소</span> 등을 상세히
-                작성하면 심부름 매칭이 더 잘 이루어져요.
-              </InputTooltip>
+              <InputTooltip>{messages[watchCategory].placeholder}</InputTooltip>
               <textarea
                 maxLength={500}
-                placeholder={
-                  watchCategory
-                    ? messages[watchCategory].placeholder
-                    : "세부사항을 10자 이상 입력해 주세요."
-                }
                 onClick={() => {
                   CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                     page: "요청하기",
@@ -241,11 +235,13 @@ export default function RequestForm({
                 }}
                 {...register("detail", {
                   required: true,
-                  minLength: 10,
+                  minLength: MIN_LENGTH_TEXTAREA,
                   maxLength: 500,
                 })}
               />
-              <div className="textarea__counter">{watchTextArea?.length ?? 0}/500</div>
+              <div className="textarea__counter">
+                {watchTextArea?.length ?? 0}/500
+              </div>
             </TextAreaWrapper>
           </div>
         </SectionWrapper>
@@ -346,14 +342,19 @@ const ImageSlider = styled.div`
 type Message = {
   name: string;
   price: React.ReactNode;
-  placeholder: string;
+  placeholder: React.ReactNode;
 };
 
 const messages: { [key: number]: Message } = {
   0: {
     name: "카테고리를 선택해주세요.",
     price: <div></div>,
-    placeholder: "세부사항을 10자 이상 입력해 주세요.",
+    placeholder: (
+      <>
+        🔥 <span>심부름이 필요한 시간, 심부름 장소</span> 등을 상세히 작성하면
+        심부름 매칭이 더 잘 이루어져요."
+      </>
+    ),
   },
   1: {
     name: "벌레잡기",
@@ -362,8 +363,12 @@ const messages: { [key: number]: Message } = {
         벌레잡기는 평균 <span>5천원 ~ 만원</span>으로 책정되고 있어요.
       </div>
     ),
-    placeholder:
-      "벌레의 종, 현재 상황 등을 구체적으로 적어주시면 더 빠른 매칭이 이루어질 수 있어요.",
+    placeholder: (
+      <>
+        🔥 <span>벌레의 종, 심부름이 필요한 시간, 심부름 장소</span> 등을 상세히
+        작성하면 심부름 매칭이 더 잘 이루어져요.
+      </>
+    ),
   },
   2: {
     name: "반려동물 돌봐주기",
@@ -372,8 +377,12 @@ const messages: { [key: number]: Message } = {
         반려동물 돌봐주기는 <span>자유로운 금액</span>으로 책정되고 있어요.
       </div>
     ),
-    placeholder:
-      "반려동물의 종, 성격 등을 구체적으로 적어주시면 더 빠른 매칭이 이루어질 수 있어요.",
+    placeholder: (
+      <>
+        🔥 <span>반려동물의 종, 심부름이 필요한 시간, 심부름 장소</span> 등을
+        상세히 작성하면 심부름 매칭이 더 잘 이루어져요.
+      </>
+    ),
   },
   3: {
     name: "사다주기",
@@ -382,14 +391,22 @@ const messages: { [key: number]: Message } = {
         사다주기는 <span>물건금액을 제외하여</span> 책정되고 있어요.
       </div>
     ),
-    placeholder:
-      "필요한 물건이 무엇인지 등을 구체적으로 적어주시면 더 빠른 매칭이 이루어질 수 있어요.",
+    placeholder: (
+      <>
+        🔥 <span>사다줄 물건, 심부름이 필요한 시간, 심부름 장소</span> 등을
+        상세히 작성하면 심부름 매칭이 더 잘 이루어져요.
+      </>
+    ),
   },
   4: {
     name: "기타",
     price: "",
-    placeholder:
-      "예) 창문 닫기, 전등 달기, 전자제품 끄기, 못 박기, 직접수령 부탁하기 등 필요한 도움을 상세히 적어주시면 더 빠른 매칭이 이루어질 수 있어요.",
+    placeholder: (
+      <>
+        🔥 <span>심부름이 필요한 시간, 심부름 장소</span> 등을 상세히 작성하면
+        심부름 매칭이 더 잘 이루어져요."
+      </>
+    ),
   },
   5: {
     name: "설치/조립하기",
@@ -398,7 +415,11 @@ const messages: { [key: number]: Message } = {
         설치/조립하기는 <span>자유로운 금액</span>으로 책정되고 있어요.
       </div>
     ),
-    placeholder:
-      "설치/조립할 물건의 이미지를 첨부하시면 더 빠른 매칭이 이루어질 수 있어요.",
+    placeholder: (
+      <>
+        🔥 <span>설치/조립할 물건, 심부름이 필요한 시간, 심부름 장소</span> 등을
+        상세히 작성하면 심부름 매칭이 더 잘 이루어져요.
+      </>
+    ),
   },
 };

@@ -195,8 +195,9 @@ export const TextAreaWrapper = styled.div<{
     ${({ theme, isError }) => (isError ? theme.color.fail : theme.color.grey6)};
   ${({ theme }) => theme.font("medium")}
   border-radius: 1rem;
-  padding: 1.5rem 1.8rem;
+  padding: 0.8rem;
   & > textarea {
+    padding: 0 0.8rem;
     width: 100%;
 
     &::placeholder {
@@ -205,6 +206,7 @@ export const TextAreaWrapper = styled.div<{
   }
 
   & > .textarea__counter {
+    padding: 0rem 0.8rem 0.8rem 0;
     text-align: right;
     color: ${({ theme, textLength }) =>
       textLength === 500 ? theme.color.primary : theme.color.grey4};
