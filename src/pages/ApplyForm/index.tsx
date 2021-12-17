@@ -6,7 +6,7 @@ import CustomScreenHelmet from "@components/CustomScreenHelmet";
 import Modal from "@components/Modal";
 import Profile from "@components/Profile";
 import { toast } from "@components/Toast/Index";
-import { PHONE_NUMBER_REGEX } from "@constant/validation";
+import { MIN_LENGTH_TEXTAREA, PHONE_NUMBER_REGEX } from "@constant/validation";
 import styled from "@emotion/styled";
 import { WithParamsProps } from "@hoc/withParams";
 import useModal from "@hooks/useModal";
@@ -125,7 +125,9 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
               <div className="section__title">
                 <label htmlFor="">하고싶은 말</label>
                 {errors.appeal && (
-                  <ErrorText>하고싶은 말을 10자 이상 입력해 주세요.</ErrorText>
+                  <ErrorText>
+                    하고싶은 말을 ${MIN_LENGTH_TEXTAREA}자 이상 입력해 주세요.
+                  </ErrorText>
                 )}
               </div>
               <TextAreaWrapper
@@ -139,7 +141,6 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                 </InputTooltip>
                 <textarea
                   maxLength={500}
-                  placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해 주세요."
                   onClick={() => {
                     CustomMixPanel.track(CustomMixPanel.eventName.clickInput, {
                       page: "지원하기",
@@ -148,7 +149,7 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                   }}
                   {...register("appeal", {
                     required: true,
-                    minLength: 10,
+                    minLength: MIN_LENGTH_TEXTAREA,
                     maxLength: 500,
                   })}
                 />
