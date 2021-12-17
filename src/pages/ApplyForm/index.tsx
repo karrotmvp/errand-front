@@ -13,6 +13,7 @@ import useModal from "@hooks/useModal";
 import { useNavigator } from "@karrotframe/navigator";
 import {
   ErrorText,
+  InputTooltip,
   SectionTerms,
   SectionWrapper,
   StickyFooter,
@@ -132,6 +133,10 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                 isError={Boolean(errors.appeal)}
                 textLength={watchTextArea?.length ?? 0}
               >
+                <InputTooltip>
+                  🔥 <span>자신이 잘하는 것, 경력</span> 등을 상세히 작성하면
+                  심부름 매칭이 더 잘 이루어져요.
+                </InputTooltip>
                 <textarea
                   maxLength={500}
                   placeholder="지원하는 심부름에 대한 자신의 강점을 구체적으로 이야기해 주세요."
@@ -147,7 +152,9 @@ export default function ApplyForm({ errandId }: WithParamsProps) {
                     maxLength: 500,
                   })}
                 />
-                <div>{watchTextArea?.length ?? 0}/500</div>
+                <div className="textarea__counter">
+                  {watchTextArea?.length ?? 0}/500
+                </div>
               </TextAreaWrapper>
             </SectionWrapper>
             <SectionWrapper>

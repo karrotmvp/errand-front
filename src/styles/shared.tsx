@@ -204,10 +204,24 @@ export const TextAreaWrapper = styled.div<{
     }
   }
 
-  & > div {
+  & > .textarea__counter {
     text-align: right;
     color: ${({ theme, textLength }) =>
       textLength === 500 ? theme.color.primary : theme.color.grey4};
     ${({ theme }) => theme.font("medium", "regular")}
   }
+`;
+
+export const InputTooltip = styled.div`
+  background: ${({ theme }) => theme.color.grey8};
+  ${({ theme }) => theme.font("small", "regular")}
+  padding: 1rem 1.4rem;
+  border-radius: 0.8rem;
+  margin-bottom: 1rem;
+
+  & > span {
+    ${({ theme }) => css`
+      ${theme.font("small", "medium")}
+      color : ${theme.color.primary}
+    `}
 `;
