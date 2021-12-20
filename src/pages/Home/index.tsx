@@ -9,7 +9,7 @@ import List from "@components/List";
 import CustomMixPanel from "@utils/mixpanel";
 import ToolTip from "@components/ToolTip";
 import { useTooltip } from "@hooks/useTooltip";
-// import { BannerImage } from "@assets/images";
+import { BannerImage } from "@assets/images";
 // import Slider from "react-slick";
 import { css } from "@emotion/react";
 import useCurrentData from "@api/errands/useCurrentData";
@@ -31,18 +31,18 @@ export default function Home() {
   } = useInfiniteScroll({ tabType: "main", isAppliable });
 
   const region = getRegion();
-  // const { push } = useNavigator();
+  const { push } = useNavigator();
 
   const toggleIsAppliable = () => {
     setIsAppliable((current) => !current);
   };
-  // const handleClickBanner = () => {
-  //   push("/description");
-  //   CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, {
-  //     page: "홈",
-  //     clickTarget: "커피 이벤트",
-  //   });
-  // };
+  const handleClickBanner = () => {
+    push("/description");
+    CustomMixPanel.track(CustomMixPanel.eventName.clickBanner, {
+      page: "홈",
+      clickTarget: "커피 이벤트",
+    });
+  };
 
   return (
     <>
@@ -67,9 +67,9 @@ export default function Home() {
               });
             }}
           >
-            {/* <div onClick={handleClickBanner}>
+            <div onClick={handleClickBanner}>
               <img src={BannerImage} alt="banner" />
-            </div> */}
+            </div>
             <div className="home__container">
               <div className="home__panel">
                 <span>🥕</span>
